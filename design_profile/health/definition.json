@@ -1,0 +1,25 @@
+{
+    "cheatsheet": "health.png",
+    "description": "This profile provides template for collecting router health data",
+    "telegraf": {
+      "mx": [ {
+        "version": "all",
+        "conf": "mx_health.conf"
+        }
+      ],
+      "ptx":[ {
+        "version": "all",
+        "conf": "ptx_health.conf"
+        }
+      ],
+      "acx": [ {
+        "version": "all",
+        "conf": "acx_health.conf"
+        }
+      ]
+    },
+    "kapacitor": null,
+    "grafana": [
+      "health.json"
+    ]
+}

@@ -1,0 +1,27 @@
+{
+    "cheatsheet": "traffic.png",
+    "description": "This profile provides template for collecting traffic/cos for physical ports",
+    "telegraf": {
+      "mx": [ {
+        "version": "all",
+        "conf": "mx_traffic.conf"
+        }
+      ],
+      "ptx":[ {
+        "version": "all",
+        "conf": "ptx_traffic.conf"
+        }
+      ],
+      "acx": [ {
+        "version": "all",
+        "conf": "acx_traffic.conf"
+        }
+      ]
+    },
+    "kapacitor": [
+      
+    ],
+    "grafana": [
+      "traffic.json"
+    ]
+}

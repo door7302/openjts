@@ -1,0 +1,58 @@
+Global : "/network-instances/network-instance"
+
+       "global/state/total_paths":125,
+       "global/state/total_prefixes":125
+    tag:
+
+     "/network-instances/network-instance/name":"master",
+
+Per Peer group : "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group",
+
+       "peer_groups/peer_group/state/total_paths":25,
+       "peer_groups/peer_group/state/total_prefixes":25,
+       "peer_groups/peer_group/afi_safis/afi_safi/state/prefixes/accepted":25,
+       "peer_groups/peer_group/afi_safis/afi_safi/state/prefixes/installed":25,
+       "peer_groups/peer_group/afi_safis/afi_safi/state/prefixes/received":25,
+       "peer_groups/peer_group/afi_safis/afi_safi/state/prefixes/sent":6,
+       "peer_groups/peer_group/afi_safis/afi_safi/state/total_paths":25,
+       "peer_groups/peer_group/afi_safis/afi_safi/state/total_prefixes":25
+    
+    tag:
+
+       "/network-instances/network-instance/name":"master",
+       "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/peer_group_name":"IBGP",
+
+Per Session: "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor"
+
+       "neighbors/neighbor/state/queues/input":0,
+       "neighbors/neighbor/state/queues/output":0,
+       "neighbors/neighbor/state/neighbor_address":"18.8.8.10",
+       "neighbors/neighbor/state/peer_as":65001,
+       "neighbors/neighbor/state/session_state":"ESTABLISHED",
+       "neighbors/neighbor/state/description": "TOTO",
+
+    tag:
+       "/network-instances/network-instance/name":"master",
+       "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/neighbor_address":"18.8.8.2",
+
+Per family : /network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi
+
+       "neighbors/neighbor/afi_safis/afi_safi/ipv4_unicast/prefix_limit/state/max_prefixes":0,
+       "neighbors/neighbor/afi_safis/afi_safi/state/prefix_limit_exceeded":false,
+       "neighbors/neighbor/afi_safis/afi_safi/state/prefixes/accepted":15,
+       "neighbors/neighbor/afi_safis/afi_safi/state/prefixes/installed":15,
+       "neighbors/neighbor/afi_safis/afi_safi/state/prefixes/received":15,
+       "neighbors/neighbor/afi_safis/afi_safi/state/prefixes/received_pre_policy":15,
+       "neighbors/neighbor/afi_safis/afi_safi/state/prefixes/rejected":0,
+       "neighbors/neighbor/afi_safis/afi_safi/state/prefixes/sent":6,
+       
+
+        "neighbors/neighbor/afi_safis/afi_safi/add_paths/state/receive":false,
+       "neighbors/neighbor/afi_safis/afi_safi/add_paths/state/send":false,
+       "neighbors/neighbor/afi_safis/afi_safi/add_paths/state/send_max":0,
+
+    tag: 
+
+        "/network-instances/network-instance/name":"master",
+       "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/afi_safi_name":"IPV4_UNICAST",
+       "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/neighbor_address":"18.8.8.2",
