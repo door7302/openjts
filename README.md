@@ -17,10 +17,6 @@ JTS has only been validated for Ubuntu/Debian Host OS.
 
 ## API diagram
 
-The picture below depicts the main API flows the JTS solution implements:
-
-![jts-api.png](./img/JTS_API.png)
-
 ## Installation of JTS
 
 Just clone the git repo locally. 

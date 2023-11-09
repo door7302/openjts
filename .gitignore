@@ -2,9 +2,7 @@ tmp/
 addon/
 tmp/*
 addon/*
-*.pptx
-*.pdf
-setup.md
+doc/*
 compose/influxdb/data/**
 !compose/influxdb/data/.gitkeep
 compose/jtso/active_profiles/*
