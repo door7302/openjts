@@ -15,3 +15,4 @@ compose/telegraf/cert/*
 !compose/telegraf/cert/.gitkeep
 compose/grafana/cert/*
 !compose/grafana/cert/.gitkeep
+.DS_Store*
