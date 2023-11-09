@@ -13,6 +13,15 @@ compose/telegraf/metadata/*
 !compose/telegraf/metadata/.gitkeep
 compose/telegraf/cert/*
 !compose/telegraf/cert/.gitkeep
+compose/telegraf/cert/mx/telegraf.d/*
+!compose/telegraf/cert/mx/telegraf.d/.gitkeep
+!compose/telegraf/cert/mx/telegraf.conf
+compose/telegraf/cert/ptx/telegraf.d/*
+!compose/telegraf/cert/ptx/telegraf.d/.gitkeep
+!compose/telegraf/cert/ptx/telegraf.conf
+compose/telegraf/cert/acx/telegraf.d/*
+!compose/telegraf/cert/acx/telegraf.d/.gitkeep
+!compose/telegraf/cert/acx/telegraf.conf
 compose/grafana/cert/*
 !compose/grafana/cert/.gitkeep
 .DS_Store*
