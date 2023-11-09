@@ -1,0 +1,16 @@
+tmp/
+addon/
+tmp/*
+addon/*
+compose/influxdb/data/**
+!compose/influxdb/data/.gitkeep
+compose/jtso/active_profiles/*
+!compose/jtso/active_profiles/.gitkeep
+compose/kapacitor/data/**
+!compose/kapacitor/data/.gitkeep
+compose/telegraf/metadata/*
+!compose/telegraf/metadata/.gitkeep
+compose/telegraf/cert/*
+!compose/telegraf/cert/.gitkeep
+compose/grafana/cert/*
+!compose/grafana/cert/.gitkeep

@@ -1,0 +1,13 @@
+apiVersion: 1
+
+datasources:
+  - name: JTSDatabase 
+    type: influxdb 
+    access: proxy
+    uid: jtsuid 
+    orgId: 1
+    version: 1
+    editable: true
+    url: http://influxdb:8086
+    jsonData:
+      dbName: "jtsdb"
