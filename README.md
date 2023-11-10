@@ -23,10 +23,10 @@ Just clone the git repo locally.
 
 ```shell
 # In any directory 
-mkdir JTS
+sudo mkdir JTS
 cd JTS
 
-git clone https://auto-vm.englab.juniper.net/door7302/jts .
+sudo git clone https://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@github.com/door7302/openjts.git .
 ```
 
 ## Start JTS 
@@ -84,7 +84,7 @@ protocol = https
 ```
 You can also change the default JTSO & Grafana public facing port (see below) by editing ./compose/.env file 
 
-You can change public ports facing by editing before the **.env**  file. Three ports are exposed:
+You can change public ports facing by editing before the **.env**  file. Two ports are exposed:
 - GRAFANA_PORT: the port used to reach the Grafana portal
 - JTSO_PORT: the port used to reach the JTSO portal
 
@@ -145,17 +145,16 @@ commit and-quit
 request security pki ca-certificate load ca-profile ca1 filename /var/tmp/RootCA.crt
 ```
 
-Now, you can start the OpenJTS with the following command: 
+Now, you can start the OpenJTS with the following command. The first time you launch the stack, this will take several minutes to download images and compile some of them (JTSO and Telegraf)
 ```shell 
 # Bring up the stack with one Telegraf Instance
-docker compose up -d  
-
+sudo docker compose up -d  
 ```
 
 You may want to check if all dockers are up and running. For that, just issue the following command:
 
 ```shell
-docker compose ps
+sudo docker compose ps
 ```
 
 ## Stop JTS
@@ -164,8 +163,22 @@ To stop the JTS just issue the following command:
 
 ```shell
 # Shutdown the stack
-docker compose down
+sudo docker compose down
 ```
 
+## Update the JTSO 
+
+To update the JTSO image 
+
+```shell
+# Shutdown the stack
+sudo docker compose down
+
+# remove the current image 
+sudo docker image rm compose-jtso 
+
+# restart the stack 
+sudo docker compose up -d  
+```
 
 

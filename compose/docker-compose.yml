@@ -13,8 +13,8 @@ services:
       - '8086:8086'
     volumes:
       - /var/log:/var/log
-      - ${PWD}/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf
-      - ${PWD}/influxdb/data:/var/lib/influxdb
+      - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf
+      - ./influxdb/data:/var/lib/influxdb
   telegraf_mx:
     build: https://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@github.com/door7302/jts_telegraf.git#main
     container_name: telegraf_mx
@@ -24,9 +24,9 @@ services:
       - influxdb
     volumes:
       - /var/log:/var/log
-      - ${PWD}/telegraf/mx:/etc/telegraf/
-      - ${PWD}/telegraf/metadata:/var/metadata
-      - ${PWD}/telegraf/cert:/var/cert
+      - ./telegraf/mx:/etc/telegraf/
+      - ./telegraf/metadata:/var/metadata
+      - ./telegraf/cert:/var/cert
     command:
       --config-directory /etc/telegraf/telegraf.d
   telegraf_ptx:
@@ -38,9 +38,9 @@ services:
       - influxdb
     volumes:
       - /var/log:/var/log
-      - ${PWD}/telegraf/ptx:/etc/telegraf/
-      - ${PWD}/telegraf/metadata:/var/metadata
-      - ${PWD}/telegraf/cert:/var/cert
+      - ./telegraf/ptx:/etc/telegraf/
+      - ./telegraf/metadata:/var/metadata
+      - ./telegraf/cert:/var/cert
     command:
       --config-directory /etc/telegraf/telegraf.d
   telegraf_acx:
@@ -52,9 +52,9 @@ services:
       - influxdb
     volumes:
       - /var/log:/var/log
-      - ${PWD}/telegraf/acx:/etc/telegraf/
-      - ${PWD}/telegraf/metadata:/var/metadata
-      - ${PWD}/telegraf/cert:/var/cert
+      - ./telegraf/acx:/etc/telegraf/
+      - ./telegraf/metadata:/var/metadata
+      - ./telegraf/cert:/var/cert
     command:
       --config-directory /etc/telegraf/telegraf.d
   kapacitor:
@@ -68,8 +68,8 @@ services:
       - '9092:9092'
     volumes:
       - /var/log:/var/log
-      - ${PWD}/kapacitor/kapacitor.conf:/etc/kapacitor/kapacitor.conf
-      - ${PWD}/kapacitor/data:/var/lib/kapacitor
+      - ./kapacitor/kapacitor.conf:/etc/kapacitor/kapacitor.conf
+      - ./kapacitor/data:/var/lib/kapacitor
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
@@ -85,12 +85,12 @@ services:
       - GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH=/var/lib/grafana/dashboards/home.json
       - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=yesoreyeram-boomtable-panel
     volumes:
-      - ${PWD}/grafana/grafana.ini:/etc/grafana/grafana.ini
-      - ${PWD}/grafana/cert:/tmp
-      - ${PWD}/grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
-      - ${PWD}/grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
-      - ${PWD}/grafana/data:/var/lib/grafana
-      - ${PWD}/grafana/plugins:/var/lib/grafana/plugins
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+      - ./grafana/cert:/tmp
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
+      - ./grafana/data:/var/lib/grafana
+      - ./grafana/plugins:/var/lib/grafana/plugins
   jtso:
     build: https://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@github.com/door7302/jtso.git#main
     container_name: jtso
@@ -98,14 +98,14 @@ services:
     user: openjts
     volumes:
       - /var/log:/var/log
-      - ${PWD}/jtso/jtso.db:/etc/jtso/jtso.db
-      - ${PWD}/jtso/config.yml:/etc/jtso/config.yml
-      - ${PWD}/jtso/cert:/var/cert
-      - ${PWD}/jtso/profiles:/var/profiles
-      - ${PWD}/jtso/active_profiles:/var/active_profiles
-      - ${PWD}/telegraf:/var/shared/telegraf
-      - ${PWD}/telegraf/metadata:/var/metadata
-      - ${PWD}/grafana/data:/var/shared/grafana
+      - ./jtso/jtso.db:/etc/jtso/jtso.db
+      - ./jtso/config.yml:/etc/jtso/config.yml
+      - ./jtso/cert:/var/cert
+      - ./jtso/profiles:/var/profiles
+      - ./jtso/active_profiles:/var/active_profiles
+      - ./telegraf:/var/shared/telegraf
+      - ./telegraf/metadata:/var/metadata
+      - ./grafana/data:/var/shared/grafana
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - '${JTSO_PORT}:8081'
