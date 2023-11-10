@@ -19,6 +19,19 @@ JTS has only been validated for Ubuntu/Debian Host OS.
 
 ## Installation of JTS
 
+From root - create a username openjts 
+
+```shell
+adduser openjts
+# add openjts as sudoer 
+adduser openjts sudo  
+```
+
+Now, switch to openjts user
+```shell
+su openjts
+```
+
 Just clone the git repo locally. 
 
 ```shell
@@ -29,9 +42,9 @@ cd JTS
 sudo git clone https://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@github.com/door7302/openjts.git .
 ```
 
-## Start JTS 
+## Configuration of JTS 
 
-To start the JTS you just need to deploy each docker by using **docker compose up** command. 
+### Prefer HTTPS ? 
 
 If you want to use HTTPs for JTSO and Grafane you may use self signed certificate:
 
@@ -39,21 +52,21 @@ If you want to use HTTPs for JTSO and Grafane you may use self signed certificat
 #Go to the jtso/cert directpory 
 cd ./compose/jtso/cert 
 
-openssl genrsa -aes256 -passout pass:gsahdg -out server.pass.key 4096
+sudo openssl genrsa -aes256 -passout pass:gsahdg -out server.pass.key 4096
 
-openssl rsa -passin pass:gsahdg -in server.pass.key -out server.key
+sudo openssl rsa -passin pass:gsahdg -in server.pass.key -out server.key
 
-rm server.pass.key
+sudo rm server.pass.key
 
-openssl req -new -key server.key -out server.csr
+sudo openssl req -new -key server.key -out server.csr
 
-openssl x509 -req -sha256 -days 365 -in server.csr -signkey server.key -out server.crt
+sudo openssl x509 -req -sha256 -days 365 -in server.csr -signkey server.key -out server.crt
 ```
 
-Now, edit the JTSO config file and enable JTSO HTTPS 
+Now, edit the JTSO config file and enable JTSO HTTPS (set to true)
 
 ```shell
-vi ./compose/jtso/config.yml
+sudo vi ./compose/jtso/config.yml
 /.../
 modules:
   portal:
@@ -67,28 +80,29 @@ Now copy server.key & server.crt into ./compose/grafana/cert
 
 ```shell
 cd ./compose/jtso/cert 
-cp server.* ../../grafana/cert
+sudo cp server.* ../../grafana/cert
 ```
 Finally, update the ./compose/grafana/grafana.ini config file like that:
 
 ```shell
-vi ./compose/grafana/grafana.ini 
+sudo vi ./compose/grafana/grafana.ini 
 [server]
 # Protocol (http, https, h2, socket)
 protocol = https
 
 # https certs & key file
-;cert_file = /tmp/server.crt
-;cert_key = /tmp/server.key
+cert_file = /tmp/server.crt
+cert_key = /tmp/server.key
 /.../
 ```
-You can also change the default JTSO & Grafana public facing port (see below) by editing ./compose/.env file 
 
-You can change public ports facing by editing before the **.env**  file. Two ports are exposed:
-- GRAFANA_PORT: the port used to reach the Grafana portal
-- JTSO_PORT: the port used to reach the JTSO portal
+### Incoming ports to open 
 
-{- The first time you bring up the stack, it may take slightly more time as we need to build on-the-fly Telegraf -} 
+By default, the JTSO portal listen to TCP port 80 and Grafana to TCP 8080. You can also change the default JTSO & Grafana public facing port (see below) by editing ./compose/.env file before starting the stack.
+
+You can change public ports facing by editing the **.env**  file. Two ports are exposed:
+- GRAFANA_PORT: the port used to reach the Grafana portal - default is 8080
+- JTSO_PORT: the port used to reach the JTSO portal  - default is 80
 
 ```shell
 # If needed, You can change public ports facing by editing the .env file 
@@ -100,7 +114,7 @@ JTSO_PORT=80
 If you change the GRAFANA public facing port you also need to update the jtso config.yml with the same port, like that:
 
 ```shell
-vi ./compose/jtso/config.yml
+sudo vi ./compose/jtso/config.yml
 /.../
 modules:
   grafana:
@@ -108,34 +122,69 @@ modules:
 /.../
 ```
 
-If you want to use SSL for gNMI (global to all router) you need first to create a self signed CA: **Keep the naming convention**
+### Outgoing ports to open
+
+OpenJTS will establish TCP sessions with your routing devices for reaching the following network services:
+- Netconf - default is TCP port 830
+- gNMI - default is TCP 9339
+
+If needed you can change these ports. 
+
+#### Netconf port
+
+By default OpenJTS uses the Netconf port 830. If you want to change this port you need to edit the jtso config file:
+
+```shell
+sudo vi ./compose/jtso/config.yml
+/.../
+protocols:
+  netconf:
+    port: 9339
+/.../
+```
+
+#### gNMI port
+
+By default OpenJTS uses the gRPC port 9339. If you want to change this port you need to edit the jtso config file:
+
+```shell
+sudo vi ./compose/jtso/config.yml
+/.../
+protocols:
+  gnmi:
+    port: 9339
+/.../
+```
+
+### gNMI with TLS 
+
+If you want to use SSL for gNMI (**global to all routers**) you need first to create a self signed CA: **Keep the naming convention**
 
 ```shell
 cd ./compose/telegraf/cert
-openssl genrsa -out RootCA.key 2048
-openssl req -x509 -new -key RootCA.key -days 3650 -out RootCA.crt
+sudo openssl genrsa -out RootCA.key 2048
+sudo openssl req -x509 -new -key RootCA.key -days 3650 -out RootCA.crt
 ```
 
 Now, create and sign telegraf certificates:
 
 ```shell
-openssl genrsa -out client.key 2048 
-openssl req -new -key client.key -out client.csr
-openssl x509 -req -in client.csr -CA RootCA.crt -CAkey RootCA.key -CAcreateserial -out client.crt -days 365
+sudo openssl genrsa -out client.key 2048 
+sudo openssl req -new -key client.key -out client.csr
+sudo openssl x509 -req -in client.csr -CA RootCA.crt -CAkey RootCA.key -CAcreateserial -out client.crt -days 365
 
 ```
 
 And finally for each router - repeat these following task - to create and sign the router certificate:
 
 ```shell
-openssl genrsa -out router.key 2048 
-openssl req -new -key router.key -out router.csr
-openssl x509 -req -in router.csr -CA RootCA.crt -CAkey RootCA.key -CAcreateserial -out router.crt -days 365
+sudo openssl genrsa -out router.key 2048 
+sudo openssl req -new -key router.key -out router.csr
+sudo openssl x509 -req -in router.csr -CA RootCA.crt -CAkey RootCA.key -CAcreateserial -out router.crt -days 365
 cat router.crt router.key > router.pem
 ```
 
-Upload to the router the router.pem, client.crt and RootCA.crt into one router folder (i.e. /var/tmp), and do this configuration on each router:
-
+Upload to the router the **router.pem**, **client.crt** and **RootCA.crt** into one router folder (i.e. /var/tmp), and do this configuration on each router:
 
 ```junos
 edit exclusive
@@ -145,17 +194,59 @@ commit and-quit
 request security pki ca-certificate load ca-profile ca1 filename /var/tmp/RootCA.crt
 ```
 
-Now, you can start the OpenJTS with the following command. The first time you launch the stack, this will take several minutes to download images and compile some of them (JTSO and Telegraf)
+### Configure your network devices
+
+For each routing device apply these config lines:
+
+```junos
+edit exclusive
+
+# Netconf User
+set system login user netconf_user class super-user
+set system login user netconf_user authentication encrypted-password “”
+
+#gNMI User 
+set system login user gnmi_user class super-user
+set system login user gnmi_user authentication encrypted-password “”
+
+# Clear Text gRPC
+set system services extension-service request-response grpc clear-text port 9339
+set system services extension-service request-response grpc max-connections 8
+set system services extension-service request-response grpc skip-authentication
+
+# Or TLS encryption gRPC
+set system services extension-service request-response grpc ssl port 9339
+set system services extension-service request-response grpc ssl local-certificate lcert
+set system services extension-service request-response grpc ssl mutual-authentication certificate-authority ca1
+set system services extension-service request-response grpc ssl mutual-authentication client-certificate-request require-certificate-and-verify
+
+# Netconf
+set system services netconf ssh
+set system services netconf rfc-compliant #optional
+
+commit and-quit
+```
+
+## Start JTS 
+
+To start the JTS you just need to deploy each docker by using **docker compose up** command. 
+
+You can start the OpenJTS with the following command:
+
+{- The first time you bring up the stack, it may take slightly more time as we need to build on-the-fly Telegraf -} 
+
 ```shell 
 # Bring up the stack with one Telegraf Instance
 sudo docker compose up -d  
 ```
 
-You may want to check if all dockers are up and running. For that, just issue the following command:
+You may want to check if dockers are up and running. For that, just issue the following command:
 
 ```shell
 sudo docker compose ps
 ```
+
+Note: Telegraf docker(s) are only started if there is at least one router assigned to the Telegraf instance. 
 
 ## Stop JTS
 

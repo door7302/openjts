@@ -3,6 +3,8 @@
 https://docs.docker.com/engine/install/ubuntu/
 
 ```shell
+sudo umask 022
+
 sudo apt-get update
 sudo apt-get install ca-certificates curl gnupg
 
@@ -17,7 +19,7 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ````
 
-Then login first time:
+Then login first time (requiered for downloading from docker hub):
 
 ```shell
 docker login --username door7302
