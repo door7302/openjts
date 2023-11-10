@@ -4,7 +4,7 @@ services:
     image: influxdb:1.8
     container_name: influxdb
     restart: always
-    user: openjts
+    user: root
     environment:
       - INFLUXDB_DB=jtsdb
       - INFLUXDB_ADMIN_USER=admin
@@ -19,7 +19,7 @@ services:
     build: https://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@github.com/door7302/jts_telegraf.git#main
     container_name: telegraf_mx
     restart: always
-    user: openjts
+    user: root
     depends_on:
       - influxdb
     volumes:
@@ -33,7 +33,7 @@ services:
     build: https://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@github.com/door7302/jts_telegraf.git#main
     container_name: telegraf_ptx
     restart: always
-    user: openjts
+    user: root
     depends_on:
       - influxdb
     volumes:
@@ -47,7 +47,7 @@ services:
     build: https://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@github.com/door7302/jts_telegraf.git#main
     container_name: telegraf_acx
     restart: always
-    user: openjts
+    user: root
     depends_on:
       - influxdb
     volumes:
@@ -61,7 +61,7 @@ services:
     image: kapacitor:latest
     container_name: kapacitor
     restart: always
-    user: openjts
+    user: root
     depends_on:
       - influxdb
     ports:
@@ -74,7 +74,7 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     restart: always
-    user: openjts
+    user: root
     depends_on:
       - influxdb
     ports:
@@ -95,7 +95,7 @@ services:
     build: https://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@github.com/door7302/jtso.git#main
     container_name: jtso
     restart: always
-    user: openjts
+    user: root
     volumes:
       - /var/log:/var/log
       - ./jtso/jtso.db:/etc/jtso/jtso.db
