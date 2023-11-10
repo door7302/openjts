@@ -843,11 +843,218 @@
         "type": "influxdb",
         "uid": "jtsuid"
       },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Time"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 246
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Daemon"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 127
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 192
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Event ID"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": null
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 45,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "LOGS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT * FROM \"LOGS\" WHERE (\"device\"::tag =~ /^$rtr$/) AND $timeFilter ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
+        }
+      ],
+      "title": "Syslog - OnChange",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "/junos/events/event/facility": true,
+              "/junos/events/event/priority": true,
+              "/junos/events/event/type": true,
+              "MODEL": true,
+              "VERSION": true,
+              "_component_id": true,
+              "component": true,
+              "device": true,
+              "host": true,
+              "microseconds": true,
+              "path": true,
+              "pid": true,
+              "seconds": true
+            },
+            "indexByName": {
+              "/junos/events/event/facility": 4,
+              "/junos/events/event/priority": 5,
+              "/junos/events/event/type": 6,
+              "MODEL": 2,
+              "Time": 0,
+              "VERSION": 3,
+              "_component_id": 7,
+              "component": 8,
+              "daemon": 9,
+              "device": 10,
+              "event_id": 11,
+              "host": 12,
+              "hostname": 1,
+              "message": 13,
+              "microseconds": 14,
+              "path": 15,
+              "pid": 16,
+              "seconds": 17
+            },
+            "renameByName": {
+              "MODEL": "Model",
+              "Time": "Timestamp",
+              "VERSION": "",
+              "daemon": "Daemon",
+              "event_id": "Event ID",
+              "hostname": "Name"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
       "gridPos": {
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 18
       },
       "id": 41,
       "options": {
@@ -869,7 +1076,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 20
       },
       "id": 17,
       "panels": [],
@@ -914,7 +1121,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 21
       },
       "id": 24,
       "options": {
@@ -1079,7 +1286,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 17
+        "y": 27
       },
       "id": 9,
       "non_matching_cells_text": "",
@@ -1609,7 +1816,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 25
+        "y": 35
       },
       "id": 13,
       "options": {
@@ -1733,7 +1940,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 25
+        "y": 35
       },
       "id": 15,
       "options": {
@@ -1823,7 +2030,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 33
+        "y": 43
       },
       "id": 42,
       "options": {
@@ -1845,7 +2052,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 35
+        "y": 45
       },
       "id": 19,
       "panels": [],
@@ -1900,8 +2107,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1917,7 +2123,7 @@
         "h": 15,
         "w": 12,
         "x": 0,
-        "y": 36
+        "y": 46
       },
       "id": 6,
       "options": {
@@ -2021,8 +2227,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2038,7 +2243,7 @@
         "h": 15,
         "w": 12,
         "x": 12,
-        "y": 36
+        "y": 46
       },
       "id": 26,
       "options": {
@@ -2150,8 +2355,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2167,7 +2371,7 @@
         "h": 13,
         "w": 12,
         "x": 0,
-        "y": 51
+        "y": 61
       },
       "id": 25,
       "options": {
@@ -2278,8 +2482,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2295,7 +2498,7 @@
         "h": 13,
         "w": 12,
         "x": 12,
-        "y": 51
+        "y": 61
       },
       "id": 7,
       "options": {
@@ -2407,8 +2610,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2424,7 +2626,7 @@
         "h": 13,
         "w": 7,
         "x": 0,
-        "y": 64
+        "y": 74
       },
       "id": 28,
       "options": {
@@ -2520,8 +2722,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2537,7 +2738,7 @@
         "h": 13,
         "w": 7,
         "x": 7,
-        "y": 64
+        "y": 74
       },
       "id": 30,
       "options": {
@@ -2661,8 +2862,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2678,7 +2878,7 @@
         "h": 13,
         "w": 10,
         "x": 14,
-        "y": 64
+        "y": 74
       },
       "id": 29,
       "options": {
@@ -2735,7 +2935,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 77
+        "y": 87
       },
       "id": 44,
       "options": {
@@ -2757,7 +2957,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 79
+        "y": 89
       },
       "id": 23,
       "panels": [],
@@ -2811,8 +3011,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2828,7 +3027,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 80
+        "y": 90
       },
       "id": 2,
       "options": {
@@ -2936,8 +3135,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2953,7 +3151,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 91
+        "y": 101
       },
       "id": 4,
       "options": {
@@ -3063,8 +3261,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3080,7 +3277,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 102
+        "y": 112
       },
       "id": 3,
       "options": {
@@ -3184,6 +3381,6 @@
   "timezone": "",
   "title": "ROUTER HEALTH MONITORING PROFILE - JTSO",
   "uid": "healthdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
