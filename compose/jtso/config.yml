@@ -4,7 +4,6 @@ protocols:
     rpc_timeout: 10 
   gnmi:
     port: 9339
-    skip_verify: true 
 modules:
   grafana:
     port: 8080
