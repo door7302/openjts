@@ -166,7 +166,7 @@ sudo openssl genrsa -out RootCA.key 2048
 sudo openssl req -x509 -new -key RootCA.key -days 3650 -out RootCA.crt
 ```
 
-Now, create and sign telegraf certificates:
+**(Optionnal)** Now, create and sign telegraf certificates if needed:
 
 ```shell
 sudo openssl genrsa -out client.key 2048 
@@ -217,6 +217,7 @@ set system services extension-service request-response grpc skip-authentication
 # Or TLS encryption gRPC
 set system services extension-service request-response grpc ssl port 9339
 set system services extension-service request-response grpc ssl local-certificate lcert
+# Optional mutual authentication 
 set system services extension-service request-response grpc ssl mutual-authentication certificate-authority ca1
 set system services extension-service request-response grpc ssl mutual-authentication client-certificate-request require-certificate-and-verify
 
@@ -288,7 +289,7 @@ You should have access to this page - this one provide the state of the OpenJTS.
 Go to the menu **"Credentials"**
 
 First step is to fill the Netconf/gNMI user/pwd you configured on your routing devices. Remember, the credentials are the same for all routers. 
-You can also indicate to the stack that you want to use TLS/SSL for gNMI. Once again this is for all routing devices. It means either you'll use TLS for all routers or you'll use clear text mode for all devices. 
+You can also indicate to the stack that you want to use TLS/SSL for gNMI. Once again this is for all routing devices. It means either you'll use TLS for all routers or you'll use clear text mode for all devices. By default TLS is disabled, skip-verify is enabled and client-side TLS authentication is disabled. 
 
 ![jtso2.png](./img/jtso2.png)
 
