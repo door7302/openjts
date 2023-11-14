@@ -898,7 +898,9 @@
           ],
           "displayMode": "table",
           "placement": "right",
-          "showLegend": true
+          "showLegend": true,
+          "sortBy": "Last *",
+          "sortDesc": true
         },
         "tooltip": {
           "mode": "single",
@@ -917,7 +919,7 @@
           "measurement": "POWER",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT temperature FROM \"POWER\" WHERE (\"device\"=~ /^$device$/) AND temperature!= 0 and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT temperature FROM \"POWER\" WHERE (\"device\"=~ /^$device$/) and $timeFilter group by component_name, device fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1643,7 +1645,7 @@
       "id": 15,
       "options": {
         "displayMode": "gradient",
-        "minVizHeight": 10,
+        "minVizHeight": 15,
         "minVizWidth": 0,
         "orientation": "horizontal",
         "reduceOptions": {
@@ -2462,7 +2464,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "rtme-ptx10k16-01.englab.juniper.net",
           "value": "rtme-ptx10k16-01.englab.juniper.net"
         },

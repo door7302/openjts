@@ -5,11 +5,7 @@
       "mx": [ {
         "version": "all",
         "conf": "mx_optic.conf"
-        },
-        {
-          "version": "23.2",
-          "conf": "mx_optic.23.2.conf"
-          }
+        }
       ],
       "ptx":[ {
         "version": "all",
