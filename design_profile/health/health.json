@@ -3350,8 +3350,8 @@
       {
         "current": {
           "selected": false,
-          "text": "rtme-mx-22.englab.juniper.net",
-          "value": "rtme-mx-22.englab.juniper.net"
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "influxdb",

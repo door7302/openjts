@@ -25,6 +25,7 @@
     },
     "kapacitor": null,
     "grafana": [
-      "health.json"
+      "health.json",
+      "health_vmx.json"
     ]
 }
