@@ -2,6 +2,11 @@
     "cheatsheet": "health.png",
     "description": "This profile provides template for collecting router health data",
     "telegraf": {
+      "vmx": [ {
+        "version": "all",
+        "conf": "vmx_health.conf"
+        }
+      ],
       "mx": [ {
         "version": "all",
         "conf": "mx_health.conf"
