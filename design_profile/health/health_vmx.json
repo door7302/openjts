@@ -783,7 +783,7 @@
       "type": "text"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -791,316 +791,315 @@
         "y": 20
       },
       "id": 17,
-      "panels": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+      "panels": [],
+      "title": "Alarming - $rtr",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
           },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 10
-                  }
-                ]
-              },
-              "unit": "none"
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
             },
-            "overrides": [
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
               {
-                "matcher": {
-                  "id": "byName",
-                  "options": "count"
-                },
-                "properties": [
-                  {
-                    "id": "thresholds",
-                    "value": {
-                      "mode": "absolute",
-                      "steps": [
-                        {
-                          "color": "green",
-                          "value": null
-                        },
-                        {
-                          "color": "#EAB839",
-                          "value": 10
-                        },
-                        {
-                          "color": "red",
-                          "value": 20
-                        }
-                      ]
-                    }
-                  },
-                  {
-                    "id": "custom.cellOptions",
-                    "value": {
-                      "mode": "gradient",
-                      "type": "color-background"
-                    }
-                  }
-                ]
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 10
               }
             ]
           },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 21
-          },
-          "id": 13,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "fields": [
-                "count"
-              ],
-              "reducer": [
-                "sum"
-              ],
-              "show": true
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "count"
             },
-            "showHeader": true
-          },
-          "pluginVersion": "10.2.0",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 10
+                    },
+                    {
+                      "color": "red",
+                      "value": 20
+                    }
+                  ]
+                }
               },
-              "groupBy": [
-                {
-                  "params": [
-                    "ALARM_TYPE"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "LINKNAME"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "measurement": "ALARMING",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "A",
-              "resultFormat": "table",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "exception"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "count"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                }
-              ]
-            }
-          ],
-          "title": "RealTime Monitored KPI (TimeFrame) ",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {},
-                "renameByName": {
-                  "ALARM_TYPE": "Type of Alarm",
-                  "LINKNAME": "PORT",
-                  "Time": "Last Update",
-                  "count": "Cumulative Alarms"
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "mode": "gradient",
+                  "type": "color-background"
                 }
               }
-            }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 21
+      },
+      "id": 13,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": [
+            "count"
           ],
-          "type": "table"
+          "reducer": [
+            "sum"
+          ],
+          "show": true
         },
+        "showHeader": true
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
         {
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 10
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 12,
-            "y": 21
-          },
-          "id": 15,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "fields": [
-                "count"
-              ],
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true
-          },
-          "pluginVersion": "10.2.0",
-          "targets": [
+          "groupBy": [
             {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "ALARM_TYPE"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "LINKNAME"
-                  ],
-                  "type": "tag"
-                }
+              "params": [
+                "ALARM_TYPE"
               ],
-              "measurement": "ALARMING",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "A",
-              "resultFormat": "table",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "exception"
-                    ],
-                    "type": "field"
-                  }
-                ]
+              "type": "tag"
+            },
+            {
+              "params": [
+                "LINKNAME"
               ],
-              "tags": [
-                {
-                  "key": "device",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                }
-              ]
+              "type": "tag"
             }
           ],
-          "title": "RealTime Monitored KPI Details (TimeFrame) ",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {},
-                "indexByName": {},
-                "renameByName": {
-                  "ALARM_TYPE": "Type of Alarm",
-                  "LINKNAME": "PORT",
-                  "Time": "Timestamp",
-                  "count": "Cumulative Alarms",
-                  "exception": "Errors Value"
-                }
+          "measurement": "ALARMING",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "exception"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
               }
-            }
+            ]
           ],
-          "type": "table"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "gridPos": {
-            "h": 2,
-            "w": 24,
-            "x": 0,
-            "y": 29
-          },
-          "id": 42,
-          "options": {
-            "code": {
-              "language": "plaintext",
-              "showLineNumbers": false,
-              "showMiniMap": false
-            },
-            "content": "<h2><center>- CPU/MEM -</center><h2>",
-            "mode": "html"
-          },
-          "pluginVersion": "10.2.0",
-          "transparent": true,
-          "type": "text"
+          "tags": [
+            {
+              "key": "device",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
-      "title": "Alarming - $rtr",
-      "type": "row"
+      "title": "RealTime Monitored KPI (TimeFrame) ",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "ALARM_TYPE": "Type of Alarm",
+              "LINKNAME": "PORT",
+              "Time": "Last Update",
+              "count": "Cumulative Alarms"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 10
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 21
+      },
+      "id": 15,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": [
+            "count"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "ALARM_TYPE"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "LINKNAME"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "ALARMING",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "exception"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
+        }
+      ],
+      "title": "RealTime Monitored KPI Details (TimeFrame) ",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "ALARM_TYPE": "Type of Alarm",
+              "LINKNAME": "PORT",
+              "Time": "Timestamp",
+              "count": "Cumulative Alarms",
+              "exception": "Errors Value"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 29
+      },
+      "id": 42,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h2><center>- CPU/MEM -</center><h2>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.2.0",
+      "transparent": true,
+      "type": "text"
     },
     {
       "collapsed": false,
@@ -1108,7 +1107,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 31
       },
       "id": 19,
       "panels": [],
@@ -1180,7 +1179,7 @@
         "h": 15,
         "w": 12,
         "x": 0,
-        "y": 22
+        "y": 32
       },
       "id": 6,
       "options": {
@@ -1301,7 +1300,7 @@
         "h": 15,
         "w": 12,
         "x": 12,
-        "y": 22
+        "y": 32
       },
       "id": 26,
       "options": {
@@ -1430,7 +1429,7 @@
         "h": 13,
         "w": 12,
         "x": 0,
-        "y": 37
+        "y": 47
       },
       "id": 25,
       "options": {
@@ -1558,7 +1557,7 @@
         "h": 13,
         "w": 12,
         "x": 12,
-        "y": 37
+        "y": 47
       },
       "id": 7,
       "options": {
@@ -1687,7 +1686,7 @@
         "h": 13,
         "w": 7,
         "x": 0,
-        "y": 50
+        "y": 60
       },
       "id": 28,
       "options": {
@@ -1800,7 +1799,7 @@
         "h": 13,
         "w": 7,
         "x": 7,
-        "y": 50
+        "y": 60
       },
       "id": 30,
       "options": {
@@ -1941,7 +1940,7 @@
         "h": 13,
         "w": 10,
         "x": 14,
-        "y": 50
+        "y": 60
       },
       "id": 29,
       "options": {
@@ -1988,19 +1987,6 @@
         }
       ],
       "type": "timeseries"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 63
-      },
-      "id": 23,
-      "panels": [],
-      "title": "Fabric - $rtr",
-      "type": "row"
     }
   ],
   "refresh": "30s",
@@ -2011,9 +1997,9 @@
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": "",
-          "value": ""
+          "selected": false,
+          "text": "10.83.151.181",
+          "value": "10.83.151.181"
         },
         "datasource": {
           "type": "influxdb",
