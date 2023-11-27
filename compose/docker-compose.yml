@@ -15,6 +15,20 @@ services:
       - /var/log:/var/log
       - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf
       - ./influxdb/data:/var/lib/influxdb
+  telegraf_vmx:
+    build: https://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@github.com/door7302/jts_telegraf.git#main
+    container_name: telegraf_vmx
+    restart: always
+    user: root
+    depends_on:
+      - influxdb
+    volumes:
+      - /var/log:/var/log
+      - ./telegraf/vmx:/etc/telegraf/
+      - ./telegraf/metadata:/var/metadata
+      - ./telegraf/cert:/var/cert
+    command:
+      --config-directory /etc/telegraf/telegraf.d
   telegraf_mx:
     build: https://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@github.com/door7302/jts_telegraf.git#main
     container_name: telegraf_mx
