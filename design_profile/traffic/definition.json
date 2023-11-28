@@ -2,6 +2,11 @@
     "cheatsheet": "traffic.png",
     "description": "This profile provides template for collecting traffic/cos for physical ports",
     "telegraf": {
+      "vmx": [ {
+        "version": "all",
+        "conf": "vmx_traffic.conf"
+        }
+      ],
       "mx": [ {
         "version": "all",
         "conf": "mx_traffic.conf"
