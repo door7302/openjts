@@ -62,7 +62,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 15,
+        "h": 10,
         "w": 24,
         "x": 0,
         "y": 0
@@ -101,7 +101,7 @@
               "type": "tag"
             }
           ],
-          "measurement": "BGP_EVENT",
+          "measurement": "BGP_SESSION",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -161,7 +161,7 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 15
+        "y": 10
       },
       "id": 1,
       "options": {
@@ -244,7 +244,7 @@
         "h": 4,
         "w": 2,
         "x": 3,
-        "y": 15
+        "y": 10
       },
       "id": 2,
       "options": {
@@ -301,7 +301,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 19
+        "y": 14
       },
       "id": 5,
       "title": "PEER GROUP INFO",
@@ -336,7 +336,7 @@
         "h": 5,
         "w": 8,
         "x": 0,
-        "y": 20
+        "y": 15
       },
       "id": 3,
       "maxPerRow": 4,
@@ -446,7 +446,7 @@
         "h": 5,
         "w": 8,
         "x": 0,
-        "y": 25
+        "y": 20
       },
       "id": 23,
       "maxPerRow": 4,
@@ -491,7 +491,7 @@
           "measurement": "BGP_GROUP",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(mean) from(SELECT mean(\"safi_received\") FROM \"BGP_GROUP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_groug_afi_safi_name\"::tag, time(61s)) GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, time(61s)",
+          "query": "select sum(mean) from(SELECT mean(\"safi_received\") FROM \"BGP_GROUP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_group_afi_safi_name\"::tag, time(61s)) GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, time(61s)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -549,7 +549,7 @@
           "measurement": "BGP_GROUP",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(mean) from(SELECT mean(\"safi_installed\") FROM \"BGP_GROUP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_groug_afi_safi_name\"::tag, time(61s)) GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, time(61s)",
+          "query": "select sum(mean) from(SELECT mean(\"safi_installed\") FROM \"BGP_GROUP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_group_afi_safi_name\"::tag, time(61s)) GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, time(61s)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -607,7 +607,7 @@
           "measurement": "BGP_GROUP",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(mean) from(SELECT  mean(\"safi_sent\") FROM \"BGP_GROUP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_groug_afi_safi_name\"::tag, time(61s)) GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, time(61s)",
+          "query": "select sum(mean) from(SELECT  mean(\"safi_sent\") FROM \"BGP_GROUP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_group_afi_safi_name\"::tag, time(61s)) GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, time(61s)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -651,7 +651,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 25
       },
       "id": 13,
       "panels": [],
@@ -688,7 +688,7 @@
         "h": 5,
         "w": 8,
         "x": 0,
-        "y": 31
+        "y": 26
       },
       "id": 18,
       "maxPerRow": 8,
@@ -711,7 +711,7 @@
       "repeatDirection": "h",
       "targets": [
         {
-          "alias": " $tag_peer_groug_afi_safi_name",
+          "alias": " $tag_peer_group_afi_safi_name",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
@@ -731,7 +731,7 @@
             },
             {
               "params": [
-                "peer_groug_afi_safi_name::tag"
+                "peer_group_afi_safi_name::tag"
               ],
               "type": "tag"
             }
@@ -739,7 +739,7 @@
           "measurement": "BGP_GROUP",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(ttpath) from (SELECT mean(\"group_safi_total_paths\") as ttpath FROM \"BGP_GROUP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_groug_afi_safi_name\"::tag =~ /^$family$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_groug_afi_safi_name\"::tag, time(61s)) GROUP BY \"peer_groug_afi_safi_name\"::tag, time(61s) ",
+          "query": "select sum(ttpath) from (SELECT mean(\"group_safi_total_paths\") as ttpath FROM \"BGP_GROUP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_afi_safi_name\"::tag =~ /^$family$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_group_afi_safi_name\"::tag, time(61s)) GROUP BY \"peer_group_afi_safi_name\"::tag, time(61s) ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -767,7 +767,7 @@
             },
             {
               "condition": "AND",
-              "key": "peer_groug_afi_safi_name::tag",
+              "key": "peer_group_afi_safi_name::tag",
               "operator": "=~",
               "value": "/^$family$/"
             }
@@ -878,14 +878,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values with key=\"peer_groug_afi_safi_name\" where peer_group_name=~/$peergroup/",
+        "definition": "show tag values with key=\"peer_group_afi_safi_name\" where peer_group_name=~/$peergroup/",
         "hide": 0,
         "includeAll": true,
         "label": "Family",
         "multi": true,
         "name": "family",
         "options": [],
-        "query": "show tag values with key=\"peer_groug_afi_safi_name\" where peer_group_name=~/$peergroup/",
+        "query": "show tag values with key=\"peer_group_afi_safi_name\" where peer_group_name=~/$peergroup/",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -930,6 +930,6 @@
   "timezone": "",
   "title": "BGP MONITORING PROFILE - JTSO",
   "uid": "bgpdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
