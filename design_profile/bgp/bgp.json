@@ -221,7 +221,7 @@
           "measurement": "BGP_SESSION",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"session_state\", \"session_description\", \"session_peer_as\" FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag",
+          "query": "SELECT \"session_state\" FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -390,8 +390,112 @@
       },
       "id": 41,
       "panels": [],
+      "repeat": "neighbor",
+      "repeatDirection": "h",
       "title": "NEIGHBOR $neighbor INFO",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "(null)": {
+                  "index": 0,
+                  "text": "Unknown"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 14
+      },
+      "id": 71,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^DESC$/",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "alias": "DESC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "BGP_SESSION",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "session_description"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "neighbor_address::tag",
+              "operator": "=~",
+              "value": "/^$neighbor$/"
+            }
+          ]
+        }
+      ],
+      "title": "Peer Name",
+      "transformations": [],
+      "type": "stat"
     },
     {
       "datasource": {
@@ -418,117 +522,24 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 14,
-        "x": 0,
+        "w": 3,
+        "x": 3,
         "y": 14
       },
-      "id": 63,
+      "id": 70,
       "options": {
-        "inlineEditing": true,
-        "root": {
-          "background": {
-            "color": {
-              "fixed": "transparent"
-            }
-          },
-          "border": {
-            "color": {
-              "fixed": "dark-green"
-            }
-          },
-          "constraint": {
-            "horizontal": "left",
-            "vertical": "top"
-          },
-          "elements": [
-            {
-              "background": {
-                "color": {
-                  "field": "DESC",
-                  "fixed": "#D9D9D9"
-                }
-              },
-              "border": {
-                "color": {
-                  "fixed": "dark-green"
-                }
-              },
-              "config": {
-                "align": "center",
-                "color": {
-                  "fixed": "#000000"
-                },
-                "size": 20,
-                "text": {
-                  "field": "DESC",
-                  "fixed": "",
-                  "mode": "field"
-                },
-                "valign": "middle"
-              },
-              "constraint": {
-                "horizontal": "left",
-                "vertical": "top"
-              },
-              "name": "Element 1",
-              "placement": {
-                "height": 50,
-                "left": 12,
-                "top": 8,
-                "width": 330
-              },
-              "type": "metric-value"
-            },
-            {
-              "background": {
-                "color": {
-                  "field": "DESC",
-                  "fixed": "#D9D9D9"
-                }
-              },
-              "border": {
-                "color": {
-                  "fixed": "dark-green"
-                }
-              },
-              "config": {
-                "align": "center",
-                "color": {
-                  "fixed": "#000000"
-                },
-                "size": 20,
-                "text": {
-                  "field": "DESC",
-                  "fixed": "",
-                  "mode": "field"
-                },
-                "valign": "middle"
-              },
-              "connections": [],
-              "constraint": {
-                "horizontal": "left",
-                "vertical": "top"
-              },
-              "name": "Element 2",
-              "placement": {
-                "height": 50,
-                "left": 358,
-                "top": 8,
-                "width": 329
-              },
-              "type": "metric-value"
-            }
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
           ],
-          "name": "Element 1701343369527",
-          "placement": {
-            "height": 100,
-            "left": 0,
-            "top": 0,
-            "width": 100
-          },
-          "type": "frame"
+          "fields": "",
+          "values": false
         },
-        "showAdvancedTypes": true
+        "textMode": "auto"
       },
       "pluginVersion": "10.2.0",
       "targets": [
@@ -543,13 +554,130 @@
           "measurement": "BGP_SESSION",
           "orderByTime": "ASC",
           "policy": "default",
-          "refId": "B",
+          "refId": "A",
           "resultFormat": "time_series",
           "select": [
             [
               {
                 "params": [
                   "session_peer_as"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "neighbor_address::tag",
+              "operator": "=~",
+              "value": "/^$neighbor$/"
+            }
+          ]
+        }
+      ],
+      "title": "Peer AS",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "ESTABLISHED": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "ESTABLISHED"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "pattern": "*",
+                "result": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "DOWN"
+                }
+              },
+              "type": "regex"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 6,
+        "y": 14
+      },
+      "id": 88,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^STATE$/",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "alias": "STATE",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": true,
+          "measurement": "BGP_SESSION",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"session_state\" FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "session_state"
                 ],
                 "type": "field"
               }
@@ -570,7 +698,7 @@
           ]
         },
         {
-          "alias": "DESC",
+          "alias": "STATE",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
@@ -580,13 +708,15 @@
           "measurement": "BGP_SESSION",
           "orderByTime": "ASC",
           "policy": "default",
-          "refId": "A",
+          "query": "SELECT \"session_state\" FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
+          "rawQuery": false,
+          "refId": "B",
           "resultFormat": "time_series",
           "select": [
             [
               {
                 "params": [
-                  "session_description"
+                  "session_state"
                 ],
                 "type": "field"
               }
@@ -607,9 +737,199 @@
           ]
         }
       ],
-      "title": "Peer info",
+      "title": "Peer State",
       "transformations": [],
-      "type": "canvas"
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "displayName": "Input Queue",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 9,
+        "y": 14
+      },
+      "id": 74,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "alias": "Input Queue",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "31s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "BGP_SESSION",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "session_output_queue"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "displayName": "Output Queue",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 11,
+        "y": 14
+      },
+      "id": 73,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "alias": "Input Queue",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "31s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "BGP_SESSION",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "session_output_queue"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "type": "stat"
     },
     {
       "datasource": {
@@ -639,16 +959,15 @@
       },
       "gridPos": {
         "h": 19,
-        "w": 10,
-        "x": 14,
+        "w": 11,
+        "x": 13,
         "y": 14
       },
       "id": 49,
       "options": {
-        "displayMode": "gradient",
-        "minVizHeight": 10,
+        "displayMode": "lcd",
         "minVizWidth": 0,
-        "namePlacement": "left",
+        "namePlacement": "top",
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -658,7 +977,8 @@
           "values": false
         },
         "showUnfilled": true,
-        "valueMode": "color"
+        "text": {},
+        "valueMode": "text"
       },
       "pluginVersion": "10.2.0",
       "repeatDirection": "h",
@@ -721,7 +1041,7 @@
           ]
         },
         {
-          "alias": "Received Pre Policy - $tag_neighbor_afi_safi_name",
+          "alias": "Dropped by policy - $tag_neighbor_afi_safi_name",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
@@ -744,7 +1064,7 @@
           "measurement": "BGP_GROUP",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"safi_received_pre_policy\") FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
+          "query": "SELECT mean(\"safi_received_pre_policy\")-mean(\"safi_accepted\") FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -973,8 +1293,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 12,
-        "w": 14,
+        "h": 15,
+        "w": 13,
         "x": 0,
         "y": 18
       },
@@ -986,7 +1306,7 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true
         },
         "tooltip": {
@@ -1197,7 +1517,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 33
+        "y": 93
       },
       "id": 13,
       "panels": [],
@@ -1234,7 +1554,7 @@
         "h": 5,
         "w": 8,
         "x": 0,
-        "y": 34
+        "y": 94
       },
       "id": 18,
       "maxPerRow": 8,
@@ -1329,7 +1649,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 39
+        "y": 99
       },
       "id": 5,
       "panels": [],
@@ -1365,7 +1685,7 @@
         "h": 5,
         "w": 8,
         "x": 0,
-        "y": 40
+        "y": 100
       },
       "id": 3,
       "maxPerRow": 3,
@@ -1477,7 +1797,7 @@
         "h": 5,
         "w": 8,
         "x": 0,
-        "y": 45
+        "y": 110
       },
       "id": 23,
       "maxPerRow": 3,
@@ -1795,10 +2115,10 @@
         "current": {
           "selected": true,
           "text": [
-            "18.8.8.2"
+            "All"
           ],
           "value": [
-            "18.8.8.2"
+            "$__all"
           ]
         },
         "datasource": {
@@ -1822,7 +2142,7 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
