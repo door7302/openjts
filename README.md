@@ -238,7 +238,7 @@ edit exclusive
 set system login user netconf_user class super-user
 set system login user netconf_user authentication encrypted-password “”
 
-#gNMI User 
+#gNMI User 
 set system login user gnmi_user class super-user
 set system login user gnmi_user authentication encrypted-password “”
 
