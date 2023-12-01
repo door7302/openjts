@@ -3,6 +3,7 @@ addon/
 tmp/*
 addon/*
 doc/*
+working_dir/**
 compose/influxdb/data/**
 !compose/influxdb/data/.gitkeep
 compose/jtso/active_profiles/*

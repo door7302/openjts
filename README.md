@@ -7,7 +7,7 @@ This stack relies on OpenSource software solutions such as **Telegraf** for coll
 
 JTS is pre-filled with templates of configuration and dashbords for typical use cases. Those profiles are tgz files store in compose/jso/profiles directory 
 
-JTS relies on Docker Compose to deploy in one command this stack. Please be sure you have done all the prerequisites before. Check [Here](./setup.md)
+JTS relies on Docker Compose to deploy in one command this stack. Please be sure you have done all the prerequisites before.
 
 JTS has only been validated for Ubuntu/Debian Host OS. 
 
@@ -15,7 +15,40 @@ JTS has only been validated for Ubuntu/Debian Host OS.
 
 ![jts.png](./img/JTS.png)
 
-## API diagram
+## Prerequisites
+
+### Install Docker & compose plugin
+
+https://docs.docker.com/engine/install/ubuntu/
+
+```shell
+sudo umask 022
+
+sudo apt-get update
+sudo apt-get install ca-certificates curl gnupg
+
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+echo "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+````
+
+Then login first time (requiered for downloading from docker hub):
+
+```shell
+docker login --username door7302
+```
+
+And test: 
+
+```shell
+docker run hello-world
+````
 
 ## Installation of JTS
 
@@ -205,7 +238,7 @@ edit exclusive
 set system login user netconf_user class super-user
 set system login user netconf_user authentication encrypted-password “”
 
-#gNMI User 
+#gNMI User 
 set system login user gnmi_user class super-user
 set system login user gnmi_user authentication encrypted-password “”
 
