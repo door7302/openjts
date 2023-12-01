@@ -92,7 +92,7 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 24,
+        "w": 8,
         "x": 0,
         "y": 3
       },
@@ -204,7 +204,7 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 24,
+        "w": 8,
         "x": 0,
         "y": 8
       },
@@ -729,7 +729,7 @@
       "type": "table"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -737,1281 +737,1280 @@
         "y": 30
       },
       "id": 41,
-      "panels": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [
-                {
-                  "options": {
-                    "(null)": {
-                      "index": 0,
-                      "text": "Unknown"
-                    }
-                  },
-                  "type": "value"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "blue",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 3,
-            "x": 0,
-            "y": 16
-          },
-          "id": 71,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "/^DESC$/",
-              "values": false
-            },
-            "textMode": "auto"
-          },
-          "pluginVersion": "10.2.0",
-          "targets": [
-            {
-              "alias": "DESC",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": false,
-              "measurement": "BGP_SESSION",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "session_description"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
-            }
-          ],
-          "title": "Peer Name",
-          "transformations": [],
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "blue",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 3,
-            "x": 3,
-            "y": 16
-          },
-          "id": 70,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "none",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto"
-          },
-          "pluginVersion": "10.2.0",
-          "targets": [
-            {
-              "alias": "PEERAS",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": false,
-              "measurement": "BGP_SESSION",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "session_peer_as"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
-            }
-          ],
-          "title": "Peer AS",
-          "transformations": [],
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [
-                {
-                  "options": {
-                    "ESTABLISHED": {
-                      "color": "green",
-                      "index": 0,
-                      "text": "ESTABLISHED"
-                    }
-                  },
-                  "type": "value"
-                },
-                {
-                  "options": {
-                    "pattern": "*",
-                    "result": {
-                      "color": "red",
-                      "index": 1,
-                      "text": "DOWN"
-                    }
-                  },
-                  "type": "regex"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "blue",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 3,
-            "x": 6,
-            "y": 16
-          },
-          "id": 88,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "/^STATE$/",
-              "values": false
-            },
-            "textMode": "auto"
-          },
-          "pluginVersion": "10.2.0",
-          "targets": [
-            {
-              "alias": "STATE",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": true,
-              "measurement": "BGP_SESSION",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT \"session_state\" FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "session_state"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
-            },
-            {
-              "alias": "STATE",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": false,
-              "measurement": "BGP_SESSION",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT \"session_state\" FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
-              "rawQuery": false,
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "session_state"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
-            }
-          ],
-          "title": "Peer State",
-          "transformations": [],
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "displayName": "Input Queue",
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 9,
-            "y": 16
-          },
-          "id": 74,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "center",
-            "orientation": "vertical",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto"
-          },
-          "pluginVersion": "10.2.0",
-          "targets": [
-            {
-              "alias": "Input Queue",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "31s"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "previous"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "measurement": "BGP_SESSION",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "session_output_queue"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "displayName": "Output Queue",
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 11,
-            "y": 16
-          },
-          "id": 73,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "center",
-            "orientation": "vertical",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto"
-          },
-          "pluginVersion": "10.2.0",
-          "targets": [
-            {
-              "alias": "Input Queue",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "31s"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "previous"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "measurement": "BGP_SESSION",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "session_output_queue"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 23,
-            "w": 11,
-            "x": 13,
-            "y": 16
-          },
-          "id": 49,
-          "options": {
-            "displayMode": "lcd",
-            "minVizHeight": 10,
-            "minVizWidth": 0,
-            "namePlacement": "top",
-            "orientation": "horizontal",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showUnfilled": true,
-            "text": {},
-            "valueMode": "text"
-          },
-          "pluginVersion": "10.2.0",
-          "repeatDirection": "h",
-          "targets": [
-            {
-              "alias": "Received - $tag_neighbor_afi_safi_name",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "instance_name::tag"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "peer_group_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "measurement": "BGP_GROUP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"safi_received\") FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "safi_received"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "instance_name::tag",
-                  "operator": "=~",
-                  "value": "/^$instance$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "peer_group_name::tag",
-                  "operator": "=~",
-                  "value": "/^$peergroup$/"
-                }
-              ]
-            },
-            {
-              "alias": "Dropped by policy - $tag_neighbor_afi_safi_name",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "instance_name::tag"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "peer_group_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "hide": false,
-              "measurement": "BGP_GROUP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"safi_received_pre_policy\")-mean(\"safi_accepted\") FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
-              "rawQuery": true,
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "safi_received"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "instance_name::tag",
-                  "operator": "=~",
-                  "value": "/^$instance$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "peer_group_name::tag",
-                  "operator": "=~",
-                  "value": "/^$peergroup$/"
-                }
-              ]
-            },
-            {
-              "alias": "Installed - $tag_neighbor_afi_safi_name",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "instance_name::tag"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "peer_group_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "hide": false,
-              "measurement": "BGP_GROUP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"safi_installed\") FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
-              "rawQuery": true,
-              "refId": "C",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "safi_received"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "instance_name::tag",
-                  "operator": "=~",
-                  "value": "/^$instance$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "peer_group_name::tag",
-                  "operator": "=~",
-                  "value": "/^$peergroup$/"
-                }
-              ]
-            },
-            {
-              "alias": "Sent - $tag_neighbor_afi_safi_name",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "instance_name::tag"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "peer_group_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "hide": false,
-              "measurement": "BGP_GROUP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"safi_sent\") FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
-              "rawQuery": true,
-              "refId": "E",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "safi_received"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "instance_name::tag",
-                  "operator": "=~",
-                  "value": "/^$instance$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "peer_group_name::tag",
-                  "operator": "=~",
-                  "value": "/^$peergroup$/"
-                }
-              ]
-            }
-          ],
-          "title": "Neighbor $neighbor - current routes per family",
-          "type": "bargauge"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [
-                {
-                  "options": {
-                    "0": {
-                      "color": "green",
-                      "index": 0,
-                      "text": "N/A"
-                    }
-                  },
-                  "type": "value"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "blue",
-                    "value": null
-                  }
-                ]
-              }
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 13,
-            "x": 0,
-            "y": 20
-          },
-          "id": 121,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "center",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "textMode": "auto"
-          },
-          "pluginVersion": "10.2.0",
-          "targets": [
-            {
-              "alias": "STATE",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": true,
-              "measurement": "BGP_SESSION",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT \"session_state\" FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "session_state"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
-            },
-            {
-              "alias": "$tag_neighbor_afi_safi_name",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "neighbor_afi_safi_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "hide": false,
-              "measurement": "BGP_SESSION",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT \"session_state\" FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
-              "rawQuery": false,
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "max_prefixes"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
-            }
-          ],
-          "title": "Max Prefixes config per family",
-          "transformations": [],
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 6,
-                "gradientMode": "opacity",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "smooth",
-                "lineStyle": {
-                  "fill": "solid"
-                },
-                "lineWidth": 1,
-                "pointSize": 10,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [
-                {
-                  "options": {
-                    "ESTABLISHED": {
-                      "index": 0,
-                      "text": "1"
-                    }
-                  },
-                  "type": "value"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "none"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 15,
-            "w": 13,
-            "x": 0,
-            "y": 24
-          },
-          "id": 56,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "alias": "Received routes $tag_neighbor_afi_safi_name",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "neighbor_afi_safi_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "hide": false,
-              "measurement": "BGP_SESSION",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "safi_received"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
-            },
-            {
-              "alias": "Installed routes $tag_neighbor_afi_safi_name",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "neighbor_afi_safi_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "hide": false,
-              "measurement": "BGP_SESSION",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "safi_installed"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
-            },
-            {
-              "alias": "Installed routes $tag_neighbor_afi_safi_name",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "neighbor_afi_safi_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "hide": false,
-              "measurement": "BGP_SESSION",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "C",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "safi_sent"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
-            },
-            {
-              "alias": "Rejected by Policy routes $tag_neighbor_afi_safi_name",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "neighbor_afi_safi_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "hide": false,
-              "measurement": "BGP_SESSION",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT (\"safi_received_pre_policy\" -  \"safi_accepted\") FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_afi_safi_name\"::tag",
-              "rawQuery": true,
-              "refId": "D",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "safi_received_pre_policy"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
-            }
-          ],
-          "title": "Neighbor $neighbor - Routes history",
-          "transformations": [
-            {
-              "id": "convertFieldType",
-              "options": {
-                "conversions": [
-                  {
-                    "destinationType": "enum",
-                    "targetField": "BGP_SESSION.session_state"
-                  }
-                ],
-                "fields": {}
-              }
-            }
-          ],
-          "type": "timeseries"
-        }
-      ],
+      "panels": [],
       "repeat": "neighbor",
       "repeatDirection": "h",
       "title": "NEIGHBOR $neighbor INFO",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "(null)": {
+                  "index": 0,
+                  "text": "Unknown"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 31
+      },
+      "id": 71,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^DESC$/",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "alias": "DESC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "BGP_SESSION",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "session_description"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "neighbor_address::tag",
+              "operator": "=~",
+              "value": "/^$neighbor$/"
+            }
+          ]
+        }
+      ],
+      "title": "Peer Name",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 31
+      },
+      "id": 70,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "alias": "PEERAS",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "BGP_SESSION",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "session_peer_as"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "neighbor_address::tag",
+              "operator": "=~",
+              "value": "/^$neighbor$/"
+            }
+          ]
+        }
+      ],
+      "title": "Peer AS",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "ESTABLISHED": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "ESTABLISHED"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "pattern": "*",
+                "result": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "DOWN"
+                }
+              },
+              "type": "regex"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 6,
+        "y": 31
+      },
+      "id": 88,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^STATE$/",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "alias": "STATE",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": true,
+          "measurement": "BGP_SESSION",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"session_state\" FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "session_state"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "neighbor_address::tag",
+              "operator": "=~",
+              "value": "/^$neighbor$/"
+            }
+          ]
+        },
+        {
+          "alias": "STATE",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "BGP_SESSION",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"session_state\" FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "session_state"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "neighbor_address::tag",
+              "operator": "=~",
+              "value": "/^$neighbor$/"
+            }
+          ]
+        }
+      ],
+      "title": "Peer State",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "displayName": "Input Queue",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 9,
+        "y": 31
+      },
+      "id": 74,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "alias": "Input Queue",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "31s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "BGP_SESSION",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "session_output_queue"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "displayName": "Output Queue",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 11,
+        "y": 31
+      },
+      "id": 73,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "alias": "Input Queue",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "31s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "previous"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "BGP_SESSION",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "session_output_queue"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 23,
+        "w": 11,
+        "x": 13,
+        "y": 31
+      },
+      "id": 49,
+      "options": {
+        "displayMode": "lcd",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "namePlacement": "top",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "text": {},
+        "valueMode": "text"
+      },
+      "pluginVersion": "10.2.0",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "alias": "Received - $tag_neighbor_afi_safi_name",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "instance_name::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "peer_group_name::tag"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "BGP_GROUP",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"safi_received\") FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "safi_received"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "instance_name::tag",
+              "operator": "=~",
+              "value": "/^$instance$/"
+            },
+            {
+              "condition": "AND",
+              "key": "peer_group_name::tag",
+              "operator": "=~",
+              "value": "/^$peergroup$/"
+            }
+          ]
+        },
+        {
+          "alias": "Dropped by policy - $tag_neighbor_afi_safi_name",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "instance_name::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "peer_group_name::tag"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "BGP_GROUP",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"safi_received_pre_policy\")-mean(\"safi_accepted\") FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "safi_received"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "instance_name::tag",
+              "operator": "=~",
+              "value": "/^$instance$/"
+            },
+            {
+              "condition": "AND",
+              "key": "peer_group_name::tag",
+              "operator": "=~",
+              "value": "/^$peergroup$/"
+            }
+          ]
+        },
+        {
+          "alias": "Installed - $tag_neighbor_afi_safi_name",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "instance_name::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "peer_group_name::tag"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "BGP_GROUP",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"safi_installed\") FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "safi_received"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "instance_name::tag",
+              "operator": "=~",
+              "value": "/^$instance$/"
+            },
+            {
+              "condition": "AND",
+              "key": "peer_group_name::tag",
+              "operator": "=~",
+              "value": "/^$peergroup$/"
+            }
+          ]
+        },
+        {
+          "alias": "Sent - $tag_neighbor_afi_safi_name",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "instance_name::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "peer_group_name::tag"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "BGP_GROUP",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"safi_sent\") FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
+          "rawQuery": true,
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "safi_received"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "instance_name::tag",
+              "operator": "=~",
+              "value": "/^$instance$/"
+            },
+            {
+              "condition": "AND",
+              "key": "peer_group_name::tag",
+              "operator": "=~",
+              "value": "/^$peergroup$/"
+            }
+          ]
+        }
+      ],
+      "title": "Neighbor $neighbor - current routes per family",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "N/A"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 13,
+        "x": 0,
+        "y": 35
+      },
+      "id": 121,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "alias": "STATE",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": true,
+          "measurement": "BGP_SESSION",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"session_state\" FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "session_state"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "neighbor_address::tag",
+              "operator": "=~",
+              "value": "/^$neighbor$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_neighbor_afi_safi_name",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "neighbor_afi_safi_name::tag"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "BGP_SESSION",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"session_state\" FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "max_prefixes"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "neighbor_address::tag",
+              "operator": "=~",
+              "value": "/^$neighbor$/"
+            }
+          ]
+        }
+      ],
+      "title": "Max Prefixes config per family",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 10,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [
+            {
+              "options": {
+                "ESTABLISHED": {
+                  "index": 0,
+                  "text": "1"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 13,
+        "x": 0,
+        "y": 39
+      },
+      "id": 56,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Received routes $tag_neighbor_afi_safi_name",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "neighbor_afi_safi_name::tag"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "BGP_SESSION",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "safi_received"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "neighbor_address::tag",
+              "operator": "=~",
+              "value": "/^$neighbor$/"
+            }
+          ]
+        },
+        {
+          "alias": "Installed routes $tag_neighbor_afi_safi_name",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "neighbor_afi_safi_name::tag"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "BGP_SESSION",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "safi_installed"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "neighbor_address::tag",
+              "operator": "=~",
+              "value": "/^$neighbor$/"
+            }
+          ]
+        },
+        {
+          "alias": "Sent routes $tag_neighbor_afi_safi_name",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "neighbor_afi_safi_name::tag"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "BGP_SESSION",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "safi_sent"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "neighbor_address::tag",
+              "operator": "=~",
+              "value": "/^$neighbor$/"
+            }
+          ]
+        },
+        {
+          "alias": "Rejected by Policy routes $tag_neighbor_afi_safi_name",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "neighbor_afi_safi_name::tag"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "BGP_SESSION",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT (\"safi_received_pre_policy\" -  \"safi_accepted\") FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_afi_safi_name\"::tag",
+          "rawQuery": true,
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "safi_received_pre_policy"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "neighbor_address::tag",
+              "operator": "=~",
+              "value": "/^$neighbor$/"
+            }
+          ]
+        }
+      ],
+      "title": "Neighbor $neighbor - Routes history",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "enum",
+                "targetField": "BGP_SESSION.session_state"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "timeseries"
     }
   ],
   "refresh": "1m",
@@ -2048,10 +2047,10 @@
         "current": {
           "selected": true,
           "text": [
-            "DEFAULT"
+            "All"
           ],
           "value": [
-            "DEFAULT"
+            "$__all"
           ]
         },
         "datasource": {
@@ -2076,10 +2075,10 @@
         "current": {
           "selected": true,
           "text": [
-            "IBGP"
+            "All"
           ],
           "value": [
-            "IBGP"
+            "$__all"
           ]
         },
         "datasource": {
@@ -2166,6 +2165,6 @@
   "timezone": "",
   "title": "BGP MONITORING PROFILE - JTSO",
   "uid": "bgpdashboard",
-  "version": 5,
+  "version": 1,
   "weekStart": ""
 }
