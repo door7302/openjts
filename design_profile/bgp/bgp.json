@@ -23,7 +23,7 @@
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
-  "graphTooltip": 1,
+  "graphTooltip": 2,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -542,6 +542,31 @@
         "type": "influxdb",
         "uid": "jtsuid"
       },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 191,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h2><center>On Change Events</center></h2>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.2.0",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -613,7 +638,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 19
+        "y": 21
       },
       "id": 30,
       "options": {
@@ -734,7 +759,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 32
       },
       "id": 41,
       "panels": [],
@@ -780,7 +805,7 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 31
+        "y": 33
       },
       "id": 71,
       "options": {
@@ -872,7 +897,7 @@
         "h": 4,
         "w": 3,
         "x": 3,
-        "y": 31
+        "y": 33
       },
       "id": 70,
       "options": {
@@ -987,7 +1012,7 @@
         "h": 4,
         "w": 3,
         "x": 6,
-        "y": 31
+        "y": 33
       },
       "id": 88,
       "options": {
@@ -1057,7 +1082,7 @@
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT \"session_state\" FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
-          "rawQuery": false,
+          "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
           "select": [
@@ -1121,7 +1146,7 @@
         "h": 4,
         "w": 2,
         "x": 9,
-        "y": 31
+        "y": 33
       },
       "id": 74,
       "options": {
@@ -1163,6 +1188,8 @@
           "measurement": "BGP_SESSION",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT mean(\"session_output_queue\") FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/)   GROUP BY time(31s) fill(previous)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1216,7 +1243,7 @@
         "h": 4,
         "w": 2,
         "x": 11,
-        "y": 31
+        "y": 33
       },
       "id": 73,
       "options": {
@@ -1258,6 +1285,8 @@
           "measurement": "BGP_SESSION",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT mean(\"session_output_queue\") FROM \"BGP_SESSION\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/)   GROUP BY time(31s) fill(previous)",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1274,7 +1303,13 @@
               }
             ]
           ],
-          "tags": []
+          "tags": [
+            {
+              "key": "neighbor_address::tag",
+              "operator": "=~",
+              "value": "/^$neighbor$/"
+            }
+          ]
         }
       ],
       "type": "stat"
@@ -1309,7 +1344,7 @@
         "h": 23,
         "w": 11,
         "x": 13,
-        "y": 31
+        "y": 33
       },
       "id": 49,
       "options": {
@@ -1606,7 +1641,7 @@
         "h": 4,
         "w": 13,
         "x": 0,
-        "y": 35
+        "y": 37
       },
       "id": 121,
       "options": {
@@ -1797,7 +1832,7 @@
         "h": 15,
         "w": 13,
         "x": 0,
-        "y": 39
+        "y": 41
       },
       "id": 56,
       "options": {
