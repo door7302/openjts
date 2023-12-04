@@ -41,7 +41,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 Then login first time (requiered for downloading from docker hub):
 
 ```shell
-docker login --username door7302
+docker login --username <your-username>
 ```
 
 And test: 
@@ -72,14 +72,14 @@ Just clone the git repo locally.
 sudo mkdir JTS
 cd JTS
 
-sudo git clone https://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@github.com/door7302/openjts.git .
+sudo git clone https://github.com/door7302/openjts.git .
 ```
 
 ## Configuration of JTS 
 
 ### Prefer HTTPS ? 
 
-If you want to use HTTPs for JTSO and Grafane you may use self signed certificate:
+If you want to use HTTPs for JTSO and Grafana you may use self signed certificate:
 
 ```shell
 #Go to the jtso/cert directpory 
@@ -93,13 +93,33 @@ sudo rm server.pass.key
 
 sudo openssl req -new -key server.key -out server.csr
 
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]: FR
+State or Province Name (full name) [Some-State]: France
+Locality Name (eg, city) []: Paris
+Organization Name (eg, company) [Internet Widgits Pty Ltd]: Juniper
+Organizational Unit Name (eg, section) []: AWAN
+Common Name (e.g. server FQDN or YOUR name) []: myserver
+Email Address []: xxx@yyy.com
+ 
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+
 sudo openssl x509 -req -sha256 -days 365 -in server.csr -signkey server.key -out server.crt
 ```
 
 Now, edit the JTSO config file and enable JTSO HTTPS (set to true)
 
 ```shell
-sudo vi ./compose/jtso/config.yml
+sudo vi compose/jtso/config.yml
 /.../
 modules:
   portal:
@@ -112,13 +132,13 @@ modules:
 Now copy server.key & server.crt into ./compose/grafana/cert 
 
 ```shell
-cd ./compose/jtso/cert 
+cd compose/jtso/cert 
 sudo cp server.* ../../grafana/cert
 ```
 Finally, update the ./compose/grafana/grafana.ini config file like that:
 
 ```shell
-sudo vi ./compose/grafana/grafana.ini 
+sudo vi compose/grafana/grafana.ini 
 [server]
 # Protocol (http, https, h2, socket)
 protocol = https
@@ -147,7 +167,7 @@ JTSO_PORT=80
 If you change the GRAFANA public facing port you also need to update the jtso config.yml with the same port, like that:
 
 ```shell
-sudo vi ./compose/jtso/config.yml
+sudo vi compose/jtso/config.yml
 /.../
 modules:
   grafana:
@@ -168,7 +188,7 @@ If needed you can change these ports.
 By default OpenJTS uses the Netconf port 830. If you want to change this port you need to edit the jtso config file:
 
 ```shell
-sudo vi ./compose/jtso/config.yml
+sudo vi compose/jtso/config.yml
 /.../
 protocols:
   netconf:
@@ -181,7 +201,7 @@ protocols:
 By default OpenJTS uses the gRPC port 9339. If you want to change this port you need to edit the jtso config file:
 
 ```shell
-sudo vi ./compose/jtso/config.yml
+sudo vi compose/jtso/config.yml
 /.../
 protocols:
   gnmi:
@@ -194,7 +214,7 @@ protocols:
 If you want to use SSL for gNMI (**global to all routers**) you need first to create a self signed CA: **Keep the naming convention**
 
 ```shell
-cd ./compose/telegraf/cert
+cd compose/telegraf/cert
 sudo openssl genrsa -out RootCA.key 2048
 sudo openssl req -x509 -new -key RootCA.key -days 3650 -out RootCA.crt
 ```
