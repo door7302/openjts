@@ -3,7 +3,7 @@ protocols:
     port: 830
     rpc_timeout: 10 
   gnmi:
-    port: 9339
+    port: 50051
 modules:
   grafana:
     port: 8080
@@ -12,7 +12,7 @@ modules:
     interval: 720
     workers: 2
   portal:
-    https: false 
+    https: false
     server_crt: "server.crt"
     server_key: "server.key"
     port: 8081
