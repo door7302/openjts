@@ -2915,7 +2915,7 @@
           "resultFormat": "time_series"
         }
       ],
-      "title": "PROCESS CPU (only >32MB)",
+      "title": "PROCESS Memory (only >32MB)",
       "transformations": [
         {
           "id": "reduce",
