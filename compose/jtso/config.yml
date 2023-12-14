@@ -3,7 +3,7 @@ protocols:
     port: 830
     rpc_timeout: 10 
   gnmi:
-    port: 50051
+    port: 9339
 modules:
   grafana:
     port: 8080
