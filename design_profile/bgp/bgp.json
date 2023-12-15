@@ -435,8 +435,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "purple",
-                "value": null
+                "color": "purple"
               }
             ]
           },
@@ -446,7 +445,7 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 8,
+        "w": 6,
         "x": 0,
         "y": 14
       },
@@ -626,8 +625,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "transparent",
-                "value": null
+                "color": "transparent"
               }
             ]
           }
@@ -793,8 +791,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
-                "value": null
+                "color": "blue"
               }
             ]
           }
@@ -885,8 +882,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
-                "value": null
+                "color": "blue"
               }
             ]
           }
@@ -1000,8 +996,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
-                "value": null
+                "color": "blue"
               }
             ]
           }
@@ -1130,8 +1125,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1227,8 +1221,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1331,8 +1324,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1629,8 +1621,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "blue",
-                "value": null
+                "color": "blue"
               }
             ]
           }
@@ -1815,8 +1806,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2057,8 +2047,8 @@
       {
         "current": {
           "selected": false,
-          "text": "rtme-mx-22.englab.juniper.net",
-          "value": "rtme-mx-22.englab.juniper.net"
+          "text": "rtme-mx10k4-01.englab.juniper.net",
+          "value": "rtme-mx10k4-01.englab.juniper.net"
         },
         "datasource": {
           "type": "influxdb",
@@ -2120,14 +2110,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values with key=\"peer_group_name\" where instance_name=~/$instance/",
+        "definition": "show tag values with key=\"peer_group_name\" where device=~/$rtr/ and instance_name=~/$instance/",
         "hide": 0,
         "includeAll": true,
         "label": "Peer Group",
         "multi": true,
         "name": "peergroup",
         "options": [],
-        "query": "show tag values with key=\"peer_group_name\" where instance_name=~/$instance/",
+        "query": "show tag values with key=\"peer_group_name\" where device=~/$rtr/ and instance_name=~/$instance/",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -2148,14 +2138,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values with key=\"peer_group_afi_safi_name\" where peer_group_name=~/$peergroup/",
+        "definition": "show tag values with key=\"peer_group_afi_safi_name\" where device=~/$rtr/ and peer_group_name=~/$peergroup/",
         "hide": 0,
         "includeAll": true,
         "label": "Family",
         "multi": true,
         "name": "family",
         "options": [],
-        "query": "show tag values with key=\"peer_group_afi_safi_name\" where peer_group_name=~/$peergroup/",
+        "query": "show tag values with key=\"peer_group_afi_safi_name\" where device=~/$rtr/ and peer_group_name=~/$peergroup/",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -2176,14 +2166,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values with key=\"neighbor_address\" where instance_name=~/$instance/ and neighbor_afi_safi_name=~/$family/ ",
+        "definition": "show tag values with key=\"neighbor_address\" where device=~/$rtr/ and instance_name=~/$instance/ and neighbor_afi_safi_name=~/$family/ ",
         "hide": 0,
         "includeAll": true,
         "label": "Neighbor",
         "multi": true,
         "name": "neighbor",
         "options": [],
-        "query": "show tag values with key=\"neighbor_address\" where instance_name=~/$instance/ and neighbor_afi_safi_name=~/$family/ ",
+        "query": "show tag values with key=\"neighbor_address\" where device=~/$rtr/ and instance_name=~/$instance/ and neighbor_afi_safi_name=~/$family/ ",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
