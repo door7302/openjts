@@ -112,7 +112,7 @@ services:
     user: root
     volumes:
       - /var/log:/var/log
-      - ./jtso/db:/etc/jtso/db
+      - ./jtso/db:/etc/jtso
       - ./jtso/config.yml:/etc/jtso/config.yml
       - ./jtso/cert:/var/cert
       - ./jtso/profiles:/var/profiles
