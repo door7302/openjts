@@ -46,72 +46,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "mappings": [],
-          "max": 80,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "celsius"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 5,
-        "x": 0,
-        "y": 1
-      },
-      "id": 14,
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
-      },
-      "pluginVersion": "10.1.4",
-      "targets": [
-        {
-          "alias": "$tag_device",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "query": "SELECT last(\"temperature_ambient\") FROM \"POWER\" WHERE device=~/$device/ and component_name=~/(?i)chassis.*/ GROUP BY device",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series"
-        }
-      ],
-      "title": "Ambient Temperature",
-      "type": "gauge"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
           "custom": {
             "align": "center",
             "cellOptions": {
@@ -149,9 +83,9 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
-        "w": 6,
-        "x": 5,
+        "h": 4,
+        "w": 24,
+        "x": 0,
         "y": 1
       },
       "id": 1,
@@ -173,7 +107,7 @@
           }
         ]
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
           "alias": "Field tag__component_name",
@@ -282,12 +216,73 @@
           "color": {
             "mode": "thresholds"
           },
-          "custom": {
-            "align": "center",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
+          "mappings": [],
+          "max": 80,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 5,
+        "x": 0,
+        "y": 5
+      },
+      "id": 14,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "alias": "$tag_device",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "query": "SELECT last(\"temperature_ambient\") FROM \"POWER\" WHERE device=~/$device/ and component_name=~/(?i)chassis.*/ GROUP BY device",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "Ambient Temperature",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
           },
           "mappings": [
             {
@@ -308,8 +303,12 @@
                 "value": null
               },
               {
+                "color": "orange",
+                "value": 5000
+              },
+              {
                 "color": "red",
-                "value": 80
+                "value": 10000
               }
             ]
           },
@@ -318,31 +317,27 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
-        "w": 13,
-        "x": 11,
-        "y": 1
+        "h": 7,
+        "w": 19,
+        "x": 5,
+        "y": 5
       },
       "id": 2,
       "options": {
-        "cellHeight": "lg",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
           ],
-          "show": false
+          "fields": "",
+          "values": false
         },
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": false,
-            "displayName": "VERSION"
-          }
-        ]
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
           "alias": "Field tag__component_name",
@@ -438,7 +433,329 @@
           }
         }
       ],
-      "type": "table"
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 0,
+                  "text": "N/A"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 5000
+              },
+              {
+                "color": "red",
+                "value": 10000
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 12
+      },
+      "id": 23,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "alias": "Field tag__component_name",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "POWER",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select last(power_zone_0_allocated), last(power_zone_0_capacity),  last(power_zone_0_maximum), last(power_zone_0_remaining), last(power_zone_0_usage) from POWER  where device=~/$device/ and \n component_name=~/(?i)chassis.*/  AND $timeFilter group by device, component_name fill(0)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "*"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=",
+              "value": "rtme-mx-22.englab.juniper.net"
+            }
+          ]
+        }
+      ],
+      "title": "Chassis Power Details - Zone 0",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "component_name": true,
+              "last_allocated_power": true,
+              "last_power_capacity_maximum": true,
+              "last_power_capacity_usage": true,
+              "last_power_dc_output": true,
+              "last_power_input1_usage": true,
+              "last_power_input2_usage": true,
+              "last_power_maximum": true,
+              "last_power_system_allocated": false,
+              "last_power_usage": true,
+              "last_power_zone_no": true,
+              "last_temperature_ambient": true,
+              "last_temperature_exhaust_a": true,
+              "last_temperature_exhaust_b": true
+            },
+            "indexByName": {
+              "MODEL": 2,
+              "Time": 0,
+              "VERSION": 3,
+              "component_name": 4,
+              "device": 1,
+              "last": 5,
+              "last_1": 6,
+              "last_2": 7,
+              "last_3": 8,
+              "last_4": 9
+            },
+            "renameByName": {
+              "component_name": "Component",
+              "device": "Router",
+              "last": "System Allocated",
+              "last_1": "System Capacity",
+              "last_2": "System Maximum",
+              "last_3": "System Remaining",
+              "last_4": "System Usage",
+              "last_allocated_power": "",
+              "last_power_capacity_maximum": "",
+              "last_power_capacity_usage": "",
+              "last_power_dc_output": "",
+              "last_power_system_allocated": "System Allocated",
+              "last_power_system_capacity": "System Capacity",
+              "last_power_system_maximum": "System Maximum",
+              "last_power_system_remaining": "System Remaing",
+              "last_power_system_usage": "System Usage",
+              "last_power_usage": "",
+              "last_power_zone_0_allocated": "Zone 0 Allocated",
+              "last_power_zone_0_capacity": "Zone 0 Capacity",
+              "last_power_zone_0_maximum": "Zone 0 Maximum",
+              "last_power_zone_0_remaining": "Zone 0 Remaining",
+              "last_power_zone_0_usage": "Zone 0 Usage"
+            }
+          }
+        }
+      ],
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "index": 0,
+                  "text": "N/A"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 5000
+              },
+              {
+                "color": "red",
+                "value": 10000
+              }
+            ]
+          },
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 12
+      },
+      "id": 24,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
+        {
+          "alias": "Field tag__component_name",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "POWER",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select last(power_zone_1_allocated), last(power_zone_1_capacity),  last(power_zone_1_maximum), last(power_zone_1_remaining), last(power_zone_1_usage) from POWER  where device=~/$device/ and \n component_name=~/(?i)chassis.*/  AND $timeFilter group by device, component_name fill(0)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "*"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=",
+              "value": "rtme-mx-22.englab.juniper.net"
+            }
+          ]
+        }
+      ],
+      "title": "Chassis Power Details - Zone 1",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "component_name": true,
+              "last_allocated_power": true,
+              "last_power_capacity_maximum": true,
+              "last_power_capacity_usage": true,
+              "last_power_dc_output": true,
+              "last_power_input1_usage": true,
+              "last_power_input2_usage": true,
+              "last_power_maximum": true,
+              "last_power_system_allocated": false,
+              "last_power_usage": true,
+              "last_power_zone_no": true,
+              "last_temperature_ambient": true,
+              "last_temperature_exhaust_a": true,
+              "last_temperature_exhaust_b": true
+            },
+            "indexByName": {
+              "MODEL": 2,
+              "Time": 0,
+              "VERSION": 3,
+              "component_name": 4,
+              "device": 1,
+              "last": 5,
+              "last_1": 6,
+              "last_2": 7,
+              "last_3": 8,
+              "last_4": 9
+            },
+            "renameByName": {
+              "component_name": "Component",
+              "device": "Router",
+              "last": "System Allocated",
+              "last_1": "System Capacity",
+              "last_2": "System Maximum",
+              "last_3": "System Remaining",
+              "last_4": "System Usage",
+              "last_allocated_power": "",
+              "last_power_capacity_maximum": "",
+              "last_power_capacity_usage": "",
+              "last_power_dc_output": "",
+              "last_power_system_allocated": "System Allocated",
+              "last_power_system_capacity": "System Capacity",
+              "last_power_system_maximum": "System Maximum",
+              "last_power_system_remaining": "System Remaing",
+              "last_power_system_usage": "System Usage",
+              "last_power_usage": "",
+              "last_power_zone_0_allocated": "Zone 0 Allocated",
+              "last_power_zone_0_capacity": "Zone 0 Capacity",
+              "last_power_zone_0_maximum": "Zone 0 Maximum",
+              "last_power_zone_0_remaining": "Zone 0 Remaining",
+              "last_power_zone_0_usage": "Zone 0 Usage"
+            }
+          }
+        }
+      ],
+      "type": "gauge"
     },
     {
       "datasource": {
@@ -451,6 +768,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -503,7 +821,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 11
+        "y": 19
       },
       "id": 3,
       "options": {
@@ -527,7 +845,7 @@
       },
       "targets": [
         {
-          "alias": "$tag_device - $tag_MODEL",
+          "alias": "Power system usage - $tag_device ",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
@@ -536,9 +854,75 @@
           "measurement": "POWER",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"power_system_usage\" FROM \"POWER\" WHERE \"device\"=~ /^$device$/  group by device, MODEL",
+          "query": "SELECT \"power_system_usage\" FROM \"POWER\" WHERE \"device\"=~ /^$device$/  group by device, MODEL fill(null)",
           "rawQuery": true,
           "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "power_system_usage"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$device$/"
+            }
+          ]
+        },
+        {
+          "alias": "Power zone 0 usage - $tag_device ",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "POWER",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"power_zone_0_usage\" FROM \"POWER\" WHERE \"device\"=~ /^$device$/  group by device, MODEL fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "power_system_usage"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$device$/"
+            }
+          ]
+        },
+        {
+          "alias": "Power zone 1 usage - $tag_device ",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "POWER",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"power_zone_1_usage\" FROM \"POWER\" WHERE \"device\"=~ /^$device$/  group by device, MODEL fill(null)",
+          "rawQuery": true,
+          "refId": "C",
           "resultFormat": "time_series",
           "select": [
             [
@@ -573,6 +957,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -626,7 +1011,7 @@
         "h": 17,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 30
       },
       "id": 7,
       "options": {
@@ -833,6 +1218,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -886,7 +1272,7 @@
         "h": 17,
         "w": 24,
         "x": 0,
-        "y": 39
+        "y": 47
       },
       "id": 22,
       "options": {
@@ -979,7 +1365,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 56
+        "y": 64
       },
       "id": 5,
       "panels": [],
@@ -997,7 +1383,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 57
+        "y": 65
       },
       "id": 18,
       "options": {
@@ -1034,8 +1420,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1064,7 +1449,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 59
+        "y": 67
       },
       "id": 6,
       "options": {
@@ -1191,8 +1576,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1208,7 +1592,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 59
+        "y": 67
       },
       "id": 17,
       "options": {
@@ -1302,7 +1686,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 70
+        "y": 78
       },
       "id": 19,
       "options": {
@@ -1339,8 +1723,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1369,7 +1752,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 72
+        "y": 80
       },
       "id": 8,
       "options": {
@@ -1496,8 +1879,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1513,7 +1895,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 72
+        "y": 80
       },
       "id": 9,
       "options": {
@@ -1615,8 +1997,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "yellow",
@@ -1640,7 +2021,7 @@
         "h": 17,
         "w": 12,
         "x": 0,
-        "y": 83
+        "y": 91
       },
       "id": 15,
       "options": {
@@ -1760,8 +2141,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -1773,7 +2153,7 @@
         "h": 17,
         "w": 12,
         "x": 12,
-        "y": 83
+        "y": 91
       },
       "id": 16,
       "options": {
@@ -1854,7 +2234,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 100
+        "y": 108
       },
       "id": 20,
       "options": {
@@ -1891,8 +2271,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1921,7 +2300,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 102
+        "y": 110
       },
       "id": 12,
       "options": {
@@ -2048,8 +2427,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2065,7 +2443,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 102
+        "y": 110
       },
       "id": 11,
       "options": {
@@ -2159,7 +2537,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 113
+        "y": 121
       },
       "id": 21,
       "options": {
@@ -2196,8 +2574,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2226,7 +2603,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 115
+        "y": 123
       },
       "id": 10,
       "options": {
@@ -2353,8 +2730,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2370,7 +2746,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 115
+        "y": 123
       },
       "id": 13,
       "options": {
@@ -2456,17 +2832,16 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "",
+  "refresh": "30s",
   "schemaVersion": 38,
-  "style": "dark",
   "tags": [],
   "templating": {
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "rtme-ptx10k16-01.englab.juniper.net",
-          "value": "rtme-ptx10k16-01.englab.juniper.net"
+          "selected": true,
+          "text": "rtme-mx-62.englab.juniper.net",
+          "value": "rtme-mx-62.englab.juniper.net"
         },
         "datasource": {
           "type": "influxdb",
@@ -2489,7 +2864,7 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
