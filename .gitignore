@@ -6,6 +6,7 @@ doc/*
 working_dir/**
 compose/influxdb/data/**
 !compose/influxdb/data/.gitkeep
+compose/jtso/jtso.db
 compose/jtso/active_profiles/*
 !compose/jtso/active_profiles/.gitkeep
 compose/kapacitor/data/**
