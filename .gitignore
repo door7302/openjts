@@ -3,7 +3,6 @@ addon/
 tmp/*
 addon/*
 doc/*
-working_dir/**
 compose/influxdb/data/**
 !compose/influxdb/data/.gitkeep
 compose/jtso/db/*
@@ -27,4 +26,5 @@ compose/telegraf/cert/acx/telegraf.d/*
 !compose/telegraf/cert/acx/telegraf.conf
 compose/grafana/cert/*
 !compose/grafana/cert/.gitkeep
+compose/grafana/working_dir/**
 .DS_Store*
