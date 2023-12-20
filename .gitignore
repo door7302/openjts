@@ -26,5 +26,5 @@ compose/telegraf/cert/acx/telegraf.d/*
 !compose/telegraf/cert/acx/telegraf.conf
 compose/grafana/cert/*
 !compose/grafana/cert/.gitkeep
-design_profile/working_dir/**
+working_dir/**
 .DS_Store*
