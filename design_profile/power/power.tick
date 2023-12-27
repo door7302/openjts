@@ -1,0 +1,28 @@
+var name = 'Power_Compute'
+
+var win = 3m
+
+var every = 3m
+
+var power_used = batch
+    |query('select last(power_zone_0_usage)+last(power_zone_1_usage)+last(power_system_usage) FROM "jtsdb"."autogen"."POWER" fill(0)')
+        .period(win)
+        .every(every)
+        .groupBy('device', 'MODEL')
+        .align()
+        .cluster('influxdb')
+    |httpOut('sensor')
+
+var sum_power = power_used
+    |groupBy('MODEL')
+    |sum('last_last_last')
+        .as('power_model')
+    |httpOut('sensor2')
+        
+var influxOut = sum_power
+    |influxDBOut()
+        .create()
+        .database('jtsdb')
+        .retentionPolicy('autogen')
+        .measurement('POWER_KAPA')
+        .cluster('influxdb')

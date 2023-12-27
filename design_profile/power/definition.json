@@ -18,8 +18,9 @@
         }
       ]
     },
-    "kapacitor": null,
+    "kapacitor": ["power.tick"],
     "grafana": [
-      "power.json"
+      "power.json",
+      "power_agg.json"
     ]
 }
