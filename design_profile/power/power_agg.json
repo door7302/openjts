@@ -297,7 +297,7 @@
           "measurement": "POWER_KAPA",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(power) from (SELECT mean(\"power_model\") as power FROM \"POWER_KAPA\" WHERE $timeFilter GROUP BY \"MODEL\"::tag, time(5m)) group by time(5m) ",
+          "query": "select sum(power) from (SELECT mean(\"power_model\") as power FROM \"POWER_KAPA\" WHERE $timeFilter GROUP BY \"MODEL\"::tag, time(10m)) group by time(10m) ",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
