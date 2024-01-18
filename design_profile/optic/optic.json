@@ -223,9 +223,9 @@
             "indexByName": {},
             "renameByName": {
               "ALARM_TYPE": "Type of Alarm",
-              "if_name": "PORT",
               "Time": "Last Update",
-              "count": "Cumulative Alarms"
+              "count": "Cumulative Alarms",
+              "if_name": "PORT"
             }
           }
         }
@@ -349,10 +349,10 @@
             "indexByName": {},
             "renameByName": {
               "ALARM_TYPE": "Type of Alarm",
-              "if_name": "PORT",
               "Time": "Timestamp",
               "count": "Cumulative Alarms",
-              "exception": "Errors observed"
+              "exception": "Errors observed",
+              "if_name": "PORT"
             }
           }
         }
@@ -524,7 +524,6 @@
             "excludeByName": {},
             "indexByName": {},
             "renameByName": {
-              "if_name": "PORT",
               "if_name": "Name",
               "lane_number": "LANE",
               "last": "Current RX (DBm)",
@@ -925,7 +924,6 @@
               "last_9": 9
             },
             "renameByName": {
-              "if_name": "PORT",
               "if_name": "Name",
               "last": "BIAS H. Alrm",
               "last_1": "BIAS H. Warn",
@@ -1318,7 +1316,7 @@
           "measurement": "OPTIC",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"tx_dbm\") as TX FROM \"OPTIC\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" =~ /^$ifname$/) AND $timeFilter GROUP BY lane_number, time(30s) fill(null)",
+          "query": "SELECT mean(\"tx_dbm\") as TX FROM \"OPTIC\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" =~ /^$ifname$/) AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1410,7 +1408,7 @@
           "measurement": "OPTIC",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"tx_high_warn\") as HIGH_WARN, mean(\"tx_low_warn\") as LOW_WARN FROM \"OPTIC\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" =~ /^$ifname$/) AND $timeFilter GROUP BY time(30s) fill(null)",
+          "query": "SELECT mean(\"tx_high_warn\") as HIGH_WARN, mean(\"tx_low_warn\") as LOW_WARN FROM \"OPTIC\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" =~ /^$ifname$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1612,7 +1610,7 @@
           "measurement": "OPTIC",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"rx_dbm\") as RX FROM \"OPTIC\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" =~ /^$ifname$/) AND $timeFilter GROUP BY lane_number, time(30s) fill(null)",
+          "query": "SELECT mean(\"rx_dbm\") as RX FROM \"OPTIC\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" =~ /^$ifname$/) AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1704,7 +1702,7 @@
           "measurement": "OPTIC",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"rx_high_warn\") as HIGH_WARN, mean(\"rx_low_warn\") as LOW_WARN FROM \"OPTIC\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" =~ /^$ifname$/) AND $timeFilter GROUP BY time(30s) fill(null)",
+          "query": "SELECT mean(\"rx_high_warn\") as HIGH_WARN, mean(\"rx_low_warn\") as LOW_WARN FROM \"OPTIC\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" =~ /^$ifname$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1906,7 +1904,7 @@
           "measurement": "OPTIC",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"current_bias\") as BIAS FROM \"OPTIC\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" =~ /^$ifname$/) AND $timeFilter GROUP BY lane_number, time(30s) fill(null)",
+          "query": "SELECT mean(\"current_bias\") as BIAS FROM \"OPTIC\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" =~ /^$ifname$/) AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2108,7 +2106,7 @@
           "measurement": "OPTIC",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"current_temp\") as Temperture  FROM \"OPTIC\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" =~ /^$ifname$/) AND $timeFilter GROUP BY time(30s) fill(null)",
+          "query": "SELECT mean(\"current_temp\") as Temperture  FROM \"OPTIC\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" =~ /^$ifname$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2278,7 +2276,7 @@
           "groupBy": [
             {
               "params": [
-                "30s"
+                "60s"
               ],
               "type": "time"
             },
@@ -2593,7 +2591,7 @@
           "measurement": "OPTIC",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"OPTIC\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" =~ /^$ifname$/) AND $timeFilter GROUP BY time(30s) fill(0)",
+          "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"OPTIC\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" =~ /^$ifname$/) AND $timeFilter GROUP BY time(60s) fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2730,7 +2728,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "SELECT mean(\"in_frames_64_octets_rate\") as \"64_Bytes\",  mean(\"in_frames_65_127_octets_rate\") as \"65_127_Bytes\", mean(\"in_frames_128_255_octets_rate\") as \"128_255_Bytes\", mean(\"in_frames_256_511_octets_rate\") as \"256_511_Bytes\", mean(\"in_frames_512_1023_octets_rate\") as \"512_1023_Bytes\", mean(\"in_frames_1024_1518_octets_rate\") as \"1024_1518_Bytes\" FROM \"OPTIC\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" =~ /^$ifname$/) AND $timeFilter GROUP by time(30s) ",
+          "query": "SELECT mean(\"in_frames_64_octets_rate\") as \"64_Bytes\",  mean(\"in_frames_65_127_octets_rate\") as \"65_127_Bytes\", mean(\"in_frames_128_255_octets_rate\") as \"128_255_Bytes\", mean(\"in_frames_256_511_octets_rate\") as \"256_511_Bytes\", mean(\"in_frames_512_1023_octets_rate\") as \"512_1023_Bytes\", mean(\"in_frames_1024_1518_octets_rate\") as \"1024_1518_Bytes\" FROM \"OPTIC\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" =~ /^$ifname$/) AND $timeFilter GROUP by time(60s) ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -2748,9 +2746,9 @@
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": "rtme-mx-22.englab.juniper.net",
-          "value": "rtme-mx-22.englab.juniper.net"
+          "selected": false,
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "influxdb",
@@ -2774,10 +2772,10 @@
         "current": {
           "selected": true,
           "text": [
-            "All"
+            "et-0/5/2"
           ],
           "value": [
-            "$__all"
+            "et-0/5/2"
           ]
         },
         "datasource": {
@@ -2801,7 +2799,7 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},

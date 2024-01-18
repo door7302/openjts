@@ -5,7 +5,7 @@ var win = 3m
 var every = 3m
 
 var power_used = batch
-    |query('select last(power_zone_0_usage)+last(power_zone_1_usage)+last(power_system_usage) FROM "jtsdb"."autogen"."POWER" fill(0)')
+    |query('select last(power_zone_0_usage), last(power_zone_1_usage), last(power_system_usage) FROM "jtsdb"."autogen"."POWER" fill(0)')
         .period(win)
         .every(every)
         .groupBy('device', 'MODEL')
@@ -13,13 +13,31 @@ var power_used = batch
         .cluster('influxdb')
     |httpOut('sensor')
 
-var sum_power = power_used
+var sum_power0 = power_used
     |groupBy('MODEL')
-    |sum('last_last_last')
-        .as('power_model')
+    |sum('last')
+        .as('power_model_zone0')
     |httpOut('sensor2')
-        
-var influxOut = sum_power
+
+var sum_power1 = power_used
+    |groupBy('MODEL')
+    |sum('last_1')
+        .as('power_model_zone1')
+    |httpOut('sensor3')
+
+var sum_power2 = power_used
+    |groupBy('MODEL')
+    |sum('last_2')
+        .as('power_model_system')
+    |httpOut('sensor4')
+
+var all_power = sum_power2
+    |join(sum_power0, sum_power1)
+        .as('power_model_system', 'power_model_zone1', 'power_model_zone0')
+        .fill(0)
+    |httpOut('sensor5')
+
+var influxOut = all_power
     |influxDBOut()
         .create()
         .database('jtsdb')

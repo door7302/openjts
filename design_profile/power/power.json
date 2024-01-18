@@ -1008,8 +1008,8 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 17,
-        "w": 24,
+        "h": 15,
+        "w": 15,
         "x": 0,
         "y": 30
       },
@@ -1218,6 +1218,239 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "unit": "watt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 9,
+        "x": 15,
+        "y": 30
+      },
+      "id": 25,
+      "options": {
+        "displayLabels": [
+          "name"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent",
+            "value"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.1.4",
+      "targets": [
+        {
+          "alias": "$tag_component_name",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "POWER",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT used_power FROM \"POWER\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^^FPC+\\d$/ and used_power!= 0 and $timeFilter group by component_name, device fill(0)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "*"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$device$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_component_name",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "POWER",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT output_power FROM \"POWER\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)PSM|PDM|PEM.*/ and $timeFilter group by component_name, device fill(0)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "*"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$device$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_component_name",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "POWER",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT used_power FROM \"POWER\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)Fan.*/ and used_power!= 0 and $timeFilter group by component_name, device fill(0)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "*"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$device$/"
+            }
+          ]
+        },
+        {
+          "alias": "$tag_component_name",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "POWER",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT used_power FROM \"POWER\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)CB|SIB|SFB|RE|SCB|SF|Routin.*/ and used_power!= 0 and $timeFilter group by component_name, device fill(0)",
+          "rawQuery": true,
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "*"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$device$/"
+            }
+          ]
+        }
+      ],
+      "title": "All components power sharing - $device",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "POWER.power_usage {component_name: FPC0, device: rtme-ptx10k16-01.englab.juniper.net}": false,
+              "Time": false
+            },
+            "indexByName": {
+              "Time": 0,
+              "component_name": 2,
+              "device": 1,
+              "last": 3,
+              "last_1": 4
+            },
+            "renameByName": {
+              "component_name": "FPC Slot",
+              "device": "Router",
+              "last": "Current Power Usage",
+              "last_1": "Maximum Power "
+            }
+          }
+        }
+      ],
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
             "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
@@ -1272,7 +1505,7 @@
         "h": 17,
         "w": 24,
         "x": 0,
-        "y": 47
+        "y": 45
       },
       "id": 22,
       "options": {
@@ -1365,7 +1598,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 64
+        "y": 62
       },
       "id": 5,
       "panels": [],
@@ -1383,7 +1616,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 65
+        "y": 63
       },
       "id": 18,
       "options": {
@@ -1395,7 +1628,7 @@
         "content": "<h3><center>FPC/MPC</center></h3>\n",
         "mode": "markdown"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "type": "text"
     },
     {
@@ -1420,7 +1653,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1449,7 +1683,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 67
+        "y": 65
       },
       "id": 6,
       "options": {
@@ -1465,7 +1699,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
           "datasource": {
@@ -1540,6 +1774,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1576,7 +1811,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1592,7 +1828,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 67
+        "y": 65
       },
       "id": 17,
       "options": {
@@ -1686,7 +1922,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 78
+        "y": 76
       },
       "id": 19,
       "options": {
@@ -1698,7 +1934,7 @@
         "content": "<h3><center>FAN</center></h3>\n",
         "mode": "markdown"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "type": "text"
     },
     {
@@ -1723,7 +1959,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1752,7 +1989,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 80
+        "y": 78
       },
       "id": 8,
       "options": {
@@ -1768,7 +2005,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
           "datasource": {
@@ -1843,6 +2080,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1879,7 +2117,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1895,7 +2134,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 80
+        "y": 78
       },
       "id": 9,
       "options": {
@@ -1997,7 +2236,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "yellow",
@@ -2021,13 +2261,14 @@
         "h": 17,
         "w": 12,
         "x": 0,
-        "y": 91
+        "y": 89
       },
       "id": 15,
       "options": {
         "displayMode": "gradient",
         "minVizHeight": 15,
         "minVizWidth": 0,
+        "namePlacement": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -2039,7 +2280,7 @@
         "showUnfilled": true,
         "valueMode": "color"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
           "alias": "$tag_component_name",
@@ -2105,6 +2346,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -2141,7 +2383,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -2153,7 +2396,7 @@
         "h": 17,
         "w": 12,
         "x": 12,
-        "y": 91
+        "y": 89
       },
       "id": 16,
       "options": {
@@ -2234,7 +2477,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 108
+        "y": 106
       },
       "id": 20,
       "options": {
@@ -2246,7 +2489,7 @@
         "content": "<h3><center>CB/RE/Fabric</center></h3>\n",
         "mode": "markdown"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "type": "text"
     },
     {
@@ -2271,7 +2514,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2300,7 +2544,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 110
+        "y": 108
       },
       "id": 12,
       "options": {
@@ -2316,7 +2560,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
           "datasource": {
@@ -2391,6 +2635,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -2427,7 +2672,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2443,7 +2689,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 110
+        "y": 108
       },
       "id": 11,
       "options": {
@@ -2537,7 +2783,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 121
+        "y": 119
       },
       "id": 21,
       "options": {
@@ -2549,7 +2795,7 @@
         "content": "<h3><center>PSM/PEM</center></h3>\n",
         "mode": "markdown"
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "type": "text"
     },
     {
@@ -2574,7 +2820,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2603,7 +2850,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 123
+        "y": 121
       },
       "id": 10,
       "options": {
@@ -2619,7 +2866,7 @@
         "showHeader": true,
         "sortBy": []
       },
-      "pluginVersion": "10.1.4",
+      "pluginVersion": "10.2.0",
       "targets": [
         {
           "datasource": {
@@ -2694,6 +2941,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -2730,7 +2978,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2746,7 +2995,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 123
+        "y": 121
       },
       "id": 13,
       "options": {
@@ -2839,9 +3088,9 @@
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": "rtme-mx-62.englab.juniper.net",
-          "value": "rtme-mx-62.englab.juniper.net"
+          "selected": false,
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "influxdb",
