@@ -36,8 +36,8 @@
         {
           "current": {
             "selected": false,
-            "text": "10.83.151.181",
-            "value": "10.83.151.181"
+            "text": "",
+            "value": ""
           },
           "datasource": {
             "type": "influxdb",
@@ -65,8 +65,8 @@
     },
     "timepicker": {},
     "timezone": "",
-    "title": "BGP MONITORING PROFILE - JTSO",
-    "uid": "bgpdashboard",
+    "title": "FIREWALL FILTER PROFILE - JTSO",
+    "uid": "filterdashboard",
     "version": 1,
     "weekStart": ""
   }

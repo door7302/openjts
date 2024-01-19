@@ -4,21 +4,21 @@
     "telegraf": {
       "mx": [ {
         "version": "all",
-        "conf": "mx_filter.conf"
+        "conf": "all_filter.conf"
         }
       ],
       "ptx":[ {
         "version": "all",
-        "conf": "ptx_filter.conf"
+        "conf": "all_filter.conf"
         }
       ],
       "acx": [ {
         "version": "all",
-        "conf": "acx_filter.conf"
+        "conf": "all_filter.conf"
         }
       ]
     },
-    "kapacitor": ["filter.tick"],
+    "kapacitor": [],
     "grafana": [
       "filter.json"
     ]
