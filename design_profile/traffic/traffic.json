@@ -325,7 +325,7 @@
       "type": "piechart"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -333,175 +333,175 @@
         "y": 14
       },
       "id": 19,
-      "panels": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+      "panels": [],
+      "title": "Drop Details - Timestamp",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
           },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "left",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "filterable": true,
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 10
-                  }
-                ]
-              },
-              "unit": "pps"
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
             },
-            "overrides": [
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
               {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Queue"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "none"
-                  }
-                ]
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 10
               }
             ]
           },
-          "gridPos": {
-            "h": 10,
-            "w": 24,
-            "x": 0,
-            "y": 23
-          },
-          "id": 17,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "fields": [
-                "count"
-              ],
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true
-          },
-          "pluginVersion": "10.1.4",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "ALARM_TYPE"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "LINKNAME"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "measurement": "ALARMING",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT \"exception\" FROM \"ALARMING\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter and ALARM_TYPE=~/RED.*|TAIL.*/ GROUP BY \"ALARM_TYPE\", \"LINKNAME\", queue_id, queue_name",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "table",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "exception"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                }
-              ]
-            }
-          ],
-          "title": "RealTime Monitored CoS Drops Details (TimeFrame) ",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "queue_name": true
-                },
-                "indexByName": {},
-                "renameByName": {
-                  "ALARM_TYPE": "Type of Alarm",
-                  "LINKNAME": "PORT",
-                  "Time": "Timestamp",
-                  "count": "Cumulative Alarms",
-                  "exception": "Drop pps",
-                  "queue_id": "Queue",
-                  "queue_name": "FC"
-                }
-              }
-            }
-          ],
-          "type": "table"
+          "unit": "pps"
         },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Queue"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 17,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": [
+            "count"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.2.0",
+      "targets": [
         {
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "gridPos": {
-            "h": 2,
-            "w": 24,
-            "x": 0,
-            "y": 33
-          },
-          "id": 39,
-          "options": {
-            "code": {
-              "language": "plaintext",
-              "showLineNumbers": false,
-              "showMiniMap": false
+          "groupBy": [
+            {
+              "params": [
+                "ALARM_TYPE"
+              ],
+              "type": "tag"
             },
-            "content": "<h2><center>Per Interface details</center><h2>",
-            "mode": "html"
-          },
-          "pluginVersion": "10.1.4",
-          "transparent": true,
-          "type": "text"
+            {
+              "params": [
+                "LINKNAME"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "ALARMING",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"exception\" FROM \"ALARMING\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter and ALARM_TYPE=~/RED.*|TAIL.*/ GROUP BY \"ALARM_TYPE\", \"LINKNAME\", queue_id, queue_name",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "exception"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
-      "title": "Drop Details - Timestamp",
-      "type": "row"
+      "title": "RealTime Monitored CoS Drops Details (TimeFrame) ",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "queue_name": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "ALARM_TYPE": "Type of Alarm",
+              "LINKNAME": "PORT",
+              "Time": "Timestamp",
+              "count": "Cumulative Alarms",
+              "exception": "Drop pps",
+              "queue_id": "Queue",
+              "queue_name": "FC"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
+      "id": 39,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h2><center>Per Interface details</center><h2>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.2.0",
+      "transparent": true,
+      "type": "text"
     },
     {
       "collapsed": true,
@@ -509,7 +509,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 27
       },
       "id": 13,
       "panels": [
@@ -535,7 +535,7 @@
             "content": "<h2><center>Traffic info $ifname</center></h2>",
             "mode": "html"
           },
-          "pluginVersion": "10.1.4",
+          "pluginVersion": "10.2.0",
           "transparent": true,
           "type": "text"
         },
@@ -550,6 +550,7 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
                 "axisLabel": "",
@@ -585,7 +586,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -598,8 +600,8 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
-            "w": 12,
+            "h": 12,
+            "w": 24,
             "x": 0,
             "y": 18
           },
@@ -613,7 +615,7 @@
                 "max"
               ],
               "displayMode": "table",
-              "placement": "bottom",
+              "placement": "right",
               "showLegend": true
             },
             "tooltip": {
@@ -736,6 +738,7 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
                 "axisLabel": "",
@@ -771,7 +774,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -784,10 +788,10 @@
             "overrides": []
           },
           "gridPos": {
-            "h": 11,
+            "h": 15,
             "w": 12,
-            "x": 12,
-            "y": 18
+            "x": 0,
+            "y": 30
           },
           "id": 3,
           "options": {
@@ -818,7 +822,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"in_pkts_rate\")*8  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND \"LINKNAME\" =~ /^$ifname$/) AND $timeFilter group by time($sample_interval)",
+              "query": "SELECT mean(\"in_pkts_rate\")  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND \"LINKNAME\" =~ /^$ifname$/) AND $timeFilter group by time($sample_interval)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -865,7 +869,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"out_pkts_rate\")*8 FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND \"LINKNAME\" =~ /^$ifname$/) AND $timeFilter group by time($sample_interval)",
+              "query": "SELECT mean(\"out_pkts_rate\") FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND \"LINKNAME\" =~ /^$ifname$/) AND $timeFilter group by time($sample_interval)",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -902,7 +906,7 @@
               ]
             }
           ],
-          "title": "Port statistics Pps Traffic - $ifname",
+          "title": "Port Global statistics Pps Traffic - $ifname",
           "transformations": [
             {
               "id": "organize",
@@ -922,6 +926,383 @@
                 "mode": "palette-classic"
               },
               "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 8,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "pps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 15,
+            "w": 12,
+            "x": 12,
+            "y": 30
+          },
+          "id": 53,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "min",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "multi",
+              "sort": "desc"
+            }
+          },
+          "targets": [
+            {
+              "alias": "Unicast Input pps",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [],
+              "hide": false,
+              "measurement": "COS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"in_pkts_rate\") - (mean(\"bcast_in_pkts_rate\")+mean(\"mcast_in_pkts_rate\"))  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND \"LINKNAME\" =~ /^$ifname$/) AND $timeFilter group by time($sample_interval)",
+              "rawQuery": true,
+              "refId": "E",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "out_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "device",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
+            },
+            {
+              "alias": "Unicast Output pps",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [],
+              "hide": false,
+              "measurement": "COS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"out_pkts_rate\") - (mean(\"bcast_out_pkts_rate\")+mean(\"mcast_out_pkts_rate\"))  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND \"LINKNAME\" =~ /^$ifname$/) AND $timeFilter group by time($sample_interval)",
+              "rawQuery": true,
+              "refId": "F",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "out_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "device",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
+            },
+            {
+              "alias": "Mcast Input pps",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [],
+              "measurement": "COS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"mcast_in_pkts_rate\")  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND \"LINKNAME\" =~ /^$ifname$/) AND $timeFilter group by time($sample_interval)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "out_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "device",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
+            },
+            {
+              "alias": "Mcast Output pps",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [],
+              "hide": false,
+              "measurement": "COS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"mcast_out_pkts_rate\")  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND \"LINKNAME\" =~ /^$ifname$/) AND $timeFilter group by time($sample_interval)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "out_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "device",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
+            },
+            {
+              "alias": "Bcast Input pps",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [],
+              "hide": false,
+              "measurement": "COS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"bcast_in_pkts_rate\")  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND \"LINKNAME\" =~ /^$ifname$/) AND $timeFilter group by time($sample_interval)",
+              "rawQuery": true,
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "out_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "device",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
+            },
+            {
+              "alias": "Bcast Output pps",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [],
+              "hide": false,
+              "measurement": "COS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"bcast_out_pkts_rate\") FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND \"LINKNAME\" =~ /^$ifname$/) AND $timeFilter group by time($sample_interval)",
+              "rawQuery": true,
+              "refId": "D",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "out_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "device",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
+            }
+          ],
+          "title": "Port statistics Pps Traffic - per Type - $ifname",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {}
+            }
+          ],
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
                 "axisCenteredZero": false,
                 "axisColorMode": "text",
                 "axisLabel": "",
@@ -958,7 +1339,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -999,7 +1381,7 @@
             "h": 12,
             "w": 24,
             "x": 0,
-            "y": 29
+            "y": 45
           },
           "id": 7,
           "options": {
@@ -1138,7 +1520,7 @@
             "h": 2,
             "w": 24,
             "x": 0,
-            "y": 41
+            "y": 57
           },
           "id": 52,
           "options": {
@@ -1150,7 +1532,7 @@
             "content": "<h2><center>Queues details $ifname</center></h2>",
             "mode": "html"
           },
-          "pluginVersion": "10.1.4",
+          "pluginVersion": "10.2.0",
           "transparent": true,
           "type": "text"
         },
@@ -1171,7 +1553,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "yellow",
@@ -1195,13 +1578,14 @@
             "h": 10,
             "w": 7,
             "x": 0,
-            "y": 43
+            "y": 59
           },
           "id": 9,
           "options": {
             "displayMode": "lcd",
             "minVizHeight": 10,
             "minVizWidth": 0,
+            "namePlacement": "auto",
             "orientation": "auto",
             "reduceOptions": {
               "calcs": [
@@ -1213,7 +1597,7 @@
             "showUnfilled": true,
             "valueMode": "color"
           },
-          "pluginVersion": "10.1.4",
+          "pluginVersion": "10.2.0",
           "targets": [
             {
               "alias": "Q$tag_queue_id",
@@ -1274,7 +1658,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "yellow",
@@ -1298,13 +1683,14 @@
             "h": 10,
             "w": 7,
             "x": 7,
-            "y": 43
+            "y": 59
           },
           "id": 50,
           "options": {
             "displayMode": "lcd",
             "minVizHeight": 10,
             "minVizWidth": 0,
+            "namePlacement": "auto",
             "orientation": "auto",
             "reduceOptions": {
               "calcs": [
@@ -1316,7 +1702,7 @@
             "showUnfilled": true,
             "valueMode": "color"
           },
-          "pluginVersion": "10.1.4",
+          "pluginVersion": "10.2.0",
           "targets": [
             {
               "alias": "Q$tag_queue_id",
@@ -1385,7 +1771,7 @@
             "h": 10,
             "w": 10,
             "x": 14,
-            "y": 43
+            "y": 59
           },
           "id": 11,
           "options": {
@@ -1514,7 +1900,7 @@
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 53
+            "y": 69
           },
           "id": 48,
           "options": {
@@ -1653,7 +2039,7 @@
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 53
+            "y": 69
           },
           "id": 4,
           "options": {
@@ -1792,7 +2178,7 @@
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 65
+            "y": 81
           },
           "id": 49,
           "options": {
@@ -1931,7 +2317,7 @@
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 65
+            "y": 81
           },
           "id": 5,
           "options": {
@@ -2121,7 +2507,7 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {},
