@@ -93,7 +93,7 @@
           "measurement": "POWER_KAPA",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(power) from (SELECT mean(\"power_model_system.power_model_system\")+ mean(\"power_model_zone0.power_model_zone1\")+mean(power_model_zone1.power_model_zone0) as power FROM \"POWER_KAPA\" WHERE time > now()-5m GROUP BY \"MODEL\"::tag, time(5m)) group by time(5m) ",
+          "query": "select sum(power) from (SELECT mean(\"power_model_system.power_model_system\")+ mean(\"power_model_zone0.power_model_zone1\")+mean(power_model_zone1.power_model_zone0) as power FROM \"POWER_KAPA\" WHERE $timeFilter GROUP BY \"MODEL\"::tag, time(5m)) group by time(5m) ",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -178,7 +178,7 @@
           "measurement": "POWER_KAPA",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"power_model_system.power_model_system\"+\"power_model_zone0.power_model_zone1\"+ \"power_model_zone1.power_model_zone0\" FROM \"POWER_KAPA\" WHERE time> now()-5m GROUP BY \"MODEL\"::tag",
+          "query": "SELECT \"power_model_system.power_model_system\"+\"power_model_zone0.power_model_zone1\"+ \"power_model_zone1.power_model_zone0\" FROM \"POWER_KAPA\" WHERE $timeFilter GROUP BY \"MODEL\"::tag",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -505,7 +505,7 @@
     "list": []
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {},
