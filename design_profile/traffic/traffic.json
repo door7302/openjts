@@ -2068,7 +2068,7 @@
         "options": [],
         "query": "show tag values FROM COS with key=\"LINKNAME\" where device=~/$rtr/",
         "refresh": 1,
-        "regex": "et.*|xe.*|ge-.*|ae",
+        "regex": "et-.*|xe-.*|ge-.*|ae|lt-*|ps-*|fti-",
         "skipUrlSync": false,
         "sort": 1,
         "type": "query"
