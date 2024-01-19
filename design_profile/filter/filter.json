@@ -144,7 +144,7 @@
       },
       "targets": [
         {
-          "alias": "Forward PPS $tag_fw_name - $tag_cntr_name",
+          "alias": "Forward PPS $tag_fw_name - $tag_cntr_name - FPC $tag__component_id",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
@@ -159,6 +159,12 @@
             {
               "params": [
                 "fw_name::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "_component_id::tag"
               ],
               "type": "tag"
             }
@@ -200,7 +206,7 @@
           ]
         },
         {
-          "alias": "Drop PPS $tag_fw_name - $tag_plcr_name",
+          "alias": "Drop PPS $tag_fw_name - $tag_plcr_name - FPC $tag__component_id",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
@@ -215,6 +221,12 @@
             {
               "params": [
                 "fw_name::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "_component_id::tag"
               ],
               "type": "tag"
             }
@@ -376,7 +388,7 @@
       },
       "targets": [
         {
-          "alias": "Forward BPS $tag_fw_name - $tag_cntr_name",
+          "alias": "Forward BPS $tag_fw_name - $tag_cntr_name - FPC $tag__component_id",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
@@ -391,6 +403,12 @@
             {
               "params": [
                 "fw_name::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "_component_id::tag"
               ],
               "type": "tag"
             }
@@ -438,7 +456,7 @@
           ]
         },
         {
-          "alias": "Drop BPS $tag_fw_name - $tag_plcr_name",
+          "alias": "Drop BPS $tag_fw_name - $tag_plcr_name - FPC $tag__component_id",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
@@ -453,6 +471,12 @@
             {
               "params": [
                 "fw_name::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "_component_id::tag"
               ],
               "type": "tag"
             }
@@ -588,9 +612,13 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
         },
         "datasource": {
           "type": "influxdb",
