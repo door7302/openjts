@@ -4,17 +4,17 @@
     "telegraf": {
       "mx": [ {
         "version": "all",
-        "conf": "all_filter.conf"
+        "conf": "mx_filter.conf"
         }
       ],
       "ptx":[ {
         "version": "all",
-        "conf": "all_filter.conf"
+        "conf": "ptx_filter.conf"
         }
       ],
       "acx": [ {
         "version": "all",
-        "conf": "all_filter.conf"
+        "conf": "acx_filter.conf"
         }
       ]
     },
