@@ -60,7 +60,7 @@ sudo docker compose up -d
 ## Manage the stack via JTSO
 
 Once launched you should have access to the JTSO portal (http or https). Open a web browser and open the portal: **http(s)://your-ip:your-port/index.html**
-You should have access to this page - this one provide the state of the OpenJTS. 
+You should have access to this page - this one provide the state of the OpenJTS. You can also empty the InfluxDB database by clicking on the "EmptyDB" button. 
 
 ![jtso1.png](./img/jtso1.png)
 

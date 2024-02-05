@@ -123,7 +123,7 @@ sudo vi compose/jtso/config.yml
 /.../
 protocols:
   netconf:
-    port: 9339
+    port: 830
 /.../
 ```
 
