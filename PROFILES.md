@@ -8,6 +8,8 @@ Router health KPIs: CPU, Memory, Errors, Drops...
 
 ### Sensor path details
 
+![health.png](./img/sensors/health.png)
+
 ### Dashboard screenshots
 
 ![health1.png](./img/profiles/health/health1.png)
@@ -49,6 +51,8 @@ BGP KPIs: peer-groups, families and peers statistics.
 
 ### Sensor path details
 
+![bgp.png](./img/sensors/bgp.png)
+
 ### Dashboard screenshots
 
 ![bgp1.png](./img/profiles/bgp/bgp1.png)
@@ -72,6 +76,8 @@ BGP KPIs: peer-groups, families and peers statistics.
 Traffic KPIs: peer queue statistics, per port statistics, queue-depth, drop per queue/port...
 
 ### Sensor path details
+
+![traffic.png](./img/sensors/traffic.png)
 
 ### Dashboard screenshots
 
@@ -108,6 +114,8 @@ Optic KPIs: Optic levels, Physical errors, per optic details...
 
 ### Sensor path details
 
+![optic.png](./img/sensors/optic.png)
+
 ### Dashboard screenshots
 
 ![optic1.png](./img/profiles/optic/optic1.png)
@@ -136,6 +144,8 @@ Optic KPIs: Optic levels, Physical errors, per optic details...
 Power KPIs: per component power usage, global usage, temperature, fan state...
 
 ### Sensor path details
+
+![power.png](./img/sensors/power.png)
 
 ### Dashboard screenshots
 
@@ -187,5 +197,12 @@ FWF KPIs: per firewall term counters, per policer drop counter...
 
 ### Sensor path details
 
+![filter.png](./img/sensors/filter.png)
+
 ### Dashboard screenshots
 
+![filter1.png](./img/profiles/filter/filter1.png)
+
+    (1) Select per router, per filter, per counter & policer history
+    (2) PPS view – Counters are displayed as positive Y and Policer out-of-spec counters as Negative Y
+    (3) BPS view – Counters are displayed as positive Y and Policer out-of-spec counters as Negative Y
