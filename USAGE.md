@@ -42,21 +42,6 @@ To stop the JTS just issue the following command:
 sudo docker compose down
 ```
 
-## Update the JTSO 
-
-To update the JTSO image 
-
-```shell
-# Shutdown the stack
-sudo docker compose down
-
-# remove the current image 
-sudo docker image rm compose-jtso 
-
-# restart the stack 
-sudo docker compose up -d  
-```
-
 ## Manage the stack via JTSO
 
 Once launched you should have access to the JTSO portal (http or https). Open a web browser and open the portal: **http(s)://your-ip:your-port/index.html**
