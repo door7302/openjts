@@ -1,4 +1,14 @@
-# Install Docker & compose plugin
+# Installation
+
+ **Table of content:**
+ - [Home](README.md)
+ - [Installation](INSTALL.md)
+ - [Configuration](CONFIG.md)
+ - [Update Stack](UPDATE.md)
+ - [Utilization](USAGE.md)
+ - [Profiles documentation](PROFILES.md)
+
+## Install Docker & compose plugin
 
 https://docs.docker.com/engine/install/ubuntu/
 
@@ -22,12 +32,36 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 Then login first time (requiered for downloading from docker hub):
 
 ```shell
-docker login --username door7302
+docker login --username <your-username>
 ```
 
 And test: 
 
 ```shell
 docker run hello-world
-````
+```
 
+## Installation of OpenJTS
+
+From root - create a username openjts 
+
+```shell
+adduser openjts
+# add openjts as sudoer 
+adduser openjts sudo  
+```
+
+Now, switch to openjts user
+```shell
+su openjts
+```
+
+Just clone the git repo locally. 
+
+```shell
+# In any directory 
+sudo mkdir JTS
+cd JTS
+
+sudo git clone https://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@github.com/door7302/openjts .
+```
