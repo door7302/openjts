@@ -1,4 +1,12 @@
 # Profiles informations
+ 
+ **Table of content:**
+ - [Home](README.md)
+ - [Installation](INSTALL.md)
+ - [Configuration](CONFIG.md)
+ - [Update Stack](UPDATE.md)
+ - [Utilization](USAGE.md)
+ - [Profiles documentation](PROFILES.md)
 
 Each profile is a set of files packed together in a tgz archive. Those tgz files are stored in compose/jtso/profile directory. This folder is monitored, if you push a new version of a profile, this will trigger an automatic update of the stack. 
 
