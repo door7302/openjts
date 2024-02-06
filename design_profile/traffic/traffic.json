@@ -1635,7 +1635,39 @@
           "fieldConfig": {
             "defaults": {
               "color": {
-                "mode": "thresholds"
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "decimals": 0,
               "mappings": [],
@@ -1674,27 +1706,23 @@
           },
           "id": 50,
           "options": {
-            "displayMode": "lcd",
-            "maxVizHeight": 300,
-            "minVizHeight": 10,
-            "minVizWidth": 0,
-            "namePlacement": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
+            "legend": {
               "calcs": [
                 "lastNotNull"
               ],
-              "fields": "",
-              "values": false
+              "displayMode": "list",
+              "placement": "bottom",
+              "showLegend": true
             },
-            "showUnfilled": true,
-            "sizing": "auto",
-            "valueMode": "color"
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
           },
           "pluginVersion": "10.3.1",
           "targets": [
             {
-              "alias": "Q$tag_queue_id",
+              "alias": "Queue Utilization $tag_queue_id",
               "datasource": {
                 "type": "influxdb",
                 "uid": "jtsuid"
@@ -1703,7 +1731,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"cos_buffer_peak\")/last(\"cos_buffer_size\")*100 FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname') AND  $timeFilter group by queue_id",
+              "query": "SELECT(\"cos_buffer_cur\")/(\"cos_buffer_size\")*100 FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname') and $timeFilter group by queue_id",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1732,8 +1760,8 @@
               ]
             }
           ],
-          "title": "Peak Buffer utilization per queue - $ifname",
-          "type": "bargauge"
+          "title": "Current Buffer utilization per queue - $ifname",
+          "type": "timeseries"
         },
         {
           "datasource": {
@@ -2159,8 +2187,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2301,8 +2328,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
