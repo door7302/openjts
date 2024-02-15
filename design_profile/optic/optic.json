@@ -1080,8 +1080,8 @@
             {
               "condition": "AND",
               "key": "if_name::tag",
-              "operator": "=~",
-              "value": "/^$ifname$/"
+              "operator": "=",
+              "value": "$ifname"
             }
           ]
         }
@@ -1178,8 +1178,8 @@
             {
               "condition": "AND",
               "key": "if_name::tag",
-              "operator": "=~",
-              "value": "/^$ifname$/"
+              "operator": "=",
+              "value": "$ifname"
             }
           ]
         }
@@ -1379,8 +1379,8 @@
             {
               "condition": "AND",
               "key": "if_name",
-              "operator": "=~",
-              "value": "/^$ifname$/"
+              "operator": "=",
+              "value": "$ifname"
             }
           ]
         },
@@ -1471,8 +1471,8 @@
             {
               "condition": "AND",
               "key": "if_name",
-              "operator": "=~",
-              "value": "/^$ifname$/"
+              "operator": "=",
+              "value": "$ifname"
             }
           ]
         }
@@ -1673,8 +1673,8 @@
             {
               "condition": "AND",
               "key": "if_name",
-              "operator": "=~",
-              "value": "/^$ifname$/"
+              "operator": "=",
+              "value": "$ifname"
             }
           ]
         },
@@ -1765,8 +1765,8 @@
             {
               "condition": "AND",
               "key": "if_name",
-              "operator": "=~",
-              "value": "/^$ifname$/"
+              "operator": "=",
+              "value": "$ifname"
             }
           ]
         }
@@ -1967,8 +1967,8 @@
             {
               "condition": "AND",
               "key": "if_name",
-              "operator": "=~",
-              "value": "/^$ifname$/"
+              "operator": "=",
+              "value": "$ifname"
             }
           ]
         }
@@ -2169,8 +2169,8 @@
             {
               "condition": "AND",
               "key": "if_name",
-              "operator": "=~",
-              "value": "/^$ifname$/"
+              "operator": "=",
+              "value": "$ifname"
             }
           ]
         }
@@ -2318,8 +2318,8 @@
             {
               "condition": "AND",
               "key": "if_name",
-              "operator": "=~",
-              "value": "/^$ifname$/"
+              "operator": "=",
+              "value": "$ifname"
             }
           ]
         }
@@ -2450,8 +2450,8 @@
             {
               "condition": "AND",
               "key": "if_name",
-              "operator": "=~",
-              "value": "/^$ifname$/"
+              "operator": "=",
+              "value": "$ifname"
             }
           ]
         }
@@ -2630,8 +2630,8 @@
             {
               "condition": "AND",
               "key": "if_name",
-              "operator": "=~",
-              "value": "/^$ifname$/"
+              "operator": "=",
+              "value": "$ifname"
             }
           ]
         }
