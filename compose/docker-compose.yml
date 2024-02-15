@@ -85,7 +85,7 @@ services:
       - ./kapacitor/kapacitor.conf:/etc/kapacitor/kapacitor.conf
       - ./kapacitor/data:/var/lib/kapacitor
   grafana:
-    image: grafana/grafana:latest
+    image: grafana/grafana:10.3.1
     container_name: grafana
     restart: always
     user: root

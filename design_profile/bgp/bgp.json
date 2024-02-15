@@ -981,7 +981,7 @@
                 },
                 {
                   "options": {
-                    "pattern": "*",
+                    "pattern": ".*",
                     "result": {
                       "color": "red",
                       "index": 1,
