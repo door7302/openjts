@@ -89,6 +89,22 @@ Here you can assign/remove one or several profiles to a given router. Each time 
 
 ![jtso5.png](./img/jtso5.png)
 
+## Browse a sensor path
+
+Go to the menu **"Browser"**
+
+Here you need to select a router and to fill a well-known sensor path. The "Merge" option allows better analysis by replacing numeric key by a "X". 
+
+![jtso7.png](./img/jtso7.png)
+
+The analysis takes about 1 minute. You should see the list of XPATH extracted from the sensor in real time:
+
+![jtso8.png](./img/jtso8.png)
+
+Then, the result is displayed as a tree view. You can expand or collapse the tree via the respective buttons. You can also search in tree - search results are highlighted in red.  
+
+![jtso9.png](./img/jtso9.png)
+
 ## Use Grafana Dashboard(s)
 
 Go to the menu **"Grafana"**
