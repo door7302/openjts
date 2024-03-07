@@ -1,0 +1,20 @@
+{
+    "cheatsheet": "bngpppoe.png",
+    "description": "This profile provides template for collecting statistics of BNG PPPoE",
+    "telegraf": {
+      "vmx": [],
+      "mx": [ {
+        "version": "all",
+        "conf": "mx_bgnpppoe.conf"
+        }
+      ],
+      "ptx":[],
+      "acx": []
+    },
+    "kapacitor": [
+      
+    ],
+    "grafana": [
+      "bngpppoe.json"
+    ]
+}
