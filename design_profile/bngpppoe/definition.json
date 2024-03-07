@@ -5,7 +5,7 @@
       "vmx": [],
       "mx": [ {
         "version": "all",
-        "conf": "mx_bgnpppoe.conf"
+        "conf": "mx_bngpppoe.conf"
         }
       ],
       "ptx":[],
