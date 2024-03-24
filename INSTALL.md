@@ -63,5 +63,5 @@ Just clone the git repo locally.
 sudo mkdir JTS
 cd JTS
 
-sudo git clone https://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@github.com/door7302/openjts .
+sudo git clone https://github.com/door7302/openjts .
 ```
