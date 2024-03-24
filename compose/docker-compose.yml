@@ -30,7 +30,7 @@ services:
     command:
       --config-directory /etc/telegraf/telegraf.d
   telegraf_mx:
-    build: https://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@github.com/door7302/jts_telegraf.git#main
+    build: https://github.com/door7302/jts_telegraf.git#main
     container_name: telegraf_mx
     restart: always
     user: root
@@ -44,7 +44,7 @@ services:
     command:
       --config-directory /etc/telegraf/telegraf.d
   telegraf_ptx:
-    build: https://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@github.com/door7302/jts_telegraf.git#main
+    build: https://github.com/door7302/jts_telegraf.git#main
     container_name: telegraf_ptx
     restart: always
     user: root
@@ -58,7 +58,7 @@ services:
     command:
       --config-directory /etc/telegraf/telegraf.d
   telegraf_acx:
-    build: https://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@github.com/door7302/jts_telegraf.git#main
+    build: https://github.com/door7302/jts_telegraf.git#main
     container_name: telegraf_acx
     restart: always
     user: root
@@ -72,7 +72,7 @@ services:
     command:
       --config-directory /etc/telegraf/telegraf.d
   kapacitor:
-    image: kapacitor:latest
+    image: kapacitor:1.7
     container_name: kapacitor
     restart: always
     user: root
@@ -106,7 +106,7 @@ services:
       - ./grafana/data:/var/lib/grafana
       - ./grafana/plugins:/var/lib/grafana/plugins
   jtso:
-    build: https://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@github.com/door7302/jtso.git#${JTSO_BRANCH}
+    build: https://github.com/door7302/jtso.git#${JTSO_BRANCH}
     container_name: jtso
     restart: always
     user: root
