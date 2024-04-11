@@ -114,7 +114,7 @@ services:
       - /var/log:/var/log
       - ./jtso/db:/etc/jtso
       - ./jtso/config.yml:/etc/jtso/config.yml
-      - ./.version:/etc/jtso/openjts.ver
+      - ./.version:/etc/jtso/openjts.version
       - ./jtso/cert:/var/cert
       - ./jtso/profiles:/var/profiles
       - ./jtso/active_profiles:/var/active_profiles
