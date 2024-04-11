@@ -16,7 +16,7 @@ services:
       - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf
       - ./influxdb/data:/var/lib/influxdb
   telegraf_vmx:
-    build: https://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@github.com/door7302/jts_telegraf.git#main
+    build: https://github.com/door7302/jts_telegraf.git#main
     container_name: telegraf_vmx
     restart: always
     user: root
