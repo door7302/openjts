@@ -16,6 +16,11 @@
         "version": "all",
         "conf": "acx_power.conf"
         }
+      ],
+      "qfx": [ {
+        "version": "all",
+        "conf": "qfx_power.conf"
+        }
       ]
     },
     "kapacitor": ["power.tick"],

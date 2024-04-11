@@ -21,6 +21,11 @@
         "version": "all",
         "conf": "acx_health.conf"
         }
+      ],
+      "qfx": [ {
+        "version": "all",
+        "conf": "qfx_health.conf"
+        }
       ]
     },
     "kapacitor": null,

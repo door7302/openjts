@@ -21,6 +21,11 @@
         "version": "all",
         "conf": "all_bgp.conf"
         }
+      ],
+      "qfx": [ {
+        "version": "all",
+        "conf": "all_bgp.conf"
+        }
       ]
     },
     "kapacitor": null,
