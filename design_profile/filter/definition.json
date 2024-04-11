@@ -16,6 +16,11 @@
         "version": "all",
         "conf": "acx_filter.conf"
         }
+      ],
+      "qfx": [ {
+        "version": "all",
+        "conf": "qfx_filter.conf"
+        }
       ]
     },
     "kapacitor": [],

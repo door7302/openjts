@@ -16,6 +16,11 @@
         "version": "all",
         "conf": "acx_optic.conf"
         }
+      ],
+      "qfx": [ {
+        "version": "all",
+        "conf": "qfx_optic.conf"
+        }
       ]
     },
     "kapacitor": null,
