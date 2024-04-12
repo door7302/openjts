@@ -8,14 +8,6 @@
         }
       ],
       "mx": [ {
-        "version": "<<22.2",
-        "conf": "mx_traffic1.conf"
-        },
-        {
-          "version": "==23.4R1",
-          "conf": "mx_traffic2.conf"
-        },
-        {
         "version": "all",
         "conf": "mx_traffic.conf"
         }
