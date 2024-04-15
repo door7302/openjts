@@ -8,7 +8,7 @@
         }
       ],
       "mx": [ {
-        "version": "==23.2R1",
+        "version": "==23.2R",
         "conf": "mx_health_23.2.conf"
         },
         {
