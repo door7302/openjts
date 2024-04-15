@@ -8,6 +8,10 @@
         }
       ],
       "mx": [ {
+        "version": "==23.2R1",
+        "conf": "mx_health_23.2.conf"
+        },
+        {
         "version": "all",
         "conf": "mx_health.conf"
         }
