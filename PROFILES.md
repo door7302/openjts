@@ -139,13 +139,23 @@ Optic KPIs: Optic levels, Physical errors, per optic details...
 
 ![optic3.png](./img/profiles/optic/optic3.png)
 
-    (1) For each physical port/optic – per Lane current RX
-    (2) For each physical port/optic – per Lane current TX
-    (3) History over the time of each lane RX/TX + low/high warning threshold
-    (4) History over the time of optic BIAS and temperature 
-    (5) For OTN Optic (i.e. 400G ZR optic) – history over time of the OSNR and pre-FEC correction 
+    (1) Inventory information
+    (2) For each physical port/optic – per Lane current RX
+    (3) For each physical port/optic – per Lane current TX
+    (4) History over the time of each lane RX/TX + low/high warning threshold
+    (5) History over the time of optic BIAS and temperature 
     (6) History over the time of the CRC and BLOCK errors 
     (7) Input frame size distributions over the time 
+
+![optic4.png](./img/profiles/optic/optic4.png)
+
+    (1) OTN Specific information
+    (2) Frequency and Carrier Frequency Offset
+    (3) History over the time of OSNR and ESNR 
+    (4) History over the time of pre-fec engine
+    (5) History over the time of Chromatic Dispersion
+    (6) History over the time of SOPDM
+    (7) History over the time of PDL
 
 ## Power profile
 
