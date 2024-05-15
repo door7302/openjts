@@ -1005,7 +1005,7 @@
             "mode": "thresholds"
           },
           "custom": {
-            "align": "auto",
+            "align": "center",
             "cellOptions": {
               "type": "color-background"
             },
@@ -3944,6 +3944,6 @@
   "timezone": "",
   "title": "OPTICAL MONITORING PROFILE - JTSO",
   "uid": "opticdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
