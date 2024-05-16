@@ -349,7 +349,7 @@
           "measurement": "POWER",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select last(power_allocated) as \"System Allocated\" from (select mean(power_zone_0_allocated) + mean(power_zone_1_allocated) +mean(power_system_allocated) as power_allocated from POWER where device=~/$device/ and \n component_name=~/(?i)chassis.*/  AND $timeFilter-5m group by time(5m), device, component_name fill(0))",
+          "query": "select last(power_allocated) as \"System Allocated\" from (select mean(power_zone_0_allocated) + mean(power_zone_1_allocated) +mean(power_system_allocated) as power_allocated from POWER where device=~/$device/ and \n component_name=~/(?i)chassis.*/  AND time > now()-5m  group by time(5m), device, component_name fill(0))",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -376,7 +376,7 @@
           "measurement": "POWER",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select last(power_system_capacity) as \"System Capacity\",  last(power_system_maximum) as \"System Max.\", last(power_system_remaining) as \"System Remaining\" from POWER  where device=~/$device/ and \n component_name=~/(?i)chassis.*/  AND $timeFilter-5m group by device, component_name fill(0)",
+          "query": "select last(power_system_capacity) as \"System Capacity\",  last(power_system_maximum) as \"System Max.\", last(power_system_remaining) as \"System Remaining\" from POWER  where device=~/$device/ and \n component_name=~/(?i)chassis.*/  AND time > now()-5m  group by device, component_name fill(0)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "table",
@@ -403,7 +403,7 @@
           "measurement": "POWER",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select last(power_usage) as \"System Usage\"  from (select mean(power_zone_0_usage) + mean(power_zone_1_usage) +mean(power_system_allocated) as power_usage from POWER where device=~/$device/ and \n component_name=~/(?i)chassis.*/  AND $timeFilter-5m group by time(5m), device, component_name fill(0))",
+          "query": "select last(power_usage) as \"System Usage\"  from (select mean(power_zone_0_usage) + mean(power_zone_1_usage) +mean(power_system_usage) as power_usage from POWER where device=~/$device/ and \n component_name=~/(?i)chassis.*/  AND time > now()-5m group by time(5m), device, component_name fill(0))",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "table",
@@ -1706,8 +1706,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1867,8 +1866,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2013,8 +2011,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2174,8 +2171,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2291,8 +2287,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "yellow",
@@ -2441,8 +2436,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -2573,8 +2567,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2734,8 +2727,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2880,8 +2872,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3081,8 +3072,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
