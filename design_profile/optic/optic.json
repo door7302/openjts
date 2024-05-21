@@ -2842,7 +2842,7 @@
           "color": {
             "mode": "thresholds"
           },
-          "decimals": 2,
+          "decimals": 3,
           "mappings": [],
           "noValue": "Not Supported",
           "thresholds": {
