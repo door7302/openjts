@@ -1,6 +1,6 @@
 {
     "cheatsheet": "optic.png",
-    "description": "This profile provides template for collecting optical data. V1.1",
+    "description": "This profile provides template for collecting optical data. V1.3",
     "telegraf": {
       "mx": [ {
         "version": "all",
