@@ -18,7 +18,7 @@
         }
       ]
     },
-    "kapacitor": ["power-ext.tick"],
+    "kapacitor": ["power-ext.tick", "power-ext-traffic.tick"],
     "grafana": [
       "power-ext.json",
       "power_agg-ext.json"
