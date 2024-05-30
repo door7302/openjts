@@ -933,6 +933,384 @@
         "type": "influxdb",
         "uid": "jtsuid"
       },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 9,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 7,
+        "x": 0,
+        "y": 30
+      },
+      "id": 26,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "lastNotNull",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Min",
+          "sortDesc": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Total Traffic bps",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "POWER_EXT",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"device_traffic_in\"*8 FROM \"POWER_EXT\" WHERE \"device\"=~ /^$device$/  and $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "power_system_usage"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$device$/"
+            }
+          ]
+        }
+      ],
+      "title": "Global Traffic in Bps - $device",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 9,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 7,
+        "x": 7,
+        "y": 30
+      },
+      "id": 27,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "lastNotNull",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Min",
+          "sortDesc": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Total Traffic pps",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "POWER_EXT",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"device_pps_in\" FROM \"POWER_EXT\" WHERE \"device\"=~ /^$device$/  and $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "power_system_usage"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$device$/"
+            }
+          ]
+        }
+      ],
+      "title": "Global Traffic in Pps - $device",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 9,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "Watt/Gbps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 10,
+        "x": 14,
+        "y": 30
+      },
+      "id": 28,
+      "options": {
+        "legend": {
+          "calcs": [
+            "min",
+            "max",
+            "lastNotNull",
+            "mean"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Min",
+          "sortDesc": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Watts/Gbps",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "POWER_EXT",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select (mean(power_zone_0_usage) + mean(power_zone_1_usage) + mean(power_system_usage)) / ((mean(device_traffic_in)*8)/1000000000) from POWER_EXT where device=~/$device/  and $timeFilter-5m group by time(5m), device fill(0) ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "power_system_usage"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$device$/"
+            }
+          ]
+        }
+      ],
+      "title": "Ratio Watts/Gbps - $device",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -994,7 +1372,7 @@
         "h": 15,
         "w": 15,
         "x": 0,
-        "y": 30
+        "y": 40
       },
       "id": 7,
       "options": {
@@ -1255,7 +1633,7 @@
         "h": 15,
         "w": 9,
         "x": 15,
-        "y": 30
+        "y": 40
       },
       "id": 25,
       "options": {
@@ -1561,7 +1939,7 @@
         "h": 17,
         "w": 24,
         "x": 0,
-        "y": 45
+        "y": 55
       },
       "id": 22,
       "options": {
@@ -1651,7 +2029,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 62
+        "y": 72
       },
       "id": 5,
       "panels": [],
@@ -1669,7 +2047,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 63
+        "y": 73
       },
       "id": 18,
       "options": {
@@ -1706,7 +2084,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1736,7 +2115,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 65
+        "y": 75
       },
       "id": 6,
       "options": {
@@ -1866,7 +2245,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -1883,7 +2263,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 65
+        "y": 75
       },
       "id": 17,
       "options": {
@@ -1974,7 +2354,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 76
+        "y": 86
       },
       "id": 19,
       "options": {
@@ -2011,7 +2391,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2041,7 +2422,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 78
+        "y": 88
       },
       "id": 8,
       "options": {
@@ -2171,7 +2552,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2188,7 +2570,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 78
+        "y": 88
       },
       "id": 9,
       "options": {
@@ -2287,7 +2669,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "yellow",
@@ -2312,7 +2695,7 @@
         "h": 17,
         "w": 12,
         "x": 0,
-        "y": 89
+        "y": 99
       },
       "id": 15,
       "options": {
@@ -2436,7 +2819,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -2449,7 +2833,7 @@
         "h": 17,
         "w": 12,
         "x": 12,
-        "y": 89
+        "y": 99
       },
       "id": 16,
       "options": {
@@ -2530,7 +2914,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 106
+        "y": 116
       },
       "id": 20,
       "options": {
@@ -2567,7 +2951,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2597,7 +2982,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 108
+        "y": 118
       },
       "id": 12,
       "options": {
@@ -2727,7 +3112,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2744,7 +3130,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 108
+        "y": 118
       },
       "id": 11,
       "options": {
@@ -2835,7 +3221,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 119
+        "y": 129
       },
       "id": 21,
       "options": {
@@ -2872,7 +3258,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2902,7 +3289,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 121
+        "y": 131
       },
       "id": 10,
       "options": {
@@ -3072,7 +3459,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3089,7 +3477,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 121
+        "y": 131
       },
       "id": 13,
       "options": {
@@ -3217,8 +3605,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "rtme-mx-62.englab.juniper.net",
+          "value": "rtme-mx-62.englab.juniper.net"
         },
         "datasource": {
           "type": "influxdb",
