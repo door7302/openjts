@@ -1,0 +1,58 @@
+var name = 'Power_Compute'
+
+var win = 1m
+var every = 1m
+
+var traffic_in = stream
+    |from()
+        .database('jtsdb')
+        .cluster('influxdb')
+        .retentionPolicy('autogen')
+        .measurement('POWER_EXT')
+        .where(lambda: isPresent("in_octets_rate"))
+        .groupBy('device', 'if_name')
+    |window()
+        .period(win)
+        .every(every)
+        .align()
+    |httpOut('sensor_ext')
+
+var pps_in = stream
+    |from()
+        .database('jtsdb')
+        .cluster('influxdb')
+        .retentionPolicy('autogen')
+        .measurement('POWER_EXT')
+        .where(lambda: isPresent("in_pkts_rate"))
+        .groupBy('device', 'if_name')
+    |window()
+        .period(win)
+        .every(every)
+        .align()
+    |httpOut('sensor2_ext')
+
+var sum_traffic_in = traffic_in
+    |groupBy('device')
+    |sum('last')
+        .as('device_traffic_in')
+
+var sum_pps_in = pps_in
+    |groupBy('device')
+    |sum('last')
+        .as('device_pps_in')
+
+var influxOut_1 = sum_traffic_in
+    |influxDBOut()
+        .create()
+        .database('jtsdb')
+        .retentionPolicy('autogen')
+        .measurement('POWER_EXT_KAPA')
+        .cluster('influxdb')
+
+var influxOut_2 = pps_in
+    |influxDBOut()
+        .create()
+        .database('jtsdb')
+        .retentionPolicy('autogen')
+        .measurement('POWER_EXT_KAPA')
+        .cluster('influxdb')
