@@ -52,7 +52,7 @@ var influxOut_1 = sum_traffic_in
         .create()
         .database('jtsdb')
         .retentionPolicy('autogen')
-        .measurement('POWER_EXT_KAPA')
+        .measurement('POWER_EXT')
         .cluster('influxdb')
 
 var influxOut_2 = sum_pps_in
@@ -60,5 +60,5 @@ var influxOut_2 = sum_pps_in
         .create()
         .database('jtsdb')
         .retentionPolicy('autogen')
-        .measurement('POWER_EXT_KAPA')
+        .measurement('POWER_EXT')
         .cluster('influxdb')
