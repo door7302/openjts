@@ -31,12 +31,12 @@ var pps_in = stream
 
 var sum_traffic_in = traffic_in
     |groupBy('device')
-    |sum('last')
+    |sum('in_octets_rate')
         .as('device_traffic_in')
 
 var sum_pps_in = pps_in
     |groupBy('device')
-    |sum('last')
+    |sum('in_pkts_rate')
         .as('device_pps_in')
 
 var influxOut_1 = sum_traffic_in
@@ -47,7 +47,7 @@ var influxOut_1 = sum_traffic_in
         .measurement('POWER_EXT_KAPA')
         .cluster('influxdb')
 
-var influxOut_2 = pps_in
+var influxOut_2 = sum_pps_in
     |influxDBOut()
         .create()
         .database('jtsdb')
