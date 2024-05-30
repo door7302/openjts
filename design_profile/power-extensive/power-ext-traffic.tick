@@ -6,7 +6,6 @@ var every = 1m
 var traffic_in = stream
     |from()
         .database('jtsdb')
-        .cluster('influxdb')
         .retentionPolicy('autogen')
         .measurement('POWER_EXT')
         .where(lambda: isPresent("in_octets_rate"))
@@ -20,7 +19,6 @@ var traffic_in = stream
 var pps_in = stream
     |from()
         .database('jtsdb')
-        .cluster('influxdb')
         .retentionPolicy('autogen')
         .measurement('POWER_EXT')
         .where(lambda: isPresent("in_pkts_rate"))
