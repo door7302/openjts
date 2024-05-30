@@ -933,6 +933,7 @@
         "type": "influxdb",
         "uid": "jtsuid"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1018,24 +1019,16 @@
       },
       "targets": [
         {
-          "alias": "Total In bps",
+          "alias": "Total Traffic bps",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "groupBy": [
-            {
-              "params": [
-                "$interval"
-              ],
-              "type": "time"
-            }
-          ],
-          "hide": false,
-          "measurement": "POWER_EXT_KAPA",
+          "groupBy": [],
+          "measurement": "POWER_EXT",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"device_traffic_in\"*8 FROM \"POWER_EXT_KAPA\" WHERE (\"device\"::tag =~ /^$device$/) AND $timeFilter ",
+          "query": "SELECT \"device_traffic_in\"*8 FROM \"POWER_EXT\" WHERE \"device\"=~ /^$device$/  and $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1043,7 +1036,7 @@
             [
               {
                 "params": [
-                  "in_octets_rate"
+                  "power_system_usage"
                 ],
                 "type": "field"
               }
@@ -1058,7 +1051,7 @@
           ]
         }
       ],
-      "title": "Global Traffic BPS - $device",
+      "title": "Global Traffic in Bps - $device",
       "type": "timeseries"
     },
     {
@@ -1066,6 +1059,7 @@
         "type": "influxdb",
         "uid": "jtsuid"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1151,24 +1145,16 @@
       },
       "targets": [
         {
-          "alias": "Total In pps",
+          "alias": "Total Traffic pps",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "groupBy": [
-            {
-              "params": [
-                "$interval"
-              ],
-              "type": "time"
-            }
-          ],
-          "hide": false,
-          "measurement": "POWER_EXT_KAPA",
+          "groupBy": [],
+          "measurement": "POWER_EXT",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"device_pps_in\" FROM \"POWER_EXT_KAPA\" WHERE (\"device\"::tag =~ /^$device$/) AND $timeFilter ",
+          "query": "SELECT \"device_pps_in\" FROM \"POWER_EXT\" WHERE \"device\"=~ /^$device$/  and $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1176,7 +1162,7 @@
             [
               {
                 "params": [
-                  "in_octets_rate"
+                  "power_system_usage"
                 ],
                 "type": "field"
               }
@@ -1191,7 +1177,7 @@
           ]
         }
       ],
-      "title": "Global Traffic PPS - $device",
+      "title": "Global Traffic in Pps - $device",
       "type": "timeseries"
     },
     {
@@ -1199,6 +1185,7 @@
         "type": "influxdb",
         "uid": "jtsuid"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1251,7 +1238,7 @@
               }
             ]
           },
-          "unit": "pps",
+          "unit": "Watt/Gbps",
           "unitScale": true
         },
         "overrides": []
@@ -1284,24 +1271,16 @@
       },
       "targets": [
         {
-          "alias": "Total In pps",
+          "alias": "Watts/Gbps",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "groupBy": [
-            {
-              "params": [
-                "$interval"
-              ],
-              "type": "time"
-            }
-          ],
-          "hide": false,
-          "measurement": "POWER_EXT_KAPA",
+          "groupBy": [],
+          "measurement": "POWER_EXT",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select mean(power_zone_0_allocated) + mean(power_zone_1_allocated) +mean(power_system_allocated) as power_allocated from POWER_EXT where device=~/$device/ and component_name=~/(?i)chassis.*/ and $timeFilter group by time(5m), device, component_name fill(0)",
+          "query": "select (mean(power_zone_0_usage) + mean(power_zone_1_usage) + mean(power_system_usage)) / ((mean(device_traffic_in)*8)/1000000000) from POWER_EXT where device=~/$device/  and $timeFilter-5m group by time(5m), device fill(0) ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1309,7 +1288,7 @@
             [
               {
                 "params": [
-                  "in_octets_rate"
+                  "power_system_usage"
                 ],
                 "type": "field"
               }
@@ -1324,7 +1303,7 @@
           ]
         }
       ],
-      "title": "Global Traffic PPS - $device",
+      "title": "Ratio Watts/Gbps - $device",
       "type": "timeseries"
     },
     {
@@ -1942,7 +1921,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2104,7 +2084,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2264,7 +2245,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2409,7 +2391,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2569,7 +2552,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2685,7 +2669,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "yellow",
@@ -2834,7 +2819,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -2965,7 +2951,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3125,7 +3112,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3270,7 +3258,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3470,7 +3459,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
