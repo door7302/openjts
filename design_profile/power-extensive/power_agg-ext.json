@@ -510,8 +510,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "AGGREGATION POWER PROFILE - JTSO",
-  "uid": "poweraggdashboard",
+  "title": "AGGREGATION POWER EXTENSIVE PROFILE - JTSO",
+  "uid": "poweraggextdashboard",
   "version": 2,
   "weekStart": ""
 }

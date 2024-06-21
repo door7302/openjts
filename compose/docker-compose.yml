@@ -80,6 +80,8 @@ services:
       - influxdb
     ports:
       - '9092:9092'
+    environment:
+      - KAPACITOR_AS_ROOT=true
     volumes:
       - /var/log:/var/log
       - ./kapacitor/kapacitor.conf:/etc/kapacitor/kapacitor.conf

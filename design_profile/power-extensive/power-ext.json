@@ -349,9 +349,36 @@
           "measurement": "POWER_EXT",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select last(power_allocated) as \"System Allocated\" from (select mean(power_zone_0_allocated) + mean(power_zone_1_allocated) +mean(power_system_allocated) as power_allocated from POWER_EXT where device=~/$device/ and \n component_name=~/(?i)chassis.*/  AND time > now()-5m  group by time(5m), device, component_name fill(0))",
+          "query": "select last(power_system_allocated) as \"System Allocated\" from POWER_EXT where device=~/$device/ and \n component_name=~/(?i)chassis.*/  AND time > now()-5m  group by time(5m), device, component_name fill(0)",
           "rawQuery": true,
           "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "*"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "alias": "Field tag__component_name",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "POWER_EXT",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select last(power_allocated_zone) as \"System Alloc. Zones\" from (select mean(power_zone_0_allocated) + mean(power_zone_1_allocated) as power_allocated_zone from POWER_EXT where device=~/$device/ and \n component_name=~/(?i)chassis.*/  AND time > now()-5m  group by time(5m), device, component_name fill(0))",
+          "rawQuery": true,
+          "refId": "D",
           "resultFormat": "table",
           "select": [
             [
@@ -2671,7 +2698,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "yellow",
@@ -2820,7 +2848,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -2951,7 +2980,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3111,7 +3141,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3256,7 +3287,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3456,7 +3488,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3632,6 +3665,6 @@
   "timezone": "",
   "title": "POWER EXTENSIVE PROFILE - JTSO",
   "uid": "powerextdashboard",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
