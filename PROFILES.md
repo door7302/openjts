@@ -157,7 +157,7 @@ Optic KPIs: Optic levels, Physical errors, per optic details...
     (6) History over the time of SOPDM
     (7) History over the time of PDL
 
-## Power profile
+## Power profile (Soon replaced by Power Extensive profile)
 
 Power KPIs: per component power usage, global usage, temperature, fan state...
 
@@ -203,6 +203,65 @@ Power KPIs: per component power usage, global usage, temperature, fan state...
     (4) History over the time of each PEM/PSM power consumption 
 
 ![power7.png](./img/profiles/power/power7.png)
+
+    (1) Total of power consumption 
+    (2) Per Model power consumption 
+    (3) History over the time of the total power consumption 
+    (4) History over the time for each chassis model of the total power consumption 
+
+## Power Extensive 
+
+Power KPIs: per component power usage, global usage, temperature, fan state...
+Provide also the overall input traffic view and the ratio Watts per Gbps. 
+
+### Sensor path details
+
+![power.png](./img/sensors/power-ext.png)
+
+### Dashboard screenshots
+
+![power1.png](./img/profiles/power-ext/power1.png)
+
+    (1) Chassis information 
+    (2) Configured Ambient Temperature 
+    (3) Overall chassis power information 
+    (4) In case of multi-zone Chassis – overall zone power information 
+
+![power2.png](./img/profiles/power-ext/power2.png)
+
+    (1) Total chassis input traffic in Bps
+    (2) Total chassis input traffic in Pps
+    (3) Ratio Watts per Gbps. 
+
+![power3.png](./img/profiles/power-ext/power3.png)
+
+    (1) History over the time of the overall chassis power consumption 
+    (2) Per components power consumption – over time 
+
+![power4.png](./img/profiles/power-ext/power4.png)
+
+    (1) Per component temperature over the time 
+
+![power5.png](./img/profiles/power-ext/power5.png)
+
+    (1) Per MPC/FPC current power consumption 
+    (2) History over the time of each MPC/FPC power consumption 
+    (3) Per FAN current power consumption 
+    (4) History over the time of each FAN power consumption 
+
+![power6.png](./img/profiles/power-ext/power6.png)
+
+    (1) Per FAN current FAN Speed 
+    (2) History over the time of each FAN speed
+
+![power7.png](./img/profiles/power-ext/power7.png)
+
+    (1) Per CB/Fabric/RE current power consumption 
+    (2) History over the time of each CB/Fabric/RE power consumption 
+    (3) Per PEM/PSM current power consumption 
+    (4) History over the time of each PEM/PSM power consumption 
+
+![power8.png](./img/profiles/power-ext/power8.png)
 
     (1) Total of power consumption 
     (2) Per Model power consumption 
