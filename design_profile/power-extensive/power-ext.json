@@ -2001,7 +2001,7 @@
           "measurement": "POWER_EXT",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT temperature FROM \"POWER_EXT\" WHERE (\"device\"=~ /^$device$/) and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT temperature FROM \"POWER_EXT\" WHERE (\"device\"=~ /^$device$/) and $timeFilter and temperature!=0 group by component_name, device fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
