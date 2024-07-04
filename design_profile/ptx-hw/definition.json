@@ -1,0 +1,15 @@
+{
+    "cheatsheet": "ptx-hw.png",
+    "description": "This profile provides template for collecting HW information on PTX platform",
+    "telegraf": {
+      "ptx":[ {
+        "version": "all",
+        "conf": "ptx_hw.conf"
+        }
+      ]
+    },
+    "kapacitor": [],
+    "grafana": [
+      "ptx-hw.json"
+    ]
+}
