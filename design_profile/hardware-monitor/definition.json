@@ -5,7 +5,7 @@
     "mx": [
       {
         "version": "all",
-        "conf": "hw-mon-ptx.conf"
+        "conf": "hw-mon-mx.conf"
       }
     ],
     "ptx": [
@@ -17,7 +17,7 @@
     "acx": [
       {
         "version": "all",
-        "conf": "hw-mon-ptx.conf"
+        "conf": "hw-mon-acx.conf"
       }
     ]
   },
