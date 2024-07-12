@@ -1,0 +1,28 @@
+{
+  "cheatsheet": "hardware-monitor.png",
+  "description": "This profile provides template for collecting HW information on routing platform",
+  "telegraf": {
+    "mx": [
+      {
+        "version": "all",
+        "conf": "hw-mon-ptx.conf"
+      }
+    ],
+    "ptx": [
+      {
+        "version": "all",
+        "conf": "hw-mon-ptx.conf"
+      }
+    ],
+    "acx": [
+      {
+        "version": "all",
+        "conf": "hw-mon-ptx.conf"
+      }
+    ]
+  },
+  "kapacitor": [],
+  "grafana": [
+    "hardware-monitor.json"
+  ]
+}
