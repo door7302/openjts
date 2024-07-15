@@ -614,47 +614,6 @@
               "value": "FPC0"
             }
           ]
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "HARDWARE",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
         }
       ],
       "title": "Current FPC Heap Memory",
@@ -1022,12 +981,14 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "/junos/events/event/attributes/key": true,
               "/junos/events/event/facility": true,
               "/junos/events/event/priority": true,
               "/junos/events/event/type": true,
               "MODEL": true,
               "VERSION": true,
               "_component_id": true,
+              "attributes/value": true,
               "component": true,
               "device": true,
               "host": true,
@@ -1036,6 +997,7 @@
               "pid": true,
               "seconds": true
             },
+            "includeByName": {},
             "indexByName": {
               "/junos/events/event/facility": 4,
               "/junos/events/event/priority": 5,
@@ -2191,7 +2153,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2199,7 +2162,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2311,7 +2275,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2319,7 +2284,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2439,7 +2405,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2447,7 +2414,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2566,7 +2534,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2574,7 +2543,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2694,7 +2664,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2702,7 +2673,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2806,7 +2778,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2814,7 +2787,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2946,7 +2920,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2954,7 +2929,8 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -3031,7 +3007,7 @@
         "content": "<h2><center>- Fabric -</center><h2>",
         "mode": "html"
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "transparent": true,
       "type": "text"
     },
@@ -3095,7 +3071,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3103,7 +3080,8 @@
               }
             ]
           },
-          "unit": "pps"
+          "unit": "pps",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -3219,7 +3197,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3227,7 +3206,8 @@
               }
             ]
           },
-          "unit": "pps"
+          "unit": "pps",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -3345,7 +3325,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3353,7 +3334,8 @@
               }
             ]
           },
-          "unit": "pps"
+          "unit": "pps",
+          "unitScale": true
         },
         "overrides": []
       },
