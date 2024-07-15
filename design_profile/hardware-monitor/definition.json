@@ -5,19 +5,19 @@
     "mx": [
       {
         "version": "all",
-        "conf": "hw-mon-mx.conf"
+        "conf": "mx_hw-mon.conf"
       }
     ],
     "ptx": [
       {
         "version": "all",
-        "conf": "hw-mon-ptx.conf"
+        "conf": "ptx_hw-mon.conf"
       }
     ],
     "acx": [
       {
         "version": "all",
-        "conf": "hw-mon-acx.conf"
+        "conf": "acx_hw-mon.conf"
       }
     ]
   },
