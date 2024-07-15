@@ -17,6 +17,7 @@ services:
       - ./influxdb/data:/var/lib/influxdb
   telegraf_vmx:
     build: https://github.com/door7302/jts_telegraf.git#main
+    image: telegraf_vmx:v1.0.5
     container_name: telegraf_vmx
     restart: always
     user: root
@@ -31,6 +32,7 @@ services:
       --config-directory /etc/telegraf/telegraf.d
   telegraf_mx:
     build: https://github.com/door7302/jts_telegraf.git#main
+    image: telegraf_mx:v1.0.5
     container_name: telegraf_mx
     restart: always
     user: root
@@ -45,6 +47,7 @@ services:
       --config-directory /etc/telegraf/telegraf.d
   telegraf_ptx:
     build: https://github.com/door7302/jts_telegraf.git#main
+    image: telegraf_ptx:v1.0.5
     container_name: telegraf_ptx
     restart: always
     user: root
@@ -59,6 +62,7 @@ services:
       --config-directory /etc/telegraf/telegraf.d
   telegraf_acx:
     build: https://github.com/door7302/jts_telegraf.git#main
+    image: telegraf_acx:v1.0.5
     container_name: telegraf_acx
     restart: always
     user: root
@@ -109,6 +113,7 @@ services:
       - ./grafana/plugins:/var/lib/grafana/plugins
   jtso:
     build: https://github.com/door7302/jtso.git#${JTSO_BRANCH}
+    image: jtso:v1.0.3
     container_name: jtso
     restart: always
     user: root
