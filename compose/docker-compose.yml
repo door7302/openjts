@@ -112,8 +112,8 @@ services:
       - ./grafana/data:/var/lib/grafana
       - ./grafana/plugins:/var/lib/grafana/plugins
   jtso:
-    build: https://github.com/door7302/jtso.git#${JTSO_BRANCH}
-    image: jtso:v1.0.3
+    build: https://github.com/door7302/jtso.git#$v1.0.4
+    image: jtso:latest
     container_name: jtso
     restart: always
     user: root
