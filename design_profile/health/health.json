@@ -86,7 +86,7 @@
             "uid": "jtsuid"
           },
           "groupBy": [],
-          "measurement": "SIMPLE_HW",
+          "measurement": "HW_NPU",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT last(\"idle_cpu\") FROM \"HARDWARE\" WHERE \"device\"::tag=~ /^$rtr$/ AND $timeFilter group by VERSION, MODEL, device",
