@@ -89,7 +89,7 @@
           "measurement": "HARDWARE",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"value\") FROM \"HARDWARE\" WHERE (\"device\"::tag=~ /^$rtr$/ and \"component_name\"::tag =~ /^$comp_name$/ AND \"property_name\"::tag =~ /^$prop_name$/) AND $timeFilter group by VERSION, MODEL, device",
+          "query": "SELECT last(\"component_value\") FROM \"HARDWARE\" WHERE (\"device\"::tag=~ /^$rtr$/ and \"component_name\"::tag =~ /^$comp_name$/ AND \"property_name\"::tag =~ /^$prop_name$/) AND $timeFilter group by VERSION, MODEL, device",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -97,7 +97,7 @@
             [
               {
                 "params": [
-                  "value"
+                  "component_value"
                 ],
                 "type": "field"
               }
@@ -269,7 +269,7 @@
             [
               {
                 "params": [
-                  "value"
+                  "component_value"
                 ],
                 "type": "field"
               }
@@ -370,7 +370,7 @@
             [
               {
                 "params": [
-                  "value"
+                  "component_value"
                 ],
                 "type": "field"
               }
