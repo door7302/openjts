@@ -8,6 +8,10 @@
         }
       ],
       "ptx":[ {
+        "version": ">=24.2",
+        "conf": "ptx_optic_24.2.conf"
+        },
+        {
         "version": "all",
         "conf": "ptx_optic.conf"
         }

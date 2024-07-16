@@ -89,7 +89,7 @@
           "measurement": "HW_NPU",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"value\") FROM \"HW_NPU\" WHERE (\"device\"::tag=~ /^$rtr$/ and \"component_name\"::tag =~ /^$comp_name$/ AND \"property_name\"::tag =~ /^$prop_name$/) AND $timeFilter group by VERSION, MODEL, device",
+          "query": "SELECT last(\"value\") FROM \"HW_NPU\" WHERE (\"device\"::tag=~ /^$rtr$/ and \"component_name\"::tag =~ /^$comp_name$/ AND \"property_name\"::tag =~ /^$prop_name$/) AND $timeFilter and MODEL!='' group by VERSION, MODEL, device",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
