@@ -89,7 +89,7 @@
           "measurement": "SIMPLE_HW",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"value\") FROM \"HARDWARE\" WHERE \"device\"::tag=~ /^$rtr$/ AND $timeFilter group by VERSION, MODEL, device",
+          "query": "SELECT last(\"idle_cpu\") FROM \"HARDWARE\" WHERE \"device\"::tag=~ /^$rtr$/ AND $timeFilter group by VERSION, MODEL, device",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -930,8 +930,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -955,8 +954,7 @@
                   "mode": "absolute",
                   "steps": [
                     {
-                      "color": "green",
-                      "value": null
+                      "color": "green"
                     },
                     {
                       "color": "#EAB839",
@@ -1091,8 +1089,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
