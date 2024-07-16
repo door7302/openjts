@@ -37,6 +37,140 @@
           "color": {
             "mode": "thresholds"
           },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "color-background"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 46,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "SIMPLE_HW",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"value\") FROM \"HARDWARE\" WHERE \"device\"::tag=~ /^$rtr$/ AND $timeFilter group by VERSION, MODEL, device",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "component_name::tag",
+              "operator": "=~",
+              "value": "/^$comp_name$/"
+            },
+            {
+              "condition": "AND",
+              "key": "property_name::tag",
+              "operator": "=~",
+              "value": "/^$prop_name$/"
+            }
+          ]
+        }
+      ],
+      "title": "Router Info",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "HW_TYPE": true,
+              "Time": true,
+              "_component_id": true,
+              "component": true,
+              "component_name": true,
+              "host": true,
+              "if_name": true,
+              "last": true,
+              "path": true,
+              "property_name": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "HW_TYPE": 1,
+              "MODEL": 3,
+              "Time": 0,
+              "VERSION": 4,
+              "_component_id": 5,
+              "component": 8,
+              "component_name": 9,
+              "device": 2,
+              "host": 10,
+              "if_name": 6,
+              "last": 12,
+              "path": 11,
+              "property_name": 7
+            },
+            "renameByName": {
+              "MODEL": "Router Model",
+              "VERSION": "Device Version",
+              "device": "Device Name"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -59,7 +193,7 @@
         "h": 4,
         "w": 9,
         "x": 0,
-        "y": 0
+        "y": 5
       },
       "id": 32,
       "options": {
@@ -157,7 +291,7 @@
         "h": 4,
         "w": 15,
         "x": 9,
-        "y": 0
+        "y": 5
       },
       "id": 38,
       "options": {
@@ -252,7 +386,7 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 4
+        "y": 9
       },
       "id": 35,
       "options": {
@@ -356,7 +490,7 @@
         "h": 2,
         "w": 3,
         "x": 3,
-        "y": 4
+        "y": 9
       },
       "id": 33,
       "options": {
@@ -456,7 +590,7 @@
         "h": 2,
         "w": 3,
         "x": 6,
-        "y": 4
+        "y": 9
       },
       "id": 36,
       "options": {
@@ -556,7 +690,7 @@
         "h": 4,
         "w": 15,
         "x": 9,
-        "y": 4
+        "y": 9
       },
       "id": 39,
       "options": {
@@ -657,7 +791,7 @@
         "h": 2,
         "w": 3,
         "x": 3,
-        "y": 6
+        "y": 11
       },
       "id": 34,
       "options": {
@@ -758,7 +892,7 @@
         "h": 2,
         "w": 3,
         "x": 6,
-        "y": 6
+        "y": 11
       },
       "id": 37,
       "options": {
@@ -908,7 +1042,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 13
       },
       "id": 45,
       "options": {
@@ -1045,7 +1179,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 18
+        "y": 23
       },
       "id": 41,
       "options": {
@@ -1067,7 +1201,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 25
       },
       "id": 17,
       "panels": [],
@@ -1113,7 +1247,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 26
       },
       "id": 24,
       "options": {
@@ -1335,7 +1469,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 32
       },
       "id": 9,
       "non_matching_cells_text": "",
@@ -1864,7 +1998,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 35
+        "y": 40
       },
       "id": 13,
       "options": {
@@ -1988,7 +2122,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 35
+        "y": 40
       },
       "id": 15,
       "options": {
@@ -2078,7 +2212,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 43
+        "y": 48
       },
       "id": 42,
       "options": {
@@ -2100,7 +2234,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 45
+        "y": 50
       },
       "id": 19,
       "panels": [],
@@ -2172,7 +2306,7 @@
         "h": 15,
         "w": 12,
         "x": 0,
-        "y": 46
+        "y": 51
       },
       "id": 6,
       "options": {
@@ -2293,7 +2427,7 @@
         "h": 15,
         "w": 12,
         "x": 12,
-        "y": 46
+        "y": 51
       },
       "id": 26,
       "options": {
@@ -2422,7 +2556,7 @@
         "h": 13,
         "w": 12,
         "x": 0,
-        "y": 61
+        "y": 66
       },
       "id": 25,
       "options": {
@@ -2550,7 +2684,7 @@
         "h": 13,
         "w": 12,
         "x": 12,
-        "y": 61
+        "y": 66
       },
       "id": 7,
       "options": {
@@ -2679,7 +2813,7 @@
         "h": 13,
         "w": 7,
         "x": 0,
-        "y": 74
+        "y": 79
       },
       "id": 28,
       "options": {
@@ -2792,7 +2926,7 @@
         "h": 13,
         "w": 7,
         "x": 7,
-        "y": 74
+        "y": 79
       },
       "id": 30,
       "options": {
@@ -2933,7 +3067,7 @@
         "h": 13,
         "w": 10,
         "x": 14,
-        "y": 74
+        "y": 79
       },
       "id": 29,
       "options": {
@@ -2990,7 +3124,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 87
+        "y": 92
       },
       "id": 44,
       "options": {
@@ -3012,7 +3146,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 89
+        "y": 94
       },
       "id": 23,
       "panels": [],
@@ -3083,7 +3217,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 90
+        "y": 95
       },
       "id": 2,
       "options": {
@@ -3208,7 +3342,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 101
+        "y": 106
       },
       "id": 4,
       "options": {
@@ -3335,7 +3469,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 112
+        "y": 117
       },
       "id": 3,
       "options": {
@@ -3439,6 +3573,6 @@
   "timezone": "",
   "title": "ROUTER HEALTH MONITORING PROFILE - JTSO",
   "uid": "healthdashboard",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

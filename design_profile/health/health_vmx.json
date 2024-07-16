@@ -37,6 +37,140 @@
           "color": {
             "mode": "thresholds"
           },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "color-background"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 46,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "SIMPLE_HW",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"value\") FROM \"HARDWARE\" WHERE \"device\"::tag=~ /^$rtr$/ AND $timeFilter group by VERSION, MODEL, device",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "component_name::tag",
+              "operator": "=~",
+              "value": "/^$comp_name$/"
+            },
+            {
+              "condition": "AND",
+              "key": "property_name::tag",
+              "operator": "=~",
+              "value": "/^$prop_name$/"
+            }
+          ]
+        }
+      ],
+      "title": "Router Info",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "HW_TYPE": true,
+              "Time": true,
+              "_component_id": true,
+              "component": true,
+              "component_name": true,
+              "host": true,
+              "if_name": true,
+              "last": true,
+              "path": true,
+              "property_name": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "HW_TYPE": 1,
+              "MODEL": 3,
+              "Time": 0,
+              "VERSION": 4,
+              "_component_id": 5,
+              "component": 8,
+              "component_name": 9,
+              "device": 2,
+              "host": 10,
+              "if_name": 6,
+              "last": 12,
+              "path": 11,
+              "property_name": 7
+            },
+            "renameByName": {
+              "MODEL": "Router Model",
+              "VERSION": "Device Version",
+              "device": "Device Name"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -59,7 +193,7 @@
         "h": 4,
         "w": 8,
         "x": 0,
-        "y": 0
+        "y": 5
       },
       "id": 32,
       "options": {
@@ -157,7 +291,7 @@
         "h": 4,
         "w": 16,
         "x": 8,
-        "y": 0
+        "y": 5
       },
       "id": 38,
       "options": {
@@ -257,7 +391,7 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 4
+        "y": 9
       },
       "id": 33,
       "options": {
@@ -357,7 +491,7 @@
         "h": 4,
         "w": 4,
         "x": 4,
-        "y": 4
+        "y": 9
       },
       "id": 36,
       "options": {
@@ -457,7 +591,7 @@
         "h": 4,
         "w": 16,
         "x": 8,
-        "y": 4
+        "y": 9
       },
       "id": 39,
       "options": {
@@ -607,7 +741,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 13
       },
       "id": 45,
       "options": {
@@ -744,7 +878,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 18
+        "y": 23
       },
       "id": 41,
       "options": {
@@ -766,7 +900,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 25
       },
       "id": 17,
       "panels": [],
@@ -850,7 +984,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 21
+        "y": 26
       },
       "id": 13,
       "options": {
@@ -975,7 +1109,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 21
+        "y": 26
       },
       "id": 15,
       "options": {
@@ -1065,7 +1199,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 29
+        "y": 34
       },
       "id": 42,
       "options": {
@@ -1087,7 +1221,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 36
       },
       "id": 19,
       "panels": [],
@@ -1142,8 +1276,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1160,7 +1293,7 @@
         "h": 15,
         "w": 12,
         "x": 0,
-        "y": 32
+        "y": 37
       },
       "id": 6,
       "options": {
@@ -1264,8 +1397,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1282,7 +1414,7 @@
         "h": 15,
         "w": 12,
         "x": 12,
-        "y": 32
+        "y": 37
       },
       "id": 26,
       "options": {
@@ -1410,7 +1542,7 @@
         "h": 13,
         "w": 12,
         "x": 0,
-        "y": 47
+        "y": 52
       },
       "id": 25,
       "options": {
@@ -1537,7 +1669,7 @@
         "h": 13,
         "w": 12,
         "x": 12,
-        "y": 47
+        "y": 52
       },
       "id": 7,
       "options": {
@@ -1665,7 +1797,7 @@
         "h": 13,
         "w": 7,
         "x": 0,
-        "y": 60
+        "y": 65
       },
       "id": 28,
       "options": {
@@ -1777,7 +1909,7 @@
         "h": 13,
         "w": 7,
         "x": 7,
-        "y": 60
+        "y": 65
       },
       "id": 30,
       "options": {
@@ -1917,7 +2049,7 @@
         "h": 13,
         "w": 10,
         "x": 14,
-        "y": 60
+        "y": 65
       },
       "id": 29,
       "options": {
