@@ -30,6 +30,7 @@
     "kapacitor": null,
     "grafana": [
       "health.json",
-      "health_vmx.json"
+      "health_vmx.json",
+      "hardware-monitor.json"
     ]
 }
