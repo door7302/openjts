@@ -306,7 +306,7 @@
           "measurement": "COS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(cos_fw) from (SELECT \"cos_forwarded_octets_rate\"*8 as cos_fw FROM \"COS\" WHERE \"device\" =~ /^$rtr$/  and $timeFilter GROUP BY LINKNAME,  \"queue_id\") group by queue_id",
+          "query": "select sum(cos_fw) from (SELECT \"cos_forwarded_octets_rate\"*8 as cos_fw FROM \"COS\" WHERE \"device\" =~ /^$rtr$/  and \"if_name\" =~ /^(et|xe|ge).*/  and $timeFilter GROUP BY if_name,  \"queue_id\") group by queue_id",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -327,7 +327,7 @@
       "type": "piechart"
     },
     {
-      "collapsed": false,
+      "collapsed": true,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -335,176 +335,177 @@
         "y": 14
       },
       "id": 19,
-      "panels": [],
-      "title": "Drop Details - Timestamp",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "left",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "filterable": true,
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 10
-              }
-            ]
-          },
-          "unit": "pps",
-          "unitScale": true
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Queue"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "none"
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 24,
-        "x": 0,
-        "y": 15
-      },
-      "id": 17,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": [
-            "count"
-          ],
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true
-      },
-      "pluginVersion": "10.3.1",
-      "targets": [
+      "panels": [
         {
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "groupBy": [
-            {
-              "params": [
-                "ALARM_TYPE"
-              ],
-              "type": "tag"
+          "description": "",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": "left",
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "filterable": true,
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 10
+                  }
+                ]
+              },
+              "unit": "pps",
+              "unitScale": true
             },
-            {
-              "params": [
-                "LINKNAME"
-              ],
-              "type": "tag"
-            }
-          ],
-          "measurement": "ALARMING",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"exception\" FROM \"ALARMING\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter and ALARM_TYPE=~/RED.*|TAIL.*/ GROUP BY \"ALARM_TYPE\", \"LINKNAME\", queue_id, queue_name",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [
-            [
+            "overrides": [
               {
-                "params": [
-                  "exception"
-                ],
-                "type": "field"
+                "matcher": {
+                  "id": "byName",
+                  "options": "Queue"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "none"
+                  }
+                ]
               }
             ]
-          ],
-          "tags": [
-            {
-              "key": "device",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            }
-          ]
-        }
-      ],
-      "title": "RealTime Monitored CoS Drops Details (TimeFrame) ",
-      "transformations": [
-        {
-          "id": "organize",
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 24,
+            "x": 0,
+            "y": 15
+          },
+          "id": 17,
           "options": {
-            "excludeByName": {
-              "queue_name": true
+            "cellHeight": "sm",
+            "footer": {
+              "countRows": false,
+              "fields": [
+                "count"
+              ],
+              "reducer": [
+                "sum"
+              ],
+              "show": false
             },
-            "indexByName": {},
-            "renameByName": {
-              "ALARM_TYPE": "Type of Alarm",
-              "LINKNAME": "PORT",
-              "Time": "Timestamp",
-              "count": "Cumulative Alarms",
-              "exception": "Drop pps",
-              "queue_id": "Queue",
-              "queue_name": "FC"
+            "showHeader": true
+          },
+          "pluginVersion": "10.3.1",
+          "targets": [
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "ALARM_TYPE"
+                  ],
+                  "type": "tag"
+                },
+                {
+                  "params": [
+                    "LINKNAME"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "ALARMING",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT \"exception\" FROM \"ALARMING\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter and ALARM_TYPE=~/RED.*|TAIL.*/ GROUP BY \"ALARM_TYPE\", \"LINKNAME\", queue_id, queue_name",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "table",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "exception"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "device",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                }
+              ]
             }
-          }
+          ],
+          "title": "RealTime Monitored CoS Drops Details (TimeFrame) ",
+          "transformations": [
+            {
+              "id": "organize",
+              "options": {
+                "excludeByName": {
+                  "queue_name": true
+                },
+                "indexByName": {},
+                "renameByName": {
+                  "ALARM_TYPE": "Type of Alarm",
+                  "LINKNAME": "PORT",
+                  "Time": "Timestamp",
+                  "count": "Cumulative Alarms",
+                  "exception": "Drop pps",
+                  "queue_id": "Queue",
+                  "queue_name": "FC"
+                }
+              }
+            }
+          ],
+          "type": "table"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "gridPos": {
+            "h": 2,
+            "w": 24,
+            "x": 0,
+            "y": 25
+          },
+          "id": 39,
+          "options": {
+            "code": {
+              "language": "plaintext",
+              "showLineNumbers": false,
+              "showMiniMap": false
+            },
+            "content": "<h2><center>Per Interface details</center><h2>",
+            "mode": "html"
+          },
+          "pluginVersion": "10.3.1",
+          "transparent": true,
+          "type": "text"
         }
       ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
-      },
-      "gridPos": {
-        "h": 2,
-        "w": 24,
-        "x": 0,
-        "y": 25
-      },
-      "id": 39,
-      "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
-        },
-        "content": "<h2><center>Per Interface details</center><h2>",
-        "mode": "html"
-      },
-      "pluginVersion": "10.3.1",
-      "transparent": true,
-      "type": "text"
+      "title": "Drop Details - Timestamp",
+      "type": "row"
     },
     {
       "collapsed": true,
@@ -512,7 +513,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 15
       },
       "id": 13,
       "panels": [
@@ -526,7 +527,7 @@
             "h": 2,
             "w": 24,
             "x": 0,
-            "y": 28
+            "y": 16
           },
           "id": 51,
           "options": {
@@ -607,7 +608,7 @@
             "h": 12,
             "w": 24,
             "x": 0,
-            "y": 30
+            "y": 18
           },
           "id": 2,
           "options": {
@@ -797,7 +798,7 @@
             "h": 15,
             "w": 12,
             "x": 0,
-            "y": 42
+            "y": 30
           },
           "id": 3,
           "options": {
@@ -986,7 +987,7 @@
             "h": 15,
             "w": 12,
             "x": 12,
-            "y": 42
+            "y": 30
           },
           "id": 53,
           "options": {
@@ -1364,7 +1365,7 @@
             "h": 12,
             "w": 24,
             "x": 0,
-            "y": 57
+            "y": 45
           },
           "id": 7,
           "options": {
@@ -1503,7 +1504,7 @@
             "h": 2,
             "w": 24,
             "x": 0,
-            "y": 69
+            "y": 57
           },
           "id": 52,
           "options": {
@@ -1562,7 +1563,7 @@
             "h": 10,
             "w": 7,
             "x": 0,
-            "y": 71
+            "y": 59
           },
           "id": 9,
           "options": {
@@ -1702,7 +1703,7 @@
             "h": 10,
             "w": 7,
             "x": 7,
-            "y": 71
+            "y": 59
           },
           "id": 50,
           "options": {
@@ -1789,7 +1790,7 @@
             "h": 10,
             "w": 10,
             "x": 14,
-            "y": 71
+            "y": 59
           },
           "id": 11,
           "options": {
@@ -1921,7 +1922,7 @@
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 81
+            "y": 69
           },
           "id": 48,
           "options": {
@@ -2063,7 +2064,7 @@
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 81
+            "y": 69
           },
           "id": 4,
           "options": {
@@ -2204,7 +2205,7 @@
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 93
+            "y": 81
           },
           "id": 49,
           "options": {
@@ -2345,7 +2346,7 @@
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 93
+            "y": 81
           },
           "id": 5,
           "options": {
@@ -2438,8 +2439,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "rtme-mx-25.englab.juniper.net",
+          "value": "rtme-mx-25.englab.juniper.net"
         },
         "datasource": {
           "type": "influxdb",

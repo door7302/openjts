@@ -28,6 +28,19 @@
   "liveNow": false,
   "panels": [
     {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 40,
+      "panels": [],
+      "title": "Router Info & Alarms",
+      "type": "row"
+    },
+    {
       "datasource": {
         "type": "influxdb",
         "uid": "jtsuid"
@@ -62,7 +75,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 0
+        "y": 1
       },
       "id": 7,
       "options": {
@@ -166,6 +179,239 @@
         "type": "influxdb",
         "uid": "jtsuid"
       },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
+      "id": 38,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Time Triggered"
+          }
+        ]
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "ERRORS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"alarm_severity\"), last(\"alarm_resource\"), last(\"alarm_time\"), last(\"alarm_text\") FROM \"ERRORS\" WHERE (\"device\" =~ /^$rtr$/) and  $timeFilter GROUP BY \"/system/alarms/alarm/id\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "alarm_severity"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_resource"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_time"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_text"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": true,
+          "measurement": "ERRORS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"alarm_severity_net\"), last(\"alarm_resource_net\"), last(\"alarm_time_net\"), last(\"alarm_text_net\") FROM \"ERRORS\" WHERE (\"device\" =~ /^$rtr$/) and  $timeFilter GROUP BY \"alarm_id_net\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "alarm_severity"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_resource"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_time"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_text"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
+        }
+      ],
+      "title": "Chassis Alarms",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "dateFormat": "",
+                "destinationType": "time",
+                "targetField": "last_2"
+              }
+            ],
+            "fields": {}
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "/system/alarms/alarm/id": true,
+              "Time": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "Time": 0,
+              "last": 2,
+              "last_1": 3,
+              "last_2": 1,
+              "last_3": 4
+            },
+            "renameByName": {
+              "last": "Severity",
+              "last_1": "Type",
+              "last_2": "Time Triggered",
+              "last_3": "Info"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 41,
+      "panels": [],
+      "repeat": "prop_name",
+      "repeatDirection": "h",
+      "title": "RAW NPU STATISTICS FOR $comp_name - KPI $prop_name",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -230,7 +476,7 @@
         "h": 8,
         "w": 17,
         "x": 0,
-        "y": 5
+        "y": 13
       },
       "id": 1,
       "options": {
@@ -250,8 +496,6 @@
           "sort": "none"
         }
       },
-      "repeat": "prop_name",
-      "repeatDirection": "v",
       "targets": [
         {
           "alias": "$prop_name",
@@ -296,7 +540,7 @@
           ]
         }
       ],
-      "title": "History of $comp_name - $prop_name",
+      "title": "History of $prop_name",
       "type": "timeseries"
     },
     {
@@ -328,7 +572,7 @@
         "h": 8,
         "w": 7,
         "x": 17,
-        "y": 5
+        "y": 13
       },
       "id": 2,
       "options": {
@@ -351,8 +595,6 @@
         "wideLayout": false
       },
       "pluginVersion": "10.3.1",
-      "repeat": "prop_name",
-      "repeatDirection": "v",
       "targets": [
         {
           "alias": "$prop_name",
@@ -397,7 +639,7 @@
           ]
         }
       ],
-      "title": "Current Value of $comp_name",
+      "title": "Current Value of $prop_name",
       "type": "stat"
     }
   ],
@@ -433,7 +675,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "",
           "value": ""
         },
