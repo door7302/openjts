@@ -306,7 +306,7 @@
           "measurement": "COS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(cos_fw) from (SELECT \"cos_forwarded_octets_rate\"*8 as cos_fw FROM \"COS\" WHERE \"device\" =~ /^$rtr$/  and \"if_name\" =~ /^(et|xe|ge).*/  and $timeFilter GROUP BY if_name,  \"queue_id\") group by queue_id",
+          "query": "select sum(cos_fw) from (SELECT \"cos_forwarded_octets_rate\"*8 as cos_fw FROM \"COS\" WHERE \"device\" =~ /^$rtr$/  and \"if_name\" =~ /^(et|xe|ge).*/  and if_unit='' and $timeFilter GROUP BY if_name,  \"queue_id\") group by queue_id",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -327,7 +327,7 @@
       "type": "piechart"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -335,177 +335,176 @@
         "y": 14
       },
       "id": 19,
-      "panels": [
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+      "panels": [],
+      "title": "Drop Details - Timestamp",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
           },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "left",
-                "cellOptions": {
-                  "type": "auto"
-                },
-                "filterable": true,
-                "inspect": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 10
-                  }
-                ]
-              },
-              "unit": "pps",
-              "unitScale": true
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
             },
-            "overrides": [
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
               {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Queue"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "none"
-                  }
-                ]
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 10
               }
             ]
           },
-          "gridPos": {
-            "h": 10,
-            "w": 24,
-            "x": 0,
-            "y": 15
-          },
-          "id": 17,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "fields": [
-                "count"
-              ],
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true
-          },
-          "pluginVersion": "10.3.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "ALARM_TYPE"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "LINKNAME"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "measurement": "ALARMING",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT \"exception\" FROM \"ALARMING\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter and ALARM_TYPE=~/RED.*|TAIL.*/ GROUP BY \"ALARM_TYPE\", \"LINKNAME\", queue_id, queue_name",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "table",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "exception"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                }
-              ]
-            }
-          ],
-          "title": "RealTime Monitored CoS Drops Details (TimeFrame) ",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "queue_name": true
-                },
-                "indexByName": {},
-                "renameByName": {
-                  "ALARM_TYPE": "Type of Alarm",
-                  "LINKNAME": "PORT",
-                  "Time": "Timestamp",
-                  "count": "Cumulative Alarms",
-                  "exception": "Drop pps",
-                  "queue_id": "Queue",
-                  "queue_name": "FC"
-                }
-              }
-            }
-          ],
-          "type": "table"
+          "unit": "pps",
+          "unitScale": true
         },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Queue"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 17,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": [
+            "count"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
         {
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "gridPos": {
-            "h": 2,
-            "w": 24,
-            "x": 0,
-            "y": 25
-          },
-          "id": 39,
-          "options": {
-            "code": {
-              "language": "plaintext",
-              "showLineNumbers": false,
-              "showMiniMap": false
+          "groupBy": [
+            {
+              "params": [
+                "ALARM_TYPE"
+              ],
+              "type": "tag"
             },
-            "content": "<h2><center>Per Interface details</center><h2>",
-            "mode": "html"
-          },
-          "pluginVersion": "10.3.1",
-          "transparent": true,
-          "type": "text"
+            {
+              "params": [
+                "LINKNAME"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "ALARMING",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"exception\" FROM \"ALARMING\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter and ALARM_TYPE=~/RED.*|TAIL.*/ GROUP BY \"ALARM_TYPE\", \"LINKNAME\", queue_id, queue_name",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "exception"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
-      "title": "Drop Details - Timestamp",
-      "type": "row"
+      "title": "RealTime Monitored CoS Drops Details (TimeFrame) ",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "queue_name": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "ALARM_TYPE": "Type of Alarm",
+              "LINKNAME": "PORT",
+              "Time": "Timestamp",
+              "count": "Cumulative Alarms",
+              "exception": "Drop pps",
+              "queue_id": "Queue",
+              "queue_name": "FC"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
+      "id": 39,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h2><center>Per Interface details</center><h2>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.3.1",
+      "transparent": true,
+      "type": "text"
     },
     {
       "collapsed": true,
@@ -513,7 +512,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 27
       },
       "id": 13,
       "panels": [
@@ -527,7 +526,7 @@
             "h": 2,
             "w": 24,
             "x": 0,
-            "y": 16
+            "y": 28
           },
           "id": 51,
           "options": {
@@ -608,7 +607,7 @@
             "h": 12,
             "w": 24,
             "x": 0,
-            "y": 18
+            "y": 30
           },
           "id": 2,
           "options": {
@@ -640,7 +639,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"in_octets_rate\")*8  FROM \"COS\" WHERE (device =~ /^$rtr$/ AND LINKNAME = '$ifname') AND $timeFilter group by time($sample_interval)",
+              "query": "SELECT mean(\"in_octets_rate\")*8  FROM \"COS\" WHERE (device =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -687,7 +686,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"out_octets_rate\")*8 FROM \"COS\" WHERE (device =~ /^$rtr$/ AND LINKNAME = '$ifname') AND $timeFilter group by time($sample_interval)",
+              "query": "SELECT mean(\"out_octets_rate\")*8 FROM \"COS\" WHERE (device =~ /^$rtr$/ AND LINKNAME = '$ifname'  and if_unit='') AND $timeFilter group by time($sample_interval)",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -798,7 +797,7 @@
             "h": 15,
             "w": 12,
             "x": 0,
-            "y": 30
+            "y": 42
           },
           "id": 3,
           "options": {
@@ -829,7 +828,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"in_pkts_rate\")  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname') AND $timeFilter group by time($sample_interval)",
+              "query": "SELECT mean(\"in_pkts_rate\")  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -876,7 +875,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"out_pkts_rate\") FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname') AND $timeFilter group by time($sample_interval)",
+              "query": "SELECT mean(\"out_pkts_rate\") FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -987,7 +986,7 @@
             "h": 15,
             "w": 12,
             "x": 12,
-            "y": 30
+            "y": 42
           },
           "id": 53,
           "options": {
@@ -1019,7 +1018,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"in_pkts_rate\") - (mean(\"bcast_in_pkts_rate\")+mean(\"mcast_in_pkts_rate\"))  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname')AND $timeFilter group by time($sample_interval)",
+              "query": "SELECT mean(\"in_pkts_rate\") - (mean(\"bcast_in_pkts_rate\")+mean(\"mcast_in_pkts_rate\"))  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='')AND $timeFilter group by time($sample_interval)",
               "rawQuery": true,
               "refId": "E",
               "resultFormat": "time_series",
@@ -1066,7 +1065,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"out_pkts_rate\") - (mean(\"bcast_out_pkts_rate\")+mean(\"mcast_out_pkts_rate\"))  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname') AND $timeFilter group by time($sample_interval)",
+              "query": "SELECT mean(\"out_pkts_rate\") - (mean(\"bcast_out_pkts_rate\")+mean(\"mcast_out_pkts_rate\"))  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
               "rawQuery": true,
               "refId": "F",
               "resultFormat": "time_series",
@@ -1112,7 +1111,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"mcast_in_pkts_rate\")  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname') AND $timeFilter group by time($sample_interval)",
+              "query": "SELECT mean(\"mcast_in_pkts_rate\")  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1159,7 +1158,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"mcast_out_pkts_rate\")  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname') AND $timeFilter group by time($sample_interval)",
+              "query": "SELECT mean(\"mcast_out_pkts_rate\")  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1206,7 +1205,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"bcast_in_pkts_rate\")  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname') AND $timeFilter group by time($sample_interval)",
+              "query": "SELECT mean(\"bcast_in_pkts_rate\")  FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
               "rawQuery": true,
               "refId": "C",
               "resultFormat": "time_series",
@@ -1253,7 +1252,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"bcast_out_pkts_rate\") FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname') AND $timeFilter group by time($sample_interval)",
+              "query": "SELECT mean(\"bcast_out_pkts_rate\") FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
               "rawQuery": true,
               "refId": "D",
               "resultFormat": "time_series",
@@ -1365,7 +1364,7 @@
             "h": 12,
             "w": 24,
             "x": 0,
-            "y": 45
+            "y": 57
           },
           "id": 7,
           "options": {
@@ -1406,7 +1405,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"cos_red_dropped_packets_rate\") FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname') and  $timeFilter GROUP BY \"queue_id\",  time($sample_interval)",
+              "query": "SELECT mean(\"cos_red_dropped_packets_rate\") FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and  $timeFilter GROUP BY \"queue_id\",  time($sample_interval)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1458,7 +1457,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"cos_tail_dropped_packets_rate\") FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname') AND $timeFilter GROUP BY time($sample_interval), \"queue_id\"",
+              "query": "SELECT mean(\"cos_tail_dropped_packets_rate\") FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter GROUP BY time($sample_interval), \"queue_id\"",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1504,7 +1503,7 @@
             "h": 2,
             "w": 24,
             "x": 0,
-            "y": 57
+            "y": 69
           },
           "id": 52,
           "options": {
@@ -1563,7 +1562,7 @@
             "h": 10,
             "w": 7,
             "x": 0,
-            "y": 59
+            "y": 71
           },
           "id": 9,
           "options": {
@@ -1596,7 +1595,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"cos_buffer_cur\")/last(\"cos_buffer_size\")*100 FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname') and $timeFilter group by queue_id",
+              "query": "SELECT last(\"cos_buffer_cur\")/last(\"cos_buffer_size\")*100 FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter group by queue_id",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1703,7 +1702,7 @@
             "h": 10,
             "w": 7,
             "x": 7,
-            "y": 59
+            "y": 71
           },
           "id": 50,
           "options": {
@@ -1732,7 +1731,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT(\"cos_buffer_cur\")/(\"cos_buffer_size\")*100 FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname') and $timeFilter group by queue_id",
+              "query": "SELECT(\"cos_buffer_cur\")/(\"cos_buffer_size\")*100 FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter group by queue_id",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1790,7 +1789,7 @@
             "h": 10,
             "w": 10,
             "x": 14,
-            "y": 59
+            "y": 71
           },
           "id": 11,
           "options": {
@@ -1837,7 +1836,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"cos_forwarded_octets_rate\"*8 FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname')  and $timeFilter GROUP BY \"queue_id\"",
+              "query": "SELECT \"cos_forwarded_octets_rate\"*8 FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='')  and $timeFilter GROUP BY \"queue_id\"",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1922,7 +1921,7 @@
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 69
+            "y": 81
           },
           "id": 48,
           "options": {
@@ -1961,7 +1960,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"cos_queued_octets_rate\")*8 FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname') and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
+              "query": "SELECT mean(\"cos_queued_octets_rate\")*8 FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2064,7 +2063,7 @@
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 69
+            "y": 81
           },
           "id": 4,
           "options": {
@@ -2103,7 +2102,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"cos_forwarded_octets_rate\")*8 FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname')  and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
+              "query": "SELECT mean(\"cos_forwarded_octets_rate\")*8 FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='')  and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2188,7 +2187,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2205,7 +2205,7 @@
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 81
+            "y": 93
           },
           "id": 49,
           "options": {
@@ -2244,7 +2244,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"cos_queued_packets_rate\") FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname')  and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
+              "query": "SELECT mean(\"cos_queued_packets_rate\") FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='')  and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2329,7 +2329,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2346,7 +2347,7 @@
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 81
+            "y": 93
           },
           "id": 5,
           "options": {
@@ -2385,7 +2386,7 @@
               "measurement": "COS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"cos_forwarded_packets_rate\") FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname') AND   $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
+              "query": "SELECT mean(\"cos_forwarded_packets_rate\") FROM \"COS\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND   $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2439,8 +2440,8 @@
       {
         "current": {
           "selected": false,
-          "text": "rtme-mx-25.englab.juniper.net",
-          "value": "rtme-mx-25.englab.juniper.net"
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "influxdb",
