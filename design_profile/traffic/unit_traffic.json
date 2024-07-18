@@ -1027,7 +1027,7 @@
     "timepicker": {},
     "timezone": "",
     "title": "LOGICAL IF. TRAFFIC MONITORING PROFILE - JTSO",
-    "uid": "trafficdashboard",
+    "uid": "trafficunitdashboard",
     "version": 1,
     "weekStart": ""
   }
