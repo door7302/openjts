@@ -1319,7 +1319,7 @@
           "measurement": "ERRORS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"alarm_severity\"), last(\"alarm_resource\"), last(\"alarm_time\")*1000, last(\"alarm_text\") FROM \"ERRORS\" WHERE (\"device\" =~ /^$rtr$/) and  $timeFilter GROUP BY \"/system/alarms/alarm/id\"",
+          "query": "SELECT last(\"alarm_severity\"), last(\"alarm_resource\"), last(\"alarm_time\")/1000000, last(\"alarm_text\") FROM \"ERRORS\" WHERE (\"device\" =~ /^$rtr$/) and  $timeFilter GROUP BY \"/system/alarms/alarm/id\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -3622,6 +3622,6 @@
   "timezone": "",
   "title": "ROUTER HEALTH MONITORING PROFILE - JTSO",
   "uid": "healthdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
