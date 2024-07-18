@@ -37,6 +37,140 @@
           "color": {
             "mode": "thresholds"
           },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "color-background"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 46,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "HW_NPU",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"idle_cpu\") FROM \"HARDWARE\" WHERE \"device\"::tag=~ /^$rtr$/ AND $timeFilter group by VERSION, MODEL, device",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "component_name::tag",
+              "operator": "=~",
+              "value": "/^$comp_name$/"
+            },
+            {
+              "condition": "AND",
+              "key": "property_name::tag",
+              "operator": "=~",
+              "value": "/^$prop_name$/"
+            }
+          ]
+        }
+      ],
+      "title": "Router Info",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "HW_TYPE": true,
+              "Time": true,
+              "_component_id": true,
+              "component": true,
+              "component_name": true,
+              "host": true,
+              "if_name": true,
+              "last": true,
+              "path": true,
+              "property_name": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "HW_TYPE": 1,
+              "MODEL": 3,
+              "Time": 0,
+              "VERSION": 4,
+              "_component_id": 5,
+              "component": 8,
+              "component_name": 9,
+              "device": 2,
+              "host": 10,
+              "if_name": 6,
+              "last": 12,
+              "path": 11,
+              "property_name": 7
+            },
+            "renameByName": {
+              "MODEL": "Router Model",
+              "VERSION": "Device Version",
+              "device": "Device Name"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -50,7 +184,8 @@
                 "value": 1
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -58,7 +193,7 @@
         "h": 4,
         "w": 9,
         "x": 0,
-        "y": 0
+        "y": 5
       },
       "id": 32,
       "options": {
@@ -73,9 +208,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "value_and_name"
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "alias": "$tag_ALARM_TYPE",
@@ -145,7 +282,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -153,7 +291,7 @@
         "h": 4,
         "w": 15,
         "x": 9,
-        "y": 0
+        "y": 5
       },
       "id": 38,
       "options": {
@@ -168,9 +306,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "value_and_name"
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "alias": "$tag_component_name",
@@ -237,7 +377,8 @@
                 "value": 1
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -245,7 +386,7 @@
         "h": 4,
         "w": 3,
         "x": 0,
-        "y": 4
+        "y": 9
       },
       "id": 35,
       "options": {
@@ -260,9 +401,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "value"
+        "showPercentChange": false,
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -277,12 +420,56 @@
               "type": "tag"
             }
           ],
+          "hide": false,
           "measurement": "ERRORS",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "select count(last) from (SELECT last(\"alarm_text\") FROM \"ERRORS\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter GROUP BY \"/system/alarms/alarm/id\")",
           "rawQuery": true,
           "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "alarm_text"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "/system/alarms/alarm/id"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "ERRORS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select count(last) from (SELECT last(\"alarm_text_net\") FROM \"ERRORS\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter group by alarm_id_net)",
+          "rawQuery": true,
+          "refId": "B",
           "resultFormat": "time_series",
           "select": [
             [
@@ -338,7 +525,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -346,7 +534,7 @@
         "h": 2,
         "w": 3,
         "x": 3,
-        "y": 4
+        "y": 9
       },
       "id": 33,
       "options": {
@@ -361,9 +549,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "value"
+        "showPercentChange": false,
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "alias": "",
@@ -435,7 +625,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -443,7 +634,7 @@
         "h": 2,
         "w": 3,
         "x": 6,
-        "y": 4
+        "y": 9
       },
       "id": 36,
       "options": {
@@ -458,9 +649,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "value"
+        "showPercentChange": false,
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "alias": "",
@@ -532,7 +725,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -540,7 +734,7 @@
         "h": 4,
         "w": 15,
         "x": 9,
-        "y": 4
+        "y": 9
       },
       "id": 39,
       "options": {
@@ -555,9 +749,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "value_and_name"
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "alias": "$tag_component_name",
@@ -596,47 +792,6 @@
               "value": "FPC0"
             }
           ]
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "HARDWARE",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": []
         }
       ],
       "title": "Current FPC Heap Memory",
@@ -671,7 +826,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -679,7 +835,7 @@
         "h": 2,
         "w": 3,
         "x": 3,
-        "y": 6
+        "y": 11
       },
       "id": 34,
       "options": {
@@ -694,9 +850,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "value"
+        "showPercentChange": false,
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "alias": "",
@@ -769,7 +927,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -777,7 +936,7 @@
         "h": 2,
         "w": 3,
         "x": 6,
-        "y": 6
+        "y": 11
       },
       "id": 37,
       "options": {
@@ -792,9 +951,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "value"
+        "showPercentChange": false,
+        "textMode": "value",
+        "wideLayout": true
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "alias": "",
@@ -868,7 +1029,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": [
           {
@@ -914,8 +1076,7 @@
             },
             "properties": [
               {
-                "id": "custom.width",
-                "value": null
+                "id": "custom.width"
               }
             ]
           }
@@ -925,7 +1086,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 13
       },
       "id": 45,
       "options": {
@@ -939,9 +1100,14 @@
           "show": false
         },
         "showHeader": true,
-        "sortBy": []
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "Timestamp"
+          }
+        ]
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -965,7 +1131,7 @@
           "measurement": "LOGS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT * FROM \"LOGS\" WHERE (\"device\"::tag =~ /^$rtr$/) AND $timeFilter ",
+          "query": "SELECT * FROM \"LOGS\" WHERE (\"device\"::tag =~ /^$rtr$/) AND $timeFilter and path='/junos/events/event'",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -998,12 +1164,14 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "/junos/events/event/attributes/key": true,
               "/junos/events/event/facility": true,
               "/junos/events/event/priority": true,
               "/junos/events/event/type": true,
               "MODEL": true,
               "VERSION": true,
               "_component_id": true,
+              "attributes/value": true,
               "component": true,
               "device": true,
               "host": true,
@@ -1012,6 +1180,7 @@
               "pid": true,
               "seconds": true
             },
+            "includeByName": {},
             "indexByName": {
               "/junos/events/event/facility": 4,
               "/junos/events/event/priority": 5,
@@ -1054,7 +1223,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 18
+        "y": 23
       },
       "id": 41,
       "options": {
@@ -1066,7 +1235,7 @@
         "content": "<h2><center>- Alarming -</center><h2>",
         "mode": "html"
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "transparent": true,
       "type": "text"
     },
@@ -1076,7 +1245,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 20
+        "y": 25
       },
       "id": 17,
       "panels": [],
@@ -1113,7 +1282,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1121,7 +1291,7 @@
         "h": 6,
         "w": 24,
         "x": 0,
-        "y": 21
+        "y": 26
       },
       "id": 24,
       "options": {
@@ -1136,7 +1306,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "alias": "",
@@ -1149,9 +1319,66 @@
           "measurement": "ERRORS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"alarm_severity\"), last(\"alarm_resource\"), last(\"alarm_time\")*1000, last(\"alarm_text\") FROM \"ERRORS\" WHERE (\"device\" =~ /^$rtr$/) and  $timeFilter GROUP BY \"/system/alarms/alarm/id\"",
+          "query": "SELECT last(\"alarm_severity\"), last(\"alarm_resource\"), last(\"alarm_time\")/1000000, last(\"alarm_text\") FROM \"ERRORS\" WHERE (\"device\" =~ /^$rtr$/) and  $timeFilter GROUP BY \"/system/alarms/alarm/id\"",
           "rawQuery": true,
           "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "alarm_severity"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_resource"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_time"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_text"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
+        },
+        {
+          "alias": "",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "ERRORS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"alarm_severity_net\"), last(\"alarm_resource_net\"), last(\"alarm_time_net\"), last(\"alarm_text_net\") FROM \"ERRORS\" WHERE (\"device\" =~ /^$rtr$/) and  $timeFilter GROUP BY \"alarm_id_net\"",
+          "rawQuery": true,
+          "refId": "B",
           "resultFormat": "table",
           "select": [
             [
@@ -1215,8 +1442,10 @@
           "options": {
             "excludeByName": {
               "/system/alarms/alarm/id": true,
-              "Time": true
+              "Time": true,
+              "alarm_id_net": true
             },
+            "includeByName": {},
             "indexByName": {
               "Time": 0,
               "last": 2,
@@ -1286,7 +1515,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 32
       },
       "id": 9,
       "non_matching_cells_text": "",
@@ -1772,7 +2001,8 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "none",
+          "unitScale": true
         },
         "overrides": [
           {
@@ -1816,7 +2046,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 35
+        "y": 40
       },
       "id": 13,
       "options": {
@@ -1833,7 +2063,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -1932,7 +2162,8 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "none",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -1940,7 +2171,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 35
+        "y": 40
       },
       "id": 15,
       "options": {
@@ -1957,7 +2188,7 @@
         },
         "showHeader": true
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -2030,7 +2261,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 43
+        "y": 48
       },
       "id": 42,
       "options": {
@@ -2042,7 +2273,7 @@
         "content": "<h2><center>- CPU/MEM -</center><h2>",
         "mode": "html"
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "transparent": true,
       "type": "text"
     },
@@ -2052,7 +2283,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 45
+        "y": 50
       },
       "id": 19,
       "panels": [],
@@ -2115,7 +2346,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2123,7 +2355,7 @@
         "h": 15,
         "w": 12,
         "x": 0,
-        "y": 46
+        "y": 51
       },
       "id": 6,
       "options": {
@@ -2235,7 +2467,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2243,7 +2476,7 @@
         "h": 15,
         "w": 12,
         "x": 12,
-        "y": 46
+        "y": 51
       },
       "id": 26,
       "options": {
@@ -2363,7 +2596,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2371,7 +2605,7 @@
         "h": 13,
         "w": 12,
         "x": 0,
-        "y": 61
+        "y": 66
       },
       "id": 25,
       "options": {
@@ -2490,7 +2724,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2498,7 +2733,7 @@
         "h": 13,
         "w": 12,
         "x": 12,
-        "y": 61
+        "y": 66
       },
       "id": 7,
       "options": {
@@ -2618,7 +2853,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2626,7 +2862,7 @@
         "h": 13,
         "w": 7,
         "x": 0,
-        "y": 74
+        "y": 79
       },
       "id": 28,
       "options": {
@@ -2730,7 +2966,8 @@
               }
             ]
           },
-          "unit": "percent"
+          "unit": "percent",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2738,7 +2975,7 @@
         "h": 13,
         "w": 7,
         "x": 7,
-        "y": 74
+        "y": 79
       },
       "id": 30,
       "options": {
@@ -2870,7 +3107,8 @@
               }
             ]
           },
-          "unit": "bytes"
+          "unit": "bytes",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -2878,7 +3116,7 @@
         "h": 13,
         "w": 10,
         "x": 14,
-        "y": 74
+        "y": 79
       },
       "id": 29,
       "options": {
@@ -2935,7 +3173,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 87
+        "y": 92
       },
       "id": 44,
       "options": {
@@ -2947,7 +3185,7 @@
         "content": "<h2><center>- Fabric -</center><h2>",
         "mode": "html"
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "transparent": true,
       "type": "text"
     },
@@ -2957,7 +3195,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 89
+        "y": 94
       },
       "id": 23,
       "panels": [],
@@ -3019,7 +3257,8 @@
               }
             ]
           },
-          "unit": "pps"
+          "unit": "pps",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -3027,7 +3266,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 90
+        "y": 95
       },
       "id": 2,
       "options": {
@@ -3143,7 +3382,8 @@
               }
             ]
           },
-          "unit": "pps"
+          "unit": "pps",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -3151,7 +3391,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 101
+        "y": 106
       },
       "id": 4,
       "options": {
@@ -3269,7 +3509,8 @@
               }
             ]
           },
-          "unit": "pps"
+          "unit": "pps",
+          "unitScale": true
         },
         "overrides": []
       },
@@ -3277,7 +3518,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 112
+        "y": 117
       },
       "id": 3,
       "options": {
@@ -3343,7 +3584,7 @@
   ],
   "refresh": "30s",
   "revision": 1,
-  "schemaVersion": 38,
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [
@@ -3381,6 +3622,6 @@
   "timezone": "",
   "title": "ROUTER HEALTH MONITORING PROFILE - JTSO",
   "uid": "healthdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }

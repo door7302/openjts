@@ -16,7 +16,8 @@ services:
       - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf
       - ./influxdb/data:/var/lib/influxdb
   telegraf_vmx:
-    build: https://github.com/door7302/jts_telegraf.git#main
+    build: https://github.com/door7302/jts_telegraf.git#v1.0.5
+    image: telegraf:latest
     container_name: telegraf_vmx
     restart: always
     user: root
@@ -30,7 +31,8 @@ services:
     command:
       --config-directory /etc/telegraf/telegraf.d
   telegraf_mx:
-    build: https://github.com/door7302/jts_telegraf.git#main
+    build: https://github.com/door7302/jts_telegraf.git#v1.0.5
+    image: telegraf:latest
     container_name: telegraf_mx
     restart: always
     user: root
@@ -44,7 +46,8 @@ services:
     command:
       --config-directory /etc/telegraf/telegraf.d
   telegraf_ptx:
-    build: https://github.com/door7302/jts_telegraf.git#main
+    build: https://github.com/door7302/jts_telegraf.git#v1.0.5
+    image: telegraf:latest
     container_name: telegraf_ptx
     restart: always
     user: root
@@ -58,7 +61,8 @@ services:
     command:
       --config-directory /etc/telegraf/telegraf.d
   telegraf_acx:
-    build: https://github.com/door7302/jts_telegraf.git#main
+    build: https://github.com/door7302/jts_telegraf.git#v1.0.5
+    image: telegraf:latest
     container_name: telegraf_acx
     restart: always
     user: root
@@ -108,7 +112,8 @@ services:
       - ./grafana/data:/var/lib/grafana
       - ./grafana/plugins:/var/lib/grafana/plugins
   jtso:
-    build: https://github.com/door7302/jtso.git#${JTSO_BRANCH}
+    build: https://github.com/door7302/jtso.git#v1.0.4
+    image: jtso:latest
     container_name: jtso
     restart: always
     user: root

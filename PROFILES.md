@@ -53,6 +53,18 @@ Router health KPIs: CPU, Memory, Errors, Drops...
     (2) History of per FPC/MPC input Fabric rate (pps)
     (3) History of per FPC/MPC output Fabric rate (pps)
 
+![hw-mon1.png](./img/profiles/health/hw-mon1.png)
+
+    (1) Select HW component – depends on the type of Linecard
+    (2) Select the HW property(ies)
+
+![hw-mon2.png](./img/profiles/health/hw-mon2.png)
+
+    (1) Provide Router information
+    (2) Recall current chassis alarms
+    (3) Display the HW KPI over the time 
+    (4) Display the current HW KPI value
+
 ## BGP profile
 
 BGP KPIs: peer-groups, families and peers statistics. 
@@ -115,6 +127,18 @@ Traffic KPIs: peer queue statistics, per port statistics, queue-depth, drop per 
     (2) Real Forwarded traffic per queue - in Bps
     (3) Queued traffic per queue – in pps 
     (4) Real Forwarded traffic per queue - in pps
+
+![unit1.png](./img/profiles/traffic/unit1.png)
+
+    (1) Select physical port and unit(s)
+    (2) Port statistics
+    (3) Input traffic load sharing per unit
+    (4) Ouput traffic load sharing per unit
+
+![unit2.png](./img/profiles/traffic/unit2.png)
+
+    (1) Per unit traffic in Bps and PPS
+
 
 ## Optic profile
 

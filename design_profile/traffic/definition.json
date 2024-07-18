@@ -27,6 +27,7 @@
       
     ],
     "grafana": [
-      "traffic.json"
+      "traffic.json",
+      "unit_traffic.json"
     ]
 }
