@@ -371,7 +371,8 @@
           "options": {
             "excludeByName": {
               "/system/alarms/alarm/id": true,
-              "Time": true
+              "Time": true,
+              "alarm_id_net": true
             },
             "includeByName": {},
             "indexByName": {
@@ -651,7 +652,7 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "",
           "value": ""
         },
@@ -735,6 +736,6 @@
   "timezone": "",
   "title": "NPU HW MONITORING PROFILE - JTSO",
   "uid": "simplehwdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
