@@ -300,7 +300,7 @@
             "uid": "jtsuid"
           },
           "groupBy": [],
-          "hide": true,
+          "hide": false,
           "measurement": "ERRORS",
           "orderByTime": "ASC",
           "policy": "default",
@@ -675,7 +675,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "",
           "value": ""
         },

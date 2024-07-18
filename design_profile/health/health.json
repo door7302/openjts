@@ -420,12 +420,56 @@
               "type": "tag"
             }
           ],
+          "hide": false,
           "measurement": "ERRORS",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "select count(last) from (SELECT last(\"alarm_text\") FROM \"ERRORS\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter GROUP BY \"/system/alarms/alarm/id\")",
           "rawQuery": true,
           "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "alarm_text"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "/system/alarms/alarm/id"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "ERRORS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select count(last) from (SELECT last(\"alarm_text_net\") FROM \"ERRORS\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter group by alarm_id_net)",
+          "rawQuery": true,
+          "refId": "B",
           "resultFormat": "time_series",
           "select": [
             [
@@ -1398,8 +1442,10 @@
           "options": {
             "excludeByName": {
               "/system/alarms/alarm/id": true,
-              "Time": true
+              "Time": true,
+              "alarm_id_net": true
             },
+            "includeByName": {},
             "indexByName": {
               "Time": 0,
               "last": 2,
@@ -2292,8 +2338,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2414,8 +2459,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2544,8 +2588,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2673,8 +2716,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2803,8 +2845,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2917,8 +2958,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3059,8 +3099,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
