@@ -16,7 +16,7 @@ services:
       - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf
       - ./influxdb/data:/var/lib/influxdb
   telegraf_vmx:
-    build: https://github.com/door7302/jts_telegraf.git#v1.0.5
+    build: https://github.com/door7302/jts_telegraf.git#v1.0.6
     image: telegraf:latest
     container_name: telegraf_vmx
     restart: always
@@ -31,7 +31,7 @@ services:
     command:
       --config-directory /etc/telegraf/telegraf.d
   telegraf_mx:
-    build: https://github.com/door7302/jts_telegraf.git#v1.0.5
+    build: https://github.com/door7302/jts_telegraf.git#v1.0.6
     image: telegraf:latest
     container_name: telegraf_mx
     restart: always
@@ -46,7 +46,7 @@ services:
     command:
       --config-directory /etc/telegraf/telegraf.d
   telegraf_ptx:
-    build: https://github.com/door7302/jts_telegraf.git#v1.0.5
+    build: https://github.com/door7302/jts_telegraf.git#v1.0.6
     image: telegraf:latest
     container_name: telegraf_ptx
     restart: always
@@ -61,7 +61,7 @@ services:
     command:
       --config-directory /etc/telegraf/telegraf.d
   telegraf_acx:
-    build: https://github.com/door7302/jts_telegraf.git#v1.0.5
+    build: https://github.com/door7302/jts_telegraf.git#v1.0.6
     image: telegraf:latest
     container_name: telegraf_acx
     restart: always
