@@ -1,0 +1,25 @@
+{
+    "cheatsheet": "ddos.png",
+    "description": "This profile covers DDOS protection feature statistics",
+    "telegraf": {
+      "mx": [ {
+        "version": "all",
+        "conf": "all_ddos.conf"
+        }
+      ],
+      "ptx":[ {
+        "version": "all",
+        "conf": "all_ddos.conf"
+        }
+      ],
+      "acx": [ {
+        "version": "all",
+        "conf": "all_ddos.conf"
+        }
+      ]
+    },
+    "kapacitor": [],
+    "grafana": [
+      "ddos.json"
+    ]
+}
