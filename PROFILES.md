@@ -307,3 +307,25 @@ FWF KPIs: per firewall term counters, per policer drop counter...
     (1) Select per router, per filter, per counter & policer history
     (2) PPS view – Counters are displayed as positive Y and Policer out-of-spec counters as Negative Y
     (3) BPS view – Counters are displayed as positive Y and Policer out-of-spec counters as Negative Y
+
+## DDOS profile
+
+DDOS protection KPIs: Support per MPC DDOS protection statistics
+Currently, only supported for MX
+
+### Sensor path details
+
+![ddos.png](./img/sensors/ddos.png)
+
+### Dashboard screenshots
+
+![ddos1.png](./img/profiles/ddos/ddos1.png)
+
+    (1) Filter per router, per protocol and sub protocol 
+    (2) Global Dashbord - Display for the last 15 minutes the router(s) under DDOS Policer Violation 
+    (3) Per Protocol Details for the selected router
+    (4) Current (aggregated) protocol stats (Received, Dropped & Punted to RE)
+    (5) History of received pps, per Linecard, for a given protocol and one or several sub-protocol.
+    (6) History of dropped pps, per Linecard, for a given protocol and one or several sub-protocol.
+    (7) History of punted pps, per Linecard, to the RE for a given protocol and one or several sub-protocol.
+    

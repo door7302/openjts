@@ -626,7 +626,7 @@
           "measurement": "DDOS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"ddos_received_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter and ddos_received_rate!=0  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
+          "query": "SELECT \"ddos_received_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter and ddos_received_rate!=0  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -831,7 +831,7 @@
           "measurement": "DDOS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"ddos_drop_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter and ddos_drop_rate!=0  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
+          "query": "SELECT \"ddos_drop_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter and ddos_drop_rate!=0  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1037,7 +1037,7 @@
           "measurement": "DDOS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"ddos_received_rate\" - \"ddos_drop_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter and ddos_received_rate!=0 \n GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0) ",
+          "query": "SELECT \"ddos_received_rate\" - \"ddos_drop_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter and ddos_received_rate!=0 \n GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0) ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1137,8 +1137,8 @@
       {
         "current": {
           "selected": false,
-          "text": "rtme-mx-25.englab.juniper.net",
-          "value": "rtme-mx-25.englab.juniper.net"
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "influxdb",
@@ -1189,9 +1189,13 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "aggregate",
-          "value": "aggregate"
+          "selected": true,
+          "text": [
+            "aggregate"
+          ],
+          "value": [
+            "aggregate"
+          ]
         },
         "datasource": {
           "type": "influxdb",
@@ -1200,9 +1204,9 @@
         "definition": "show tag values with key=\"sub_protocol\" where protocol=~/$proto/",
         "description": "",
         "hide": 0,
-        "includeAll": false,
+        "includeAll": true,
         "label": "Sub Protocol",
-        "multi": false,
+        "multi": true,
         "name": "sub_proto",
         "options": [],
         "query": "show tag values with key=\"sub_protocol\" where protocol=~/$proto/",
