@@ -32,6 +32,490 @@
         "type": "influxdb",
         "uid": "jtsuid"
       },
+      "description": "",
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 9,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h2><center>All devices Alarms</center></h2>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.3.1",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
+      "id": 8,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "protocol::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "sub_protocol::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "_component_id::tag"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "DDOS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"ddos_state\"), \"ddos_viol_count\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/) AND time > now()-15m and ddos_state=~/.*VIOLATING.*/ GROUP BY \"device\"::tag, \"protocol\"::tag, \"sub_protocol\"::tag, \"_component_id\"::tag",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "ddos_state"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
+        }
+      ],
+      "title": "Global DDOS alarms - last 15 minutes",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "Time": 0,
+              "_component_id": 2,
+              "ddos_viol_count": 6,
+              "device": 1,
+              "last": 5,
+              "protocol": 3,
+              "sub_protocol": 4
+            },
+            "renameByName": {
+              "Time": "Last Time Seen",
+              "_component_id": "Linecard Slot",
+              "ddos_viol_count": "Violation Count. ",
+              "device": "Router",
+              "last": "Current State",
+              "protocol": "Protocol",
+              "sub_protocol": "Sub Protocol"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 10
+      },
+      "id": 10,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h2><center>$rtr per-protocol detail</center></h2>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.3.1",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 12
+      },
+      "id": 7,
+      "panels": [],
+      "repeat": "proto",
+      "repeatDirection": "h",
+      "title": "$proto - DDOS PROTECTION",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "displayName": "Rcvd. $proto",
+          "mappings": [],
+          "max": 250000,
+          "min": 0,
+          "noValue": "N/A",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 10000
+              },
+              {
+                "color": "orange",
+                "value": 15000
+              },
+              {
+                "color": "red",
+                "value": 20000
+              }
+            ]
+          },
+          "unit": "pps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 2,
+        "x": 0,
+        "y": 13
+      },
+      "id": 5,
+      "options": {
+        "displayMode": "lcd",
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "alias": "received_rate pps",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "query": "select sum(received_rate) from (select (\"ddos_received_rate\") as received_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter GROUP BY \"proto\", \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)) group by time(1m)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "displayName": "Dropped $proto",
+          "mappings": [],
+          "max": 250000,
+          "min": 0,
+          "noValue": "N/A",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 10000
+              },
+              {
+                "color": "orange",
+                "value": 15000
+              },
+              {
+                "color": "red",
+                "value": 20000
+              }
+            ]
+          },
+          "unit": "pps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 2,
+        "x": 2,
+        "y": 13
+      },
+      "id": 6,
+      "options": {
+        "displayMode": "lcd",
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "alias": "drop_rate pps",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select sum(drop_rate) from (select (\"ddos_drop_rate\") as drop_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter GROUP BY \"proto\", \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)) group by time(1m)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "displayName": "Punted $proto",
+          "mappings": [],
+          "max": 250000,
+          "min": 0,
+          "noValue": "N/A",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 10000
+              },
+              {
+                "color": "orange",
+                "value": 15000
+              },
+              {
+                "color": "red",
+                "value": 20000
+              }
+            ]
+          },
+          "unit": "pps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 2,
+        "x": 4,
+        "y": 13
+      },
+      "id": 4,
+      "options": {
+        "displayMode": "lcd",
+        "maxVizHeight": 300,
+        "minVizHeight": 16,
+        "minVizWidth": 8,
+        "namePlacement": "auto",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "alias": "passed_rate pps",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "query": "select sum(punt_rate) from (select ((\"ddos_received_rate\")-(\"ddos_drop_rate\")) as punt_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter GROUP BY \"proto\", \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)) group by time(1m)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -90,10 +574,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
-        "w": 10,
-        "x": 0,
-        "y": 0
+        "h": 11,
+        "w": 9,
+        "x": 6,
+        "y": 13
       },
       "id": 1,
       "options": {
@@ -142,7 +626,67 @@
           "measurement": "DDOS",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT \"ddos_received_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter and ddos_received_rate!=0  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
+          "rawQuery": true,
           "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "ddos_received_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "protocol::tag",
+              "operator": "=~",
+              "value": "/^$proto$/"
+            }
+          ]
+        },
+        {
+          "alias": "Received $proto ($tag_sub_protocol) TOTAL",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "_component_id::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "sub_protocol::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "DDOS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select sum(received_rate) from (select (\"ddos_received_rate\") as received_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter GROUP BY \"proto\", \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)) group by time(1m)",
+          "rawQuery": true,
+          "refId": "B",
           "resultFormat": "time_series",
           "select": [
             [
@@ -235,10 +779,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
-        "w": 10,
-        "x": 10,
-        "y": 0
+        "h": 11,
+        "w": 9,
+        "x": 15,
+        "y": 13
       },
       "id": 2,
       "options": {
@@ -287,7 +831,67 @@
           "measurement": "DDOS",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "SELECT \"ddos_drop_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter and ddos_drop_rate!=0  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
+          "rawQuery": true,
           "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "ddos_drop_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "protocol::tag",
+              "operator": "=~",
+              "value": "/^$proto$/"
+            }
+          ]
+        },
+        {
+          "alias": "Dropped $proto ($tag_sub_protocol) TOTAL",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "_component_id::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "sub_protocol::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "DDOS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select sum(drop_rate) from (select (\"ddos_drop_rate\") as drop_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter GROUP BY \"proto\", \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)) group by time(1m)",
+          "rawQuery": true,
+          "refId": "B",
           "resultFormat": "time_series",
           "select": [
             [
@@ -349,7 +953,7 @@
             "scaleDistribution": {
               "type": "linear"
             },
-            "showPoints": "always",
+            "showPoints": "never",
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -377,38 +981,13 @@
           "unit": "pps",
           "unitScale": true
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "Punted to RE icmp (aggregate) Linecard Slot 2"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 10
+        "y": 24
       },
       "id": 3,
       "options": {
@@ -454,11 +1033,11 @@
               "type": "fill"
             }
           ],
-          "hide": true,
+          "hide": false,
           "measurement": "DDOS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"ddos_received_rate\" - \"ddos_drop_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(null) ",
+          "query": "SELECT \"ddos_received_rate\" - \"ddos_drop_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter and ddos_received_rate!=0 \n GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0) ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -487,65 +1066,7 @@
           ]
         },
         {
-          "alias": "Punted to RE $proto ($tag_sub_protocol) Linecard Slot $tag__component_id",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [
-            {
-              "params": [
-                "_component_id::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "sub_protocol::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": true,
-          "measurement": "DDOS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT sum(passed_rate) from (select mean(\"ddos_received_rate\") - mean(\"ddos_drop_rate\") as passed_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter GROUP BY \"proto\", \"_component_id\"::tag, \"sub_protocol\"::tag, time(2m) fill(null)) group by proto",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "ddos_drop_rate"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "device::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "protocol::tag",
-              "operator": "=~",
-              "value": "/^$proto$/"
-            }
-          ]
-        },
-        {
-          "alias": "Punted to RE $proto ($tag_sub_protocol) Linecard Slot $tag__component_id",
+          "alias": "Punted to RE $proto - TOTAL",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
@@ -574,9 +1095,9 @@
           "measurement": "DDOS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select (\"ddos_received_rate\") -(\"ddos_drop_rate\") as passed_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter GROUP BY \"proto\", \"_component_id\"::tag, \"sub_protocol\"::tag fill(null)",
+          "query": "select sum(passed_rate) from (select (\"ddos_received_rate\") -(\"ddos_drop_rate\") as passed_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter GROUP BY \"proto\", \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)) group by time(1m)",
           "rawQuery": true,
-          "refId": "C",
+          "refId": "B",
           "resultFormat": "time_series",
           "select": [
             [
@@ -607,7 +1128,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "30s",
+  "refresh": "1m",
   "revision": 1,
   "schemaVersion": 39,
   "tags": [],
@@ -640,8 +1161,12 @@
       {
         "current": {
           "selected": true,
-          "text": "icmp",
-          "value": "icmp"
+          "text": [
+            "icmp"
+          ],
+          "value": [
+            "icmp"
+          ]
         },
         "datasource": {
           "type": "influxdb",
@@ -650,9 +1175,9 @@
         "definition": "show tag values with key=\"protocol\" where device=~/$rtr/",
         "description": "",
         "hide": 0,
-        "includeAll": false,
+        "includeAll": true,
         "label": "Protocol",
-        "multi": false,
+        "multi": true,
         "name": "proto",
         "options": [],
         "query": "show tag values with key=\"protocol\" where device=~/$rtr/",
@@ -695,7 +1220,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "DDOS Monitoring - JTSO",
+  "title": "DDOS PROFILE - JTSO",
   "uid": "ddosdashboard",
   "version": 1,
   "weekStart": ""

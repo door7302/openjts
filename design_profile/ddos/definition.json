@@ -1,19 +1,19 @@
 {
     "cheatsheet": "ddos.png",
-    "description": "This profile covers DDOS protection feature statistics",
+    "description": "This profile covers DDOS protection feature statistics. Supported starting from 22.3",
     "telegraf": {
       "mx": [ {
-        "version": "all",
+        "version": ">=22.3R",
         "conf": "all_ddos.conf"
         }
       ],
       "ptx":[ {
-        "version": "all",
+        "version": ">=22.3R",
         "conf": "all_ddos.conf"
         }
       ],
       "acx": [ {
-        "version": "all",
+        "version": ">=22.3R",
         "conf": "all_ddos.conf"
         }
       ]
