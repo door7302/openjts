@@ -306,7 +306,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "select sum(received_rate) from (select (\"ddos_received_rate\") as received_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter GROUP BY \"proto\", \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)) group by time(1m)",
+          "query": "select sum(received_rate) from (select (\"ddos_received_rate\") as received_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -405,7 +405,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(drop_rate) from (select (\"ddos_drop_rate\") as drop_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter GROUP BY \"proto\", \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)) group by time(1m)",
+          "query": "select sum(drop_rate) from (select (\"ddos_drop_rate\") as drop_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -503,7 +503,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "select sum(punt_rate) from (select ((\"ddos_received_rate\")-(\"ddos_drop_rate\")) as punt_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter GROUP BY \"proto\", \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)) group by time(1m)",
+          "query": "select sum(punt_rate) from(select ((\"ddos_received_rate\")-(\"ddos_drop_rate\")) as punt_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -629,64 +629,6 @@
           "query": "SELECT \"ddos_received_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter and ddos_received_rate!=0  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
           "rawQuery": true,
           "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "ddos_received_rate"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "device::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "protocol::tag",
-              "operator": "=~",
-              "value": "/^$proto$/"
-            }
-          ]
-        },
-        {
-          "alias": "Received $proto ($tag_sub_protocol) TOTAL",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [
-            {
-              "params": [
-                "_component_id::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "sub_protocol::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "DDOS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "select sum(received_rate) from (select (\"ddos_received_rate\") as received_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter GROUP BY \"proto\", \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)) group by time(1m)",
-          "rawQuery": true,
-          "refId": "B",
           "resultFormat": "time_series",
           "select": [
             [
@@ -858,64 +800,6 @@
               "value": "/^$proto$/"
             }
           ]
-        },
-        {
-          "alias": "Dropped $proto ($tag_sub_protocol) TOTAL",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [
-            {
-              "params": [
-                "_component_id::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "sub_protocol::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "DDOS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "select sum(drop_rate) from (select (\"ddos_drop_rate\") as drop_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter GROUP BY \"proto\", \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)) group by time(1m)",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "ddos_drop_rate"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "device::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "protocol::tag",
-              "operator": "=~",
-              "value": "/^$proto$/"
-            }
-          ]
         }
       ],
       "title": "$proto dropped",
@@ -999,7 +883,9 @@
           ],
           "displayMode": "table",
           "placement": "right",
-          "showLegend": true
+          "showLegend": true,
+          "sortBy": "Name",
+          "sortDesc": true
         },
         "tooltip": {
           "mode": "multi",
@@ -1064,64 +950,6 @@
               "value": "/^$proto$/"
             }
           ]
-        },
-        {
-          "alias": "Punted to RE $proto - TOTAL",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [
-            {
-              "params": [
-                "_component_id::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "sub_protocol::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "DDOS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "select sum(passed_rate) from (select (\"ddos_received_rate\") -(\"ddos_drop_rate\") as passed_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/) AND $timeFilter GROUP BY \"proto\", \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)) group by time(1m)",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "ddos_drop_rate"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "device::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "protocol::tag",
-              "operator": "=~",
-              "value": "/^$proto$/"
-            }
-          ]
         }
       ],
       "title": "$proto punted to RE",
@@ -1136,7 +964,7 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "",
           "value": ""
         },
@@ -1191,10 +1019,10 @@
         "current": {
           "selected": true,
           "text": [
-            "aggregate"
+            "All"
           ],
           "value": [
-            "aggregate"
+            "$__all"
           ]
         },
         "datasource": {
@@ -1226,6 +1054,6 @@
   "timezone": "",
   "title": "DDOS PROFILE - JTSO",
   "uid": "ddosdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
