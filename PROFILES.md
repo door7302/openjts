@@ -311,7 +311,7 @@ FWF KPIs: per firewall term counters, per policer drop counter...
 ## DDOS profile
 
 DDOS protection KPIs: Support per MPC DDOS protection statistics
-Currently, only supported for MX
+Currently, only supported for MX & PTX
 
 ### Sensor path details
 
