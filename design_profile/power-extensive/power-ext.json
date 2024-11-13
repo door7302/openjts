@@ -1182,7 +1182,7 @@
             "uid": "jtsuid"
           },
           "groupBy": [],
-          "hide": false,
+          "hide": true,
           "measurement": "POWER_EXT",
           "orderByTime": "ASC",
           "policy": "default",
@@ -1207,9 +1207,96 @@
               "value": "/^$device$/"
             }
           ]
+        },
+        {
+          "alias": "A",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "POWER_EXT",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select sum(all_if)/1000000000 from(SELECT mean(in_octets_rate)*8 as all_if from POWER_EXT WHERE \"device\"=~ /^$device$/  and $timeFilter group by if_name) group by time(1m)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "power_system_usage"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$device$/"
+            }
+          ]
+        },
+        {
+          "alias": "B",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "POWER_EXT",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select (mean(power_zone_0_usage) + mean(power_zone_1_usage) + mean(power_system_usage)) from POWER_EXT where device=~/$device/  and $timeFilter  group by time(1m) fill(0) ",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "power_system_usage"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$device$/"
+            }
+          ]
         }
       ],
       "title": "Ratio Watts/Gbps - $device",
+      "transformations": [
+        {
+          "id": "calculateField",
+          "options": {
+            "binary": {
+              "left": "B",
+              "operator": "/",
+              "right": "A"
+            },
+            "mode": "binary",
+            "reduce": {
+              "include": [
+                "A",
+                "B"
+              ],
+              "reducer": "sum"
+            },
+            "replaceFields": true
+          }
+        }
+      ],
       "type": "timeseries"
     },
     {
@@ -2017,8 +2104,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3683,7 +3769,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "5m",
+  "refresh": "1m",
   "schemaVersion": 39,
   "tags": [],
   "templating": {
