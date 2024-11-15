@@ -786,7 +786,7 @@
           "measurement": "LOGS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT * FROM \"LOGS\" WHERE (\"device\"::tag =~ /^$rtr$/) AND $timeFilter and path='/junos/events/event'",
+          "query": "SELECT * FROM \"LOGS\" WHERE (\"device\"::tag =~ /^$rtr$/) AND time>now()-15m and path='/junos/events/event'",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -813,7 +813,7 @@
           ]
         }
       ],
-      "title": "Syslog - OnChange",
+      "title": "Syslog - OnChange - last 15 minutes only",
       "transformations": [
         {
           "id": "organize",
