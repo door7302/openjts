@@ -1,4 +1,3 @@
-version: "3.8"
 services:
   influxdb:
     image: influxdb:1.8
@@ -15,28 +14,13 @@ services:
       - /var/log:/var/log
       - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf
       - ./influxdb/data:/var/lib/influxdb
-  telegraf_vmx:
-    build: https://github.com/door7302/jts_telegraf.git#v1.0.6
-    image: jts_telegraf:latest
-    container_name: telegraf_vmx
-    restart: always
-    user: root
-    depends_on:
-      - influxdb
-    volumes:
-      - /var/log:/var/log
-      - ./telegraf/vmx:/etc/telegraf/
-      - ./telegraf/metadata:/var/metadata
-      - ./telegraf/cert:/var/cert
-    command:
-      --config-directory /etc/telegraf/telegraf.d
   telegraf_mx:
+    build: https://github.com/door7302/jts_telegraf.git#v1.0.6
     image: jts_telegraf:latest
     container_name: telegraf_mx
     restart: always
     user: root
     depends_on:
-      - telegraf_vmx
       - influxdb
     volumes:
       - /var/log:/var/log
@@ -51,7 +35,7 @@ services:
     restart: always
     user: root
     depends_on:
-      - telegraf_vmx
+      - telegraf_mx
       - influxdb
     volumes:
       - /var/log:/var/log
@@ -66,11 +50,161 @@ services:
     restart: always
     user: root
     depends_on:
-      - telegraf_vmx
+      - telegraf_mx
       - influxdb
     volumes:
       - /var/log:/var/log
       - ./telegraf/acx:/etc/telegraf/
+      - ./telegraf/metadata:/var/metadata
+      - ./telegraf/cert:/var/cert
+    command:
+      --config-directory /etc/telegraf/telegraf.d
+  telegraf_ex:
+    image: jts_telegraf:latest
+    container_name: telegraf_ex
+    restart: always
+    user: root
+    depends_on:
+      - telegraf_mx
+      - influxdb
+    volumes:
+      - /var/log:/var/log
+      - ./telegraf/ex:/etc/telegraf/
+      - ./telegraf/metadata:/var/metadata
+      - ./telegraf/cert:/var/cert
+    command:
+      --config-directory /etc/telegraf/telegraf.d
+  telegraf_qfx:
+    image: jts_telegraf:latest
+    container_name: telegraf_qfx
+    restart: always
+    user: root
+    depends_on:
+      - telegraf_mx
+      - influxdb
+    volumes:
+      - /var/log:/var/log
+      - ./telegraf/qfx:/etc/telegraf/
+      - ./telegraf/metadata:/var/metadata
+      - ./telegraf/cert:/var/cert
+    command:
+      --config-directory /etc/telegraf/telegraf.d
+  telegraf_srx:
+    image: jts_telegraf:latest
+    container_name: telegraf_srx
+    restart: always
+    user: root
+    depends_on:
+      - telegraf_mx
+      - influxdb
+    volumes:
+      - /var/log:/var/log
+      - ./telegraf/srx:/etc/telegraf/
+      - ./telegraf/metadata:/var/metadata
+      - ./telegraf/cert:/var/cert
+    command:
+      --config-directory /etc/telegraf/telegraf.d
+  telegraf_cprd:
+    image: jts_telegraf:latest
+    container_name: telegraf_crpd
+    restart: always
+    user: root
+    depends_on:
+      - telegraf_mx
+      - influxdb
+    volumes:
+      - /var/log:/var/log
+      - ./telegraf/crpd:/etc/telegraf/
+      - ./telegraf/metadata:/var/metadata
+      - ./telegraf/cert:/var/cert
+    command:
+      --config-directory /etc/telegraf/telegraf.d
+  telegraf_cptx:
+    image: jts_telegraf:latest
+    container_name: telegraf_cptx
+    restart: always
+    user: root
+    depends_on:
+      - telegraf_mx
+      - influxdb
+    volumes:
+      - /var/log:/var/log
+      - ./telegraf/cptx:/etc/telegraf/
+      - ./telegraf/metadata:/var/metadata
+      - ./telegraf/cert:/var/cert
+    command:
+      --config-directory /etc/telegraf/telegraf.d
+  telegraf_vmx:
+    image: jts_telegraf:latest
+    container_name: telegraf_vmx
+    restart: always
+    user: root
+    depends_on:
+      - telegraf_mx
+      - influxdb
+    volumes:
+      - /var/log:/var/log
+      - ./telegraf/vmx:/etc/telegraf/
+      - ./telegraf/metadata:/var/metadata
+      - ./telegraf/cert:/var/cert
+    command:
+      --config-directory /etc/telegraf/telegraf.d
+  telegraf_vsrx:
+    image: jts_telegraf:latest
+    container_name: telegraf_vsrx
+    restart: always
+    user: root
+    depends_on:
+      - telegraf_mx
+      - influxdb
+    volumes:
+      - /var/log:/var/log
+      - ./telegraf/vsrx:/etc/telegraf/
+      - ./telegraf/metadata:/var/metadata
+      - ./telegraf/cert:/var/cert
+    command:
+      --config-directory /etc/telegraf/telegraf.d
+  telegraf_vjunos:
+    image: jts_telegraf:latest
+    container_name: telegraf_vjunos
+    restart: always
+    user: root
+    depends_on:
+      - telegraf_mx
+      - influxdb
+    volumes:
+      - /var/log:/var/log
+      - ./telegraf/vjunos:/etc/telegraf/
+      - ./telegraf/metadata:/var/metadata
+      - ./telegraf/cert:/var/cert
+    command:
+      --config-directory /etc/telegraf/telegraf.d
+  telegraf_vswitch:
+    image: jts_telegraf:latest
+    container_name: telegraf_vswitch
+    restart: always
+    user: root
+    depends_on:
+      - telegraf_mx
+      - influxdb
+    volumes:
+      - /var/log:/var/log
+      - ./telegraf/vswitch:/etc/telegraf/
+      - ./telegraf/metadata:/var/metadata
+      - ./telegraf/cert:/var/cert
+    command:
+      --config-directory /etc/telegraf/telegraf.d
+  telegraf_vevo:
+    image: jts_telegraf:latest
+    container_name: telegraf_vevo
+    restart: always
+    user: root
+    depends_on:
+      - telegraf_mx
+      - influxdb
+    volumes:
+      - /var/log:/var/log
+      - ./telegraf/vevo:/etc/telegraf/
       - ./telegraf/metadata:/var/metadata
       - ./telegraf/cert:/var/cert
     command:
@@ -90,6 +224,19 @@ services:
       - /var/log:/var/log
       - ./kapacitor/kapacitor.conf:/etc/kapacitor/kapacitor.conf
       - ./kapacitor/data:/var/lib/kapacitor
+  chronograf:
+    image: chronograf:1.10
+    container_name: chronograf
+    ports:
+      - '${CHRONOGRAF_PORT}:8888'
+    environment:
+      - INFLUXDB_URL=http://influxdb:8086 
+      - KAPACITOR_URL=http://kapacitor:9092 
+    depends_on:
+      - influxdb
+      - kapacitor
+    volumes:
+      - /var/log:/var/log
   grafana:
     image: grafana/grafana:10.3.1
     container_name: grafana
