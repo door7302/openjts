@@ -277,4 +277,4 @@ services:
       - ./grafana/data:/var/shared/grafana
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
-      - '${JTSO_PORT}:8081'
+      - '${JTSO_PORT}:8082'
