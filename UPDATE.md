@@ -36,5 +36,5 @@ docker compose build --no-cache
 And finally restart the stack 
 
 ```shell
-docker compose up -d 
+docker compose up -d
 ```
