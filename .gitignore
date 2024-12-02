@@ -48,9 +48,6 @@ compose/telegraf/vsrx/telegraf.d/*
 compose/telegraf/vjunos/telegraf.d/*
 !compose/telegraf/vjunos/telegraf.d/.gitkeep
 !compose/telegraf/vjunos/telegraf.conf
-compose/telegraf/vswitch/telegraf.d/*
-!compose/telegraf/vswitch/telegraf.d/.gitkeep
-!compose/telegraf/vswitch/telegraf.conf
 compose/telegraf/vevo/telegraf.d/*
 !compose/telegraf/vevo/telegraf.d/.gitkeep
 !compose/telegraf/vevo/telegraf.conf
