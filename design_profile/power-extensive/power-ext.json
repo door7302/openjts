@@ -1697,7 +1697,7 @@
           "measurement": "POWER_EXT",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT used_power FROM \"POWER_EXT\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)CB.*|SIB|SFB|.*RE.*|SCB|SF|Routin.*/ and used_power!= 0 and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT used_power FROM \"POWER_EXT\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)CB.*|SIB|SFB|FEB|.*RE.*|SCB|SF|Routin.*/ and used_power!= 0 and $timeFilter group by component_name, device fill(0)",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -2104,7 +2104,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2266,7 +2267,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2426,7 +2428,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2571,7 +2574,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2731,7 +2735,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2847,7 +2852,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "yellow",
@@ -2996,7 +3002,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -3127,7 +3134,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3184,7 +3192,7 @@
           "measurement": "POWER_EXT",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(used_power) FROM \"POWER_EXT\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)CB|SIB|SFB|RE|SCB|SF|Routin.*/ and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT last(used_power) FROM \"POWER_EXT\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)CB|SIB|FEB|SFB|RE|SCB|SF|Routin.*/ and $timeFilter group by component_name, device fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -3287,7 +3295,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3432,7 +3441,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3632,7 +3642,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
