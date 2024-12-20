@@ -1968,7 +1968,7 @@
           "measurement": "POWER_EXT",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT used_power FROM \"POWER_EXT\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)CB|SIB|SFB|RE|SCB|SF|Routin.*/ and used_power!= 0 and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT used_power FROM \"POWER_EXT\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)CB|SIB|SFB|FEB|RE|SCB|SF|Routin.*/ and used_power!= 0 and $timeFilter group by component_name, device fill(0)",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -2852,8 +2852,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "yellow",
@@ -3002,8 +3001,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               }
             ]
           },
@@ -3134,8 +3132,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3295,8 +3292,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3441,8 +3437,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3642,8 +3637,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3787,7 +3781,7 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "",
           "value": ""
         },
