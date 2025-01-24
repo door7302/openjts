@@ -24,6 +24,11 @@
         "entries": [
           {
             "type": 0,
+            "from": "source",
+            "to": "device"
+          },
+          {
+            "type": 0,
             "from": "/components/component/@name",
             "to": "component_name"
           },
@@ -49,22 +54,22 @@
           },
           {
             "type": 1,
-            "from": "/ddos-stats/group/protocol_stats/protocol/locale_stats/locale/dropped_aggregate_policer",
+            "from": "/ddos_stats/group/protocol_stats/protocol/locale_stats/locale/dropped_aggregate_policer",
             "to": "ddos_drop"
           },
           {
             "type": 1,
-            "from": "/ddos-stats/group/protocol_stats/protocol/locale_stats/locale/arrival_rate",
+            "from": "/ddos_stats/group/protocol_stats/protocol/locale_stats/locale/arrival_rate",
             "to": "ddos_received_rate"
           },
           {
             "type": 1,
-            "from": "/ddos-stats/group/protocol_stats/protocol/locale_stats/locale/violation/policer_violation_count",
+            "from": "/ddos_stats/group/protocol_stats/protocol/locale_stats/locale/violation/policer_violation_count",
             "to": "ddos_viol_count"
           },
           {
             "type": 1,
-            "from": "/ddos-stats/group/protocol_stats/protocol/locale_stats/locale/violation/policer_state",
+            "from": "/ddos_stats/group/protocol_stats/protocol/locale_stats/locale/violation/policer_state",
             "to": "ddos_state"
           }
         ]
