@@ -54,4 +54,5 @@ compose/telegraf/vevo/telegraf.d/*
 compose/grafana/cert/*
 !compose/grafana/cert/.gitkeep
 working_dir/**
+private_profile/**
 .DS_Store*
