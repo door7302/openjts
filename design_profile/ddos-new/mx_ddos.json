@@ -24,11 +24,6 @@
         "entries": [
           {
             "type": 0,
-            "from": "source",
-            "to": "device"
-          },
-          {
-            "type": 0,
             "from": "/components/component/@name",
             "to": "component_name"
           },
@@ -39,45 +34,37 @@
           },
           {
             "type": 0,
-            "from": "/ddos-stats/group/group_name",
+            "from": "/ddos-stats/group/group-name",
             "to": "protocol"
           },
           {
             "type": 0,
-            "from": "/ddos-stats/group/protocol-stats/protocol/protocol_name",
+            "from": "/ddos-stats/group/protocol-stats/protocol/protocol-name",
             "to": "sub_protocol"
           },
           {
             "type": 0,
             "from": "/ddos-stats/group/protocol-stats/protocol/locale-stats/locale/location",
             "to": "location"
-          },
-          {
-            "type": 1,
-            "from": "/ddos_stats/group/protocol_stats/protocol/locale_stats/locale/dropped_aggregate_policer",
-            "to": "ddos_drop"
-          },
-          {
-            "type": 1,
-            "from": "/ddos_stats/group/protocol_stats/protocol/locale_stats/locale/arrival_rate",
-            "to": "ddos_received_rate"
-          },
-          {
-            "type": 1,
-            "from": "/ddos_stats/group/protocol_stats/protocol/locale_stats/locale/violation/policer_violation_count",
-            "to": "ddos_viol_count"
-          },
-          {
-            "type": 1,
-            "from": "/ddos_stats/group/protocol_stats/protocol/locale_stats/locale/violation/policer_state",
-            "to": "ddos_state"
           }
+        ]
+      }
+    ],
+    "xreducer_list": [
+      {
+        "order": 2,
+        "namepass": ["DDOS"],
+        "tags": [
+          "all"
+        ],
+        "fields": [
+          "all"
         ]
       }
     ],
     "strings_list": [
       {
-        "order": 2,
+        "order": 3,
         "namepass": ["DDOS"],
         "entries": [
           {
@@ -101,16 +88,9 @@
    
     "enrichment_list": [
       {
-        "order": 3,
-        "namepass": ["DDOS"],
-        "family": "mx",
-        "two_levels": false,
-        "level1_tag": "device"
-      },
-      {
         "order": 4,
         "namepass": ["DDOS"],
-        "family": "ptx",
+        "family": "mx",
         "two_levels": false,
         "level1_tag": "device"
       }
@@ -119,17 +99,17 @@
       {
         "order": 5,
         "namepass": ["DDOS"],
-        "fields": ["ddos_drop"]
+        "fields": ["dropped-aggregate-policer"]
       }
     ],
     "influx_outputs": [
       {
         "retention": "autogen",
         "fieldpass": [
-          "ddos_received_rate",
-          "ddos_drop_rate",
-          "ddos_viol_count",
-          "ddos_state" ]
+          "arrival-rate",
+          "dropped-aggregate-policer_rate",
+          "policer-violation-count",
+          "policer-state" ]
       }
     ]
   }

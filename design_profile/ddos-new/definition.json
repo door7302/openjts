@@ -4,12 +4,12 @@
     "telegraf": {
       "mx": [ {
         "version": ">=22.3R",
-        "conf": "all_ddos.json"
+        "conf": "mx_ddos.json"
         }
       ],
       "ptx": [ {
         "version": ">=22.3R",
-        "conf": "all_ddos.json"
+        "conf": "ptx_ddos.json"
         }
       ]
     },
