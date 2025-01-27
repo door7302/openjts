@@ -49,7 +49,7 @@
     ],
     "rename_list": [
       {
-        "order": 100,
+        "order": 1,
         "namepass": ["BGP"],
         "entries": [
             {
@@ -182,7 +182,7 @@
     ],
     "regrex_list": [
         {
-          "order": 200,
+          "order": 2,
           "namepass": ["BGP"],
           "entries": [
             {
