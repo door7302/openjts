@@ -4,22 +4,22 @@
     "telegraf": {
       "vmx": [ {
         "version": "all",
-        "conf": "common_bgp.conf"
+        "conf": "common_bgp.json"
         }
       ],
       "mx": [ {
         "version": "all",
-        "conf": "common_bgp.conf"
+        "conf": "common_bgp.json"
         }
       ],
       "ptx":[ {
         "version": "all",
-        "conf": "common_bgp.conf"
+        "conf": "common_bgp.json"
         }
       ],
       "acx": [ {
         "version": "all",
-        "conf": "common_bgp.conf"
+        "conf": "common_bgp.json"
         }
       ]
     },
