@@ -80,17 +80,27 @@
             {
               "type": 1,
               "from": "/network-instances/network-instance/protocols/protocol/bgp/global/state/total-paths",
-              "to": "group_total_paths"
+              "to": "global_total_paths"
             },
             {
               "type": 1,
               "from": "/network-instances/network-instance/protocols/protocol/bgp/global/state/total-prefixes",
-              "to": "group_total_prefixes"
+              "to": "global_total_prefixes"
             },
             {
               "type": 1,
               "from": "/network-instances/network-instance/protocols/protocol/bgp/global/state/as",
               "to": "global_as"
+            },
+            {
+              "type": 1,
+              "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state/total-paths",
+              "to": "group_total_paths"
+            },
+            {
+              "type": 1,
+              "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state/total-prefixes",
+              "to": "group_total_prefixes"
             },
             {
               "type": 1,
