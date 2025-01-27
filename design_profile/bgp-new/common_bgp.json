@@ -49,7 +49,7 @@
     ],
     "rename_list": [
       {
-        "order": 1,
+        "order": 100,
         "namepass": ["BGP"],
         "entries": [
             {
@@ -182,12 +182,12 @@
     ],
     "regrex_list": [
         {
-          "order": 2,
+          "order": 200,
           "namepass": ["BGP"],
           "entries": [
             {
               "type": 1,
-              "pattern": ".*prefix_limit_received.state.(max_prefixes)",
+              "pattern": ".*prefix-limit-received.state.(max-prefixes)",
               "replacement": "${1}"
             }
           ]
@@ -216,7 +216,8 @@
             "session_output_queue",
             "session_state",
             "session_peer_as",
-            "session_description"
+            "session_description",
+            "max-prefixes"
         ]
       }
     ]
