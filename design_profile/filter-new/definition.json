@@ -1,0 +1,25 @@
+{
+    "cheatsheet": "filter.png",
+    "description": "This profile provides template for collecting firewall filter information",
+    "telegraf": {
+      "mx": [ {
+        "version": "all",
+        "conf": "mx_filter.json"
+        }
+      ],
+      "ptx":[ {
+        "version": "all",
+        "conf": "ptx_filter.json"
+        }
+      ],
+      "acx": [ {
+        "version": "all",
+        "conf": "acx_filter.json"
+        }
+      ]
+    },
+    "kapacitor": [],
+    "grafana": [
+      "filter.json"
+    ]
+}

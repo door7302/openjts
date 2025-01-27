@@ -19,7 +19,7 @@
     ],
     "rename_list": [
       {
-        "order": 1,
+        "order": 100,
         "namepass": ["DDOS"],
         "entries": [
           {
@@ -52,7 +52,7 @@
     ],
     "xreducer_list": [
       {
-        "order": 2,
+        "order": 200,
         "namepass": ["DDOS"],
         "tags": [
           "all"
@@ -64,7 +64,7 @@
     ],
     "strings_list": [
       {
-        "order": 3,
+        "order": 300,
         "namepass": ["DDOS"],
         "entries": [
           {
@@ -88,7 +88,7 @@
    
     "enrichment_list": [
       {
-        "order": 4,
+        "order": 400,
         "namepass": ["DDOS"],
         "family": "ptx",
         "two_levels": false,
@@ -97,7 +97,7 @@
     ],
     "rate_list": [
       {
-        "order": 5,
+        "order": 500,
         "namepass": ["DDOS"],
         "fields": ["dropped-aggregate-policer"]
       }

@@ -137,7 +137,7 @@
           "measurement": "DDOS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"ddos_state\"), \"ddos_viol_count\" FROM \"DDOS\" WHERE time > now()-15m and ddos_state=~/.*VIOLATING.*/ GROUP BY \"device\"::tag, \"protocol\"::tag, \"sub_protocol\"::tag, \"_component_id\"::tag",
+          "query": "SELECT last(\"policer-state\"), \"policer-violation-count\" FROM \"DDOS\" WHERE time > now()-15m and policer-state=~/.*VIOLATING.*/ GROUP BY \"device\"::tag, \"protocol\"::tag, \"sub_protocol\"::tag, \"_component_id\"::tag",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -145,7 +145,7 @@
             [
               {
                 "params": [
-                  "ddos_state"
+                  "policer-state"
                 ],
                 "type": "field"
               }
@@ -170,7 +170,7 @@
             "indexByName": {
               "Time": 0,
               "_component_id": 2,
-              "ddos_viol_count": 6,
+              "policer-violation-count": 6,
               "device": 1,
               "last": 5,
               "protocol": 3,
@@ -179,7 +179,7 @@
             "renameByName": {
               "Time": "Last Time Seen",
               "_component_id": "Linecard Slot",
-              "ddos_viol_count": "Violation Count. ",
+              "policer-violation-count": "Violation Count. ",
               "device": "Router",
               "last": "Current State",
               "protocol": "Protocol",
@@ -306,7 +306,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "select sum(received_rate) from (select (\"ddos_received_rate\") as received_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
+          "query": "select sum(received_rate) from (select (\"arrival-rate\") as received_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -405,7 +405,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(drop_rate) from (select (\"ddos_drop_rate\") as drop_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
+          "query": "select sum(drop_rate) from (select (\"dropped-aggregate-policer_rate\") as drop_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -503,7 +503,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "select sum(punt_rate) from(select ((\"ddos_received_rate\")-(\"ddos_drop_rate\")) as punt_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
+          "query": "select sum(punt_rate) from(select ((\"arrival-rate\")-(\"dropped-aggregate-policer_rate\")) as punt_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -626,7 +626,7 @@
           "measurement": "DDOS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"ddos_received_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter and ddos_received_rate!=0  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
+          "query": "SELECT \"arrival-rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter and arrival-rate!=0  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -634,7 +634,7 @@
             [
               {
                 "params": [
-                  "ddos_received_rate"
+                  "arrival-rate"
                 ],
                 "type": "field"
               }
@@ -773,7 +773,7 @@
           "measurement": "DDOS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"ddos_drop_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter and ddos_drop_rate!=0  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
+          "query": "SELECT \"dropped-aggregate-policer_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter and dropped-aggregate-policer_rate!=0  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -781,7 +781,7 @@
             [
               {
                 "params": [
-                  "ddos_drop_rate"
+                  "dropped-aggregate-policer_rate"
                 ],
                 "type": "field"
               }
@@ -923,7 +923,7 @@
           "measurement": "DDOS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"ddos_received_rate\" - \"ddos_drop_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter and ddos_received_rate!=0 \n GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0) ",
+          "query": "SELECT \"arrival-rate\" - \"dropped-aggregate-policer_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter and arrival-rate!=0 \n GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0) ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -931,7 +931,7 @@
             [
               {
                 "params": [
-                  "ddos_drop_rate"
+                  "dropped-aggregate-policer_rate"
                 ],
                 "type": "field"
               }

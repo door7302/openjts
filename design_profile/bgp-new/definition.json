@@ -1,0 +1,30 @@
+{
+    "cheatsheet": "bgp.png",
+    "description": "This profile provides template for collecting BGP data",
+    "telegraf": {
+      "vmx": [ {
+        "version": "all",
+        "conf": "common_bgp.conf"
+        }
+      ],
+      "mx": [ {
+        "version": "all",
+        "conf": "common_bgp.conf"
+        }
+      ],
+      "ptx":[ {
+        "version": "all",
+        "conf": "common_bgp.conf"
+        }
+      ],
+      "acx": [ {
+        "version": "all",
+        "conf": "common_bgp.conf"
+        }
+      ]
+    },
+    "kapacitor": null,
+    "grafana": [
+      "bgp.json"
+    ]
+}
