@@ -48,9 +48,258 @@
         "content": "<h2><center>Global Info</center></h2>",
         "mode": "html"
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "transparent": true,
       "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": null
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 0,
+        "y": 2
+      },
+      "id": 221,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "BGP",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "global_as"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
+        }
+      ],
+      "title": "LOCAL AS",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": null
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 8,
+        "y": 2
+      },
+      "id": 251,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "BGP",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "global_total_prefixes"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
+        }
+      ],
+      "title": "Total Prefixes",
+      "transparent": true,
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "dark-blue",
+                "value": null
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 16,
+        "y": 2
+      },
+      "id": 252,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "BGP",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "global_total_paths"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
+        }
+      ],
+      "title": "Total Paths",
+      "transparent": true,
+      "type": "stat"
     },
     {
       "collapsed": false,
@@ -58,7 +307,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 2
+        "y": 6
       },
       "id": 5,
       "panels": [],
@@ -86,15 +335,16 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "none",
+          "unitScale": true
         },
         "overrides": []
       },
       "gridPos": {
         "h": 5,
-        "w": 8,
+        "w": 12,
         "x": 0,
-        "y": 3
+        "y": 7
       },
       "id": 3,
       "maxPerRow": 3,
@@ -110,9 +360,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "value_and_name"
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "repeat": "peergroup",
       "repeatDirection": "h",
       "targets": [
@@ -198,15 +450,16 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "none",
+          "unitScale": true
         },
         "overrides": []
       },
       "gridPos": {
         "h": 5,
-        "w": 8,
+        "w": 12,
         "x": 0,
-        "y": 43
+        "y": 12
       },
       "id": 23,
       "maxPerRow": 3,
@@ -222,9 +475,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "value_and_name"
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "repeat": "peergroup",
       "repeatDirection": "h",
       "targets": [
@@ -411,7 +666,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 83
+        "y": 17
       },
       "id": 13,
       "panels": [],
@@ -440,15 +695,16 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "none",
+          "unitScale": true
         },
         "overrides": []
       },
       "gridPos": {
         "h": 5,
-        "w": 6,
+        "w": 24,
         "x": 0,
-        "y": 84
+        "y": 18
       },
       "id": 18,
       "maxPerRow": 8,
@@ -464,9 +720,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "value_and_name"
+        "showPercentChange": false,
+        "textMode": "value_and_name",
+        "wideLayout": true
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "repeat": "family",
       "repeatDirection": "h",
       "targets": [
@@ -546,7 +804,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 89
+        "y": 23
       },
       "id": 191,
       "options": {
@@ -558,7 +816,7 @@
         "content": "<h2><center>On Change Events</center></h2>",
         "mode": "html"
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "transparent": true,
       "type": "text"
     },
@@ -630,7 +888,8 @@
                 "value": null
               }
             ]
-          }
+          },
+          "unitScale": true
         },
         "overrides": []
       },
@@ -638,7 +897,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 91
+        "y": 25
       },
       "id": 30,
       "options": {
@@ -659,7 +918,7 @@
           }
         ]
       },
-      "pluginVersion": "10.2.0",
+      "pluginVersion": "10.3.1",
       "targets": [
         {
           "datasource": {
@@ -759,7 +1018,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 102
+        "y": 36
       },
       "id": 41,
       "panels": [
@@ -792,7 +1051,8 @@
                     "value": null
                   }
                 ]
-              }
+              },
+              "unitScale": true
             },
             "overrides": []
           },
@@ -800,7 +1060,7 @@
             "h": 4,
             "w": 3,
             "x": 0,
-            "y": 5
+            "y": 37
           },
           "id": 71,
           "options": {
@@ -815,9 +1075,11 @@
               "fields": "/^DESC$/",
               "values": false
             },
-            "textMode": "auto"
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "10.2.0",
+          "pluginVersion": "10.3.1",
           "targets": [
             {
               "alias": "DESC",
@@ -884,7 +1146,8 @@
                     "value": null
                   }
                 ]
-              }
+              },
+              "unitScale": true
             },
             "overrides": []
           },
@@ -892,7 +1155,7 @@
             "h": 4,
             "w": 3,
             "x": 3,
-            "y": 5
+            "y": 37
           },
           "id": 70,
           "options": {
@@ -907,9 +1170,11 @@
               "fields": "",
               "values": false
             },
-            "textMode": "auto"
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "10.2.0",
+          "pluginVersion": "10.3.1",
           "targets": [
             {
               "alias": "PEERAS",
@@ -999,7 +1264,8 @@
                     "value": null
                   }
                 ]
-              }
+              },
+              "unitScale": true
             },
             "overrides": []
           },
@@ -1007,7 +1273,7 @@
             "h": 4,
             "w": 3,
             "x": 6,
-            "y": 5
+            "y": 37
           },
           "id": 88,
           "options": {
@@ -1022,9 +1288,11 @@
               "fields": "/^STATE$/",
               "values": false
             },
-            "textMode": "auto"
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "10.2.0",
+          "pluginVersion": "10.3.1",
           "targets": [
             {
               "alias": "STATE",
@@ -1133,7 +1401,8 @@
                     "value": 80
                   }
                 ]
-              }
+              },
+              "unitScale": true
             },
             "overrides": []
           },
@@ -1141,7 +1410,7 @@
             "h": 4,
             "w": 2,
             "x": 9,
-            "y": 5
+            "y": 37
           },
           "id": 74,
           "options": {
@@ -1156,9 +1425,11 @@
               "fields": "",
               "values": false
             },
-            "textMode": "auto"
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "10.2.0",
+          "pluginVersion": "10.3.1",
           "targets": [
             {
               "alias": "Input Queue",
@@ -1230,7 +1501,8 @@
                     "value": 80
                   }
                 ]
-              }
+              },
+              "unitScale": true
             },
             "overrides": []
           },
@@ -1238,7 +1510,7 @@
             "h": 4,
             "w": 2,
             "x": 11,
-            "y": 5
+            "y": 37
           },
           "id": 73,
           "options": {
@@ -1253,9 +1525,11 @@
               "fields": "",
               "values": false
             },
-            "textMode": "auto"
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "10.2.0",
+          "pluginVersion": "10.3.1",
           "targets": [
             {
               "alias": "Input Queue",
@@ -1331,7 +1605,8 @@
                   }
                 ]
               },
-              "unit": "none"
+              "unit": "none",
+              "unitScale": true
             },
             "overrides": []
           },
@@ -1339,11 +1614,12 @@
             "h": 23,
             "w": 11,
             "x": 13,
-            "y": 5
+            "y": 37
           },
           "id": 49,
           "options": {
             "displayMode": "lcd",
+            "maxVizHeight": 300,
             "minVizHeight": 10,
             "minVizWidth": 0,
             "namePlacement": "top",
@@ -1356,10 +1632,11 @@
               "values": false
             },
             "showUnfilled": true,
+            "sizing": "auto",
             "text": {},
             "valueMode": "text"
           },
-          "pluginVersion": "10.2.0",
+          "pluginVersion": "10.3.1",
           "repeatDirection": "h",
           "targets": [
             {
@@ -1628,7 +1905,8 @@
                     "value": null
                   }
                 ]
-              }
+              },
+              "unitScale": true
             },
             "overrides": []
           },
@@ -1636,7 +1914,7 @@
             "h": 4,
             "w": 13,
             "x": 0,
-            "y": 9
+            "y": 41
           },
           "id": 121,
           "options": {
@@ -1651,49 +1929,12 @@
               "fields": "",
               "values": false
             },
-            "textMode": "auto"
+            "showPercentChange": false,
+            "textMode": "auto",
+            "wideLayout": true
           },
-          "pluginVersion": "10.2.0",
+          "pluginVersion": "10.3.1",
           "targets": [
-            {
-              "alias": "STATE",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": true,
-              "measurement": "BGP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT \"session_state\" FROM \"BGP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "session_state"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "device::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
-            },
             {
               "alias": "$tag_neighbor_afi_safi_name",
               "datasource": {
@@ -1720,7 +1961,7 @@
                 [
                   {
                     "params": [
-                      "max_prefixes"
+                      "max-prefixes"
                     ],
                     "type": "field"
                   },
@@ -1819,7 +2060,8 @@
                   }
                 ]
               },
-              "unit": "none"
+              "unit": "none",
+              "unitScale": true
             },
             "overrides": []
           },
@@ -1827,7 +2069,7 @@
             "h": 15,
             "w": 13,
             "x": 0,
-            "y": 13
+            "y": 45
           },
           "id": 56,
           "options": {
@@ -2051,7 +2293,7 @@
   ],
   "refresh": "1m",
   "revision": 1,
-  "schemaVersion": 38,
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": [

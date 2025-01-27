@@ -207,6 +207,8 @@
       {
         "retention": "autogen",
         "fieldpass": [
+            "global_total_paths",
+            "global_total_prefixes",
             "group_total_paths",
             "group_total_prefixes",
             "global_as",
