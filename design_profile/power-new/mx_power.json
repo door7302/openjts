@@ -20,16 +20,10 @@
     "pivot_list": [
     {
       "order": 10,
-      "namepass": ["COMPONENTS", "INTERFACES"],
-      "tag": "source",
-      "field": "value"
-    },
-    {
-        "order": 11,
-        "namepass": ["COMPONENTS", "INTERFACES"],
-        "tag": "source",
-        "field": "value"
-      }
+      "namepass": ["COMPONENTS"],
+      "tag": "/components/component/properties/property/name",
+      "field": "/components/component/properties/property/state/value"
+    }
     ],
     "rename_list": [
       {
