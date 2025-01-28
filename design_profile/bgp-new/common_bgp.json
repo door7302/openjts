@@ -3,43 +3,43 @@
       {
         "subscriptions": [
           {
-            "name": "BGP",
+            "name": "NETWORK_INSTANCE_BGP",
             "path": "/network-instances/network-instance/protocols/protocol/bgp/global/state",
             "mode": "sample",
             "interval": 60
           },
           {
-            "name": "BGP",
+            "name": "NETWORK_INSTANCE_BGP",
             "path": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group",
             "mode": "sample",
             "interval": 60
           },
           {
-            "name": "BGP",
+            "name": "NETWORK_INSTANCE_BGP",
             "path": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi",
             "mode": "sample",
             "interval": 60
           },
           {
-            "name": "BGP",
+            "name": "NETWORK_INSTANCE_BGP",
             "path": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/description",
             "mode": "sample",
             "interval": 60
           },
           {
-            "name": "BGP",
+            "name": "NETWORK_INSTANCE_BGP",
             "path": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/peer-as",
             "mode": "sample",
             "interval": 60
           },
           {
-            "name": "BGP",
+            "name": "NETWORK_INSTANCE_BGP",
             "path": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/queues",
             "mode": "sample",
             "interval": 60
           },
           {
-            "name": "BGP",
+            "name": "NETWORK_INSTANCE_BGP",
             "path": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/session-state",
             "mode": "on_change",
             "interval": 0
@@ -50,7 +50,7 @@
     "rename_list": [
       {
         "order": 100,
-        "namepass": ["BGP"],
+        "namepass": ["NETWORK_INSTANCE_BGP"],
         "entries": [
             {
             "type": 0,
@@ -193,7 +193,7 @@
     "regrex_list": [
         {
           "order": 200,
-          "namepass": ["BGP"],
+          "namepass": ["NETWORK_INSTANCE_BGP"],
           "entries": [
             {
               "type": 1,

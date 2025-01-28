@@ -134,10 +134,10 @@
               "type": "tag"
             }
           ],
-          "measurement": "DDOS",
+          "measurement": "DDOS_STATS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"policer-state\"), \"policer-violation-count\" FROM \"DDOS\" WHERE time > now()-15m and policer-state=~/.*VIOLATING.*/ GROUP BY \"device\"::tag, \"protocol\"::tag, \"sub_protocol\"::tag, \"_component_id\"::tag",
+          "query": "SELECT last(\"policer-state\"), \"policer-violation-count\" FROM \"DDOS_STATS\" WHERE time > now()-15m and policer-state=~/.*VIOLATING.*/ GROUP BY \"device\"::tag, \"protocol\"::tag, \"sub_protocol\"::tag, \"_component_id\"::tag",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -160,7 +160,7 @@
           ]
         }
       ],
-      "title": "Global DDOS alarms - last 15 minutes",
+      "title": "Global DDOS_STATS alarms - last 15 minutes",
       "transformations": [
         {
           "id": "organize",
@@ -228,7 +228,7 @@
       "panels": [],
       "repeat": "proto",
       "repeatDirection": "h",
-      "title": "$proto - DDOS PROTECTION",
+      "title": "$proto - DDOS_STATS PROTECTION",
       "type": "row"
     },
     {
@@ -306,7 +306,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "select sum(received_rate) from (select (\"arrival-rate\") as received_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
+          "query": "select sum(received_rate) from (select (\"arrival-rate\") as received_rate FROM \"DDOS_STATS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -405,7 +405,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(drop_rate) from (select (\"dropped-aggregate-policer_rate\") as drop_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
+          "query": "select sum(drop_rate) from (select (\"dropped-aggregate-policer_rate\") as drop_rate FROM \"DDOS_STATS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -503,7 +503,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "select sum(punt_rate) from(select ((\"arrival-rate\")-(\"dropped-aggregate-policer_rate\")) as punt_rate FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
+          "query": "select sum(punt_rate) from(select ((\"arrival-rate\")-(\"dropped-aggregate-policer_rate\")) as punt_rate FROM \"DDOS_STATS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -623,10 +623,10 @@
               "type": "fill"
             }
           ],
-          "measurement": "DDOS",
+          "measurement": "DDOS_STATS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"arrival-rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter and arrival-rate!=0  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
+          "query": "SELECT \"arrival-rate\" FROM \"DDOS_STATS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter and arrival-rate!=0  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -770,10 +770,10 @@
               "type": "fill"
             }
           ],
-          "measurement": "DDOS",
+          "measurement": "DDOS_STATS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"dropped-aggregate-policer_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter and dropped-aggregate-policer_rate!=0  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
+          "query": "SELECT \"dropped-aggregate-policer_rate\" FROM \"DDOS_STATS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter and dropped-aggregate-policer_rate!=0  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -920,10 +920,10 @@
             }
           ],
           "hide": false,
-          "measurement": "DDOS",
+          "measurement": "DDOS_STATS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"arrival-rate\" - \"dropped-aggregate-policer_rate\" FROM \"DDOS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter and arrival-rate!=0 \n GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0) ",
+          "query": "SELECT \"arrival-rate\" - \"dropped-aggregate-policer_rate\" FROM \"DDOS_STATS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter and arrival-rate!=0 \n GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0) ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -972,14 +972,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values from DDOS with key=\"device\"",
+        "definition": "show tag values from DDOS_STATS with key=\"device\"",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": "show tag values from DDOS with key=\"device\"",
+        "query": "show tag values from DDOS_STATS with key=\"device\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1052,7 +1052,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "DDOS PROFILE - JTSO",
+  "title": "DDOS PROFILE - JTS",
   "uid": "ddosdashboard",
   "version": 2,
   "weekStart": ""

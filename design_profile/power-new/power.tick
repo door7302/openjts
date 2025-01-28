@@ -5,7 +5,7 @@ var win = 3m
 var every = 3m
 
 var power_used = batch
-    |query('select last(power_zone_0_usage), last(power_zone_1_usage), last(power_system_usage) FROM "jtsdb"."autogen"."POWER_EXT" fill(0)')
+    |query('select last(power_zone_0_usage), last(power_zone_1_usage), last(power_system_usage) FROM "jtsdb"."autogen"."COMPONENTS" fill(0)')
         .period(win)
         .every(every)
         .groupBy('device', 'MODEL')
@@ -42,5 +42,5 @@ var influxOut = all_power
         .create()
         .database('jtsdb')
         .retentionPolicy('autogen')
-        .measurement('POWER_EXT')
+        .measurement('COMPONENTS')
         .cluster('influxdb')

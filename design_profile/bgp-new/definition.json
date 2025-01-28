@@ -1,4 +1,6 @@
 {
+    "version": 1,
+    "min-interval": 30,
     "cheatsheet": "bgp.png",
     "description": "This profile provides template for collecting BGP data",
     "telegraf": {

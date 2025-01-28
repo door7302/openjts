@@ -3,13 +3,13 @@
       {
         "aliases": [
           {
-            "name": "DDOS",
+            "name": "DDOS_STATS",
             "prefix_list": ["/ddos-stats/group"]
           }
         ],
         "subscriptions": [
           {
-            "name": "DDOS",
+            "name": "DDOS_STATS",
             "path": "/junos/system/linecard/ddos",
             "mode": "sample",
             "interval": 60
@@ -20,7 +20,7 @@
     "rename_list": [
       {
         "order": 100,
-        "namepass": ["DDOS"],
+        "namepass": ["DDOS_STATS"],
         "entries": [
           {
             "type": 0,
@@ -53,7 +53,7 @@
     "xreducer_list": [
       {
         "order": 200,
-        "namepass": ["DDOS"],
+        "namepass": ["DDOS_STATS"],
         "tags": [
           "all"
         ],
@@ -65,7 +65,7 @@
     "strings_list": [
       {
         "order": 300,
-        "namepass": ["DDOS"],
+        "namepass": ["DDOS_STATS"],
         "entries": [
           {
             "type": 0,
@@ -89,7 +89,7 @@
     "enrichment_list": [
       {
         "order": 400,
-        "namepass": ["DDOS"],
+        "namepass": ["DDOS_STATS"],
         "family": "mx",
         "two_levels": false,
         "level1_tag": "device"
@@ -98,7 +98,7 @@
     "rate_list": [
       {
         "order": 402,
-        "namepass": ["DDOS"],
+        "namepass": ["DDOS_STATS"],
         "fields": ["dropped-aggregate-policer"]
       }
     ],

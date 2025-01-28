@@ -1,4 +1,6 @@
 {
+    "version": 1,
+    "min-interval": 30,
     "cheatsheet": "filter.png",
     "description": "This profile provides template for collecting firewall filter information",
     "telegraf": {
