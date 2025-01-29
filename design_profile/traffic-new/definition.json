@@ -1,4 +1,6 @@
 {
+    "version": 1,
+    "min-interval": 15,
     "cheatsheet": "traffic.png",
     "description": "This profile provides template for collecting traffic/cos for physical ports",
     "telegraf": {
