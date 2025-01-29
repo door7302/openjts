@@ -89,6 +89,16 @@
               },
               {
                 "type": 1,
+                "from": "/interfaces/interface/subinterfaces/subinterface/state/counters/in-octets",
+                "to": "unit_in_octets"
+              },
+              {
+                "type": 1,
+                "from": "/interfaces/interface/subinterfaces/subinterface/state/counters/out-octets",
+                "to": "unit_out_octets"
+              },
+              {
+                "type": 1,
                 "from": "/interfaces/interface/state/counters/in-errors",
                 "to": "in_errors"
               },
@@ -126,6 +136,16 @@
                 "type": 1,
                 "from": "/interfaces/interface/state/counters/out-pkts",
                 "to": "out_pkts"
+              },
+              {
+                "type": 1,
+                "from": "/interfaces/interface/subinterfaces/subinterface/state/counters/in-pkts",
+                "to": "unit_in_pkts"
+              },
+              {
+                "type": 1,
+                "from": "/interfaces/interface/subinterfaces/subinterface/state/counters/out-pkts",
+                "to": "unit_out_pkts"
               },
               {
                 "type": 1,
@@ -270,7 +290,7 @@
       {
         "order": 500,
         "namepass": ["INTERFACES", "SUBINTERFACES"],
-        "fields": ["in_pkts", "out_pkts", "in_octets","out_octets","mcast_in_pkts", "mcast_out_pkts", "bcast_in_pkts", "bcast_out_pkts","cos_forwarded_octets","cos_forwarded_packets", "cos_queued_octets","cos_queued_packets", "cos_red_dropped_packets", "cos_tail_dropped_packets", "in_errors", "out_errors"]
+        "fields": ["in_pkts", "out_pkts", "in_octets","out_octets","unit_in_pkts", "unit_out_pkts", "unit_in_octets","unit_out_octets","mcast_in_pkts", "mcast_out_pkts", "bcast_in_pkts", "bcast_out_pkts","cos_forwarded_octets","cos_forwarded_packets", "cos_queued_octets","cos_queued_packets", "cos_red_dropped_packets", "cos_tail_dropped_packets", "in_errors", "out_errors"]
 
       }
     ],
@@ -321,6 +341,12 @@
             "exception",
             "in_octets_rate",
             "out_octets_rate",
+            "in_pkts_rate",
+            "out_pkts_rate",
+            "unit_in_octets_rate",
+            "unit_out_octets_rate",
+            "unit_in_pkts_rate",
+            "unit_out_pkts_rate",
             "in_errors_rate",
             "out_errors_rate",
             "cos_queued_packets_rate",
@@ -331,8 +357,6 @@
             "cos_forwarded_packets_rate",
             "cos_buffer_size",
             "cos_buffer_peak",
-            "in_pkts_rate",
-            "out_pkts_rate",
             "cos_buffer_cur",
             "cos_buffer_avg",
             "mcast_in_pkts_rate",
