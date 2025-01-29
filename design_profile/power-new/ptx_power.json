@@ -67,47 +67,47 @@
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-system-capacity",
+            "from": "power-system-capacity",
             "to": "power_system_capacity"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-system-usage",
+            "from": "power-system-usage",
             "to": "power_system_usage"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-system-allocated",
+            "from": "power-system-allocated",
             "to": "power_system_allocated"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-system-remaining",
+            "from": "power-system-remaining",
             "to": "power_system_remaining"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-system-maximum",
+            "from": "power-system-maximum",
             "to": "power_system_maximum"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-usage",
+            "from": "power-usage",
             "to": "used_power"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-maximum",
+            "from": "power-maximum",
             "to": "power_maximum"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-capacity-maximum",
+            "from": "power-capacity-maximum",
             "to": "power_capacity_maximum"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-capacity-usage",
+            "from": "power-capacity-usage",
             "to": "power_capacity_usage"
           },
           {
@@ -122,62 +122,62 @@
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-zone-0-allocated",
+            "from": "power-zone-0-allocated",
             "to": "power_zone_0_allocated"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-zone-0-capacity",
+            "from": "power-zone-0-capacity",
             "to": "power_zone_0_capacity"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-zone-0-maximum",
+            "from": "power-zone-0-maximum",
             "to": "power_zone_0_maximum"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-zone-0-remaining",
+            "from": "power-zone-0-remaining",
             "to": "power_zone_0_remaining"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-zone-0-usage",
+            "from": "power-zone-0-usage",
             "to": "power_zone_0_usage"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-zone-1-allocated",
+            "from": "power-zone-1-allocated",
             "to": "power_zone_1_allocated"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-zone-1-capacity",
+            "from": "power-zone-1-capacity",
             "to": "power_zone_1_capacity"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-zone-1-maximum",
+            "from": "power-zone-1-maximum",
             "to": "power_zone_1_maximum"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-zone-1-remaining",
+            "from": "power-zone-1-remaining",
             "to": "power_zone_1_remaining"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-zone-1-usage",
+            "from": "power-zone-1-usage",
             "to": "power_zone_1_usage"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/power-dc-output",
+            "from": "power-dc-output",
             "to": "output_power"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/temperature-ambient",
+            "from": "temperature-ambient",
             "to": "temperature_ambient"
           },
           {
@@ -187,42 +187,42 @@
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/temperature-exhaust-b",
+            "from": "temperature-exhaust-b",
             "to": "temperature_exhaust_b"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/temperature-exhaust-a",
+            "from": "temperature-exhaust-a",
             "to": "temperature_exhaust_a"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/temperature-exhaust-c",
+            "from": "temperature-exhaust-c",
             "to": "temperature_exhaust_c"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/temperature-intake-a",
+            "from": "temperature-intake-a",
             "to": "temperature_intake_a"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/temperature-intake-b",
+            "from": "temperature-intake-b",
             "to": "temperature_intake_b"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/temperature-intake-c",
+            "from": "temperature-intake-c",
             "to": "temperature_intake_c"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/temperature-inlet",
+            "from": "temperature-inlet",
             "to": "temperature_inlet"
           },
           {
             "type": 1,
-            "from": "/components/component/properties/property/state/temperature-outlet",
+            "from": "temperature-outlet",
             "to": "temperature_outlet"
           },
           {
