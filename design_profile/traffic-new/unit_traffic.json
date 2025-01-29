@@ -1,1031 +1,1033 @@
 {
-    "annotations": {
-      "list": [
-        {
-          "builtIn": 1,
-          "datasource": {
-            "type": "grafana",
-            "uid": "-- Grafana --"
-          },
-          "enable": true,
-          "hide": true,
-          "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "target": {
-            "limit": 100,
-            "matchAny": false,
-            "tags": [],
-            "type": "dashboard"
-          },
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
           "type": "dashboard"
-        }
-      ]
-    },
-    "editable": true,
-    "fiscalYearStartMonth": 0,
-    "graphTooltip": 2,
-    "links": [],
-    "liveNow": false,
-    "panels": [
-      {
-        "datasource": {
-          "type": "datasource",
-          "uid": "grafana"
         },
-        "description": "",
-        "gridPos": {
-          "h": 2,
-          "w": 24,
-          "x": 0,
-          "y": 0
-        },
-        "id": 51,
-        "options": {
-          "code": {
-            "language": "plaintext",
-            "showLineNumbers": false,
-            "showMiniMap": false
-          },
-          "content": "<h2><center>Traffic info $ifname</center></h2>",
-          "mode": "html"
-        },
-        "pluginVersion": "10.3.1",
-        "transparent": true,
-        "type": "text"
-      },
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
-        },
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "axisBorderShow": false,
-              "axisCenteredZero": false,
-              "axisColorMode": "text",
-              "axisLabel": "",
-              "axisPlacement": "auto",
-              "barAlignment": 0,
-              "drawStyle": "line",
-              "fillOpacity": 8,
-              "gradientMode": "none",
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              },
-              "insertNulls": false,
-              "lineInterpolation": "smooth",
-              "lineWidth": 1,
-              "pointSize": 5,
-              "scaleDistribution": {
-                "type": "linear"
-              },
-              "showPoints": "never",
-              "spanNulls": false,
-              "stacking": {
-                "group": "A",
-                "mode": "none"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            },
-            "unit": "bps",
-            "unitScale": true
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 12,
-          "w": 24,
-          "x": 0,
-          "y": 2
-        },
-        "id": 2,
-        "options": {
-          "legend": {
-            "calcs": [
-              "lastNotNull",
-              "mean",
-              "min",
-              "max"
-            ],
-            "displayMode": "table",
-            "placement": "bottom",
-            "showLegend": true
-          },
-          "tooltip": {
-            "mode": "multi",
-            "sort": "desc"
-          }
-        },
-        "targets": [
-          {
-            "alias": "Input Bps",
-            "datasource": {
-              "type": "influxdb",
-              "uid": "jtsuid"
-            },
-            "groupBy": [],
-            "hide": false,
-            "measurement": "INTERFACES",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "query": "SELECT mean(\"in_octets_rate\")*8  FROM \"INTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME = '$ifname') and if_unit='' AND $timeFilter group by time($sample_interval)",
-            "rawQuery": true,
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "in_octets_rate"
-                  ],
-                  "type": "field"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "out_octets_rate"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "device",
-                "operator": "=~",
-                "value": "/^$rtr$/"
-              },
-              {
-                "condition": "AND",
-                "key": "LINKNAME",
-                "operator": "=~",
-                "value": "/^$ifname$/"
-              }
-            ]
-          },
-          {
-            "alias": "Output Bps",
-            "datasource": {
-              "type": "influxdb",
-              "uid": "jtsuid"
-            },
-            "groupBy": [],
-            "hide": false,
-            "measurement": "INTERFACES",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "query": "SELECT mean(\"out_octets_rate\")*8 FROM \"INTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME = '$ifname') and if_unit='' AND $timeFilter group by time($sample_interval)",
-            "rawQuery": true,
-            "refId": "B",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "in_octets_rate"
-                  ],
-                  "type": "field"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "out_octets_rate"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "device",
-                "operator": "=~",
-                "value": "/^$rtr$/"
-              },
-              {
-                "condition": "AND",
-                "key": "LINKNAME",
-                "operator": "=~",
-                "value": "/^$ifname$/"
-              }
-            ]
-          }
-        ],
-        "title": "Global port statistics Bps - $ifname",
-        "transformations": [
-          {
-            "id": "organize",
-            "options": {}
-          }
-        ],
-        "type": "timeseries"
-      },
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
-        },
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              }
-            },
-            "mappings": [],
-            "unit": "bps",
-            "unitScale": true
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 13,
-          "w": 12,
-          "x": 0,
-          "y": 14
-        },
-        "id": 117,
-        "options": {
-          "displayLabels": [],
-          "legend": {
-            "displayMode": "list",
-            "placement": "right",
-            "showLegend": true,
-            "values": [
-              "value",
-              "percent"
-            ]
-          },
-          "pieType": "donut",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "tooltip": {
-            "mode": "single",
-            "sort": "asc"
-          }
-        },
-        "targets": [
-          {
-            "alias": "Input Bps - $tag_if_name.$tag_if_unit",
-            "datasource": {
-              "type": "influxdb",
-              "uid": "jtsuid"
-            },
-            "groupBy": [],
-            "hide": false,
-            "measurement": "SUBINTERFACES",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "query": "SELECT mean(\"unit_in_octets_rate\")*8 FROM \"SUBINTERFACES\" WHERE device =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit=~/^(?:[0-9]|[1-9][0-9]|[1-9][0-9]{2}|[1-9][0-9]{3}|1[0-5][0-9]{3}|16[0-2][0-9]{2}|163[0-7][0-9]|16380|1638[0-5])$/ AND $timeFilter group by time($sample_interval), if_name, if_unit",
-            "rawQuery": true,
-            "refId": "B",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "unit_in_octets_rate"
-                  ],
-                  "type": "field"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "unit_out_octets_rate"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "device",
-                "operator": "=~",
-                "value": "/^$rtr$/"
-              },
-              {
-                "condition": "AND",
-                "key": "LINKNAME",
-                "operator": "=~",
-                "value": "/^$ifname$/"
-              }
-            ]
-          }
-        ],
-        "title": "Unit input traffic sharing - Bps",
-        "transformations": [
-          {
-            "id": "organize",
-            "options": {}
-          }
-        ],
-        "type": "piechart"
-      },
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
-        },
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              }
-            },
-            "mappings": [],
-            "min": 0,
-            "unit": "bps",
-            "unitScale": true
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 13,
-          "w": 12,
-          "x": 12,
-          "y": 14
-        },
-        "id": 86,
-        "options": {
-          "displayLabels": [],
-          "legend": {
-            "displayMode": "list",
-            "placement": "right",
-            "showLegend": true,
-            "values": [
-              "value",
-              "percent"
-            ]
-          },
-          "pieType": "donut",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "tooltip": {
-            "mode": "single",
-            "sort": "asc"
-          }
-        },
-        "targets": [
-          {
-            "alias": "Output Bps - $tag_if_name.$tag_if_unit",
-            "datasource": {
-              "type": "influxdb",
-              "uid": "jtsuid"
-            },
-            "groupBy": [],
-            "hide": false,
-            "measurement": "SUBINTERFACES",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "query": "SELECT mean(\"unit_out_octets_rate\")*8 FROM \"SUBINTERFACES\" WHERE device =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit=~/^(?:[0-9]|[1-9][0-9]|[1-9][0-9]{2}|[1-9][0-9]{3}|1[0-5][0-9]{3}|16[0-2][0-9]{2}|163[0-7][0-9]|16380|1638[0-5])$/ AND $timeFilter group by time($sample_interval), if_name, if_unit",
-            "rawQuery": true,
-            "refId": "B",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "unit_in_octets_rate"
-                  ],
-                  "type": "field"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "unit_out_octets_rate"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "device",
-                "operator": "=~",
-                "value": "/^$rtr$/"
-              },
-              {
-                "condition": "AND",
-                "key": "LINKNAME",
-                "operator": "=~",
-                "value": "/^$ifname$/"
-              }
-            ]
-          }
-        ],
-        "title": "Unit output traffic sharing - Bps",
-        "transformations": [
-          {
-            "id": "organize",
-            "options": {}
-          }
-        ],
-        "type": "piechart"
-      },
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
-        },
-        "gridPos": {
-          "h": 2,
-          "w": 24,
-          "x": 0,
-          "y": 27
-        },
-        "id": 38,
-        "options": {
-          "code": {
-            "language": "plaintext",
-            "showLineNumbers": false,
-            "showMiniMap": false
-          },
-          "content": "<h2><center>Per Unit Bps/PPS statistics</center><h2>",
-          "mode": "html"
-        },
-        "pluginVersion": "10.3.1",
-        "transparent": true,
-        "type": "text"
-      },
-      {
-        "collapsed": false,
-        "gridPos": {
-          "h": 1,
-          "w": 24,
-          "x": 0,
-          "y": 29
-        },
-        "id": 13,
-        "panels": [],
-        "repeat": "if_unit",
-        "repeatDirection": "h",
-        "title": "Unit: $if_unit",
-        "type": "row"
-      },
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
-        },
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "axisBorderShow": false,
-              "axisCenteredZero": false,
-              "axisColorMode": "text",
-              "axisLabel": "",
-              "axisPlacement": "auto",
-              "barAlignment": 0,
-              "drawStyle": "line",
-              "fillOpacity": 8,
-              "gradientMode": "none",
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              },
-              "insertNulls": false,
-              "lineInterpolation": "smooth",
-              "lineWidth": 1,
-              "pointSize": 5,
-              "scaleDistribution": {
-                "type": "linear"
-              },
-              "showPoints": "never",
-              "spanNulls": false,
-              "stacking": {
-                "group": "A",
-                "mode": "none"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
-            },
-            "mappings": [],
-            "min": 0,
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green"
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            },
-            "unit": "bps",
-            "unitScale": true
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 12,
-          "w": 12,
-          "x": 0,
-          "y": 30
-        },
-        "id": 54,
-        "options": {
-          "legend": {
-            "calcs": [
-              "lastNotNull",
-              "mean",
-              "min",
-              "max"
-            ],
-            "displayMode": "table",
-            "placement": "bottom",
-            "showLegend": true
-          },
-          "tooltip": {
-            "mode": "multi",
-            "sort": "desc"
-          }
-        },
-        "targets": [
-          {
-            "alias": "Input Bps - $tag_if_name.$tag_if_unit",
-            "datasource": {
-              "type": "influxdb",
-              "uid": "jtsuid"
-            },
-            "groupBy": [],
-            "hide": false,
-            "measurement": "SUBINTERFACES",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "query": "SELECT mean(\"unit_in_octets_rate\")*8  FROM \"SUBINTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
-            "rawQuery": true,
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "unit_in_octets_rate"
-                  ],
-                  "type": "field"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "unit_out_octets_rate"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "device",
-                "operator": "=~",
-                "value": "/^$rtr$/"
-              },
-              {
-                "condition": "AND",
-                "key": "LINKNAME",
-                "operator": "=~",
-                "value": "/^$ifname$/"
-              }
-            ]
-          },
-          {
-            "alias": "Output Bps - $tag_if_name.$tag_if_unit",
-            "datasource": {
-              "type": "influxdb",
-              "uid": "jtsuid"
-            },
-            "groupBy": [],
-            "hide": false,
-            "measurement": "SUBINTERFACES",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "query": "SELECT mean(\"unit_out_octets_rate\")*8 FROM \"SUBINTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME = '$ifname'  and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
-            "rawQuery": true,
-            "refId": "B",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "unit_in_octets_rate"
-                  ],
-                  "type": "field"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "unit_out_octets_rate"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "device",
-                "operator": "=~",
-                "value": "/^$rtr$/"
-              },
-              {
-                "condition": "AND",
-                "key": "LINKNAME",
-                "operator": "=~",
-                "value": "/^$ifname$/"
-              }
-            ]
-          }
-        ],
-        "title": "Unit $if_unit - Traffic statistics Bps - Port is $ifname ",
-        "transformations": [
-          {
-            "id": "organize",
-            "options": {}
-          }
-        ],
-        "type": "timeseries"
-      },
-      {
-        "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
-        },
-        "description": "",
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "axisBorderShow": false,
-              "axisCenteredZero": false,
-              "axisColorMode": "text",
-              "axisLabel": "",
-              "axisPlacement": "auto",
-              "barAlignment": 0,
-              "drawStyle": "line",
-              "fillOpacity": 8,
-              "gradientMode": "none",
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              },
-              "insertNulls": false,
-              "lineInterpolation": "smooth",
-              "lineWidth": 1,
-              "pointSize": 5,
-              "scaleDistribution": {
-                "type": "linear"
-              },
-              "showPoints": "never",
-              "spanNulls": false,
-              "stacking": {
-                "group": "A",
-                "mode": "none"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
-            },
-            "mappings": [],
-            "min": 0,
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green"
-                }
-              ]
-            },
-            "unit": "pps",
-            "unitScale": true
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 12,
-          "w": 12,
-          "x": 12,
-          "y": 30
-        },
-        "id": 55,
-        "options": {
-          "legend": {
-            "calcs": [
-              "lastNotNull",
-              "mean",
-              "min",
-              "max"
-            ],
-            "displayMode": "table",
-            "placement": "bottom",
-            "showLegend": true
-          },
-          "tooltip": {
-            "mode": "multi",
-            "sort": "desc"
-          }
-        },
-        "targets": [
-          {
-            "alias": "Input PPS - $tag_if_name.$tag_if_unit",
-            "datasource": {
-              "type": "influxdb",
-              "uid": "jtsuid"
-            },
-            "groupBy": [],
-            "hide": false,
-            "measurement": "SUBINTERFACES",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "query": "SELECT mean(\"unit_in_pkts_rate\")*8  FROM \"SUBINTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
-            "rawQuery": true,
-            "refId": "A",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "unit_in_octets_rate"
-                  ],
-                  "type": "field"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "unit_out_octets_rate"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "device",
-                "operator": "=~",
-                "value": "/^$rtr$/"
-              },
-              {
-                "condition": "AND",
-                "key": "LINKNAME",
-                "operator": "=~",
-                "value": "/^$ifname$/"
-              }
-            ]
-          },
-          {
-            "alias": "Output PPS - $tag_if_name.$tag_if_unit",
-            "datasource": {
-              "type": "influxdb",
-              "uid": "jtsuid"
-            },
-            "groupBy": [],
-            "hide": false,
-            "measurement": "SUBINTERFACES",
-            "orderByTime": "ASC",
-            "policy": "default",
-            "query": "SELECT mean(\"unit_out_pkts_rate\")*8 FROM \"SUBINTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME = '$ifname'  and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
-            "rawQuery": true,
-            "refId": "B",
-            "resultFormat": "time_series",
-            "select": [
-              [
-                {
-                  "params": [
-                    "unit_in_octets_rate"
-                  ],
-                  "type": "field"
-                }
-              ],
-              [
-                {
-                  "params": [
-                    "unit_out_octets_rate"
-                  ],
-                  "type": "field"
-                }
-              ]
-            ],
-            "tags": [
-              {
-                "key": "device",
-                "operator": "=~",
-                "value": "/^$rtr$/"
-              },
-              {
-                "condition": "AND",
-                "key": "LINKNAME",
-                "operator": "=~",
-                "value": "/^$ifname$/"
-              }
-            ]
-          }
-        ],
-        "title": "Unit $if_unit - Traffic statistics PPS - Port is $ifname ",
-        "transformations": [
-          {
-            "id": "organize",
-            "options": {}
-          }
-        ],
-        "type": "timeseries"
+        "type": "dashboard"
       }
-    ],
-    "refresh": "1m",
-    "revision": 1,
-    "schemaVersion": 39,
-    "tags": [],
-    "templating": {
-      "list": [
-        {
-          "current": {
-            "selected": false,
-            "text": "",
-            "value": ""
-          },
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "definition": "show tag values FROM SUBINTERFACES with key=\"device\"",
-          "hide": 0,
-          "includeAll": false,
-          "label": "Router",
-          "multi": false,
-          "name": "rtr",
-          "options": [],
-          "query": "show tag values FROM SUBINTERFACES with key=\"device\"",
-          "refresh": 1,
-          "regex": "",
-          "skipUrlSync": false,
-          "sort": 0,
-          "type": "query"
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 2,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 51,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
         },
-        {
-          "current": {
-            "selected": false,
-            "text": "",
-            "value": ""
+        "content": "<h2><center>Traffic info $ifname</center></h2>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.3.1",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
           },
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 8,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
-          "definition": "show tag values FROM SUBINTERFACES with key=\"LINKNAME\" where device=~/$rtr/",
-          "hide": 0,
-          "includeAll": false,
-          "label": "Interface",
-          "multi": false,
-          "name": "ifname",
-          "options": [],
-          "query": "show tag values FROM SUBINTERFACES with key=\"LINKNAME\" where device=~/$rtr/",
-          "refresh": 1,
-          "regex": "et-.*|xe-.*|ge-.*|ae|lt-*|ps-*|fti-*|gr-*",
-          "skipUrlSync": false,
-          "sort": 1,
-          "type": "query"
-        },
-        {
-          "current": {
-            "selected": true,
-            "text": [
-              "All"
-            ],
-            "value": [
-              "$__all"
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
             ]
           },
+          "unit": "bps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Input Bps",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "definition": "show tag values FROM SUBINTERFACES with key=\"if_unit\" where device=~/$rtr/ and LINKNAME=$ifname",
-          "hide": 0,
-          "includeAll": true,
-          "label": "Subinterface",
-          "multi": true,
-          "name": "if_unit",
-          "options": [],
-          "query": "show tag values FROM SUBINTERFACES with key=\"if_unit\" where device=~/$rtr/ and LINKNAME=$ifname",
-          "refresh": 1,
-          "regex": "^(?:[0-9]|[1-9][0-9]|[1-9][0-9]{2}|[1-9][0-9]{3}|1[0-5][0-9]{3}|16[0-2][0-9]{2}|163[0-7][0-9]|16380|1638[0-5])$",
-          "skipUrlSync": false,
-          "sort": 1,
-          "type": "query"
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"in_octets_rate\")*8  FROM \"INTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME =~ /$ifname/) and if_unit='' AND $timeFilter group by time($sample_interval)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
         },
         {
-          "auto": true,
-          "auto_count": 30,
-          "auto_min": "31s",
-          "current": {
+          "alias": "Output Bps",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"out_octets_rate\")*8 FROM \"INTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME =~ /$ifname/) and if_unit='' AND $timeFilter group by time($sample_interval)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "Global port statistics Bps - $ifname",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {}
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "unit": "bps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 12,
+        "x": 0,
+        "y": 14
+      },
+      "id": 117,
+      "options": {
+        "displayLabels": [],
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value",
+            "percent"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "asc"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Input Bps - $tag_if_name.$tag_if_unit",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "SUBINTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"unit_in_octets_rate\")*8 FROM \"SUBINTERFACES\" WHERE device =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit=~/^(?:[0-9]|[1-9][0-9]|[1-9][0-9]{2}|[1-9][0-9]{3}|1[0-5][0-9]{3}|16[0-2][0-9]{2}|163[0-7][0-9]|16380|1638[0-5])$/ AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "unit_in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "unit_out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "Unit input traffic sharing - Bps",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {}
+        }
+      ],
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "unit": "bps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 12,
+        "x": 12,
+        "y": 14
+      },
+      "id": 86,
+      "options": {
+        "displayLabels": [],
+        "legend": {
+          "displayMode": "list",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "value",
+            "percent"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "asc"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Output Bps - $tag_if_name.$tag_if_unit",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "SUBINTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"unit_out_octets_rate\")*8 FROM \"SUBINTERFACES\" WHERE device =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit=~/^(?:[0-9]|[1-9][0-9]|[1-9][0-9]{2}|[1-9][0-9]{3}|1[0-5][0-9]{3}|16[0-2][0-9]{2}|163[0-7][0-9]|16380|1638[0-5])$/ AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "unit_in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "unit_out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "Unit output traffic sharing - Bps",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {}
+        }
+      ],
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
+      "id": 38,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h2><center>Per Unit Bps/PPS statistics</center><h2>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.3.1",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 29
+      },
+      "id": 13,
+      "panels": [],
+      "repeat": "if_unit",
+      "repeatDirection": "h",
+      "title": "Unit: $if_unit",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 8,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 30
+      },
+      "id": 54,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Input Bps - $tag_if_name.$tag_if_unit",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "SUBINTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"unit_in_octets_rate\")*8  FROM \"SUBINTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "unit_in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "unit_out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        },
+        {
+          "alias": "Output Bps - $tag_if_name.$tag_if_unit",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "SUBINTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"unit_out_octets_rate\")*8 FROM \"SUBINTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "unit_in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "unit_out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "Unit $if_unit - Traffic statistics Bps - Port is $ifname ",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {}
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 8,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "pps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 30
+      },
+      "id": 55,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Input PPS - $tag_if_name.$tag_if_unit",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "SUBINTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"unit_in_pkts_rate\")*8  FROM \"SUBINTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "unit_in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "unit_out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        },
+        {
+          "alias": "Output PPS - $tag_if_name.$tag_if_unit",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "SUBINTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"unit_out_pkts_rate\")*8 FROM \"SUBINTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "unit_in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "unit_out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "device",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "Unit $if_unit - Traffic statistics PPS - Port is $ifname ",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {}
+        }
+      ],
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "1m",
+  "revision": 1,
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "",
+          "value": ""
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "jtsuid"
+        },
+        "definition": "show tag values FROM SUBINTERFACES with key=\"device\"",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Router",
+        "multi": false,
+        "name": "rtr",
+        "options": [],
+        "query": "show tag values FROM SUBINTERFACES with key=\"device\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "",
+          "value": ""
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "jtsuid"
+        },
+        "definition": "show tag values FROM SUBINTERFACES with key=\"LINKNAME\" where device=~/$rtr/",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Interface",
+        "multi": false,
+        "name": "ifname",
+        "options": [],
+        "query": "show tag values FROM SUBINTERFACES with key=\"LINKNAME\" where device=~/$rtr/",
+        "refresh": 1,
+        "regex": "et-.*|xe-.*|ge-.*|ae|lt-*|ps-*|fti-*|gr-*",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "jtsuid"
+        },
+        "definition": "show tag values FROM SUBINTERFACES with key=\"if_unit\" where device=~/$rtr/ and LINKNAME=~/$ifname/",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Subinterface",
+        "multi": true,
+        "name": "if_unit",
+        "options": [],
+        "query": "show tag values FROM SUBINTERFACES with key=\"if_unit\" where device=~/$rtr/ and LINKNAME=~/$ifname/",
+        "refresh": 1,
+        "regex": "^(?:[0-9]|[1-9][0-9]|[1-9][0-9]{2}|[1-9][0-9]{3}|1[0-5][0-9]{3}|16[0-2][0-9]{2}|163[0-7][0-9]|16380|1638[0-5])$",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "auto": true,
+        "auto_count": 30,
+        "auto_min": "31s",
+        "current": {
+          "selected": false,
+          "text": "2m",
+          "value": "2m"
+        },
+        "hide": 0,
+        "label": "Mean",
+        "name": "sample_interval",
+        "options": [
+          {
             "selected": false,
+            "text": "auto",
+            "value": "$__auto_interval_sample_interval"
+          },
+          {
+            "selected": false,
+            "text": "31s",
+            "value": "31s"
+          },
+          {
+            "selected": false,
+            "text": "1m",
+            "value": "1m"
+          },
+          {
+            "selected": true,
             "text": "2m",
             "value": "2m"
           },
-          "hide": 0,
-          "label": "Mean",
-          "name": "sample_interval",
-          "options": [
-            {
-              "selected": false,
-              "text": "auto",
-              "value": "$__auto_interval_sample_interval"
-            },
-            {
-              "selected": false,
-              "text": "31s",
-              "value": "31s"
-            },
-            {
-              "selected": false,
-              "text": "1m",
-              "value": "1m"
-            },
-            {
-              "selected": false,
-              "text": "2m",
-              "value": "2m"
-            },
-            {
-              "selected": true,
-              "text": "5m",
-              "value": "5m"
-            }
-          ],
-          "query": "31s,1m,2m,5m",
-          "queryValue": "",
-          "refresh": 2,
-          "skipUrlSync": false,
-          "type": "interval"
-        }
-      ]
-    },
-    "time": {
-      "from": "now-1h",
-      "to": "now"
-    },
-    "timepicker": {},
-    "timezone": "",
-    "title": "LOGICAL IF. TRAFFIC MONITORING PROFILE - JTS",
-    "uid": "trafficunitdashboard",
-    "version": 1,
-    "weekStart": ""
-  }
+          {
+            "selected": false,
+            "text": "5m",
+            "value": "5m"
+          }
+        ],
+        "query": "31s,1m,2m,5m",
+        "queryValue": "",
+        "refresh": 2,
+        "skipUrlSync": false,
+        "type": "interval"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "LOGICAL IF. TRAFFIC MONITORING PROFILE - JTS",
+  "uid": "trafficunitdashboard",
+  "version": 1,
+  "weekStart": ""
+}
