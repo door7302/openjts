@@ -6,22 +6,22 @@
     "telegraf": {
       "vmx": [ {
         "version": "all",
-        "conf": "vmx_traffic.conf"
+        "conf": "vmx_traffic.json"
         }
       ],
       "mx": [ {
         "version": "all",
-        "conf": "mx_traffic.conf"
+        "conf": "mx_traffic.json"
         }
       ],
       "ptx":[ {
         "version": "all",
-        "conf": "ptx_traffic.conf"
+        "conf": "ptx_traffic.json"
         }
       ],
       "acx": [ {
         "version": "all",
-        "conf": "acx_traffic.conf"
+        "conf": "acx_traffic.json"
         }
       ]
     },
