@@ -283,7 +283,7 @@
               "name": "RED_DROP",
               "field": "cos_red_dropped_packets_rate",
               "type": "current",
-              "threshold": 1.0,
+              "threshold": 1,
               "operator": "gt",
               "tags": ["device","if_name","queue_id","queue_name"]
             },
@@ -291,7 +291,7 @@
               "name": "TAIL_DROP",
               "field": "cos_tail_dropped_packets_rate",
               "type": "current",
-              "threshold": 1.0,
+              "threshold": 1,
               "operator": "gt",
               "tags": ["device","if_name","queue_id","queue_name"]
             },
@@ -299,7 +299,7 @@
               "name": "ETH_DROP_IN",
               "field": "in_errors_rate",
               "type": "current",
-              "threshold": 1.0,
+              "threshold": 1,
               "operator": "gt",
               "tags": ["device","if_name"]
             },
@@ -307,7 +307,7 @@
               "name": "ETH_DROP_OUT",
               "field": "out_errors_rate",
               "type": "current",
-              "threshold": 1.0,
+              "threshold": 1,
               "operator": "gt",
               "tags": ["device","if_name"]
             }
