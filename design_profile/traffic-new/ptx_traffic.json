@@ -295,45 +295,45 @@
     }
   ],
   "monitoring_list": [
-      {
-      "order": 600,
-      "namepass": ["INTERFACES", "SUBINTERFACES"],
-      "probes": [
-          {
-            "name": "RED_DROP",
-            "field": "cos_red_dropped_packets_rate",
-            "type": "current",
-            "threshold": 1,
-            "operator": "gt",
-            "tags": ["device","if_name","queue_id","queue_name"]
-          },
-          {
-            "name": "TAIL_DROP",
-            "field": "cos_tail_dropped_packets_rate",
-            "type": "current",
-            "threshold": 1,
-            "operator": "gt",
-            "tags": ["device","if_name","queue_id","queue_name"]
-          },
-          {
-            "name": "ETH_DROP_IN",
-            "field": "in_errors_rate",
-            "type": "current",
-            "threshold": 1,
-            "operator": "gt",
-            "tags": ["device","if_name"]
-          },
-          {
-            "name": "ETH_DROP_OUT",
-            "field": "out_errors_rate",
-            "type": "current",
-            "threshold": 1,
-            "operator": "gt",
-            "tags": ["device","if_name"]
-          }
-      ]
-      }
-  ],
+    {
+    "order": 600,
+    "namepass": ["INTERFACES", "SUBINTERFACES"],
+    "probes": [
+        {
+          "name": "RED_DROP",
+          "field": "cos_red_dropped_packets_rate",
+          "type": "current",
+          "threshold": 1,
+          "operator": "gt",
+          "tags": ["device","if_name","queue_id","queue_name", "LINKNAME"]
+        },
+        {
+          "name": "TAIL_DROP",
+          "field": "cos_tail_dropped_packets_rate",
+          "type": "current",
+          "threshold": 1,
+          "operator": "gt",
+          "tags": ["device","if_name","queue_id","queue_name", "LINKNAME"]
+        },
+        {
+          "name": "ETH_DROP_IN",
+          "field": "in_errors_rate",
+          "type": "current",
+          "threshold": 1,
+          "operator": "gt",
+          "tags": ["device","if_name", "LINKNAME"]
+        },
+        {
+          "name": "ETH_DROP_OUT",
+          "field": "out_errors_rate",
+          "type": "current",
+          "threshold": 1,
+          "operator": "gt",
+          "tags": ["device","if_name", "LINKNAME"]
+        }
+    ]
+    }
+],
   "influx_outputs": [
     {
       "retention": "autogen",

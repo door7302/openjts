@@ -305,7 +305,7 @@
               "type": "current",
               "threshold": 1,
               "operator": "gt",
-              "tags": ["device","if_name","queue_id","queue_name"]
+              "tags": ["device","if_name","queue_id","queue_name", "LINKNAME"]
             },
             {
               "name": "TAIL_DROP",
@@ -313,7 +313,7 @@
               "type": "current",
               "threshold": 1,
               "operator": "gt",
-              "tags": ["device","if_name","queue_id","queue_name"]
+              "tags": ["device","if_name","queue_id","queue_name", "LINKNAME"]
             },
             {
               "name": "ETH_DROP_IN",
@@ -321,7 +321,7 @@
               "type": "current",
               "threshold": 1,
               "operator": "gt",
-              "tags": ["device","if_name"]
+              "tags": ["device","if_name", "LINKNAME"]
             },
             {
               "name": "ETH_DROP_OUT",
@@ -329,7 +329,7 @@
               "type": "current",
               "threshold": 1,
               "operator": "gt",
-              "tags": ["device","if_name"]
+              "tags": ["device","if_name", "LINKNAME"]
             }
         ]
         }
