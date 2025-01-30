@@ -1,36 +1,37 @@
 {
+    "version": 1,
+    "min-interval": 30,
     "cheatsheet": "health.png",
     "description": "This profile provides template for collecting router health data",
     "telegraf": {
       "vmx": [ {
         "version": "all",
-        "conf": "vmx_health.conf"
+        "conf": "vmx_health.json"
         }
       ],
       "mx": [ {
         "version": ">=23.2R",
-        "conf": "mx_health_23.2.conf"
+        "conf": "mx_23.2_health.json"
         },
         {
         "version": "all",
-        "conf": "mx_health.conf"
+        "conf": "mx_health.json"
         }
       ],
       "ptx":[ {
         "version": "all",
-        "conf": "ptx_health.conf"
+        "conf": "ptx_health.json"
         }
       ],
       "acx": [ {
         "version": "all",
-        "conf": "acx_health.conf"
+        "conf": "acx_health.json"
         }
       ]
     },
     "kapacitor": null,
     "grafana": [
-      "health.json",
-      "health_vmx.json",
-      "hardware-monitor.json"
+      "dashboard-health.json",
+      "dashboard-hw-npu.json"
     ]
 }
