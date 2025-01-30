@@ -280,7 +280,7 @@
         {
           "order": 400,
           "namepass": ["COMPONENTS", "JUNOS_CMERROR", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS"],
-          "int_type": [
+          "integer_type": [
             "idle_cpu",
             "linecard_cpu",
             "linecard_memory",
@@ -304,9 +304,8 @@
           "order": 400,
           "namepass": ["COMPONENTS", "JUNOS_CMERROR", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS"],
           "family": "mx",
-          "two_levels": true,
-          "level1_tag": "device",
-          "level2_tags": ["if_name"]
+          "two_levels": false,
+          "level1_tag": "device"
         }
       ],
       "rate_list": [
