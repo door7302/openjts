@@ -3308,7 +3308,7 @@
               "type": "tag"
             }
           ],
-          "measurement": "JUNOS_FABRIC",
+          "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -3436,7 +3436,7 @@
               "type": "tag"
             }
           ],
-          "measurement": "JUNOS_FABRIC",
+          "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -3564,7 +3564,7 @@
               "type": "tag"
             }
           ],
-          "measurement": "JUNOS_FABRIC",
+          "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",

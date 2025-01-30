@@ -7,7 +7,7 @@
                 "prefix_list": ["/junos/chassis/cmerror/counters"]
             },
             {
-                "name": "JUNOS_FABRIC",
+                "name": "COMPONENTS",
                 "prefix_list": ["/components/component"]
             }
           ],
@@ -19,7 +19,7 @@
             "interval": 60
           },
           {
-            "name": "JUNOS_FABRIC",
+            "name": "COMPONENTS",
             "path": "/junos/system/linecard/packet/usage",
             "mode": "sample",
             "interval": 60
