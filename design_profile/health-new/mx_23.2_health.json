@@ -98,7 +98,27 @@
               "type": 1,
               "from": "/components/component/properties/property/state/value",
               "to": "value"
-            }
+            },
+            {
+                "type": 0,
+                "from": "/components/component/properties/property/@name",
+                "to": "property_name"
+              },
+              {
+                "type": 0,
+                "from": "/components/component/properties/property/name",
+                "to": "property_name"
+              },
+              {
+                "type": 0,
+                "from": "/components/component/@name",
+                "to": "component_name"
+              },
+              {
+                "type": 0,
+                "from": "/components/component/name",
+                "to": "component_name"
+              }
           ]
       },
       {
