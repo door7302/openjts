@@ -2892,13 +2892,13 @@
       "pluginVersion": "9.4.7",
       "targets": [
         {
-          "alias": "$tag_name - (PID $tag_process_pid)",
+          "alias": "$tag_process_name - (PID $tag_process_pid)",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
           },
           "hide": false,
-          "query": "SELECT \"process_cpu_utilization\" FROM \"SYSTEM\" WHERE (\"device\" =~ /^$rtr$/) and $timeFilter GROUP BY \"name\", \"process_pid\"",
+          "query": "SELECT \"process_cpu_utilization\" FROM \"SYSTEM\" WHERE (\"device\" =~ /^$rtr$/) and $timeFilter GROUP BY \"process_name\", \"process_pid\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -3148,13 +3148,13 @@
       "pluginVersion": "9.4.7",
       "targets": [
         {
-          "alias": "$tag_name - (PID $tag_process_pid)",
+          "alias": "$tag_process_name - (PID $tag_process_pid)",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
           },
           "hide": false,
-          "query": "SELECT \"process_memory_usage\" FROM \"SYSTEM\" WHERE (\"device\" =~ /^$rtr$/) AND \"memory_usage\">30000000 and $timeFilter GROUP BY \"name\", \"process_pid\" fill(0)",
+          "query": "SELECT \"process_memory_usage\" FROM \"SYSTEM\" WHERE (\"device\" =~ /^$rtr$/) and $timeFilter GROUP BY \"process_name\", \"process_pid\" fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
