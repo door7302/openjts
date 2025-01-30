@@ -2338,7 +2338,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2459,7 +2460,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2588,7 +2590,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2716,7 +2719,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2845,7 +2849,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2893,7 +2898,7 @@
             "uid": "jtsuid"
           },
           "hide": false,
-          "query": "SELECT \"cpu_utilization\" FROM \"SYSTEM\" WHERE (\"device\" =~ /^$rtr$/) and $timeFilter GROUP BY \"name\", \"process_pid\"",
+          "query": "SELECT \"process_cpu_utilization\" FROM \"SYSTEM\" WHERE (\"device\" =~ /^$rtr$/) and $timeFilter GROUP BY \"name\", \"process_pid\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -2958,7 +2963,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3014,7 +3020,7 @@
             }
           ],
           "hide": false,
-          "measurement": "SYSTEM",
+          "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
           "query": "SELECT \"cpu_utilization\" FROM \"SYSTEM\" WHERE (\"device\" =~ /^$rtr$/) AND \"cpu_utilization\"!=0 and $timeFilter GROUP BY \"name\", \"process_pid\"",
@@ -3099,7 +3105,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3147,7 +3154,7 @@
             "uid": "jtsuid"
           },
           "hide": false,
-          "query": "SELECT \"memory_usage\" FROM \"SYSTEM\" WHERE (\"device\" =~ /^$rtr$/) AND \"memory_usage\">30000000 and $timeFilter GROUP BY \"name\", \"process_pid\" fill(0)",
+          "query": "SELECT \"process_memory_usage\" FROM \"SYSTEM\" WHERE (\"device\" =~ /^$rtr$/) AND \"memory_usage\">30000000 and $timeFilter GROUP BY \"name\", \"process_pid\" fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -3249,7 +3256,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3300,7 +3308,7 @@
               "type": "tag"
             }
           ],
-          "measurement": "COMPONENTS",
+          "measurement": "JUNOS_FABRIC",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -3374,7 +3382,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3427,7 +3436,7 @@
               "type": "tag"
             }
           ],
-          "measurement": "COMPONENTS",
+          "measurement": "JUNOS_FABRIC",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -3501,7 +3510,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3554,7 +3564,7 @@
               "type": "tag"
             }
           ],
-          "measurement": "COMPONENTS",
+          "measurement": "JUNOS_FABRIC",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -3591,8 +3601,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "rtme-mx-25.englab.juniper.net",
+          "value": "rtme-mx-25.englab.juniper.net"
         },
         "datasource": {
           "type": "influxdb",
@@ -3620,8 +3630,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "ROUTER HEALTH MONITORING PROFILE - JTSO",
+  "title": "ROUTER HEALTH MONITORING PROFILE - JTS",
   "uid": "healthdashboard",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

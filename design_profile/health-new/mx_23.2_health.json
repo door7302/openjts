@@ -3,18 +3,24 @@
       {
         "aliases": [
             {
-              "name": "COMPONENTS",
-              "prefix_list": ["/components/component"]
-            },
-            {
                 "name": "JUNOS_CMERROR",
                 "prefix_list": ["/junos/chassis/cmerror/counters"]
+            },
+            {
+                "name": "JUNOS_FABRIC",
+                "prefix_list": ["/components/component"]
             }
           ],
         "subscriptions": [
           {
             "name": "COMPONENTS",
             "path": "/components/component",
+            "mode": "sample",
+            "interval": 60
+          },
+          {
+            "name": "JUNOS_FABRIC",
+            "path": "/junos/system/linecard/packet/usage",
             "mode": "sample",
             "interval": 60
           },
@@ -78,15 +84,26 @@
     "pivot_list": [
         {
           "order": 200,
-          "namepass": ["COMPONENTS"],
+          "namepass": ["COMPONENTS", "JUNOS_FABRIC"],
           "tag": "/components/component/properties/property/name",
           "field": "/components/component/properties/property/state/value"
         }
     ],
     "rename_list": [
       {
-        "order": 300,
-        "namepass": ["COMPONENTS", "JUNOS_CMERROR", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS"],
+          "order": 300,
+          "namepass": ["HW_NPU"],
+          "entries": [
+            {
+              "type": 1,
+              "from": "/components/component/properties/property/state/value",
+              "to": "value"
+            }
+          ]
+      },
+      {
+        "order": 301,
+        "namepass": ["COMPONENTS", "JUNOS_CMERROR", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS", "JUNOS_FABRIC"],
         "entries": [
             {
               "type": 0,
@@ -160,32 +177,22 @@
             },
             {
               "type": 1,
-              "from": "/system/processes/process/memory-utilization",
-              "to": "process_memory_utilization"
-            },
-            {
-              "type": 1,
-              "from": "/system/processes/process/memory-usage",
+              "from": "/system/processes/process/state/memory-usage",
               "to": "process_memory_usage"
             },
             {
               "type": 1,
-              "from": "/system/processes/process/cpu-utilization",
+              "from": "/system/processes/process/state/cpu-utilization",
               "to": "process_cpu_utilization"
             },
             {
               "type": 1,
-              "from": "/system/processes/process/cpu-utilization",
-              "to": "process_cpu_utilization"
-            },
-            {
-              "type": 1,
-              "from": "/components/component/cpu/utilization/avg",
+              "from": "/components/component/cpu/utilization/state/avg",
               "to": "core_cpu_avg"
             },
             {
               "type": 1,
-              "from": "/components/component/cpu/utilization/instant",
+              "from": "/components/component/cpu/utilization/state/instant",
               "to": "core_cpu_instant"
             },
             {
@@ -267,11 +274,6 @@
               "type": 1,
               "from": "alarm-type",
               "to": "alarm_resource_net"
-            },
-            {
-            "type": 1,
-            "from": "/components/component/properties/property/state/value",
-            "to": "value"
             }
           ]
         }
@@ -279,7 +281,7 @@
     "converter_list": [
         {
           "order": 400,
-          "namepass": ["COMPONENTS", "JUNOS_CMERROR", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS"],
+          "namepass": ["COMPONENTS", "JUNOS_CMERROR", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS", "JUNOS_FABRIC"],
           "integer_type": [
             "idle_cpu",
             "linecard_cpu",
@@ -302,7 +304,7 @@
     "enrichment_list": [
         {
           "order": 400,
-          "namepass": ["COMPONENTS", "JUNOS_CMERROR", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS"],
+          "namepass": ["COMPONENTS", "JUNOS_CMERROR", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS", "JUNOS_FABRIC"],
           "family": "mx",
           "two_levels": false,
           "level1_tag": "device"
@@ -367,9 +369,7 @@
                 "cmerror_update",
                 "cmerror_clear",
                 "cmerror_count",
-                "process_memory_utilization",
                 "process_memory_usage",
-                "process_cpu_utilization",
                 "process_cpu_utilization",
                 "core_cpu_avg",
                 "core_cpu_instant",
