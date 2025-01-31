@@ -24,7 +24,7 @@
             },
             {
                 "name": "COMPONENTS",
-                "path": "components/component/transceiver/physical-channels",
+                "path": "/components/component/transceiver/physical-channels",
                 "mode": "sample",
                 "interval": 30
             },
