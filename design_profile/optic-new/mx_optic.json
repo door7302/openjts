@@ -306,7 +306,7 @@
         "family": "mx",
         "two_levels": true,
         "level1_tag": "device",
-        "level2_tags": ["if_name"]
+        "level2_tags": ["component_name"]
     }],
     "rate_list": [{
         "order": 500,
