@@ -9,10 +9,7 @@
         "conf": "vmx_health.json"
         }
       ],
-      "mx": [ {
-        "version": ">=23.2R",
-        "conf": "mx_23.2_health.json"
-        },
+      "mx": [
         {
         "version": "all",
         "conf": "mx_health.json"
