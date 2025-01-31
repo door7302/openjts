@@ -6,7 +6,7 @@
   "telegraf": {
     "mx": [{
         "version": ">=24.2",
-        "conf": "mx_optic_24.2.json"
+        "conf": "mx_24_optic.json"
       },
       {
         "version": "all",
@@ -14,8 +14,11 @@
       }
     ],
     "ptx": [{
+        "version": "==23",
+        "conf": "ptx_23_optic.json"
+      }, {
         "version": ">=24.2",
-        "conf": "ptx_optic_24.2.json"
+        "conf": "ptx_24_optic.json"
       },
       {
         "version": "all",
@@ -23,8 +26,11 @@
       }
     ],
     "acx": [{
+        "version": "==23",
+        "conf": "acx_23_optic.json"
+      }, {
         "version": ">=24.2",
-        "conf": "acx_optic_24.2.json"
+        "conf": "acx_24_optic.json"
       },
       {
         "version": "all",
