@@ -72,12 +72,12 @@
             },
             {
                 "type": 1,
-                "from": "/components/component/transceiver/physical-channels/channel/state/output_power/instant",
+                "from": "/components/component/transceiver/physical-channels/channel/state/output-power/instant",
                 "to": "tx_dbm"
             },
             {
                 "type": 1,
-                "from": "/components/component/transceiver/physical-channels/channel/state/laser_bias_current/instant",
+                "from": "/components/component/transceiver/physical-channels/channel/state/laser-bias-current/instant",
                 "to": "current_bias"
             },
             {
@@ -87,10 +87,9 @@
             },
             {
                 "type": 1,
-                "from": "/components/component/transceiver/physical-channels/channel/state/input_power/instant",
+                "from": "/components/component/transceiver/physical-channels/channel/state/input-power/instant",
                 "to": "rx_dbm"
             },
-
             {
                 "type": 1,
                 "from": "/interfaces/interface/optics/laser_output_power_low_warning_threshold_dbm",
