@@ -1,22 +1,20 @@
 {
-    "version": 1,
-    "min-interval": 30,
-    "cheatsheet": "ddos.png",
-    "description": "This profile covers DDOS protection feature statistics. Supported, only for MX & PTX, starting from 22.3",
-    "telegraf": {
-      "mx": [ {
-        "version": ">=22.3R",
-        "conf": "mx_ddos.json"
-        }
-      ],
-      "ptx": [ {
-        "version": ">=22.3R",
-        "conf": "ptx_ddos.json"
-        }
-      ]
-    },
-    "kapacitor": [],
-    "grafana": [
-      "ddos.json"
-    ]
+  "version": 1,
+  "min-interval": 30,
+  "cheatsheet": "ddos.png",
+  "description": "This profile covers DDOS protection feature statistics. Supported, only for MX & PTX, starting from 22.3",
+  "telegraf": {
+    "mx": [{
+      "version": ">=22.3R",
+      "conf": "mx_ddos.json"
+    }],
+    "ptx": [{
+      "version": ">=22.3R",
+      "conf": "ptx_ddos.json"
+    }]
+  },
+  "kapacitor": [],
+  "grafana": [
+    "dashboard-ddos.json"
+  ]
 }

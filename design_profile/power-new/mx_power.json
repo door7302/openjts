@@ -1,359 +1,339 @@
 {
-    "gnmi_inputs": [
+  "gnmi_inputs": [{
+    "subscriptions": [{
+        "name": "COMPONENTS",
+        "path": "/components/component",
+        "mode": "sample",
+        "interval": 60
+      },
       {
-        "subscriptions": [
-          {
-            "name": "COMPONENTS",
-            "path": "/components/component",
-            "mode": "sample",
-            "interval": 60
-          },
-          {
-            "name": "INTERFACES",
-            "path": "/interfaces/interface/state",
-            "mode": "sample",
-            "interval": 60
-          }
-        ]
-      }
-    ],
-    "pivot_list": [
-    {
-      "order": 10,
-      "namepass": ["COMPONENTS"],
-      "tag": "/components/component/properties/property/name",
-      "field": "/components/component/properties/property/state/value"
-    }
-    ],
-    "rename_list": [
-      {
-        "order": 100,
-        "namepass": ["COMPONENTS", "INTERFACES"],
-        "entries": [
-            {
-              "type": 0,
-              "from": "/interfaces/interface/name",
-              "to": "if_name"
-            },
-            {
-              "type": 0,
-              "from": "/interfaces/interface/@name",
-              "to": "if_name"
-            },   
-            {
-              "type": 0,
-              "from": "/components/component/@name",
-              "to": "component_name"
-            },
-            {
-              "type": 0,
-              "from": "/components/component/name",
-              "to": "component_name"
-            },
-            {
-              "type": 1,
-              "from": "/components/component/state/allocated-power",
-              "to": "allocated_power"
-            },
-            {
-              "type": 1,
-              "from": "/components/component/used-power",
-              "to": "used_power"
-            },
-            {
-              "type": 1,
-              "from": "/components/component/fan/state/speed",
-              "to": "fan_speed"
-            },
-            {
-              "type": 1,
-              "from": "power-system-capacity",
-              "to": "power_system_capacity"
-            },
-            {
-              "type": 1,
-              "from": "power-system-usage",
-              "to": "power_system_usage"
-            },
-            {
-              "type": 1,
-              "from": "power-system-allocated",
-              "to": "power_system_allocated"
-            },
-            {
-              "type": 1,
-              "from": "power-system-remaining",
-              "to": "power_system_remaining"
-            },
-            {
-              "type": 1,
-              "from": "power-system-maximum",
-              "to": "power_system_maximum"
-            },
-            {
-              "type": 1,
-              "from": "power-usage",
-              "to": "used_power"
-            },
-            {
-              "type": 1,
-              "from": "power-maximum",
-              "to": "power_maximum"
-            },
-            {
-              "type": 1,
-              "from": "power-capacity-maximum",
-              "to": "power_capacity_maximum"
-            },
-            {
-              "type": 1,
-              "from": "power-capacity-usage",
-              "to": "power_capacity_usage"
-            },
-            {
-              "type": 1,
-              "from": "/components/component/power-supply/state/capacity",
-              "to": "capacity"
-            },
-            {
-              "type": 1,
-              "from": "/components/component/power-supply/state/output-power",
-              "to": "output_power"
-            },
-            {
-              "type": 1,
-              "from": "power-zone-0-allocated",
-              "to": "power_zone_0_allocated"
-            },
-            {
-              "type": 1,
-              "from": "power-zone-0-capacity",
-              "to": "power_zone_0_capacity"
-            },
-            {
-              "type": 1,
-              "from": "power-zone-0-maximum",
-              "to": "power_zone_0_maximum"
-            },
-            {
-              "type": 1,
-              "from": "power-zone-0-remaining",
-              "to": "power_zone_0_remaining"
-            },
-            {
-              "type": 1,
-              "from": "power-zone-0-usage",
-              "to": "power_zone_0_usage"
-            },
-            {
-              "type": 1,
-              "from": "power-zone-1-allocated",
-              "to": "power_zone_1_allocated"
-            },
-            {
-              "type": 1,
-              "from": "power-zone-1-capacity",
-              "to": "power_zone_1_capacity"
-            },
-            {
-              "type": 1,
-              "from": "power-zone-1-maximum",
-              "to": "power_zone_1_maximum"
-            },
-            {
-              "type": 1,
-              "from": "power-zone-1-remaining",
-              "to": "power_zone_1_remaining"
-            },
-            {
-              "type": 1,
-              "from": "power-zone-1-usage",
-              "to": "power_zone_1_usage"
-            },
-            {
-              "type": 1,
-              "from": "power-dc-output",
-              "to": "output_power"
-            },
-            {
-              "type": 1,
-              "from": "temperature-ambient",
-              "to": "temperature_ambient"
-            },
-            {
-              "type": 1,
-              "from": "/components/component/temperature/instant",
-              "to": "temperature"
-            },
-            {
-              "type": 1,
-              "from": "temperature-exhaust-b",
-              "to": "temperature_exhaust_b"
-            },
-            {
-              "type": 1,
-              "from": "temperature-exhaust-a",
-              "to": "temperature_exhaust_a"
-            },
-            {
-              "type": 1,
-              "from": "temperature-exhaust-c",
-              "to": "temperature_exhaust_c"
-            },
-            {
-              "type": 1,
-              "from": "temperature-intake-a",
-              "to": "temperature_intake_a"
-            },
-            {
-              "type": 1,
-              "from": "temperature-intake-b",
-              "to": "temperature_intake_b"
-            },
-            {
-              "type": 1,
-              "from": "temperature-intake-c",
-              "to": "temperature_intake_c"
-            },
-            {
-              "type": 1,
-              "from": "temperature-inlet",
-              "to": "temperature_inlet"
-            },
-            {
-              "type": 1,
-              "from": "temperature-outlet",
-              "to": "temperature_outlet"
-            },
-            {
-              "type": 1,
-              "from": "/interfaces/interface/state/counters/in-octets",
-              "to": "in_octets"
-            },
-            {
-              "type": 1,
-              "from": "/interfaces/interface/state/counters/in-pkts",
-              "to": "in_pkts"
-            }
-          ]
-      }
-    ],
-    "filtering_list": [
-      {
-        "order": 200,
-        "namepass": ["INTERFACES"],
-        "filters": [
-          {
-            "type": 0,
-            "key": "if_name",
-            "pattern": "^(et-|xe-|ge-).*",
-            "action": "accept"
-          }
-        ]
-      }
-    ],
-    "converter_list": [
-      {
-        "order": 300,
-        "namepass":  ["COMPONENTS"],
-        "float_type": [
-            "used_power",
-            "power_system_capacity",
-            "power_system_usage",
-            "power_system_allocated",
-            "power_system_remaining",
-            "power_system_maximum",
-            "power_maximum",
-            "power_input2_usage",
-            "power_input1_usage",
-            "power_capacity_maximum",
-            "power_capacity_usage",
-            "capacity",
-            "output_power",
-            "power_zone_0_allocated",
-            "power_zone_0_capacity",
-            "power_zone_0_maximum",
-            "power_zone_0_remaining",
-            "power_zone_0_usage",
-            "power_zone_1_allocated",
-            "power_zone_1_capacity",
-            "power_zone_1_maximum",
-            "power_zone_1_remaining",
-            "power_zone_1_usage",
-            "temperature_ambient",
-            "temperature_instant",
-            "temperature_exhaust_a",
-            "temperature_exhaust_b",
-            "temperature_exhaust_c",
-            "temperature_intake_a",
-            "temperature_intake_b",
-            "temperature_intake_c",
-            "temperature_inlet",
-            "temperature_outlet",
-            "temperature"]
-      }
-    ],
-    "enrichment_list": [
-      {
-        "order": 400,
-        "namepass":  ["COMPONENTS", "INTERFACES"],
-        "family": "mx",
-        "two_levels": true,
-        "level1_tag": "device",
-        "level2_tags": ["component_name"]
-      }
-    ],
-    "rate_list": [
-      {
-        "order": 500,
-        "namepass": ["INTERFACES"],
-        "fields": ["in_octets", "in_pkts"]
-      }
-    ],
-    "influx_outputs": [
-      {
-        "retention": "autogen",
-          "fieldpass": [
-          "fan_speed",
-          "allocated_power",
-          "used_power",
-          "power_system_capacity",
-          "power_system_usage",
-          "power_system_allocated",
-          "power_system_remaining",
-          "power_system_maximum",
-          "power_zone_0_allocated",
-          "power_zone_0_capacity",
-          "power_zone_0_maximum",
-          "power_zone_0_remaining",
-          "power_zone_0_usage",
-          "power_zone_1_allocated",
-          "power_zone_1_capacity",
-          "power_zone_1_maximum",
-          "power_zone_1_remaining",
-          "power_zone_1_usage",
-          "power_maximum",
-          "power_input2_usage",
-          "power_input1_usage",
-          "power_capacity_maximum",
-          "power_capacity_usage",
-          "capacity",
-          "output_power",
-          "temperature_ambient",
-          "temperature_instant",
-          "temperature_exhaust_a",
-          "temperature_exhaust_b",
-          "temperature_exhaust_c",
-          "temperature_intake_a",
-          "temperature_intake_b",
-          "temperature_intake_c",
-          "temperature_inlet",
-          "temperature_outlet",
-          "temperature",
-          "in_octets_rate",
-          "in_pkts_rate"
-        ]
+        "name": "INTERFACES",
+        "path": "/interfaces/interface/state",
+        "mode": "sample",
+        "interval": 60
       }
     ]
-  }
-  
+  }],
+  "pivot_list": [{
+    "order": 10,
+    "namepass": ["COMPONENTS"],
+    "tag": "/components/component/properties/property/name",
+    "field": "/components/component/properties/property/state/value"
+  }],
+  "rename_list": [{
+    "order": 100,
+    "namepass": ["COMPONENTS", "INTERFACES"],
+    "entries": [{
+        "type": 0,
+        "from": "/interfaces/interface/name",
+        "to": "if_name"
+      },
+      {
+        "type": 0,
+        "from": "/interfaces/interface/@name",
+        "to": "if_name"
+      },
+      {
+        "type": 0,
+        "from": "/components/component/@name",
+        "to": "component_name"
+      },
+      {
+        "type": 0,
+        "from": "/components/component/name",
+        "to": "component_name"
+      },
+      {
+        "type": 1,
+        "from": "/components/component/state/allocated-power",
+        "to": "allocated_power"
+      },
+      {
+        "type": 1,
+        "from": "/components/component/used-power",
+        "to": "used_power"
+      },
+      {
+        "type": 1,
+        "from": "/components/component/fan/state/speed",
+        "to": "fan_speed"
+      },
+      {
+        "type": 1,
+        "from": "power-system-capacity",
+        "to": "power_system_capacity"
+      },
+      {
+        "type": 1,
+        "from": "power-system-usage",
+        "to": "power_system_usage"
+      },
+      {
+        "type": 1,
+        "from": "power-system-allocated",
+        "to": "power_system_allocated"
+      },
+      {
+        "type": 1,
+        "from": "power-system-remaining",
+        "to": "power_system_remaining"
+      },
+      {
+        "type": 1,
+        "from": "power-system-maximum",
+        "to": "power_system_maximum"
+      },
+      {
+        "type": 1,
+        "from": "power-usage",
+        "to": "used_power"
+      },
+      {
+        "type": 1,
+        "from": "power-maximum",
+        "to": "power_maximum"
+      },
+      {
+        "type": 1,
+        "from": "power-capacity-maximum",
+        "to": "power_capacity_maximum"
+      },
+      {
+        "type": 1,
+        "from": "power-capacity-usage",
+        "to": "power_capacity_usage"
+      },
+      {
+        "type": 1,
+        "from": "/components/component/power-supply/state/capacity",
+        "to": "capacity"
+      },
+      {
+        "type": 1,
+        "from": "/components/component/power-supply/state/output-power",
+        "to": "output_power"
+      },
+      {
+        "type": 1,
+        "from": "power-zone-0-allocated",
+        "to": "power_zone_0_allocated"
+      },
+      {
+        "type": 1,
+        "from": "power-zone-0-capacity",
+        "to": "power_zone_0_capacity"
+      },
+      {
+        "type": 1,
+        "from": "power-zone-0-maximum",
+        "to": "power_zone_0_maximum"
+      },
+      {
+        "type": 1,
+        "from": "power-zone-0-remaining",
+        "to": "power_zone_0_remaining"
+      },
+      {
+        "type": 1,
+        "from": "power-zone-0-usage",
+        "to": "power_zone_0_usage"
+      },
+      {
+        "type": 1,
+        "from": "power-zone-1-allocated",
+        "to": "power_zone_1_allocated"
+      },
+      {
+        "type": 1,
+        "from": "power-zone-1-capacity",
+        "to": "power_zone_1_capacity"
+      },
+      {
+        "type": 1,
+        "from": "power-zone-1-maximum",
+        "to": "power_zone_1_maximum"
+      },
+      {
+        "type": 1,
+        "from": "power-zone-1-remaining",
+        "to": "power_zone_1_remaining"
+      },
+      {
+        "type": 1,
+        "from": "power-zone-1-usage",
+        "to": "power_zone_1_usage"
+      },
+      {
+        "type": 1,
+        "from": "power-dc-output",
+        "to": "output_power"
+      },
+      {
+        "type": 1,
+        "from": "temperature-ambient",
+        "to": "temperature_ambient"
+      },
+      {
+        "type": 1,
+        "from": "/components/component/temperature/instant",
+        "to": "temperature"
+      },
+      {
+        "type": 1,
+        "from": "temperature-exhaust-b",
+        "to": "temperature_exhaust_b"
+      },
+      {
+        "type": 1,
+        "from": "temperature-exhaust-a",
+        "to": "temperature_exhaust_a"
+      },
+      {
+        "type": 1,
+        "from": "temperature-exhaust-c",
+        "to": "temperature_exhaust_c"
+      },
+      {
+        "type": 1,
+        "from": "temperature-intake-a",
+        "to": "temperature_intake_a"
+      },
+      {
+        "type": 1,
+        "from": "temperature-intake-b",
+        "to": "temperature_intake_b"
+      },
+      {
+        "type": 1,
+        "from": "temperature-intake-c",
+        "to": "temperature_intake_c"
+      },
+      {
+        "type": 1,
+        "from": "temperature-inlet",
+        "to": "temperature_inlet"
+      },
+      {
+        "type": 1,
+        "from": "temperature-outlet",
+        "to": "temperature_outlet"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/in-octets",
+        "to": "in_octets"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/in-pkts",
+        "to": "in_pkts"
+      }
+    ]
+  }],
+  "filtering_list": [{
+    "order": 200,
+    "namepass": ["INTERFACES"],
+    "filters": [{
+      "type": 0,
+      "key": "if_name",
+      "pattern": "^(et-|xe-|ge-).*",
+      "action": "accept"
+    }]
+  }],
+  "converter_list": [{
+    "order": 300,
+    "namepass": ["COMPONENTS"],
+    "float_type": [
+      "used_power",
+      "power_system_capacity",
+      "power_system_usage",
+      "power_system_allocated",
+      "power_system_remaining",
+      "power_system_maximum",
+      "power_maximum",
+      "power_input2_usage",
+      "power_input1_usage",
+      "power_capacity_maximum",
+      "power_capacity_usage",
+      "capacity",
+      "output_power",
+      "power_zone_0_allocated",
+      "power_zone_0_capacity",
+      "power_zone_0_maximum",
+      "power_zone_0_remaining",
+      "power_zone_0_usage",
+      "power_zone_1_allocated",
+      "power_zone_1_capacity",
+      "power_zone_1_maximum",
+      "power_zone_1_remaining",
+      "power_zone_1_usage",
+      "temperature_ambient",
+      "temperature_instant",
+      "temperature_exhaust_a",
+      "temperature_exhaust_b",
+      "temperature_exhaust_c",
+      "temperature_intake_a",
+      "temperature_intake_b",
+      "temperature_intake_c",
+      "temperature_inlet",
+      "temperature_outlet",
+      "temperature"
+    ]
+  }],
+  "enrichment_list": [{
+    "order": 400,
+    "namepass": ["COMPONENTS", "INTERFACES"],
+    "family": "mx",
+    "two_levels": true,
+    "level1_tag": "device",
+    "level2_tags": ["component_name"]
+  }],
+  "rate_list": [{
+    "order": 500,
+    "namepass": ["INTERFACES"],
+    "fields": ["in_octets", "in_pkts"]
+  }],
+  "influx_outputs": [{
+    "retention": "autogen",
+    "fieldpass": [
+      "fan_speed",
+      "allocated_power",
+      "used_power",
+      "power_system_capacity",
+      "power_system_usage",
+      "power_system_allocated",
+      "power_system_remaining",
+      "power_system_maximum",
+      "power_zone_0_allocated",
+      "power_zone_0_capacity",
+      "power_zone_0_maximum",
+      "power_zone_0_remaining",
+      "power_zone_0_usage",
+      "power_zone_1_allocated",
+      "power_zone_1_capacity",
+      "power_zone_1_maximum",
+      "power_zone_1_remaining",
+      "power_zone_1_usage",
+      "power_maximum",
+      "power_input2_usage",
+      "power_input1_usage",
+      "power_capacity_maximum",
+      "power_capacity_usage",
+      "capacity",
+      "output_power",
+      "temperature_ambient",
+      "temperature_instant",
+      "temperature_exhaust_a",
+      "temperature_exhaust_b",
+      "temperature_exhaust_c",
+      "temperature_intake_a",
+      "temperature_intake_b",
+      "temperature_intake_c",
+      "temperature_inlet",
+      "temperature_outlet",
+      "temperature",
+      "in_octets_rate",
+      "in_pkts_rate"
+    ]
+  }]
+}

@@ -1,27 +1,25 @@
-{   "version": 1,
-    "min-interval": 60,
-    "cheatsheet": "power.png",
-    "description": "This profile provides extensive data regarding power consumption.",
-    "telegraf": {
-      "mx": [ {
-        "version": "all",
-        "conf": "mx_power.json"
-        }
-      ],
-      "ptx":[ {
-        "version": "all",
-        "conf": "ptx_power.json"
-        }
-      ],
-      "acx": [ {
-        "version": "all",
-        "conf": "acx_power.json"
-        }
-      ]
-    },
-    "kapacitor": ["power.tick"],
-    "grafana": [
-      "power.json",
-      "power_agg.json"
-    ]
+{
+  "version": 1,
+  "min-interval": 60,
+  "cheatsheet": "power.png",
+  "description": "This profile provides extensive data regarding power consumption.",
+  "telegraf": {
+    "mx": [{
+      "version": "all",
+      "conf": "mx_power.json"
+    }],
+    "ptx": [{
+      "version": "all",
+      "conf": "ptx_power.json"
+    }],
+    "acx": [{
+      "version": "all",
+      "conf": "acx_power.json"
+    }]
+  },
+  "kapacitor": ["power.tick"],
+  "grafana": [
+    "dashboard-power.json",
+    "dashboard-power_agg.json"
+  ]
 }

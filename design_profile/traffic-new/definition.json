@@ -1,35 +1,31 @@
 {
-    "version": 1,
-    "min-interval": 15,
-    "cheatsheet": "traffic.png",
-    "description": "This profile provides template for collecting traffic/cos for physical ports",
-    "telegraf": {
-      "vmx": [ {
-        "version": "all",
-        "conf": "vmx_traffic.json"
-        }
-      ],
-      "mx": [ {
-        "version": "all",
-        "conf": "mx_traffic.json"
-        }
-      ],
-      "ptx":[ {
-        "version": "all",
-        "conf": "ptx_traffic.json"
-        }
-      ],
-      "acx": [ {
-        "version": "all",
-        "conf": "acx_traffic.json"
-        }
-      ]
-    },
-    "kapacitor": [
-      
-    ],
-    "grafana": [
-      "traffic.json",
-      "unit_traffic.json"
-    ]
+  "version": 1,
+  "min-interval": 15,
+  "cheatsheet": "traffic.png",
+  "description": "This profile provides template for collecting traffic/cos for physical ports",
+  "telegraf": {
+    "vmx": [{
+      "version": "all",
+      "conf": "vmx_traffic.json"
+    }],
+    "mx": [{
+      "version": "all",
+      "conf": "mx_traffic.json"
+    }],
+    "ptx": [{
+      "version": "all",
+      "conf": "ptx_traffic.json"
+    }],
+    "acx": [{
+      "version": "all",
+      "conf": "acx_traffic.json"
+    }]
+  },
+  "kapacitor": [
+
+  ],
+  "grafana": [
+    "dashboard-traffic.json",
+    "dashboard-unit_traffic.json"
+  ]
 }

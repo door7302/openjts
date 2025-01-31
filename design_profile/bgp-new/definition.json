@@ -1,32 +1,28 @@
 {
-    "version": 1,
-    "min-interval": 30,
-    "cheatsheet": "bgp.png",
-    "description": "This profile provides template for collecting BGP data",
-    "telegraf": {
-      "vmx": [ {
-        "version": "all",
-        "conf": "common_bgp.json"
-        }
-      ],
-      "mx": [ {
-        "version": "all",
-        "conf": "common_bgp.json"
-        }
-      ],
-      "ptx":[ {
-        "version": "all",
-        "conf": "common_bgp.json"
-        }
-      ],
-      "acx": [ {
-        "version": "all",
-        "conf": "common_bgp.json"
-        }
-      ]
-    },
-    "kapacitor": null,
-    "grafana": [
-      "bgp.json"
-    ]
+  "version": 1,
+  "min-interval": 30,
+  "cheatsheet": "bgp.png",
+  "description": "This profile provides template for collecting BGP data",
+  "telegraf": {
+    "vmx": [{
+      "version": "all",
+      "conf": "common_bgp.json"
+    }],
+    "mx": [{
+      "version": "all",
+      "conf": "common_bgp.json"
+    }],
+    "ptx": [{
+      "version": "all",
+      "conf": "common_bgp.json"
+    }],
+    "acx": [{
+      "version": "all",
+      "conf": "common_bgp.json"
+    }]
+  },
+  "kapacitor": null,
+  "grafana": [
+    "dashboard-bgp.json"
+  ]
 }

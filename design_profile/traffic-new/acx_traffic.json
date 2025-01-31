@@ -1,370 +1,346 @@
 {
-    "gnmi_inputs": [
+  "gnmi_inputs": [{
+    "subscriptions": [{
+        "name": "SUBINTERFACES",
+        "path": "/interfaces/interface/subinterfaces/subinterface/state/counters",
+        "mode": "sample",
+        "interval": 60
+      },
       {
-        "subscriptions": [
-          {
-            "name": "SUBINTERFACES",
-            "path": "/interfaces/interface/subinterfaces/subinterface/state/counters",
-            "mode": "sample",
-            "interval": 60
-          },
-          {
-            "name": "INTERFACES",
-            "path": "/interfaces/interface/state",
-            "mode": "sample",
-            "interval": 30
-          }
-        ]
+        "name": "INTERFACES",
+        "path": "/interfaces/interface/state",
+        "mode": "sample",
+        "interval": 30
       }
-    ],
-    "rename_list": [
+    ]
+  }],
+  "rename_list": [{
+    "order": 100,
+    "namepass": ["INTERFACES", "SUBINTERFACES"],
+    "entries": [{
+        "type": 0,
+        "from": "/interface-qstat-info/interface-qstat-info/state/counters/out-queue/queue-number",
+        "to": "queue_id"
+      },
       {
-        "order": 100,
-        "namepass": ["INTERFACES", "SUBINTERFACES"],
-        "entries": [
-            {
-                "type": 0,
-                "from": "/interface-qstat-info/interface-qstat-info/state/counters/out-queue/queue-number",
-                "to": "queue_id"
-              },
-              {
-                "type": 0,
-                "from": "/interfaces/interface/state/counters/out-queue/queue-number",
-                "to": "queue_id"
-              },
-              {
-                "type": 0,
-                "from": "/interfaces/interface/name",
-                "to": "if_name"
-              },
-              {
-                "type": 0,
-                "from": "/interfaces/interface/@name",
-                "to": "if_name"
-              },
-              {
-                "type": 0,
-                "from": "/interfaces/interface/if-name",
-                "to": "if_name"
-              },
-              {
-                "type": 0,
-                "from": "/interfaces/interface/@if-name",
-                "to": "if_name"
-              },
-              {
-                "type": 0,
-                "from": "/interface-qstat-info/interface-qstat-info/ifname",
-                "to": "if_name"
-              },
-              {
-                "type": 0,
-                "from": "/interfaces/interface/subinterfaces/subinterface/index",
-                "to": "if_unit"
-              },
-              {
-                "type": 0,
-                "from": "/interfaces/interface/subinterfaces/subinterface/@index",
-                "to": "if_unit"
-              },
-              {
-                "type": 0,
-                "from": "/interfaces/interface/subinterfaces/subinterface/if-index",
-                "to": "if_unit"
-              },
-              {
-                "type": 0,
-                "from": "/interfaces/interface/subinterfaces/subinterface/@if-index",
-                "to": "if_unit"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/in-octets",
-                "to": "in_octets"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/out-octets",
-                "to": "out_octets"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/subinterfaces/subinterface/state/counters/in-octets",
-                "to": "unit_in_octets"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/subinterfaces/subinterface/state/counters/out-octets",
-                "to": "unit_out_octets"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/in-errors",
-                "to": "in_errors"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/out-errors",
-                "to": "out_errors"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/if-in-octets",
-                "to": "in_octets"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/if-out-octets",
-                "to": "out_octets"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/if-in-errors",
-                "to": "in_errors"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/if-out-errors",
-                "to": "out_errors"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/in-pkts",
-                "to": "in_pkts"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/out-pkts",
-                "to": "out_pkts"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/subinterfaces/subinterface/state/counters/in-pkts",
-                "to": "unit_in_pkts"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/subinterfaces/subinterface/state/counters/out-pkts",
-                "to": "unit_out_pkts"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/in-multicast-pkts",
-                "to": "mcast_in_pkts"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/out-multicast-pkts",
-                "to": "mcast_out_pkts"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/in-broadcast-pkts",
-                "to": "bcast_in_pkts"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/out-broadcast-pkts",
-                "to": "bcast_out_pkts"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/if-in-pkts",
-                "to": "in_pkts"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/if-out-pkts",
-                "to": "out_pkts"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/if-in-multicast-pkts",
-                "to": "mcast_in_pkts"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/if-out-multicast-pkts",
-                "to": "mcast_out_pkts"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/if-in-broadcast-pkts",
-                "to": "bcast_in_pkts"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/if-out-broadcast-pkts",
-                "to": "bcast_out_pkts"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/out-queue/bytes",
-                "to": "cos_forwarded_octets"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/out-queue/red-drop-pkts",
-                "to": "cos_red_dropped_packets"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/out-queue/tail-drop-pkts",
-                "to": "cos_tail_dropped_packets"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/out-queue/pkts",
-                "to": "cos_forwarded_packets"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/out-queue/queued-bytes",
-                "to": "cos_queued_octets"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/out-queue/queued-pkts",
-                "to": "cos_queued_packets"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/out-queue/allocated-buffer-size",
-                "to": "cos_buffer_size"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/out-queue/peak-buffer-occupancy",
-                "to": "cos_buffer_peak"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/out-queue/cur-buffer-occupancy",
-                "to": "cos_buffer_cur"
-              },
-              {
-                "type": 1,
-                "from": "/interfaces/interface/state/counters/out-queue/avg-buffer-occupancy",
-                "to": "cos_buffer_avg"
-              }
-          ]
-      }
-    ],
-    "filtering_list": [
+        "type": 0,
+        "from": "/interfaces/interface/state/counters/out-queue/queue-number",
+        "to": "queue_id"
+      },
       {
-        "order": 200,
-        "namepass": ["INTERFACES", "SUBINTERFACES"],
-        "filters": [
-          {
-            "type": 0,
-            "key": "if_name",
-            "pattern": "^(et-|xe-|ge-|ae|lt-|ps-|fti-|gr-|demux).*",
-            "action": "accept"
-          }
-        ]
-      }
-    ],
-    "enum_list": [
-        {
-        "order": 300,
-        "namepass": ["INTERFACES"],
-        "entries": [
-            {
-            "tag": "queue_id",
-            "dest": "queue_name"
-            }
-        ]
-        }
-    ],
-    "enrichment_list": [
+        "type": 0,
+        "from": "/interfaces/interface/name",
+        "to": "if_name"
+      },
       {
-        "order": 400,
-        "namepass": ["INTERFACES", "SUBINTERFACES"],
-        "family": "acx",
-        "two_levels": true,
-        "level1_tag": "device",
-        "level2_tags": ["if_name"]
+        "type": 0,
+        "from": "/interfaces/interface/@name",
+        "to": "if_name"
+      },
+      {
+        "type": 0,
+        "from": "/interfaces/interface/if-name",
+        "to": "if_name"
+      },
+      {
+        "type": 0,
+        "from": "/interfaces/interface/@if-name",
+        "to": "if_name"
+      },
+      {
+        "type": 0,
+        "from": "/interface-qstat-info/interface-qstat-info/ifname",
+        "to": "if_name"
+      },
+      {
+        "type": 0,
+        "from": "/interfaces/interface/subinterfaces/subinterface/index",
+        "to": "if_unit"
+      },
+      {
+        "type": 0,
+        "from": "/interfaces/interface/subinterfaces/subinterface/@index",
+        "to": "if_unit"
+      },
+      {
+        "type": 0,
+        "from": "/interfaces/interface/subinterfaces/subinterface/if-index",
+        "to": "if_unit"
+      },
+      {
+        "type": 0,
+        "from": "/interfaces/interface/subinterfaces/subinterface/@if-index",
+        "to": "if_unit"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/in-octets",
+        "to": "in_octets"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/out-octets",
+        "to": "out_octets"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/subinterfaces/subinterface/state/counters/in-octets",
+        "to": "unit_in_octets"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/subinterfaces/subinterface/state/counters/out-octets",
+        "to": "unit_out_octets"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/in-errors",
+        "to": "in_errors"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/out-errors",
+        "to": "out_errors"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/if-in-octets",
+        "to": "in_octets"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/if-out-octets",
+        "to": "out_octets"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/if-in-errors",
+        "to": "in_errors"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/if-out-errors",
+        "to": "out_errors"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/in-pkts",
+        "to": "in_pkts"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/out-pkts",
+        "to": "out_pkts"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/subinterfaces/subinterface/state/counters/in-pkts",
+        "to": "unit_in_pkts"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/subinterfaces/subinterface/state/counters/out-pkts",
+        "to": "unit_out_pkts"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/in-multicast-pkts",
+        "to": "mcast_in_pkts"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/out-multicast-pkts",
+        "to": "mcast_out_pkts"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/in-broadcast-pkts",
+        "to": "bcast_in_pkts"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/out-broadcast-pkts",
+        "to": "bcast_out_pkts"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/if-in-pkts",
+        "to": "in_pkts"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/if-out-pkts",
+        "to": "out_pkts"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/if-in-multicast-pkts",
+        "to": "mcast_in_pkts"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/if-out-multicast-pkts",
+        "to": "mcast_out_pkts"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/if-in-broadcast-pkts",
+        "to": "bcast_in_pkts"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/if-out-broadcast-pkts",
+        "to": "bcast_out_pkts"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/out-queue/bytes",
+        "to": "cos_forwarded_octets"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/out-queue/red-drop-pkts",
+        "to": "cos_red_dropped_packets"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/out-queue/tail-drop-pkts",
+        "to": "cos_tail_dropped_packets"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/out-queue/pkts",
+        "to": "cos_forwarded_packets"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/out-queue/queued-bytes",
+        "to": "cos_queued_octets"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/out-queue/queued-pkts",
+        "to": "cos_queued_packets"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/out-queue/allocated-buffer-size",
+        "to": "cos_buffer_size"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/out-queue/peak-buffer-occupancy",
+        "to": "cos_buffer_peak"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/out-queue/cur-buffer-occupancy",
+        "to": "cos_buffer_cur"
+      },
+      {
+        "type": 1,
+        "from": "/interfaces/interface/state/counters/out-queue/avg-buffer-occupancy",
+        "to": "cos_buffer_avg"
       }
-    ],
-    "rate_list": [
-        {
-          "order": 500,
-          "namepass": ["INTERFACES", "SUBINTERFACES"],
-          "fields": ["in_pkts", "out_pkts", "in_octets","out_octets","unit_in_pkts", "unit_out_pkts", "unit_in_octets","unit_out_octets","mcast_in_pkts", "mcast_out_pkts", "bcast_in_pkts", "bcast_out_pkts","cos_forwarded_octets","cos_forwarded_packets", "cos_queued_octets","cos_queued_packets", "cos_red_dropped_packets", "cos_tail_dropped_packets", "in_errors", "out_errors"]
-  
-        }
-      ],
-      "monitoring_list": [
-        {
-        "order": 600,
-        "namepass": ["INTERFACES", "SUBINTERFACES"],
-        "probes": [
-            {
-              "name": "RED_DROP",
-              "field": "cos_red_dropped_packets_rate",
-              "type": "current",
-              "threshold": 1,
-              "operator": "gt",
-              "tags": ["device","if_name","queue_id","queue_name", "LINKNAME"]
-            },
-            {
-              "name": "TAIL_DROP",
-              "field": "cos_tail_dropped_packets_rate",
-              "type": "current",
-              "threshold": 1,
-              "operator": "gt",
-              "tags": ["device","if_name","queue_id","queue_name", "LINKNAME"]
-            },
-            {
-              "name": "ETH_DROP_IN",
-              "field": "in_errors_rate",
-              "type": "current",
-              "threshold": 1,
-              "operator": "gt",
-              "tags": ["device","if_name", "LINKNAME"]
-            },
-            {
-              "name": "ETH_DROP_OUT",
-              "field": "out_errors_rate",
-              "type": "current",
-              "threshold": 1,
-              "operator": "gt",
-              "tags": ["device","if_name", "LINKNAME"]
-            }
-        ]
-        }
-    ],
-      "influx_outputs": [
-        {
-          "retention": "autogen",
-            "fieldpass": [
-              "exception",
-              "in_octets_rate",
-              "out_octets_rate",
-              "in_pkts_rate",
-              "out_pkts_rate",
-              "unit_in_octets_rate",
-              "unit_out_octets_rate",
-              "unit_in_pkts_rate",
-              "unit_out_pkts_rate",
-              "in_errors_rate",
-              "out_errors_rate",
-              "cos_queued_packets_rate",
-              "cos_queued_octets_rate",
-              "cos_forwarded_octets_rate",
-              "cos_red_dropped_packets_rate",
-              "cos_tail_dropped_packets_rate",
-              "cos_forwarded_packets_rate",
-              "cos_buffer_size",
-              "cos_buffer_peak",
-              "cos_buffer_cur",
-              "cos_buffer_avg",
-              "mcast_in_pkts_rate",
-              "mcast_out_pkts_rate",
-              "bcast_in_pkts_rate",
-              "bcast_out_pkts_rate"
-          ]
-        }
-      ]
-    }
-    
+    ]
+  }],
+  "filtering_list": [{
+    "order": 200,
+    "namepass": ["INTERFACES", "SUBINTERFACES"],
+    "filters": [{
+      "type": 0,
+      "key": "if_name",
+      "pattern": "^(et-|xe-|ge-|ae|lt-|ps-|fti-|gr-|demux).*",
+      "action": "accept"
+    }]
+  }],
+  "enum_list": [{
+    "order": 300,
+    "namepass": ["INTERFACES"],
+    "entries": [{
+      "tag": "queue_id",
+      "dest": "queue_name"
+    }]
+  }],
+  "enrichment_list": [{
+    "order": 400,
+    "namepass": ["INTERFACES", "SUBINTERFACES"],
+    "family": "acx",
+    "two_levels": true,
+    "level1_tag": "device",
+    "level2_tags": ["if_name"]
+  }],
+  "rate_list": [{
+    "order": 500,
+    "namepass": ["INTERFACES", "SUBINTERFACES"],
+    "fields": ["in_pkts", "out_pkts", "in_octets", "out_octets", "unit_in_pkts", "unit_out_pkts", "unit_in_octets", "unit_out_octets", "mcast_in_pkts", "mcast_out_pkts", "bcast_in_pkts", "bcast_out_pkts", "cos_forwarded_octets", "cos_forwarded_packets", "cos_queued_octets", "cos_queued_packets", "cos_red_dropped_packets", "cos_tail_dropped_packets", "in_errors", "out_errors"]
+
+  }],
+  "monitoring_list": [{
+    "order": 600,
+    "namepass": ["INTERFACES", "SUBINTERFACES"],
+    "probes": [{
+        "name": "RED_DROP",
+        "field": "cos_red_dropped_packets_rate",
+        "type": "current",
+        "threshold": 1,
+        "operator": "gt",
+        "tags": ["device", "if_name", "queue_id", "queue_name", "LINKNAME"]
+      },
+      {
+        "name": "TAIL_DROP",
+        "field": "cos_tail_dropped_packets_rate",
+        "type": "current",
+        "threshold": 1,
+        "operator": "gt",
+        "tags": ["device", "if_name", "queue_id", "queue_name", "LINKNAME"]
+      },
+      {
+        "name": "ETH_DROP_IN",
+        "field": "in_errors_rate",
+        "type": "current",
+        "threshold": 1,
+        "operator": "gt",
+        "tags": ["device", "if_name", "LINKNAME"]
+      },
+      {
+        "name": "ETH_DROP_OUT",
+        "field": "out_errors_rate",
+        "type": "current",
+        "threshold": 1,
+        "operator": "gt",
+        "tags": ["device", "if_name", "LINKNAME"]
+      }
+    ]
+  }],
+  "influx_outputs": [{
+    "retention": "autogen",
+    "fieldpass": [
+      "exception",
+      "in_octets_rate",
+      "out_octets_rate",
+      "in_pkts_rate",
+      "out_pkts_rate",
+      "unit_in_octets_rate",
+      "unit_out_octets_rate",
+      "unit_in_pkts_rate",
+      "unit_out_pkts_rate",
+      "in_errors_rate",
+      "out_errors_rate",
+      "cos_queued_packets_rate",
+      "cos_queued_octets_rate",
+      "cos_forwarded_octets_rate",
+      "cos_red_dropped_packets_rate",
+      "cos_tail_dropped_packets_rate",
+      "cos_forwarded_packets_rate",
+      "cos_buffer_size",
+      "cos_buffer_peak",
+      "cos_buffer_cur",
+      "cos_buffer_avg",
+      "mcast_in_pkts_rate",
+      "mcast_out_pkts_rate",
+      "bcast_in_pkts_rate",
+      "bcast_out_pkts_rate"
+    ]
+  }]
+}

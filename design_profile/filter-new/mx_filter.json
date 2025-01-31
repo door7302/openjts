@@ -1,106 +1,90 @@
 {
-    "gnmi_inputs": [
+  "gnmi_inputs": [{
+    "aliases": [{
+      "name": "FIREWALL",
+      "prefix_list": ["/junos/firewall/state/counter", "/junos/firewall/state/policer"]
+    }],
+    "subscriptions": [{
+      "name": "FIREWALL",
+      "path": "/junos/system/linecard/firewall",
+      "mode": "sample",
+      "interval": 60
+    }]
+  }],
+  "rename_list": [{
+    "order": 100,
+    "namepass": ["FIREWALL"],
+    "entries": [{
+        "type": 0,
+        "from": "/components/component/@name",
+        "to": "component_name"
+      },
       {
-        "aliases": [
-          {
-            "name": "FIREWALL",
-            "prefix_list": ["/junos/firewall/state/counter", "/junos/firewall/state/policer"]
-          }
-        ],
-        "subscriptions": [
-          {
-            "name": "FIREWALL",
-            "path": "/junos/system/linecard/firewall",
-            "mode": "sample",
-            "interval": 60
-          }
-        ]
-      }
-    ],
-    "rename_list": [
+        "type": 0,
+        "from": "/components/component/name",
+        "to": "component_name"
+      },
       {
-        "order": 100,
-        "namepass": ["FIREWALL"],
-        "entries": [
-          {
-            "type": 0,
-            "from": "/components/component/@name",
-            "to": "component_name"
-          },
-          {
-            "type": 0,
-            "from": "/components/component/name",
-            "to": "component_name"
-          },
-          {
-            "type": 0,
-            "from": "/junos/firewall/state/counter/name",
-            "to": "fw_name"
-          },
-          {
-            "type": 0,
-            "from": "/junos/firewall/name",
-            "to": "fw_name"
-          },
-          {
-            "type": 0,
-            "from": "/junos/firewall/state/counter/name",
-            "to": "cntr_name"
-          },
-          {
-            "type": 0,
-            "from": "/junos/firewall/state/policer/name",
-            "to": "plcr_name"
-          },
-          {
-            "type": 1,
-            "from": "/junos/firewall/state/counter/bytes",
-            "to": "fwd_bytes"
-          },
-          {
-            "type": 1,
-            "from": "/junos/firewall/state/counter/packets",
-            "to": "fwd_packets"
-          },
-          {
-            "type": 1,
-            "from": "/junos/firewall/state/policer/out-of-spec-bytes",
-            "to": "drop_bytes"
-          },
-          {
-            "type": 1,
-            "from": "/junos/firewall/state/policer/out-of-spec-packets",
-            "to": "drop_pkts"
-          }
-        ]
-      }
-    ],
-    "enrichment_list": [
+        "type": 0,
+        "from": "/junos/firewall/state/counter/name",
+        "to": "fw_name"
+      },
       {
-        "order": 200,
-        "namepass": ["FIREWALL"],
-        "family": "mx",
-        "two_levels": false,
-        "level1_tag": "device"
-      }
-    ],
-    "rate_list": [
+        "type": 0,
+        "from": "/junos/firewall/name",
+        "to": "fw_name"
+      },
       {
-        "order": 300,
-        "namepass": ["FIREWALL"],
-        "fields": ["fwd_bytes", "fwd_packets", "drop_bytes", "drop_pkts"]
-      }
-    ],
-    "influx_outputs": [
+        "type": 0,
+        "from": "/junos/firewall/state/counter/name",
+        "to": "cntr_name"
+      },
       {
-        "retention": "autogen",
-        "fieldpass": [
-          "fwd_bytes_rate",
-          "fwd_packets_rate",
-          "drop_bytes_rate",
-          "drop_pkts_rate" 
-        ]
+        "type": 0,
+        "from": "/junos/firewall/state/policer/name",
+        "to": "plcr_name"
+      },
+      {
+        "type": 1,
+        "from": "/junos/firewall/state/counter/bytes",
+        "to": "fwd_bytes"
+      },
+      {
+        "type": 1,
+        "from": "/junos/firewall/state/counter/packets",
+        "to": "fwd_packets"
+      },
+      {
+        "type": 1,
+        "from": "/junos/firewall/state/policer/out-of-spec-bytes",
+        "to": "drop_bytes"
+      },
+      {
+        "type": 1,
+        "from": "/junos/firewall/state/policer/out-of-spec-packets",
+        "to": "drop_pkts"
       }
     ]
-  }
-  
+  }],
+  "enrichment_list": [{
+    "order": 200,
+    "namepass": ["FIREWALL"],
+    "family": "mx",
+    "two_levels": false,
+    "level1_tag": "device"
+  }],
+  "rate_list": [{
+    "order": 300,
+    "namepass": ["FIREWALL"],
+    "fields": ["fwd_bytes", "fwd_packets", "drop_bytes", "drop_pkts"]
+  }],
+  "influx_outputs": [{
+    "retention": "autogen",
+    "fieldpass": [
+      "fwd_bytes_rate",
+      "fwd_packets_rate",
+      "drop_bytes_rate",
+      "drop_pkts_rate"
+    ]
+  }]
+}

@@ -1,237 +1,224 @@
 {
-    "gnmi_inputs": [
+  "gnmi_inputs": [{
+    "subscriptions": [{
+        "name": "NETWORK_INSTANCE_BGP",
+        "path": "/network-instances/network-instance/protocols/protocol/bgp/global/state",
+        "mode": "sample",
+        "interval": 60
+      },
       {
-        "subscriptions": [
-          {
-            "name": "NETWORK_INSTANCE_BGP",
-            "path": "/network-instances/network-instance/protocols/protocol/bgp/global/state",
-            "mode": "sample",
-            "interval": 60
-          },
-          {
-            "name": "NETWORK_INSTANCE_BGP",
-            "path": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group",
-            "mode": "sample",
-            "interval": 60
-          },
-          {
-            "name": "NETWORK_INSTANCE_BGP",
-            "path": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi",
-            "mode": "sample",
-            "interval": 60
-          },
-          {
-            "name": "NETWORK_INSTANCE_BGP",
-            "path": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/description",
-            "mode": "sample",
-            "interval": 60
-          },
-          {
-            "name": "NETWORK_INSTANCE_BGP",
-            "path": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/peer-as",
-            "mode": "sample",
-            "interval": 60
-          },
-          {
-            "name": "NETWORK_INSTANCE_BGP",
-            "path": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/queues",
-            "mode": "sample",
-            "interval": 60
-          },
-          {
-            "name": "NETWORK_INSTANCE_BGP",
-            "path": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/session-state",
-            "mode": "on_change",
-            "interval": 0
-          }
-        ]
-      }
-    ],
-    "rename_list": [
+        "name": "NETWORK_INSTANCE_BGP",
+        "path": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group",
+        "mode": "sample",
+        "interval": 60
+      },
       {
-        "order": 100,
-        "namepass": ["NETWORK_INSTANCE_BGP"],
-        "entries": [
-            {
-            "type": 0,
-            "from": "/network-instances/network-instance/name",
-            "to": "instance_name"
-            },
-            {
-            "type": 0,
-            "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/neighbor-address",
-            "to": "neighbor_address"
-            },
-            {
-            "type": 0,
-            "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/afi-safi-name",
-            "to": "neighbor_afi_safi_name"
-            },
-            {
-            "type": 0,
-            "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/afi-safi-name",
-            "to": "peer_group_afi_safi_name"
-            },
-            {
-            "type": 0,
-            "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/peer-group-name",
-            "to": "peer_group_name"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/global/state/total-paths",
-              "to": "global_total_paths"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/global/state/total-prefixes",
-              "to": "global_total_prefixes"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/global/state/as",
-              "to": "global_as"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state/total-paths",
-              "to": "group_total_paths"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state/total-prefixes",
-              "to": "group_total_prefixes"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/total-paths",
-              "to": "group_safi_total_paths"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/total-prefixes",
-              "to": "group_safi_total_prefixes"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/prefixes/accepted",
-              "to": "group_safi_accepted"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/prefixes/installed",
-              "to": "group_safi_installed"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/prefixes/received",
-              "to": "group_safi_received"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/prefixes/sent",
-              "to": "group_safi_sent"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/accepted",
-              "to": "safi_accepted"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/installed",
-              "to": "safi_installed"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/received-pre-policy",
-              "to": "safi_received_pre_policy"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/received",
-              "to": "safi_received"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/rejected",
-              "to": "safi_rejected"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/sent",
-              "to": "safi_sent"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/queues/input",
-              "to": "session_input_queue"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/queues/output",
-              "to": "session_output_queue"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/session-state",
-              "to": "session_state"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/peer-as",
-              "to": "session_peer_as"
-            },
-            {
-              "type": 1,
-              "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/description",
-              "to": "session_description"
-            }
-          ]
-      }
-    ],
-    "regrex_list": [
-        {
-          "order": 200,
-          "namepass": ["NETWORK_INSTANCE_BGP"],
-          "entries": [
-            {
-              "type": 1,
-              "pattern": ".*prefix-limit-received.state.(max-prefixes)",
-              "replacement": "${1}"
-            }
-          ]
-        }
-      ],
-    "influx_outputs": [
+        "name": "NETWORK_INSTANCE_BGP",
+        "path": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi",
+        "mode": "sample",
+        "interval": 60
+      },
       {
-        "retention": "autogen",
-        "fieldpass": [
-            "global_total_paths",
-            "global_total_prefixes",
-            "group_total_paths",
-            "group_total_prefixes",
-            "global_as",
-            "group_safi_total_paths",
-            "group_safi_total_prefixes",
-            "group_safi_accepted",
-            "group_safi_installed",
-            "group_safi_received",
-            "group_safi_sent",
-            "safi_accepted",
-            "safi_installed",
-            "safi_received_pre_policy",
-            "safi_received",
-            "safi_rejected",
-            "safi_sent",
-            "session_input_queue",
-            "session_output_queue",
-            "session_state",
-            "session_peer_as",
-            "session_description",
-            "max-prefixes"
-        ]
+        "name": "NETWORK_INSTANCE_BGP",
+        "path": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/description",
+        "mode": "sample",
+        "interval": 60
+      },
+      {
+        "name": "NETWORK_INSTANCE_BGP",
+        "path": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/peer-as",
+        "mode": "sample",
+        "interval": 60
+      },
+      {
+        "name": "NETWORK_INSTANCE_BGP",
+        "path": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/queues",
+        "mode": "sample",
+        "interval": 60
+      },
+      {
+        "name": "NETWORK_INSTANCE_BGP",
+        "path": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/session-state",
+        "mode": "on_change",
+        "interval": 0
       }
     ]
-  }
-  
+  }],
+  "rename_list": [{
+    "order": 100,
+    "namepass": ["NETWORK_INSTANCE_BGP"],
+    "entries": [{
+        "type": 0,
+        "from": "/network-instances/network-instance/name",
+        "to": "instance_name"
+      },
+      {
+        "type": 0,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/neighbor-address",
+        "to": "neighbor_address"
+      },
+      {
+        "type": 0,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/afi-safi-name",
+        "to": "neighbor_afi_safi_name"
+      },
+      {
+        "type": 0,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/afi-safi-name",
+        "to": "peer_group_afi_safi_name"
+      },
+      {
+        "type": 0,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/peer-group-name",
+        "to": "peer_group_name"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/global/state/total-paths",
+        "to": "global_total_paths"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/global/state/total-prefixes",
+        "to": "global_total_prefixes"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/global/state/as",
+        "to": "global_as"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state/total-paths",
+        "to": "group_total_paths"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/state/total-prefixes",
+        "to": "group_total_prefixes"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/total-paths",
+        "to": "group_safi_total_paths"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/total-prefixes",
+        "to": "group_safi_total_prefixes"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/prefixes/accepted",
+        "to": "group_safi_accepted"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/prefixes/installed",
+        "to": "group_safi_installed"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/prefixes/received",
+        "to": "group_safi_received"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/peer-groups/peer-group/afi-safis/afi-safi/state/prefixes/sent",
+        "to": "group_safi_sent"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/accepted",
+        "to": "safi_accepted"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/installed",
+        "to": "safi_installed"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/received-pre-policy",
+        "to": "safi_received_pre_policy"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/received",
+        "to": "safi_received"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/rejected",
+        "to": "safi_rejected"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/afi-safis/afi-safi/state/prefixes/sent",
+        "to": "safi_sent"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/queues/input",
+        "to": "session_input_queue"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/queues/output",
+        "to": "session_output_queue"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/session-state",
+        "to": "session_state"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/peer-as",
+        "to": "session_peer_as"
+      },
+      {
+        "type": 1,
+        "from": "/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor/state/description",
+        "to": "session_description"
+      }
+    ]
+  }],
+  "regrex_list": [{
+    "order": 200,
+    "namepass": ["NETWORK_INSTANCE_BGP"],
+    "entries": [{
+      "type": 1,
+      "pattern": ".*prefix-limit-received.state.(max-prefixes)",
+      "replacement": "${1}"
+    }]
+  }],
+  "influx_outputs": [{
+    "retention": "autogen",
+    "fieldpass": [
+      "global_total_paths",
+      "global_total_prefixes",
+      "group_total_paths",
+      "group_total_prefixes",
+      "global_as",
+      "group_safi_total_paths",
+      "group_safi_total_prefixes",
+      "group_safi_accepted",
+      "group_safi_installed",
+      "group_safi_received",
+      "group_safi_sent",
+      "safi_accepted",
+      "safi_installed",
+      "safi_received_pre_policy",
+      "safi_received",
+      "safi_rejected",
+      "safi_sent",
+      "session_input_queue",
+      "session_output_queue",
+      "session_state",
+      "session_peer_as",
+      "session_description",
+      "max-prefixes"
+    ]
+  }]
+}

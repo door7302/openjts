@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "min-interval": 30,
+  "cheatsheet": "optic.png",
+  "description": "This profile provides template for collecting optical data. V1.3",
+  "telegraf": {
+    "mx": [{
+        "version": ">=24.2",
+        "conf": "mx_optic_24.2.json"
+      },
+      {
+        "version": "all",
+        "conf": "mx_optic.json"
+      }
+    ],
+    "ptx": [{
+        "version": ">=24.2",
+        "conf": "ptx_optic_24.2.json"
+      },
+      {
+        "version": "all",
+        "conf": "ptx_optic.json"
+      }
+    ],
+    "acx": [{
+        "version": ">=24.2",
+        "conf": "acx_optic_24.2.json"
+      },
+      {
+        "version": "all",
+        "conf": "acx_optic.json"
+      }
+    ]
+  },
+  "kapacitor": null,
+  "grafana": [
+    "dashboard-optic.json"
+  ]
+}
