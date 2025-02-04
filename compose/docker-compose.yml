@@ -16,7 +16,7 @@ services:
       - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf
       - ./influxdb/data:/var/lib/influxdb
   telegraf_vmx:
-    build: https://github.com/door7302/jts_telegraf.git#v1.0.8
+    build: https://github.com/door7302/jts_telegraf.git#v1.0.12
     image: jts_telegraf:latest
     container_name: telegraf_vmx
     restart: always
@@ -112,7 +112,7 @@ services:
       - ./grafana/data:/var/lib/grafana
       - ./grafana/plugins:/var/lib/grafana/plugins
   jtso:
-    build: https://github.com/door7302/jtso.git#v1.0.6
+    build: https://github.com/door7302/jtso.git#v1.0.7
     image: jtso:latest
     container_name: jtso
     restart: always
