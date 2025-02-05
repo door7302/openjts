@@ -238,7 +238,7 @@
   }],
   "enrichment_list": [{
     "order": 400,
-    "namepass": ["COMPONENTS", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS"],
+    "namepass": ["COMPONENTS", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS", "HW_NPU"],
     "family": "vmx",
     "two_levels": false,
     "level1_tag": "device"

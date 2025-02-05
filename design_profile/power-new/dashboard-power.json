@@ -862,44 +862,11 @@
             "uid": "jtsuid"
           },
           "groupBy": [],
-          "hide": true,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"device_traffic_in\")*8 FROM \"COMPONENTS\" WHERE \"device\"=~ /^$device$/  and $timeFilter group by time(5m)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "power_system_usage"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "device::tag",
-              "operator": "=~",
-              "value": "/^$device$/"
-            }
-          ]
-        },
-        {
-          "alias": "Total Traffic bps",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [],
           "hide": false,
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(all_if) from(SELECT mean(in_octets_rate)*8 as all_if from COMPONENTS WHERE \"device\"=~ /^$device$/  and $timeFilter group by if_name) group by time(1m)",
+          "query": "select sum(all_if) from(SELECT mean(in_octets_rate)*8 as all_if from INTERFACES WHERE \"device\"=~ /^$device$/  and $timeFilter group by if_name) group by time(1m)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1022,44 +989,11 @@
             "uid": "jtsuid"
           },
           "groupBy": [],
-          "hide": true,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"device_pps_in\") FROM \"COMPONENTS\" WHERE \"device\"=~ /^$device$/  and $timeFilter group by time(5m)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "power_system_usage"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "device::tag",
-              "operator": "=~",
-              "value": "/^$device$/"
-            }
-          ]
-        },
-        {
-          "alias": "Total Traffic pps",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [],
           "hide": false,
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(all_if) from(SELECT mean(in_pkts_rate) as all_if from COMPONENTS WHERE \"device\"=~ /^$device$/  and $timeFilter group by if_name) group by time(1m)",
+          "query": "select sum(all_if) from(SELECT mean(in_pkts_rate) as all_if from INTERFACES WHERE \"device\"=~ /^$device$/  and $timeFilter group by if_name) group by time(1m)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1219,7 +1153,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(all_if)/1000000000 from(SELECT mean(in_octets_rate)*8 as all_if from COMPONENTS WHERE \"device\"=~ /^$device$/  and $timeFilter group by if_name) group by time(1m)",
+          "query": "select sum(all_if)/1000000000 from(SELECT mean(in_octets_rate)*8 as all_if from INTERFACES WHERE \"device\"=~ /^$device$/  and $timeFilter group by if_name) group by time(1m)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -2852,7 +2786,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "yellow",
@@ -3001,7 +2936,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -3132,7 +3068,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3292,7 +3229,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3781,7 +3719,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "",
           "value": ""
         },
@@ -3811,7 +3749,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "POWER EXTENSIVE PROFILE - JTSO",
+  "title": "POWER EXTENSIVE PROFILE - JTS",
   "uid": "powerextdashboard",
   "version": 1,
   "weekStart": ""

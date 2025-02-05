@@ -310,7 +310,7 @@
   }],
   "enrichment_list": [{
     "order": 400,
-    "namepass": ["COMPONENTS", "JUNOS_CMERROR", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS", "JUNOS_FABRIC"],
+    "namepass": ["COMPONENTS", "JUNOS_CMERROR", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS", "JUNOS_FABRIC", "HW_NPU"],
     "family": "ptx",
     "two_levels": false,
     "level1_tag": "device"
