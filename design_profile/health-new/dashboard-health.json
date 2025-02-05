@@ -1465,7 +1465,7 @@
       "type": "table"
     },
     {
-      "activePatternIndex": -2,
+      "activePatternIndex": 5,
       "datasource": {
         "type": "influxdb",
         "uid": "jtsuid"
@@ -1500,7 +1500,7 @@
         "null_value": "No data",
         "pattern": "*",
         "row_col_wrapper": "_",
-        "row_name": "_series_",
+        "row_name": "!series!",
         "textColors": "red|orange|green",
         "textColors_overrides": "0->red|2->green|1->yellow",
         "thresholds": "70,90",
@@ -1549,7 +1549,7 @@
           "null_value": "No data",
           "pattern": "SLOT",
           "row_col_wrapper": "_",
-          "row_name": "_0_",
+          "row_name": "!0!",
           "textColors": "red|orange|green",
           "textColors_overrides": "0->red|2->green|1->yellow",
           "thresholds": "70,90",
@@ -1588,7 +1588,7 @@
           "null_value": "No data",
           "pattern": "DELTA",
           "row_col_wrapper": "_",
-          "row_name": "_0_",
+          "row_name": "!0!",
           "textColors": "red|orange|green",
           "textColors_overrides": "0->red|2->green|1->yellow",
           "thresholds": "0",
@@ -1627,7 +1627,7 @@
           "null_value": "No data",
           "pattern": "UPDATE",
           "row_col_wrapper": "_",
-          "row_name": "_0_",
+          "row_name": "!0!",
           "textColors": "red|orange|green",
           "textColors_overrides": "0->red|2->green|1->yellow",
           "thresholds": "70,90",
@@ -1666,7 +1666,7 @@
           "null_value": "No data",
           "pattern": "CLEAR",
           "row_col_wrapper": "_",
-          "row_name": "_0_",
+          "row_name": "!0!",
           "textColors": "red|orange|green",
           "textColors_overrides": "0->red|2->green|1->yellow",
           "thresholds": "70,90",
@@ -1705,7 +1705,7 @@
           "null_value": "No data",
           "pattern": "COUNT",
           "row_col_wrapper": "_",
-          "row_name": "_0_",
+          "row_name": "!0!",
           "textColors": "red|orange|green",
           "textColors_overrides": "0->red|2->green|1->yellow",
           "thresholds": "70,90",
@@ -1717,10 +1717,10 @@
         }
       ],
       "pluginVersion": "9.4.7",
-      "row_col_wrapper": "_",
+      "row_col_wrapper": "!",
       "sorting_props": {
-        "col_index": -1,
-        "direction": "desc"
+        "col_index": 4,
+        "direction": "asc"
       },
       "targets": [
         {
@@ -2590,8 +2590,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2719,8 +2718,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2849,8 +2847,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2963,8 +2960,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3105,8 +3101,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3256,8 +3251,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3382,8 +3376,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3510,8 +3503,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3600,9 +3592,9 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "rtme-mx-25.englab.juniper.net",
-          "value": "rtme-mx-25.englab.juniper.net"
+          "selected": true,
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "influxdb",
