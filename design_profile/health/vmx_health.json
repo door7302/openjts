@@ -1,0 +1,307 @@
+{
+  "gnmi_inputs": [{
+    "aliases": [{
+      "name": "JUNOS_CMERROR",
+      "prefix_list": ["/junos/chassis/cmerror/counters"]
+    }],
+    "subscriptions": [{
+        "name": "COMPONENTS",
+        "path": "/components/component",
+        "mode": "sample",
+        "interval": 60
+      },
+      {
+        "name": "SYSTEM",
+        "path": "/system/processes/process/state",
+        "mode": "sample",
+        "interval": 60
+      },
+      {
+        "name": "JUNOS_EVENTS",
+        "path": "/junos/events/event",
+        "mode": "on_change",
+        "interval": 0
+      }
+    ]
+  }],
+  "netconf_inputs": [{
+    "subscriptions": [{
+      "name": "JUNOS_ALARMS",
+      "rpc": "<get-alarm-information></get-alarm-information>",
+      "fields": [{
+          "field_path": "/alarm-information/alarm-detail[alarm-short-description]/alarm-time",
+          "field_type": "epoch_ms"
+        },
+        {
+          "field_path": "/alarm-information/alarm-detail[alarm-short-description]/alarm-class",
+          "field_type": "string"
+        },
+        {
+          "field_path": "/alarm-information/alarm-detail[alarm-short-description]/alarm-description",
+          "field_type": "string"
+        },
+        {
+          "field_path": "/alarm-information/alarm-detail[alarm-short-description]/alarm-type",
+          "field_type": "string"
+        }
+      ],
+      "interval": 30
+    }]
+  }],
+  "clone_list": [{
+    "order": 100,
+    "namepass": ["COMPONENTS"],
+    "override": "HW_NPU"
+  }],
+  "pivot_list": [{
+    "order": 200,
+    "namepass": ["COMPONENTS"],
+    "tag": "/components/component/properties/property/name",
+    "field": "/components/component/properties/property/state/value"
+  }],
+  "rename_list": [{
+      "order": 300,
+      "namepass": ["HW_NPU"],
+      "entries": [{
+          "type": 1,
+          "from": "/components/component/properties/property/state/value",
+          "to": "value"
+        },
+        {
+          "type": 0,
+          "from": "/components/component/properties/property/@name",
+          "to": "property_name"
+        },
+        {
+          "type": 0,
+          "from": "/components/component/properties/property/name",
+          "to": "property_name"
+        },
+        {
+          "type": 0,
+          "from": "/components/component/@name",
+          "to": "component_name"
+        },
+        {
+          "type": 0,
+          "from": "/components/component/name",
+          "to": "component_name"
+        }
+      ]
+    },
+    {
+      "order": 301,
+      "namepass": ["COMPONENTS", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS"],
+      "entries": [{
+          "type": 0,
+          "from": "/components/component/properties/property/@name",
+          "to": "property_name"
+        },
+        {
+          "type": 0,
+          "from": "/components/component/properties/property/name",
+          "to": "property_name"
+        },
+        {
+          "type": 0,
+          "from": "/components/component/@name",
+          "to": "component_name"
+        },
+        {
+          "type": 0,
+          "from": "/components/component/name",
+          "to": "component_name"
+        },
+        {
+          "type": 0,
+          "from": "/system/processes/process/pid",
+          "to": "process_pid"
+        },
+        {
+          "type": 0,
+          "from": "alarm-short-description",
+          "to": "alarm_id_net"
+        },
+        {
+          "type": 0,
+          "from": "/junos/events/event/id",
+          "to": "event_id"
+        },
+        {
+          "type": 1,
+          "from": "/system/processes/process/state/memory-usage",
+          "to": "process_memory_usage"
+        },
+        {
+          "type": 1,
+          "from": "/system/processes/process/state/cpu-utilization",
+          "to": "process_cpu_utilization"
+        },
+        {
+          "type": 1,
+          "from": "/system/processes/process/state/name",
+          "to": "process_name"
+        },
+        {
+          "type": 1,
+          "from": "/components/component/cpu/utilization/state/avg",
+          "to": "core_cpu_avg"
+        },
+        {
+          "type": 1,
+          "from": "/components/component/cpu/utilization/state/instant",
+          "to": "core_cpu_instant"
+        },
+        {
+          "type": 1,
+          "from": "cpu-utilization-idle",
+          "to": "idle_cpu"
+        },
+        {
+          "type": 1,
+          "from": "cpu-utilization-total",
+          "to": "linecard_cpu"
+        },
+        {
+          "type": 1,
+          "from": "memory-utilization-heap",
+          "to": "linecard_memory"
+        },
+        {
+          "type": 1,
+          "from": "memory-utilization-buffer",
+          "to": "buffer_usage"
+        },
+        {
+          "type": 1,
+          "from": "/junos/events/event/timestamp/microseconds",
+          "to": "microseconds"
+        },
+        {
+          "type": 1,
+          "from": "/junos/events/event/timestamp/seconds",
+          "to": "seconds"
+        },
+        {
+          "type": 1,
+          "from": "/junos/events/event/daemon",
+          "to": "daemon"
+        },
+        {
+          "type": 1,
+          "from": "/junos/events/event/hostname",
+          "to": "hostname"
+        },
+        {
+          "type": 1,
+          "from": "/junos/events/event/message",
+          "to": "message"
+        },
+        {
+          "type": 1,
+          "from": "alarm-time",
+          "to": "alarm_time_net"
+        },
+        {
+          "type": 1,
+          "from": "alarm-class",
+          "to": "alarm_severity_net"
+        },
+        {
+          "type": 1,
+          "from": "alarm-description",
+          "to": "alarm_text_net"
+        },
+        {
+          "type": 1,
+          "from": "alarm-type",
+          "to": "alarm_resource_net"
+        }
+      ]
+    }
+  ],
+  "converter_list": [{
+    "order": 400,
+    "namepass": ["COMPONENTS", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS", "HW_NPU"],
+    "integer_type": [
+      "idle_cpu",
+      "linecard_cpu",
+      "linecard_memory",
+      "buffer_usage",
+      "value"
+    ],
+    "tag_type": [
+      "_component_id",
+      "_subcomponent_id",
+      "process_name"
+    ]
+  }],
+  "enrichment_list": [{
+    "order": 400,
+    "namepass": ["COMPONENTS", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS", "HW_NPU"],
+    "family": "vmx",
+    "two_levels": false,
+    "level1_tag": "device"
+  }],
+  "monitoring_list": [{
+    "order": 600,
+    "namepass": ["COMPONENTS"],
+    "probes": [{
+        "name": "CPU_HIGH_RE",
+        "field": "idle_cpu",
+        "type": "current",
+        "threshold": 10,
+        "operator": "lt",
+        "tags": ["device", "component_name"]
+      },
+      {
+        "name": "CPU_HIGH_MPC",
+        "field": "linecard_cpu",
+        "type": "current",
+        "threshold": 80,
+        "operator": "gt",
+        "tags": ["device", "component_name"]
+      },
+      {
+        "name": "MEM_HIGH_RE",
+        "field": "buffer_usage",
+        "type": "current",
+        "threshold": 80,
+        "operator": "gt",
+        "tags": ["device", "component_name"]
+      },
+      {
+        "name": "MEM_HIGH_MPC",
+        "field": "linecard_memory",
+        "type": "current",
+        "threshold": 80,
+        "operator": "gt",
+        "tags": ["device", "component_name"]
+      }
+    ]
+  }],
+  "influx_outputs": [{
+    "retention": "autogen",
+    "fieldpass": [
+      "exception",
+      "value",
+      "process_memory_usage",
+      "process_cpu_utilization",
+      "core_cpu_avg",
+      "core_cpu_instant",
+      "idle_cpu",
+      "linecard_cpu",
+      "linecard_memory",
+      "buffer_usage",
+      "microseconds",
+      "seconds",
+      "daemon",
+      "hostname",
+      "message",
+      "alarm_time_net",
+      "alarm_severity_net",
+      "alarm_text_net",
+      "alarm_resource_net"
+    ]
+  }]
+}

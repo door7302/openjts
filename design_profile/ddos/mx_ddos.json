@@ -1,0 +1,96 @@
+{
+  "gnmi_inputs": [{
+    "aliases": [{
+      "name": "DDOS_STATS",
+      "prefix_list": ["/ddos-stats/group"]
+    }],
+    "subscriptions": [{
+      "name": "DDOS_STATS",
+      "path": "/junos/system/linecard/ddos",
+      "mode": "sample",
+      "interval": 60
+    }]
+  }],
+  "rename_list": [{
+    "order": 100,
+    "namepass": ["DDOS_STATS"],
+    "entries": [{
+        "type": 0,
+        "from": "/components/component/@name",
+        "to": "component_name"
+      },
+      {
+        "type": 0,
+        "from": "/components/component/name",
+        "to": "component_name"
+      },
+      {
+        "type": 0,
+        "from": "/ddos-stats/group/group-name",
+        "to": "protocol"
+      },
+      {
+        "type": 0,
+        "from": "/ddos-stats/group/protocol-stats/protocol/protocol-name",
+        "to": "sub_protocol"
+      },
+      {
+        "type": 0,
+        "from": "/ddos-stats/group/protocol-stats/protocol/locale-stats/locale/location",
+        "to": "location"
+      }
+    ]
+  }],
+  "xreducer_list": [{
+    "order": 200,
+    "namepass": ["DDOS_STATS"],
+    "tags": [
+      "all"
+    ],
+    "fields": [
+      "all"
+    ]
+  }],
+  "strings_list": [{
+    "order": 300,
+    "namepass": ["DDOS_STATS"],
+    "entries": [{
+        "type": 0,
+        "method": 0,
+        "data": "location"
+      },
+      {
+        "type": 0,
+        "method": 0,
+        "data": "protocol"
+      },
+      {
+        "type": 0,
+        "method": 0,
+        "data": "sub_protocol"
+      }
+    ]
+  }],
+
+  "enrichment_list": [{
+    "order": 400,
+    "namepass": ["DDOS_STATS"],
+    "family": "mx",
+    "two_levels": false,
+    "level1_tag": "device"
+  }],
+  "rate_list": [{
+    "order": 402,
+    "namepass": ["DDOS_STATS"],
+    "fields": ["dropped-aggregate-policer"]
+  }],
+  "influx_outputs": [{
+    "retention": "autogen",
+    "fieldpass": [
+      "arrival-rate",
+      "dropped-aggregate-policer_rate",
+      "policer-violation-count",
+      "policer-state"
+    ]
+  }]
+}

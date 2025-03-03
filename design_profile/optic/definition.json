@@ -1,29 +1,45 @@
 {
-    "cheatsheet": "optic.png",
-    "description": "This profile provides template for collecting optical data. V1.3",
-    "telegraf": {
-      "mx": [ {
-        "version": "all",
-        "conf": "mx_optic.conf"
-        }
-      ],
-      "ptx":[ {
+  "version": 1,
+  "min-interval": 30,
+  "cheatsheet": "optic.png",
+  "description": "This profile provides template for collecting optical data. V1.3",
+  "telegraf": {
+    "mx": [{
         "version": ">=24.2",
-        "conf": "ptx_optic_24.2.conf"
-        },
-        {
+        "conf": "mx_24_optic.json"
+      },
+      {
         "version": "all",
-        "conf": "ptx_optic.conf"
-        }
-      ],
-      "acx": [ {
+        "conf": "mx_optic.json"
+      }
+    ],
+    "ptx": [{
+        "version": "==23",
+        "conf": "ptx_23_optic.json"
+      }, {
+        "version": ">=24.2",
+        "conf": "ptx_24_optic.json"
+      },
+      {
         "version": "all",
-        "conf": "acx_optic.conf"
-        }
-      ]
-    },
-    "kapacitor": null,
-    "grafana": [
-      "optic.json"
+        "conf": "ptx_optic.json"
+      }
+    ],
+    "acx": [{
+        "version": "==23",
+        "conf": "acx_23_optic.json"
+      }, {
+        "version": ">=24.2",
+        "conf": "acx_24_optic.json"
+      },
+      {
+        "version": "all",
+        "conf": "acx_optic.json"
+      }
     ]
+  },
+  "kapacitor": null,
+  "grafana": [
+    "dashboard-optic.json"
+  ]
 }

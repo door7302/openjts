@@ -27,6 +27,13 @@ git stash
 git pull 
 ```
 
+Remove old images: 
+
+```shell
+docker image rm jtso -f
+docker image rm jts_telegraf -f  
+```
+
 Finally, rebuild the containers 
 
 ```shell 
@@ -36,5 +43,5 @@ docker compose build --no-cache
 And finally restart the stack 
 
 ```shell
-docker compose up -d 
+docker compose up -d
 ```

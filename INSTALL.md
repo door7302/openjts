@@ -65,3 +65,11 @@ cd JTS
 
 sudo git clone https://github.com/door7302/openjts .
 ```
+
+Then, go in the **compose** folder and build all the containers:
+
+```shell 
+cd compose 
+docker compose build --no-cache
+``` 
+
