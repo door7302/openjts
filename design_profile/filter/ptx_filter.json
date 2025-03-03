@@ -26,11 +26,6 @@
       },
       {
         "type": 0,
-        "from": "/junos/firewall/state/counter/name",
-        "to": "fw_name"
-      },
-      {
-        "type": 0,
         "from": "/junos/firewall/name",
         "to": "fw_name"
       },
