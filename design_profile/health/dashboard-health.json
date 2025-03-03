@@ -3109,7 +3109,7 @@
               }
             ]
           },
-          "unit": "bytes",
+          "unit": "decbytes",
           "unitScale": true
         },
         "overrides": []
