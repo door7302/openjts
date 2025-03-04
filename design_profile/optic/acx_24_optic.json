@@ -334,6 +334,11 @@
                 "type": 1,
                 "from": "/components/component/optical-channel/state/carrier-frequency-offset/instant",
                 "to": "carrier_off_instant"
+            },
+            {
+                "type": 1,
+                "from": "/components/component/optical-channel/state/frequency",
+                "to": "frequency"
             }
         ]
     }],
@@ -398,6 +403,7 @@
             "rx_high_warn",
             "tx_high_alarm",
             "rx_high_alarm",
+            "frequency",
             "module_temp_high_alarm",
             "module_temp_low_alarm",
             "module_temp_high_warning",
