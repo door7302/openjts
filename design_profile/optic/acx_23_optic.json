@@ -333,6 +333,21 @@
                 "type": 1,
                 "from": "/components/component/optical-channel/state/frequency",
                 "to": "frequency"
+            },
+            {
+                "type": 1,
+                "from": "/components/component/optical-channel/state/input-power/instant",
+                "to": "rx_dbm_oc"
+            },
+            {
+                "type": 1,
+                "from": "/components/component/optical-channel/state/output-power/instant",
+                "to": "tx_dbm_oc"
+            },
+            {
+                "type": 1,
+                "from": "/components/component/optical-channel/state/laser-bias-current/instant",
+                "to": "current_bias_oc"
             }
         ]
     }],
@@ -386,9 +401,12 @@
         "fieldpass": [
             "exception",
             "tx_dbm",
+            "tx_dbm_oc",
             "current_bias",
+            "current_bias_oc",
             "current_temp",
             "rx_dbm",
+            "rx_dbm_oc",
             "tx_low_warn",
             "rx_low_warn",
             "tx_low_alarm",
