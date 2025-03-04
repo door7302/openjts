@@ -6,19 +6,19 @@
   "telegraf": {
     "vmx": [{
       "version": "all",
-      "conf": "common_bgp.json"
+      "conf": "vmx_bgp.json"
     }],
     "mx": [{
       "version": "all",
-      "conf": "common_bgp.json"
+      "conf": "mx_bgp.json"
     }],
     "ptx": [{
       "version": "all",
-      "conf": "common_bgp.json"
+      "conf": "ptx_bgp.json"
     }],
     "acx": [{
       "version": "all",
-      "conf": "common_bgp.json"
+      "conf": "acx_bgp.json"
     }]
   },
   "kapacitor": null,
