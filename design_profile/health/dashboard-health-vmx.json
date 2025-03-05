@@ -89,7 +89,7 @@
           "measurement": "HW_NPU",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"idle_cpu\") FROM \"HARDWARE\" WHERE \"device\"::tag=~ /^$rtr$/ AND $timeFilter group by VERSION, MODEL, device",
+          "query": "SELECT last(\"idle_cpu\") FROM \"HARDWARE\" WHERE \"SHORTNAME\"::tag=~ /^$rtr$/ AND $timeFilter group by VERSION, MODEL, SHORTNAME",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -144,7 +144,7 @@
               "_component_id": 5,
               "component": 8,
               "component_name": 9,
-              "device": 2,
+              "SHORTNAME": 2,
               "host": 10,
               "if_name": 6,
               "last": 12,
@@ -154,7 +154,7 @@
             "renameByName": {
               "MODEL": "Router Model",
               "VERSION": "Device Version",
-              "device": "Device Name"
+              "SHORTNAME": "Device Name"
             }
           }
         }
@@ -224,7 +224,7 @@
           "measurement": "ALARMING",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT count(\"exception\") FROM \"ALARMING\" WHERE (\"device\" =~ /^$rtr$/) and time > now()-15m  group by \"ALARM_TYPE\" fill(0)",
+          "query": "SELECT count(\"exception\") FROM \"ALARMING\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and time > now()-15m  group by \"ALARM_TYPE\" fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -244,7 +244,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -322,7 +322,7 @@
           "measurement": "HARDWARE",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"linecard_cpu\" FROM \"HARDWARE\" WHERE \"device\" =~ /^$rtr$/ AND \"component_name\" =~ /FPC.*/ AND $timeFilter group by component_name",
+          "query": "SELECT \"linecard_cpu\" FROM \"HARDWARE\" WHERE \"SHORTNAME\" =~ /^$rtr$/ AND \"component_name\" =~ /FPC.*/ AND $timeFilter group by component_name",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -338,7 +338,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -422,7 +422,7 @@
           "measurement": "HARDWARE",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT 100 - \"idle_cpu\" FROM \"HARDWARE\" WHERE (\"device\" =~ /^$rtr$/ AND \"component_name\" =~ /Routing Engine0|RE0/) AND $timeFilter",
+          "query": "SELECT 100 - \"idle_cpu\" FROM \"HARDWARE\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"component_name\" =~ /Routing Engine0|RE0/) AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -438,7 +438,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -522,7 +522,7 @@
           "measurement": "HARDWARE",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"buffer_usage\" FROM \"HARDWARE\" WHERE (\"device\" =~ /^$rtr$/ AND \"component_name\" =~ /Routing Engine0|RE0/) AND $timeFilter",
+          "query": "SELECT \"buffer_usage\" FROM \"HARDWARE\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"component_name\" =~ /Routing Engine0|RE0/) AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -538,7 +538,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -622,7 +622,7 @@
           "measurement": "HARDWARE",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"linecard_memory\" FROM \"HARDWARE\" WHERE \"device\" =~ /^$rtr$/ AND \"component_name\" =~ /FPC.*/ AND $timeFilter group by component_name",
+          "query": "SELECT \"linecard_memory\" FROM \"HARDWARE\" WHERE \"SHORTNAME\" =~ /^$rtr$/ AND \"component_name\" =~ /FPC.*/ AND $timeFilter group by component_name",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -638,7 +638,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -786,7 +786,7 @@
           "measurement": "LOGS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT * FROM \"LOGS\" WHERE (\"device\"::tag =~ /^$rtr$/) AND time>now()-15m and path='/junos/events/event'",
+          "query": "SELECT * FROM \"LOGS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/) AND time>now()-15m and path='/junos/events/event'",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -806,7 +806,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -828,7 +828,7 @@
               "_component_id": true,
               "attributes/value": true,
               "component": true,
-              "device": true,
+              "SHORTNAME": true,
               "host": true,
               "microseconds": true,
               "path": true,
@@ -846,7 +846,7 @@
               "_component_id": 7,
               "component": 8,
               "daemon": 9,
-              "device": 10,
+              "SHORTNAME": 10,
               "event_id": 11,
               "host": 12,
               "hostname": 1,
@@ -1041,7 +1041,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -1161,7 +1161,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -1321,7 +1321,7 @@
           "measurement": "HARDWARE",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT 100-\"idle_cpu\" FROM \"HARDWARE\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter group by component_name",
+          "query": "SELECT 100-\"idle_cpu\" FROM \"HARDWARE\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter group by component_name",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1337,7 +1337,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -1449,7 +1449,7 @@
           "measurement": "HARDWARE",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"buffer_usage\" FROM \"HARDWARE\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter and component_name=~/.*outing.*|RE.*/ GROUP BY \"component_name\"",
+          "query": "SELECT \"buffer_usage\" FROM \"HARDWARE\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and component_name=~/.*outing.*|RE.*/ GROUP BY \"component_name\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1465,7 +1465,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -1577,7 +1577,7 @@
           "measurement": "HARDWARE",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"linecard_cpu\" FROM \"HARDWARE\" WHERE (\"device\" =~ /^$rtr$/) AND component_name=~ /^FPC.*/ and $timeFilter GROUP BY component_name",
+          "query": "SELECT \"linecard_cpu\" FROM \"HARDWARE\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND component_name=~ /^FPC.*/ and $timeFilter GROUP BY component_name",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1593,7 +1593,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -1704,7 +1704,7 @@
           "measurement": "HARDWARE",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"linecard_memory\" FROM \"HARDWARE\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter AND component_name=~ /^FPC.*/ GROUP BY \"component_name\"",
+          "query": "SELECT \"linecard_memory\" FROM \"HARDWARE\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter AND component_name=~ /^FPC.*/ GROUP BY \"component_name\"",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1720,7 +1720,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -1825,7 +1825,7 @@
             "uid": "jtsuid"
           },
           "hide": false,
-          "query": "SELECT \"cpu_utilization\" FROM \"PROCESS\" WHERE (\"device\" =~ /^$rtr$/) and $timeFilter GROUP BY \"name\", \"process_pid\"",
+          "query": "SELECT \"cpu_utilization\" FROM \"PROCESS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and $timeFilter GROUP BY \"name\", \"process_pid\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -1948,7 +1948,7 @@
           "measurement": "PROCESS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"cpu_utilization\" FROM \"PROCESS\" WHERE (\"device\" =~ /^$rtr$/) AND \"cpu_utilization\"!=0 and $timeFilter GROUP BY \"name\", \"process_pid\"",
+          "query": "SELECT \"cpu_utilization\" FROM \"PROCESS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND \"cpu_utilization\"!=0 and $timeFilter GROUP BY \"name\", \"process_pid\"",
           "rawQuery": false,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1964,7 +1964,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -2077,7 +2077,7 @@
             "uid": "jtsuid"
           },
           "hide": false,
-          "query": "SELECT \"memory_usage\" FROM \"PROCESS\" WHERE (\"device\" =~ /^$rtr$/) AND \"memory_usage\">30000000 and $timeFilter GROUP BY \"name\", \"process_pid\" fill(0)",
+          "query": "SELECT \"memory_usage\" FROM \"PROCESS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND \"memory_usage\">30000000 and $timeFilter GROUP BY \"name\", \"process_pid\" fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -2111,14 +2111,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values from HARDWARE with key=\"device\"",
+        "definition": "show tag values from HARDWARE with key=\"SHORTNAME\"",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": "show tag values from HARDWARE with key=\"device\"",
+        "query": "show tag values from HARDWARE with key=\"SHORTNAME\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,

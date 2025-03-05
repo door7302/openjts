@@ -188,7 +188,7 @@
           "measurement": "FIREWALL",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(fp) from (SELECT mean(\"fwd_packets_rate\") as fp FROM \"FIREWALL\" WHERE \"device\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"cntr_name\"::tag =~/^${cntr:regex}$/ AND $timeFilter GROUP BY time(2m), \"cntr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag) group by cntr_name, fw_name, time(2m)",
+          "query": "select sum(fp) from (SELECT mean(\"fwd_packets_rate\") as fp FROM \"FIREWALL\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"cntr_name\"::tag =~/^${cntr:regex}$/ AND $timeFilter GROUP BY time(2m), \"cntr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag) group by cntr_name, fw_name, time(2m)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -204,7 +204,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -252,7 +252,7 @@
           "measurement": "FIREWALL",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(dp) from (SELECT mean(\"drop_pkts_rate\") as dp FROM \"FIREWALL\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag ~/^${filter:regex}$/ AND \"plcr_name\"::tag =~/^${plcr:regex}$/) AND $timeFilter GROUP BY time(2m), \"plcr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag) group by plcr_name, fw_name, time(2m)",
+          "query": "select sum(dp) from (SELECT mean(\"drop_pkts_rate\") as dp FROM \"FIREWALL\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag ~/^${filter:regex}$/ AND \"plcr_name\"::tag =~/^${plcr:regex}$/) AND $timeFilter GROUP BY time(2m), \"plcr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag) group by plcr_name, fw_name, time(2m)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -268,7 +268,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -438,7 +438,7 @@
           "measurement": "FIREWALL",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(fb) from (SELECT mean(\"fwd_bytes_rate\")*8 as fb FROM \"FIREWALL\" WHERE \"device\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"cntr_name\"::tag =~/^${cntr:regex}$/ AND $timeFilter GROUP BY time(2m), \"cntr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag) group by cntr_name, fw_name, time(2m)",
+          "query": "select sum(fb) from (SELECT mean(\"fwd_bytes_rate\")*8 as fb FROM \"FIREWALL\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"cntr_name\"::tag =~/^${cntr:regex}$/ AND $timeFilter GROUP BY time(2m), \"cntr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag) group by cntr_name, fw_name, time(2m)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -460,7 +460,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -508,7 +508,7 @@
           "measurement": "FIREWALL",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(db) from (SELECT mean(\"drop_bytes_rate\")*8 as db FROM \"FIREWALL\" WHERE \"device\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"plcr_name\"::tag =~/^${plcr:regex}$/ AND $timeFilter GROUP BY time(2m), \"plcr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag) group by plcr_name, fw_name, time(2m)",
+          "query": "select sum(db) from (SELECT mean(\"drop_bytes_rate\")*8 as db FROM \"FIREWALL\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"plcr_name\"::tag =~/^${plcr:regex}$/ AND $timeFilter GROUP BY time(2m), \"plcr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag) group by plcr_name, fw_name, time(2m)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -530,7 +530,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -710,7 +710,7 @@
               "measurement": "FIREWALL",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"fwd_packets_rate\" FROM \"FIREWALL\" WHERE \"device\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"cntr_name\"::tag =~/^${cntr:regex}$/ AND $timeFilter GROUP BY \"cntr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag",
+              "query": "SELECT \"fwd_packets_rate\" FROM \"FIREWALL\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"cntr_name\"::tag =~/^${cntr:regex}$/ AND $timeFilter GROUP BY \"cntr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -726,7 +726,7 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -774,7 +774,7 @@
               "measurement": "FIREWALL",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"drop_pkts_rate\" FROM \"FIREWALL\" WHERE \"device\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"plcr_name\"::tag =~/^${plcr:regex}$/ AND $timeFilter GROUP BY \"plcr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag",
+              "query": "SELECT \"drop_pkts_rate\" FROM \"FIREWALL\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"plcr_name\"::tag =~/^${plcr:regex}$/ AND $timeFilter GROUP BY \"plcr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -790,7 +790,7 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -960,7 +960,7 @@
               "measurement": "FIREWALL",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"fwd_bytes_rate\" *8 FROM \"FIREWALL\" WHERE \"device\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/  AND \"cntr_name\"::tag =~/^${cntr:regex}$/ AND $timeFilter GROUP BY \"cntr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag",
+              "query": "SELECT \"fwd_bytes_rate\" *8 FROM \"FIREWALL\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/  AND \"cntr_name\"::tag =~/^${cntr:regex}$/ AND $timeFilter GROUP BY \"cntr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -982,7 +982,7 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -1030,7 +1030,7 @@
               "measurement": "FIREWALL",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"drop_bytes_rate\"  *8 FROM \"FIREWALL\" WHERE \"device\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"plcr_name\"::tag =~/^${plcr:regex}$/ AND $timeFilter GROUP BY \"plcr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag",
+              "query": "SELECT \"drop_bytes_rate\"  *8 FROM \"FIREWALL\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"plcr_name\"::tag =~/^${plcr:regex}$/ AND $timeFilter GROUP BY \"plcr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1052,7 +1052,7 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -1095,14 +1095,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values from FIREWALL with key=\"device\"",
+        "definition": "show tag values from FIREWALL with key=\"SHORTNAME\"",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": "show tag values from FIREWALL with key=\"device\"",
+        "query": "show tag values from FIREWALL with key=\"SHORTNAME\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1123,14 +1123,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values with key=\"fw_name\" where device=~/$rtr/",
+        "definition": "show tag values with key=\"fw_name\" where SHORTNAME=~/$rtr/",
         "hide": 0,
         "includeAll": true,
         "label": "Filter",
         "multi": true,
         "name": "filter",
         "options": [],
-        "query": "show tag values with key=\"fw_name\" where device=~/$rtr/",
+        "query": "show tag values with key=\"fw_name\" where SHORTNAME=~/$rtr/",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,

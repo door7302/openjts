@@ -150,7 +150,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"in_octets_rate\")*8  FROM \"INTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME =~ /$ifname/) and if_unit='' AND $timeFilter group by time($sample_interval)",
+          "query": "SELECT mean(\"in_octets_rate\")*8  FROM \"INTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /$ifname/) and if_unit='' AND $timeFilter group by time($sample_interval)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -174,7 +174,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -197,7 +197,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"out_octets_rate\")*8 FROM \"INTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME =~ /$ifname/) and if_unit='' AND $timeFilter group by time($sample_interval)",
+          "query": "SELECT mean(\"out_octets_rate\")*8 FROM \"INTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /$ifname/) and if_unit='' AND $timeFilter group by time($sample_interval)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -221,7 +221,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -310,7 +310,7 @@
           "measurement": "SUBINTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"unit_in_octets_rate\")*8 FROM \"SUBINTERFACES\" WHERE device =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit=~/^(?:[0-9]|[1-9][0-9]|[1-9][0-9]{2}|[1-9][0-9]{3}|1[0-5][0-9]{3}|16[0-2][0-9]{2}|163[0-7][0-9]|16380|1638[0-5])$/ AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "query": "SELECT mean(\"unit_in_octets_rate\")*8 FROM \"SUBINTERFACES\" WHERE SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit=~/^(?:[0-9]|[1-9][0-9]|[1-9][0-9]{2}|[1-9][0-9]{3}|1[0-5][0-9]{3}|16[0-2][0-9]{2}|163[0-7][0-9]|16380|1638[0-5])$/ AND $timeFilter group by time($sample_interval), if_name, if_unit",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -334,7 +334,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -424,7 +424,7 @@
           "measurement": "SUBINTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"unit_out_octets_rate\")*8 FROM \"SUBINTERFACES\" WHERE device =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit=~/^(?:[0-9]|[1-9][0-9]|[1-9][0-9]{2}|[1-9][0-9]{3}|1[0-5][0-9]{3}|16[0-2][0-9]{2}|163[0-7][0-9]|16380|1638[0-5])$/ AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "query": "SELECT mean(\"unit_out_octets_rate\")*8 FROM \"SUBINTERFACES\" WHERE SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit=~/^(?:[0-9]|[1-9][0-9]|[1-9][0-9]{2}|[1-9][0-9]{3}|1[0-5][0-9]{3}|16[0-2][0-9]{2}|163[0-7][0-9]|16380|1638[0-5])$/ AND $timeFilter group by time($sample_interval), if_name, if_unit",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -448,7 +448,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -609,7 +609,7 @@
           "measurement": "SUBINTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"unit_in_octets_rate\")*8  FROM \"SUBINTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "query": "SELECT mean(\"unit_in_octets_rate\")*8  FROM \"SUBINTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -633,7 +633,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -656,7 +656,7 @@
           "measurement": "SUBINTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"unit_out_octets_rate\")*8 FROM \"SUBINTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "query": "SELECT mean(\"unit_out_octets_rate\")*8 FROM \"SUBINTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -680,7 +680,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -797,7 +797,7 @@
           "measurement": "SUBINTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"unit_in_pkts_rate\")*8  FROM \"SUBINTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "query": "SELECT mean(\"unit_in_pkts_rate\")*8  FROM \"SUBINTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -821,7 +821,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -844,7 +844,7 @@
           "measurement": "SUBINTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"unit_out_pkts_rate\")*8 FROM \"SUBINTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "query": "SELECT mean(\"unit_out_pkts_rate\")*8 FROM \"SUBINTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -868,7 +868,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -907,14 +907,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values FROM SUBINTERFACES with key=\"device\"",
+        "definition": "show tag values FROM SUBINTERFACES with key=\"SHORTNAME\"",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": "show tag values FROM SUBINTERFACES with key=\"device\"",
+        "query": "show tag values FROM SUBINTERFACES with key=\"SHORTNAME\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -931,14 +931,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values FROM SUBINTERFACES with key=\"LINKNAME\" where device=~/$rtr/",
+        "definition": "show tag values FROM SUBINTERFACES with key=\"LINKNAME\" where SHORTNAME=~/$rtr/",
         "hide": 0,
         "includeAll": false,
         "label": "Interface",
         "multi": false,
         "name": "ifname",
         "options": [],
-        "query": "show tag values FROM SUBINTERFACES with key=\"LINKNAME\" where device=~/$rtr/",
+        "query": "show tag values FROM SUBINTERFACES with key=\"LINKNAME\" where SHORTNAME=~/$rtr/",
         "refresh": 1,
         "regex": "et-.*|xe-.*|ge-.*|ae|lt-*|ps-*|fti-*|gr-*",
         "skipUrlSync": false,
@@ -959,14 +959,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values FROM SUBINTERFACES with key=\"if_unit\" where device=~/$rtr/ and LINKNAME=~/$ifname/",
+        "definition": "show tag values FROM SUBINTERFACES with key=\"if_unit\" where SHORTNAME=~/$rtr/ and LINKNAME=~/$ifname/",
         "hide": 0,
         "includeAll": true,
         "label": "Subinterface",
         "multi": true,
         "name": "if_unit",
         "options": [],
-        "query": "show tag values FROM SUBINTERFACES with key=\"if_unit\" where device=~/$rtr/ and LINKNAME=~/$ifname/",
+        "query": "show tag values FROM SUBINTERFACES with key=\"if_unit\" where SHORTNAME=~/$rtr/ and LINKNAME=~/$ifname/",
         "refresh": 1,
         "regex": "^(?:[0-9]|[1-9][0-9]|[1-9][0-9]{2}|[1-9][0-9]{3}|1[0-5][0-9]{3}|16[0-2][0-9]{2}|163[0-7][0-9]|16380|1638[0-5])$",
         "skipUrlSync": false,

@@ -31,9 +31,9 @@
       },
       "id": 4,
       "panels": [],
-      "repeat": "device",
+      "repeat": "SHORTNAME",
       "repeatDirection": "h",
-      "title": "CHASSIS VIEW - $device",
+      "title": "CHASSIS VIEW - $SHORTNAME",
       "type": "row"
     },
     {
@@ -120,7 +120,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select last(power_system_capacity) from COMPONENTS  where device=~/$device/ and component_name=~/(?i)chassis.*/  AND $timeFilter  group by device, VERSION, MODEL, component_name fill(0)",
+          "query": "select last(power_system_capacity) from COMPONENTS  where SHORTNAME=~/$SHORTNAME/ and component_name=~/(?i)chassis.*/  AND $timeFilter  group by SHORTNAME, VERSION, MODEL, component_name fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -165,7 +165,7 @@
               "Time": 0,
               "VERSION": 3,
               "component_name": 4,
-              "device": 1,
+              "SHORTNAME": 1,
               "last": 5,
               "last_1": 6,
               "last_2": 7,
@@ -174,7 +174,7 @@
             },
             "renameByName": {
               "component_name": "Component",
-              "device": "Router",
+              "SHORTNAME": "Router",
               "last": "System Allocated",
               "last_1": "System Capacity",
               "last_2": "System Maximum",
@@ -257,12 +257,12 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
-          "alias": "$tag_device",
+          "alias": "$tag_SHORTNAME",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "SELECT last(\"temperature_ambient\") FROM \"COMPONENTS\" WHERE device=~/$device/ and component_name=~/(?i)chassis.*/ GROUP BY device",
+          "query": "SELECT last(\"temperature_ambient\") FROM \"COMPONENTS\" WHERE SHORTNAME=~/$SHORTNAME/ and component_name=~/(?i)chassis.*/ GROUP BY SHORTNAME",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -349,7 +349,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select last(power_system_allocated) as \"System Allocated\" from COMPONENTS where device=~/$device/ and \n component_name=~/(?i)chassis.*/  AND time > now()-5m  group by time(5m), device, component_name fill(0)",
+          "query": "select last(power_system_allocated) as \"System Allocated\" from COMPONENTS where SHORTNAME=~/$SHORTNAME/ and \n component_name=~/(?i)chassis.*/  AND time > now()-5m  group by time(5m), SHORTNAME, component_name fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -376,7 +376,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select last(power_allocated_zone) as \"System Alloc. Zones\" from (select mean(power_zone_0_allocated) + mean(power_zone_1_allocated) as power_allocated_zone from COMPONENTS where device=~/$device/ and \n component_name=~/(?i)chassis.*/  AND time > now()-5m  group by time(5m), device, component_name fill(0))",
+          "query": "select last(power_allocated_zone) as \"System Alloc. Zones\" from (select mean(power_zone_0_allocated) + mean(power_zone_1_allocated) as power_allocated_zone from COMPONENTS where SHORTNAME=~/$SHORTNAME/ and \n component_name=~/(?i)chassis.*/  AND time > now()-5m  group by time(5m), SHORTNAME, component_name fill(0))",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "table",
@@ -403,7 +403,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select last(power_system_capacity) as \"System Capacity\",  last(power_system_maximum) as \"System Max.\", last(power_system_remaining) as \"System Remaining\" from COMPONENTS  where device=~/$device/ and \n component_name=~/(?i)chassis.*/  AND time > now()-5m  group by device, component_name fill(0)",
+          "query": "select last(power_system_capacity) as \"System Capacity\",  last(power_system_maximum) as \"System Max.\", last(power_system_remaining) as \"System Remaining\" from COMPONENTS  where SHORTNAME=~/$SHORTNAME/ and \n component_name=~/(?i)chassis.*/  AND time > now()-5m  group by SHORTNAME, component_name fill(0)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "table",
@@ -430,7 +430,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select last(power_usage) as \"System Usage\"  from (select mean(power_zone_0_usage) + mean(power_zone_1_usage) +mean(power_system_usage) as power_usage from COMPONENTS where device=~/$device/ and \n component_name=~/(?i)chassis.*/  AND time > now()-5m group by time(5m), device, component_name fill(0))",
+          "query": "select last(power_usage) as \"System Usage\"  from (select mean(power_zone_0_usage) + mean(power_zone_1_usage) +mean(power_system_usage) as power_usage from COMPONENTS where SHORTNAME=~/$SHORTNAME/ and \n component_name=~/(?i)chassis.*/  AND time > now()-5m group by time(5m), SHORTNAME, component_name fill(0))",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "table",
@@ -528,7 +528,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select last(power_zone_0_allocated), last(power_zone_0_capacity),  last(power_zone_0_maximum), last(power_zone_0_remaining), last(power_zone_0_usage) from COMPONENTS  where device=~/$device/ and \n component_name=~/(?i)chassis.*/  AND $timeFilter group by device, component_name fill(0)",
+          "query": "select last(power_zone_0_allocated), last(power_zone_0_capacity),  last(power_zone_0_maximum), last(power_zone_0_remaining), last(power_zone_0_usage) from COMPONENTS  where SHORTNAME=~/$SHORTNAME/ and \n component_name=~/(?i)chassis.*/  AND $timeFilter group by SHORTNAME, component_name fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -572,7 +572,7 @@
               "Time": 0,
               "VERSION": 3,
               "component_name": 4,
-              "device": 1,
+              "SHORTNAME": 1,
               "last": 5,
               "last_1": 6,
               "last_2": 7,
@@ -581,7 +581,7 @@
             },
             "renameByName": {
               "component_name": "Component",
-              "device": "Router",
+              "SHORTNAME": "Router",
               "last": "System Allocated",
               "last_1": "System Capacity",
               "last_2": "System Maximum",
@@ -685,7 +685,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select last(power_zone_1_allocated), last(power_zone_1_capacity),  last(power_zone_1_maximum), last(power_zone_1_remaining), last(power_zone_1_usage) from COMPONENTS  where device=~/$device/ and \n component_name=~/(?i)chassis.*/  AND $timeFilter group by device, component_name fill(0)",
+          "query": "select last(power_zone_1_allocated), last(power_zone_1_capacity),  last(power_zone_1_maximum), last(power_zone_1_remaining), last(power_zone_1_usage) from COMPONENTS  where SHORTNAME=~/$SHORTNAME/ and \n component_name=~/(?i)chassis.*/  AND $timeFilter group by SHORTNAME, component_name fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -729,7 +729,7 @@
               "Time": 0,
               "VERSION": 3,
               "component_name": 4,
-              "device": 1,
+              "SHORTNAME": 1,
               "last": 5,
               "last_1": 6,
               "last_2": 7,
@@ -738,7 +738,7 @@
             },
             "renameByName": {
               "component_name": "Component",
-              "device": "Router",
+              "SHORTNAME": "Router",
               "last": "System Allocated",
               "last_1": "System Capacity",
               "last_2": "System Maximum",
@@ -866,7 +866,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(all_if) from(SELECT mean(in_octets_rate)*8 as all_if from INTERFACES WHERE \"device\"=~ /^$device$/  and $timeFilter group by if_name) group by time(1m)",
+          "query": "select sum(all_if) from(SELECT mean(in_octets_rate)*8 as all_if from INTERFACES WHERE \"SHORTNAME\"=~ /^$SHORTNAME$/  and $timeFilter group by if_name) group by time(1m)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -882,14 +882,14 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         }
       ],
-      "title": "Global Traffic in Bps - $device",
+      "title": "Global Traffic in Bps - $SHORTNAME",
       "type": "timeseries"
     },
     {
@@ -993,7 +993,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(all_if) from(SELECT mean(in_pkts_rate) as all_if from INTERFACES WHERE \"device\"=~ /^$device$/  and $timeFilter group by if_name) group by time(1m)",
+          "query": "select sum(all_if) from(SELECT mean(in_pkts_rate) as all_if from INTERFACES WHERE \"SHORTNAME\"=~ /^$SHORTNAME$/  and $timeFilter group by if_name) group by time(1m)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1009,14 +1009,14 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         }
       ],
-      "title": "Global Traffic in Pps - $device",
+      "title": "Global Traffic in Pps - $SHORTNAME",
       "type": "timeseries"
     },
     {
@@ -1120,7 +1120,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select (mean(power_zone_0_usage) + mean(power_zone_1_usage) + mean(power_system_usage)) / ((mean(device_traffic_in)*8)/1000000000) from COMPONENTS where device=~/$device/  and $timeFilter-5m  group by time(5m), device fill(0) ",
+          "query": "select (mean(power_zone_0_usage) + mean(power_zone_1_usage) + mean(power_system_usage)) / ((mean(SHORTNAME_traffic_in)*8)/1000000000) from COMPONENTS where SHORTNAME=~/$SHORTNAME/  and $timeFilter-5m  group by time(5m), SHORTNAME fill(0) ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1136,9 +1136,9 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         },
@@ -1153,7 +1153,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(all_if)/1000000000 from(SELECT mean(in_octets_rate)*8 as all_if from INTERFACES WHERE \"device\"=~ /^$device$/  and $timeFilter group by if_name) group by time(1m)",
+          "query": "select sum(all_if)/1000000000 from(SELECT mean(in_octets_rate)*8 as all_if from INTERFACES WHERE \"SHORTNAME\"=~ /^$SHORTNAME$/  and $timeFilter group by if_name) group by time(1m)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1169,9 +1169,9 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         },
@@ -1186,7 +1186,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select (mean(power_zone_0_usage) + mean(power_zone_1_usage) + mean(power_system_usage)) from COMPONENTS where device=~/$device/  and $timeFilter  group by time(1m) fill(0) ",
+          "query": "select (mean(power_zone_0_usage) + mean(power_zone_1_usage) + mean(power_system_usage)) from COMPONENTS where SHORTNAME=~/$SHORTNAME/  and $timeFilter  group by time(1m) fill(0) ",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -1202,14 +1202,14 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         }
       ],
-      "title": "Ratio Watts/Gbps - $device",
+      "title": "Ratio Watts/Gbps - $SHORTNAME",
       "transformations": [
         {
           "id": "calculateField",
@@ -1322,7 +1322,7 @@
       },
       "targets": [
         {
-          "alias": "Power system usage - $tag_device ",
+          "alias": "Power system usage - $tag_SHORTNAME ",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
@@ -1331,7 +1331,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"power_system_usage\" FROM \"COMPONENTS\" WHERE \"device\"=~ /^$device$/  group by device, MODEL fill(null)",
+          "query": "SELECT \"power_system_usage\" FROM \"COMPONENTS\" WHERE \"SHORTNAME\"=~ /^$SHORTNAME$/  group by SHORTNAME, MODEL fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1347,14 +1347,14 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         },
         {
-          "alias": "Power zone 0 usage - $tag_device ",
+          "alias": "Power zone 0 usage - $tag_SHORTNAME ",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
@@ -1364,7 +1364,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"power_zone_0_usage\" FROM \"COMPONENTS\" WHERE \"device\"=~ /^$device$/  group by device, MODEL fill(null)",
+          "query": "SELECT \"power_zone_0_usage\" FROM \"COMPONENTS\" WHERE \"SHORTNAME\"=~ /^$SHORTNAME$/  group by SHORTNAME, MODEL fill(null)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1380,14 +1380,14 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         },
         {
-          "alias": "Power zone 1 usage - $tag_device ",
+          "alias": "Power zone 1 usage - $tag_SHORTNAME ",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
@@ -1397,7 +1397,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"power_zone_1_usage\" FROM \"COMPONENTS\" WHERE \"device\"=~ /^$device$/  group by device, MODEL fill(null)",
+          "query": "SELECT \"power_zone_1_usage\" FROM \"COMPONENTS\" WHERE \"SHORTNAME\"=~ /^$SHORTNAME$/  group by SHORTNAME, MODEL fill(null)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -1413,14 +1413,14 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         }
       ],
-      "title": "System Usage - $device",
+      "title": "System Usage - $SHORTNAME",
       "type": "timeseries"
     },
     {
@@ -1520,7 +1520,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^^FPC+\\d$/ and used_power!= 0 and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^^FPC+\\d$/ and used_power!= 0 and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1540,9 +1540,9 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         },
@@ -1557,7 +1557,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)PSM|PDM|PEM.*/ and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^(?i)PSM|PDM|PEM.*/ and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1577,9 +1577,9 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         },
@@ -1594,7 +1594,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)Fan.*/ and used_power!= 0 and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^(?i)Fan.*/ and used_power!= 0 and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -1614,9 +1614,9 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         },
@@ -1631,7 +1631,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)CB.*|SIB|SFB|FEB|.*RE.*|SCB|SF|Routin.*/ and used_power!= 0 and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^(?i)CB.*|SIB|SFB|FEB|.*RE.*|SCB|SF|Routin.*/ and used_power!= 0 and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -1651,9 +1651,9 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         },
@@ -1668,7 +1668,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT output_power FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)PSM|PDM|PEM.*/ and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT output_power FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^(?i)PSM|PDM|PEM.*/ and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "E",
           "resultFormat": "time_series",
@@ -1688,32 +1688,32 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         }
       ],
-      "title": "All components power comsuption - $device",
+      "title": "All components power comsuption - $SHORTNAME",
       "transformations": [
         {
           "id": "organize",
           "options": {
             "excludeByName": {
-              "COMPONENTS.power_usage {component_name: FPC0, device: -ptx10k16-01.englab.juniper.net}": false,
+              "COMPONENTS.power_usage {component_name: FPC0, SHORTNAME: -ptx10k16-01.englab.juniper.net}": false,
               "Time": false
             },
             "indexByName": {
               "Time": 0,
               "component_name": 2,
-              "device": 1,
+              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
               "component_name": "FPC Slot",
-              "device": "Router",
+              "SHORTNAME": "Router",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -1791,7 +1791,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^^FPC+\\d$/ and used_power!= 0 and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^^FPC+\\d$/ and used_power!= 0 and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1811,9 +1811,9 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         },
@@ -1828,7 +1828,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT output_power FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)PSM|PDM|PEM.*/ and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT output_power FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^(?i)PSM|PDM|PEM.*/ and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1848,9 +1848,9 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         },
@@ -1865,7 +1865,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)Fan.*/ and used_power!= 0 and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^(?i)Fan.*/ and used_power!= 0 and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -1885,9 +1885,9 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         },
@@ -1902,7 +1902,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)CB|SIB|SFB|FEB|RE|SCB|SF|Routin.*/ and used_power!= 0 and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^(?i)CB|SIB|SFB|FEB|RE|SCB|SF|Routin.*/ and used_power!= 0 and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -1922,9 +1922,9 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         },
@@ -1939,7 +1939,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)PSM|PDM|PEM.*/ and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^(?i)PSM|PDM|PEM.*/ and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "E",
           "resultFormat": "time_series",
@@ -1959,14 +1959,14 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         }
       ],
-      "title": "All components power sharing - $device",
+      "title": "All components power sharing - $SHORTNAME",
       "transformations": [
         {
           "id": "organize",
@@ -1975,13 +1975,13 @@
             "indexByName": {
               "Time": 0,
               "component_name": 2,
-              "device": 1,
+              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
               "component_name": "FPC Slot",
-              "device": "Router",
+              "SHORTNAME": "Router",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -2089,7 +2089,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT temperature FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) and $timeFilter and temperature!=0 group by component_name, device fill(0)",
+          "query": "SELECT temperature FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) and $timeFilter and temperature!=0 group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2109,14 +2109,14 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         }
       ],
-      "title": "All components temperature - $device",
+      "title": "All components temperature - $SHORTNAME",
       "transformations": [
         {
           "id": "organize",
@@ -2125,13 +2125,13 @@
             "indexByName": {
               "Time": 0,
               "component_name": 2,
-              "device": 1,
+              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
               "component_name": "FPC Slot",
-              "device": "Router",
+              "SHORTNAME": "Router",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -2150,9 +2150,9 @@
       },
       "id": 5,
       "panels": [],
-      "repeat": "device",
+      "repeat": "SHORTNAME",
       "repeatDirection": "h",
-      "title": "HW COMPONENT - $device",
+      "title": "HW COMPONENT - $SHORTNAME",
       "type": "row"
     },
     {
@@ -2217,7 +2217,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "device"
+              "options": "SHORTNAME"
             },
             "properties": [
               {
@@ -2259,7 +2259,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(used_power), last(power_maximum) FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^^FPC+\\d$/ and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT last(used_power), last(power_maximum) FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^^FPC+\\d$/ and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -2279,33 +2279,33 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         }
       ],
-      "title": "FPC - $device",
+      "title": "FPC - $SHORTNAME",
       "transformations": [
         {
           "id": "organize",
           "options": {
             "excludeByName": {
               "Time": true,
-              "device": true
+              "SHORTNAME": true
             },
             "includeByName": {},
             "indexByName": {
               "Time": 0,
               "component_name": 2,
-              "device": 1,
+              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
               "component_name": "FPC Slot",
-              "device": "Router",
+              "SHORTNAME": "Router",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -2411,7 +2411,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^^FPC+\\d$/ and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^^FPC+\\d$/ and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2431,14 +2431,14 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         }
       ],
-      "title": "FPC - $device",
+      "title": "FPC - $SHORTNAME",
       "transformations": [
         {
           "id": "organize",
@@ -2447,13 +2447,13 @@
             "indexByName": {
               "Time": 0,
               "component_name": 2,
-              "device": 1,
+              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
               "component_name": "FPC Slot",
-              "device": "Router",
+              "SHORTNAME": "Router",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -2524,7 +2524,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "device"
+              "options": "SHORTNAME"
             },
             "properties": [
               {
@@ -2566,7 +2566,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(used_power) FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)Fan.*/ and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT last(used_power) FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^(?i)Fan.*/ and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -2586,33 +2586,33 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         }
       ],
-      "title": "FAN Tray - $device",
+      "title": "FAN Tray - $SHORTNAME",
       "transformations": [
         {
           "id": "organize",
           "options": {
             "excludeByName": {
               "Time": true,
-              "device": true
+              "SHORTNAME": true
             },
             "includeByName": {},
             "indexByName": {
               "Time": 0,
               "component_name": 2,
-              "device": 1,
+              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
               "component_name": "Fan Name",
-              "device": "Router",
+              "SHORTNAME": "Router",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -2718,7 +2718,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)Fan.*/ and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^(?i)Fan.*/ and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2738,14 +2738,14 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         }
       ],
-      "title": "FAN Tray - $device",
+      "title": "FAN Tray - $SHORTNAME",
       "transformations": [
         {
           "id": "organize",
@@ -2754,13 +2754,13 @@
             "indexByName": {
               "Time": 0,
               "component_name": 2,
-              "device": 1,
+              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
               "component_name": "FPC Slot",
-              "device": "Router",
+              "SHORTNAME": "Router",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -2858,7 +2858,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"fan_speed\") FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND $timeFilter GROUP BY component_name fill(0)",
+          "query": "SELECT last(\"fan_speed\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND $timeFilter GROUP BY component_name fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2878,14 +2878,14 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         }
       ],
-      "title": "FAN Speed - $device",
+      "title": "FAN Speed - $SHORTNAME",
       "type": "bargauge"
     },
     {
@@ -2992,7 +2992,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT (\"fan_speed\") FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND $timeFilter GROUP BY component_name fill(0)",
+          "query": "SELECT (\"fan_speed\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND $timeFilter GROUP BY component_name fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -3012,14 +3012,14 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         }
       ],
-      "title": "FAN Speed - $device",
+      "title": "FAN Speed - $SHORTNAME",
       "type": "timeseries"
     },
     {
@@ -3084,7 +3084,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "device"
+              "options": "SHORTNAME"
             },
             "properties": [
               {
@@ -3126,7 +3126,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(used_power) FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)CB|SIB|FEB|SFB|RE|SCB|SF|Routin.*/ and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT last(used_power) FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^(?i)CB|SIB|FEB|SFB|RE|SCB|SF|Routin.*/ and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -3146,33 +3146,33 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         }
       ],
-      "title": "CB & Fabric - $device",
+      "title": "CB & Fabric - $SHORTNAME",
       "transformations": [
         {
           "id": "organize",
           "options": {
             "excludeByName": {
               "Time": true,
-              "device": true
+              "SHORTNAME": true
             },
             "includeByName": {},
             "indexByName": {
               "Time": 0,
               "component_name": 2,
-              "device": 1,
+              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
               "component_name": "Component Name",
-              "device": "Router",
+              "SHORTNAME": "Router",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -3278,7 +3278,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)CB|SIB|SFB|RE|SCB|SF|Routin.*/ and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^(?i)CB|SIB|SFB|RE|SCB|SF|Routin.*/ and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -3298,14 +3298,14 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         }
       ],
-      "title": "CB & Fabric - $device",
+      "title": "CB & Fabric - $SHORTNAME",
       "transformations": [
         {
           "id": "organize",
@@ -3314,13 +3314,13 @@
             "indexByName": {
               "Time": 0,
               "component_name": 2,
-              "device": 1,
+              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
               "component_name": "FPC Slot",
-              "device": "Router",
+              "SHORTNAME": "Router",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -3390,7 +3390,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "device"
+              "options": "SHORTNAME"
             },
             "properties": [
               {
@@ -3435,7 +3435,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(used_power) FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)PSM|PDM|PEM.*/ and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT last(used_power) FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^(?i)PSM|PDM|PEM.*/ and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -3455,9 +3455,9 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         },
@@ -3472,7 +3472,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(output_power) FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)PSM|PDM|PEM.*/ and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT last(output_power) FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^(?i)PSM|PDM|PEM.*/ and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "table",
@@ -3492,33 +3492,33 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         }
       ],
-      "title": "PEM - $device",
+      "title": "PEM - $SHORTNAME",
       "transformations": [
         {
           "id": "organize",
           "options": {
             "excludeByName": {
               "Time": true,
-              "device": true
+              "SHORTNAME": true
             },
             "includeByName": {},
             "indexByName": {
               "Time": 0,
               "component_name": 2,
-              "device": 1,
+              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
               "component_name": "PEM",
-              "device": "Router",
+              "SHORTNAME": "Router",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -3623,7 +3623,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)PSM|PDM|PEM.*/ and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT used_power FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^(?i)PSM|PDM|PEM.*/ and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -3643,9 +3643,9 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         },
@@ -3660,7 +3660,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT output_power FROM \"COMPONENTS\" WHERE (\"device\"=~ /^$device$/) AND component_name =~/^(?i)PSM|PDM|PEM.*/ and $timeFilter group by component_name, device fill(0)",
+          "query": "SELECT output_power FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"=~ /^$SHORTNAME$/) AND component_name =~/^(?i)PSM|PDM|PEM.*/ and $timeFilter group by component_name, SHORTNAME fill(0)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -3680,14 +3680,14 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
-              "value": "/^$device$/"
+              "value": "/^$SHORTNAME$/"
             }
           ]
         }
       ],
-      "title": "PEM - $device",
+      "title": "PEM - $SHORTNAME",
       "transformations": [
         {
           "id": "organize",
@@ -3696,13 +3696,13 @@
             "indexByName": {
               "Time": 0,
               "component_name": 2,
-              "device": 1,
+              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
               "component_name": "FPC Slot",
-              "device": "Router",
+              "SHORTNAME": "Router",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -3727,14 +3727,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values from COMPONENTS with key=\"device\"",
+        "definition": "show tag values from COMPONENTS with key=\"SHORTNAME\"",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
-        "name": "device",
+        "name": "SHORTNAME",
         "options": [],
-        "query": "show tag values from COMPONENTS with key=\"device\"",
+        "query": "show tag values from COMPONENTS with key=\"SHORTNAME\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,

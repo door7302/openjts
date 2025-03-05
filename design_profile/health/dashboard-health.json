@@ -89,7 +89,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"idle_cpu\") FROM \"COMPONENTS\" WHERE \"device\"::tag=~ /^$rtr$/ AND $timeFilter group by VERSION, MODEL, device",
+          "query": "SELECT last(\"idle_cpu\") FROM \"COMPONENTS\" WHERE \"SHORTNAME\"::tag=~ /^$rtr$/ AND $timeFilter group by VERSION, MODEL, SHORTNAME",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -144,7 +144,7 @@
               "_component_id": 5,
               "component": 8,
               "component_name": 9,
-              "device": 2,
+              "SHORTNAME": 2,
               "host": 10,
               "if_name": 6,
               "last": 12,
@@ -154,7 +154,7 @@
             "renameByName": {
               "MODEL": "Router Model",
               "VERSION": "Device Version",
-              "device": "Device Name"
+              "SHORTNAME": "Device Name"
             }
           }
         }
@@ -224,7 +224,7 @@
           "measurement": "ALARMING",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT count(\"exception\") FROM \"ALARMING\" WHERE (\"device\" =~ /^$rtr$/) and time > now()-15m  group by \"ALARM_TYPE\" fill(0)",
+          "query": "SELECT count(\"exception\") FROM \"ALARMING\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and time > now()-15m  group by \"ALARM_TYPE\" fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -244,7 +244,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -322,7 +322,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"linecard_cpu\" FROM \"COMPONENTS\" WHERE \"device\" =~ /^$rtr$/ AND \"component_name\" =~ /FPC.*/ AND $timeFilter group by component_name",
+          "query": "SELECT \"linecard_cpu\" FROM \"COMPONENTS\" WHERE \"SHORTNAME\" =~ /^$rtr$/ AND \"component_name\" =~ /FPC.*/ AND $timeFilter group by component_name",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -338,7 +338,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -424,7 +424,7 @@
           "measurement": "JUNOS_ALARMS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select count(last) from (SELECT last(\"alarm_text\") FROM \"JUNOS_ALARMS\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter GROUP BY \"/system/alarms/alarm/id\")",
+          "query": "select count(last) from (SELECT last(\"alarm_text\") FROM \"JUNOS_ALARMS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter GROUP BY \"/system/alarms/alarm/id\")",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -444,7 +444,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -467,7 +467,7 @@
           "measurement": "JUNOS_ALARMS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select count(last) from (SELECT last(\"alarm_text_net\") FROM \"JUNOS_ALARMS\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter group by alarm_id_net)",
+          "query": "select count(last) from (SELECT last(\"alarm_text_net\") FROM \"JUNOS_ALARMS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter group by alarm_id_net)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -487,7 +487,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -565,7 +565,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT 100 - \"idle_cpu\" FROM \"COMPONENTS\" WHERE (\"device\" =~ /^$rtr$/ AND \"component_name\" =~ /Routing Engine0|RE0/) AND $timeFilter",
+          "query": "SELECT 100 - \"idle_cpu\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"component_name\" =~ /Routing Engine0|RE0/) AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -581,7 +581,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -665,7 +665,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"buffer_usage\" FROM \"COMPONENTS\" WHERE (\"device\" =~ /^$rtr$/ AND \"component_name\" =~ /Routing Engine0|RE0/) AND $timeFilter",
+          "query": "SELECT \"buffer_usage\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"component_name\" =~ /Routing Engine0|RE0/) AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -681,7 +681,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -765,7 +765,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"linecard_memory\" FROM \"COMPONENTS\" WHERE \"device\" =~ /^$rtr$/ AND \"component_name\" =~ /FPC.*/ AND $timeFilter group by component_name",
+          "query": "SELECT \"linecard_memory\" FROM \"COMPONENTS\" WHERE \"SHORTNAME\" =~ /^$rtr$/ AND \"component_name\" =~ /FPC.*/ AND $timeFilter group by component_name",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -781,7 +781,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -866,7 +866,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT 100 - \"idle_cpu\" FROM \"COMPONENTS\" WHERE (\"device\" =~ /^$rtr$/ AND \"component_name\" =~ /Routing Engine1|RE1/) AND $timeFilter",
+          "query": "SELECT 100 - \"idle_cpu\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"component_name\" =~ /Routing Engine1|RE1/) AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -882,7 +882,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -967,7 +967,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"buffer_usage\" FROM \"COMPONENTS\" WHERE (\"device\" =~ /^$rtr$/ AND \"component_name\" =~ /Routing Engine1|RE1/) AND $timeFilter",
+          "query": "SELECT \"buffer_usage\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"component_name\" =~ /Routing Engine1|RE1/) AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -983,7 +983,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -1131,7 +1131,7 @@
           "measurement": "JUNOS_EVENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT * FROM \"JUNOS_EVENTS\" WHERE (\"device\"::tag =~ /^$rtr$/) AND time>now()-15m and path='/junos/events/event'",
+          "query": "SELECT * FROM \"JUNOS_EVENTS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/) AND time>now()-15m and path='/junos/events/event'",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -1151,7 +1151,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -1173,7 +1173,7 @@
               "_component_id": true,
               "attributes/value": true,
               "component": true,
-              "device": true,
+              "SHORTNAME": true,
               "host": true,
               "microseconds": true,
               "path": true,
@@ -1191,7 +1191,7 @@
               "_component_id": 7,
               "component": 8,
               "daemon": 9,
-              "device": 10,
+              "SHORTNAME": 10,
               "event_id": 11,
               "host": 12,
               "hostname": 1,
@@ -1319,7 +1319,7 @@
           "measurement": "JUNOS_ALARMS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"alarm_severity\"), last(\"alarm_resource\"), last(\"alarm_time\")/1000000, last(\"alarm_text\") FROM \"JUNOS_ALARMS\" WHERE (\"device\" =~ /^$rtr$/) and  $timeFilter GROUP BY \"/system/alarms/alarm/id\"",
+          "query": "SELECT last(\"alarm_severity\"), last(\"alarm_resource\"), last(\"alarm_time\")/1000000, last(\"alarm_text\") FROM \"JUNOS_ALARMS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and  $timeFilter GROUP BY \"/system/alarms/alarm/id\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -1359,7 +1359,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -1376,7 +1376,7 @@
           "measurement": "JUNOS_ALARMS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"alarm_severity_net\"), last(\"alarm_resource_net\"), last(\"alarm_time_net\"), last(\"alarm_text_net\") FROM \"JUNOS_ALARMS\" WHERE (\"device\" =~ /^$rtr$/) and  $timeFilter GROUP BY \"alarm_id_net\"",
+          "query": "SELECT last(\"alarm_severity_net\"), last(\"alarm_resource_net\"), last(\"alarm_time_net\"), last(\"alarm_text_net\") FROM \"JUNOS_ALARMS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and  $timeFilter GROUP BY \"alarm_id_net\"",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "table",
@@ -1416,7 +1416,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -1741,7 +1741,7 @@
           "measurement": "JUNOS_CMERROR",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last( \"cmerror_count\") FROM \"JUNOS_CMERROR\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter and cmerror_name!='' GROUP BY cmerror_name",
+          "query": "SELECT last( \"cmerror_count\") FROM \"JUNOS_CMERROR\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and cmerror_name!='' GROUP BY cmerror_name",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1765,7 +1765,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -1789,7 +1789,7 @@
           "measurement": "JUNOS_CMERROR",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last( \"cmerror_update\") FROM \"JUNOS_CMERROR\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter and cmerror_name!='' GROUP BY cmerror_name",
+          "query": "SELECT last( \"cmerror_update\") FROM \"JUNOS_CMERROR\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and cmerror_name!='' GROUP BY cmerror_name",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1813,7 +1813,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -1837,7 +1837,7 @@
           "measurement": "JUNOS_CMERROR",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last( \"cmerror_clear\") FROM \"JUNOS_CMERROR\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter and cmerror_name!='' GROUP BY cmerror_name",
+          "query": "SELECT last( \"cmerror_clear\") FROM \"JUNOS_CMERROR\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and cmerror_name!='' GROUP BY cmerror_name",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -1861,7 +1861,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -1885,7 +1885,7 @@
           "measurement": "JUNOS_CMERROR",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last( \"cmerror_slot\")+0.1 FROM \"JUNOS_CMERROR\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter and cmerror_name!='' GROUP BY cmerror_name",
+          "query": "SELECT last( \"cmerror_slot\")+0.1 FROM \"JUNOS_CMERROR\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and cmerror_name!='' GROUP BY cmerror_name",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -1909,7 +1909,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -1933,7 +1933,7 @@
           "measurement": "JUNOS_CMERROR",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT  last( \"cmerror_clear\")-last( \"cmerror_update\")+0.1 FROM \"JUNOS_CMERROR\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter and cmerror_name!='' GROUP BY cmerror_name",
+          "query": "SELECT  last( \"cmerror_clear\")-last( \"cmerror_update\")+0.1 FROM \"JUNOS_CMERROR\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and cmerror_name!='' GROUP BY cmerror_name",
           "rawQuery": true,
           "refId": "E",
           "resultFormat": "time_series",
@@ -1957,7 +1957,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -2105,7 +2105,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -2226,7 +2226,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -2387,7 +2387,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT 100-\"idle_cpu\" FROM \"COMPONENTS\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter group by component_name",
+          "query": "SELECT 100-\"idle_cpu\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter group by component_name",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2403,7 +2403,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -2516,7 +2516,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"buffer_usage\" FROM \"COMPONENTS\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter and component_name=~/.*outing.*|RE.*/ GROUP BY \"component_name\"",
+          "query": "SELECT \"buffer_usage\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and component_name=~/.*outing.*|RE.*/ GROUP BY \"component_name\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2532,7 +2532,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -2645,7 +2645,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"linecard_cpu\" FROM \"COMPONENTS\" WHERE (\"device\" =~ /^$rtr$/) AND component_name=~ /^FPC.*/ and $timeFilter GROUP BY component_name",
+          "query": "SELECT \"linecard_cpu\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND component_name=~ /^FPC.*/ and $timeFilter GROUP BY component_name",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -2661,7 +2661,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -2773,7 +2773,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"linecard_memory\" FROM \"COMPONENTS\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter AND component_name=~ /^FPC.*/ GROUP BY \"component_name\"",
+          "query": "SELECT \"linecard_memory\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter AND component_name=~ /^FPC.*/ GROUP BY \"component_name\"",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -2789,7 +2789,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -2895,7 +2895,7 @@
             "uid": "jtsuid"
           },
           "hide": false,
-          "query": "SELECT \"process_cpu_utilization\" FROM \"SYSTEM\" WHERE (\"device\" =~ /^$rtr$/) and $timeFilter GROUP BY \"process_name\", \"process_pid\"",
+          "query": "SELECT \"process_cpu_utilization\" FROM \"SYSTEM\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and $timeFilter GROUP BY \"process_name\", \"process_pid\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -3019,7 +3019,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"cpu_utilization\" FROM \"SYSTEM\" WHERE (\"device\" =~ /^$rtr$/) AND \"cpu_utilization\"!=0 and $timeFilter GROUP BY \"name\", \"process_pid\"",
+          "query": "SELECT \"cpu_utilization\" FROM \"SYSTEM\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND \"cpu_utilization\"!=0 and $timeFilter GROUP BY \"name\", \"process_pid\"",
           "rawQuery": false,
           "refId": "B",
           "resultFormat": "time_series",
@@ -3035,7 +3035,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -3149,7 +3149,7 @@
             "uid": "jtsuid"
           },
           "hide": false,
-          "query": "SELECT \"process_memory_usage\" FROM \"SYSTEM\" WHERE (\"device\" =~ /^$rtr$/) and $timeFilter GROUP BY \"process_name\", \"process_pid\" fill(0)",
+          "query": "SELECT \"process_memory_usage\" FROM \"SYSTEM\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and $timeFilter GROUP BY \"process_name\", \"process_pid\" fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -3319,7 +3319,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -3446,7 +3446,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -3573,7 +3573,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -3600,14 +3600,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values from COMPONENTS with key=\"device\"",
+        "definition": "show tag values from COMPONENTS with key=\"SHORTNAME\"",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": "show tag values from COMPONENTS with key=\"device\"",
+        "query": "show tag values from COMPONENTS with key=\"SHORTNAME\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,

@@ -8,7 +8,7 @@ var power_used = batch
     |query('select last(power_zone_0_usage), last(power_zone_1_usage), last(power_system_usage) FROM "jtsdb"."autogen"."COMPONENTS" fill(0)')
         .period(win)
         .every(every)
-        .groupBy('device', 'MODEL')
+        .groupBy('device', 'SHORTNAME', 'MODEL')
         .align()
         .cluster('influxdb')
     |httpOut('sensor')
