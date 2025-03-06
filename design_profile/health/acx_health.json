@@ -329,7 +329,7 @@
         "type": "current",
         "threshold": 10,
         "operator": "lt",
-        "tags": ["device", "component_name"]
+        "tags": ["device", "SHORTNAME", "component_name"]
       },
       {
         "name": "CPU_HIGH_MPC",
@@ -337,7 +337,7 @@
         "type": "current",
         "threshold": 80,
         "operator": "gt",
-        "tags": ["device", "component_name"]
+        "tags": ["device", "SHORTNAME", "component_name"]
       },
       {
         "name": "MEM_HIGH_RE",
@@ -345,7 +345,7 @@
         "type": "current",
         "threshold": 80,
         "operator": "gt",
-        "tags": ["device", "component_name"]
+        "tags": ["device", "SHORTNAME", "component_name"]
       },
       {
         "name": "MEM_HIGH_MPC",
@@ -353,7 +353,7 @@
         "type": "current",
         "threshold": 80,
         "operator": "gt",
-        "tags": ["device", "component_name"]
+        "tags": ["device", "SHORTNAME", "component_name"]
       }
     ]
   }],

@@ -124,7 +124,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -207,7 +207,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -290,7 +290,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -391,7 +391,7 @@
           "measurement": "NETWORK_INSTANCE_BGP",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"group_total_paths\" FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag fill(previous)",
+          "query": "SELECT \"group_total_paths\" FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag fill(previous)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -407,7 +407,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -506,7 +506,7 @@
           "measurement": "NETWORK_INSTANCE_BGP",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(mean) from(SELECT mean(\"group_safi_received\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/)  AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_group_afi_safi_name\"::tag) GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, time(61s) fill(previous) ",
+          "query": "select sum(mean) from(SELECT mean(\"group_safi_received\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/)  AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_group_afi_safi_name\"::tag) GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, time(61s) fill(previous) ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -522,7 +522,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -564,7 +564,7 @@
           "measurement": "NETWORK_INSTANCE_BGP",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(mean) from(SELECT mean(\"group_safi_installed\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_group_afi_safi_name\"::tag) GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, time(61s) fill(previous)",
+          "query": "select sum(mean) from(SELECT mean(\"group_safi_installed\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_group_afi_safi_name\"::tag) GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, time(61s) fill(previous)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -580,7 +580,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -622,7 +622,7 @@
           "measurement": "NETWORK_INSTANCE_BGP",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(mean) from(SELECT  mean(\"group_safi_sent\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_group_afi_safi_name\"::tag) GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, time(61s) fill(previous)",
+          "query": "select sum(mean) from(SELECT  mean(\"group_safi_sent\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_group_afi_safi_name\"::tag) GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, time(61s) fill(previous)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -638,7 +638,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -757,7 +757,7 @@
           "measurement": "NETWORK_INSTANCE_BGP",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(mean) from (SELECT mean(\"group_safi_total_paths\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_afi_safi_name\"::tag =~ /^$family$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_group_afi_safi_name\"::tag, time(61s)) GROUP BY \"peer_group_afi_safi_name\"::tag, time(61s) fill(previous)",
+          "query": "select sum(mean) from (SELECT mean(\"group_safi_total_paths\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_afi_safi_name\"::tag =~ /^$family$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_group_afi_safi_name\"::tag, time(61s)) GROUP BY \"peer_group_afi_safi_name\"::tag, time(61s) fill(previous)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -773,7 +773,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -936,7 +936,7 @@
           "measurement": "NETWORK_INSTANCE_BGP",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"session_state\" FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag",
+          "query": "SELECT \"session_state\" FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -968,7 +968,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -1110,7 +1110,7 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -1205,7 +1205,7 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -1305,7 +1305,7 @@
               "measurement": "NETWORK_INSTANCE_BGP",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"session_state\" FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
+              "query": "SELECT \"session_state\" FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1321,7 +1321,7 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -1344,7 +1344,7 @@
               "measurement": "NETWORK_INSTANCE_BGP",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"session_state\" FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
+              "query": "SELECT \"session_state\" FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1360,7 +1360,7 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -1454,7 +1454,7 @@
               "measurement": "NETWORK_INSTANCE_BGP",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"session_output_queue\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/)   GROUP BY time(31s) fill(previous)",
+              "query": "SELECT mean(\"session_output_queue\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/)   GROUP BY time(31s) fill(previous)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1554,7 +1554,7 @@
               "measurement": "NETWORK_INSTANCE_BGP",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"session_output_queue\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/)   GROUP BY time(31s) fill(previous)",
+              "query": "SELECT mean(\"session_output_queue\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/)   GROUP BY time(31s) fill(previous)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1662,7 +1662,7 @@
               "measurement": "NETWORK_INSTANCE_BGP",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"safi_received\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
+              "query": "SELECT mean(\"safi_received\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1678,7 +1678,7 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -1720,7 +1720,7 @@
               "measurement": "NETWORK_INSTANCE_BGP",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"safi_received_pre_policy\")-mean(\"safi_accepted\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
+              "query": "SELECT mean(\"safi_received_pre_policy\")-mean(\"safi_accepted\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1736,7 +1736,7 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -1778,7 +1778,7 @@
               "measurement": "NETWORK_INSTANCE_BGP",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"safi_installed\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
+              "query": "SELECT mean(\"safi_installed\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
               "rawQuery": true,
               "refId": "C",
               "resultFormat": "time_series",
@@ -1794,7 +1794,7 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -1836,7 +1836,7 @@
               "measurement": "NETWORK_INSTANCE_BGP",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"safi_sent\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
+              "query": "SELECT mean(\"safi_sent\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
               "rawQuery": true,
               "refId": "E",
               "resultFormat": "time_series",
@@ -1852,7 +1852,7 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -1953,7 +1953,7 @@
               "measurement": "NETWORK_INSTANCE_BGP",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"session_state\" FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
+              "query": "SELECT \"session_state\" FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
               "rawQuery": false,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1973,7 +1973,7 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -2120,7 +2120,7 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -2164,7 +2164,7 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -2208,7 +2208,7 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -2238,7 +2238,7 @@
               "measurement": "NETWORK_INSTANCE_BGP",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT (\"safi_received_pre_policy\" -  \"safi_accepted\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_afi_safi_name\"::tag",
+              "query": "SELECT (\"safi_received_pre_policy\" -  \"safi_accepted\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_afi_safi_name\"::tag",
               "rawQuery": true,
               "refId": "D",
               "resultFormat": "time_series",
@@ -2254,7 +2254,7 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -2307,14 +2307,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values from NETWORK_INSTANCE_BGP with key=\"device\"",
+        "definition": "show tag values from NETWORK_INSTANCE_BGP with key=\"SHORTNAME\"",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": "show tag values from NETWORK_INSTANCE_BGP with key=\"device\"",
+        "query": "show tag values from NETWORK_INSTANCE_BGP with key=\"SHORTNAME\"",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -2335,14 +2335,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values with key=\"instance_name\" where device=~/$rtr/",
+        "definition": "show tag values with key=\"instance_name\" where SHORTNAME=~/$rtr/",
         "hide": 0,
         "includeAll": true,
         "label": "Instance",
         "multi": true,
         "name": "instance",
         "options": [],
-        "query": "show tag values with key=\"instance_name\" where device=~/$rtr/",
+        "query": "show tag values with key=\"instance_name\" where SHORTNAME=~/$rtr/",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -2363,14 +2363,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values with key=\"peer_group_name\" where device=~/$rtr/ and instance_name=~/$instance/",
+        "definition": "show tag values with key=\"peer_group_name\" where SHORTNAME=~/$rtr/ and instance_name=~/$instance/",
         "hide": 0,
         "includeAll": true,
         "label": "Peer Group",
         "multi": true,
         "name": "peergroup",
         "options": [],
-        "query": "show tag values with key=\"peer_group_name\" where device=~/$rtr/ and instance_name=~/$instance/",
+        "query": "show tag values with key=\"peer_group_name\" where SHORTNAME=~/$rtr/ and instance_name=~/$instance/",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -2391,14 +2391,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values with key=\"peer_group_afi_safi_name\" where device=~/$rtr/ and peer_group_name=~/$peergroup/",
+        "definition": "show tag values with key=\"peer_group_afi_safi_name\" where SHORTNAME=~/$rtr/ and peer_group_name=~/$peergroup/",
         "hide": 0,
         "includeAll": true,
         "label": "Family",
         "multi": true,
         "name": "family",
         "options": [],
-        "query": "show tag values with key=\"peer_group_afi_safi_name\" where device=~/$rtr/ and peer_group_name=~/$peergroup/",
+        "query": "show tag values with key=\"peer_group_afi_safi_name\" where SHORTNAME=~/$rtr/ and peer_group_name=~/$peergroup/",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -2419,14 +2419,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values with key=\"neighbor_address\" where device=~/$rtr/ and instance_name=~/$instance/ and neighbor_afi_safi_name=~/$family/ ",
+        "definition": "show tag values with key=\"neighbor_address\" where SHORTNAME=~/$rtr/ and instance_name=~/$instance/ and neighbor_afi_safi_name=~/$family/ ",
         "hide": 0,
         "includeAll": true,
         "label": "Neighbor",
         "multi": true,
         "name": "neighbor",
         "options": [],
-        "query": "show tag values with key=\"neighbor_address\" where device=~/$rtr/ and instance_name=~/$instance/ and neighbor_afi_safi_name=~/$family/ ",
+        "query": "show tag values with key=\"neighbor_address\" where SHORTNAME=~/$rtr/ and instance_name=~/$instance/ and neighbor_afi_safi_name=~/$family/ ",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,

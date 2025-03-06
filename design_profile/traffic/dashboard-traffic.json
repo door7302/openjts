@@ -184,7 +184,7 @@
           "measurement": "ALARMING",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT count(\"exception\") FROM \"ALARMING\" WHERE (\"device\" =~ /^$rtr$/) AND ALARM_TYPE=~/RED.*|TAIL.*/ and $timeFilter GROUP BY \"ALARM_TYPE\", \"LINKNAME\", queue_name, queue_id\n",
+          "query": "SELECT count(\"exception\") FROM \"ALARMING\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND ALARM_TYPE=~/RED.*|TAIL.*/ and $timeFilter GROUP BY \"ALARM_TYPE\", \"LINKNAME\", queue_name, queue_id\n",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -204,7 +204,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -306,7 +306,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(cos_fw) from (SELECT \"cos_forwarded_octets_rate\"*8 as cos_fw FROM \"INTERFACES\" WHERE \"device\" =~ /^$rtr$/  and \"if_name\" =~ /^(et|xe|ge).*/  and if_unit='' and $timeFilter GROUP BY if_name,  \"queue_id\") group by queue_id",
+          "query": "select sum(cos_fw) from (SELECT \"cos_forwarded_octets_rate\"*8 as cos_fw FROM \"INTERFACES\" WHERE \"SHORTNAME\" =~ /^$rtr$/  and \"if_name\" =~ /^(et|xe|ge).*/  and if_unit='' and $timeFilter GROUP BY if_name,  \"queue_id\") group by queue_id",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -435,7 +435,7 @@
           "measurement": "ALARMING",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"exception\" FROM \"ALARMING\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter and ALARM_TYPE=~/RED.*|TAIL.*/ GROUP BY \"ALARM_TYPE\", \"LINKNAME\", queue_id, queue_name",
+          "query": "SELECT \"exception\" FROM \"ALARMING\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and ALARM_TYPE=~/RED.*|TAIL.*/ GROUP BY \"ALARM_TYPE\", \"LINKNAME\", queue_id, queue_name",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -451,7 +451,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -644,7 +644,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"in_octets_rate\")*8  FROM \"INTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "query": "SELECT mean(\"in_octets_rate\")*8  FROM \"INTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -668,7 +668,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -691,7 +691,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"out_octets_rate\")*8 FROM \"INTERFACES\" WHERE (device =~ /^$rtr$/ AND LINKNAME = '$ifname'  and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "query": "SELECT mean(\"out_octets_rate\")*8 FROM \"INTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME = '$ifname'  and if_unit='') AND $timeFilter group by time($sample_interval)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -715,7 +715,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -833,7 +833,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"in_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "query": "SELECT mean(\"in_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -857,7 +857,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -880,7 +880,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"out_pkts_rate\") FROM \"INTERFACES\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "query": "SELECT mean(\"out_pkts_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -904,7 +904,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -1023,7 +1023,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"in_pkts_rate\") - (mean(\"bcast_in_pkts_rate\")+mean(\"mcast_in_pkts_rate\"))  FROM \"INTERFACES\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='')AND $timeFilter group by time($sample_interval)",
+          "query": "SELECT mean(\"in_pkts_rate\") - (mean(\"bcast_in_pkts_rate\")+mean(\"mcast_in_pkts_rate\"))  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='')AND $timeFilter group by time($sample_interval)",
           "rawQuery": true,
           "refId": "E",
           "resultFormat": "time_series",
@@ -1047,7 +1047,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -1070,7 +1070,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"out_pkts_rate\") - (mean(\"bcast_out_pkts_rate\")+mean(\"mcast_out_pkts_rate\"))  FROM \"INTERFACES\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "query": "SELECT mean(\"out_pkts_rate\") - (mean(\"bcast_out_pkts_rate\")+mean(\"mcast_out_pkts_rate\"))  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
           "rawQuery": true,
           "refId": "F",
           "resultFormat": "time_series",
@@ -1094,7 +1094,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -1116,7 +1116,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"mcast_in_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "query": "SELECT mean(\"mcast_in_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1140,7 +1140,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -1163,7 +1163,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"mcast_out_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "query": "SELECT mean(\"mcast_out_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1187,7 +1187,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -1210,7 +1210,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"bcast_in_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "query": "SELECT mean(\"bcast_in_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -1234,7 +1234,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -1257,7 +1257,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"bcast_out_pkts_rate\") FROM \"INTERFACES\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "query": "SELECT mean(\"bcast_out_pkts_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -1281,7 +1281,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -1410,7 +1410,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"cos_red_dropped_packets_rate\") FROM \"INTERFACES\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and  $timeFilter GROUP BY \"queue_id\",  time($sample_interval)",
+          "query": "SELECT mean(\"cos_red_dropped_packets_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and  $timeFilter GROUP BY \"queue_id\",  time($sample_interval)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1426,7 +1426,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -1462,7 +1462,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"cos_tail_dropped_packets_rate\") FROM \"INTERFACES\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter GROUP BY time($sample_interval), \"queue_id\"",
+          "query": "SELECT mean(\"cos_tail_dropped_packets_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter GROUP BY time($sample_interval), \"queue_id\"",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1482,7 +1482,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -1600,7 +1600,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"cos_buffer_cur\")/last(\"cos_buffer_size\")*100 FROM \"INTERFACES\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter group by queue_id",
+          "query": "SELECT last(\"cos_buffer_cur\")/last(\"cos_buffer_size\")*100 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter group by queue_id",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1616,7 +1616,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -1736,7 +1736,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT(\"cos_buffer_cur\")/(\"cos_buffer_size\")*100 FROM \"INTERFACES\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter group by queue_id",
+          "query": "SELECT(\"cos_buffer_cur\")/(\"cos_buffer_size\")*100 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter group by queue_id",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1752,7 +1752,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -1841,7 +1841,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"cos_forwarded_octets_rate\"*8 FROM \"INTERFACES\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='')  and $timeFilter GROUP BY \"queue_id\"",
+          "query": "SELECT \"cos_forwarded_octets_rate\"*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='')  and $timeFilter GROUP BY \"queue_id\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1965,7 +1965,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"cos_queued_octets_rate\")*8 FROM \"INTERFACES\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
+          "query": "SELECT mean(\"cos_queued_octets_rate\")*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1981,7 +1981,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -2107,7 +2107,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"cos_forwarded_octets_rate\")*8 FROM \"INTERFACES\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='')  and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
+          "query": "SELECT mean(\"cos_forwarded_octets_rate\")*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='')  and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2123,7 +2123,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -2249,7 +2249,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"cos_queued_packets_rate\") FROM \"INTERFACES\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='')  and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
+          "query": "SELECT mean(\"cos_queued_packets_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='')  and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2265,7 +2265,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -2391,7 +2391,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"cos_forwarded_packets_rate\") FROM \"INTERFACES\" WHERE (\"device\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND   $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
+          "query": "SELECT mean(\"cos_forwarded_packets_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND   $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2407,7 +2407,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -2446,14 +2446,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values FROM INTERFACES with key=\"device\"",
+        "definition": "show tag values FROM INTERFACES with key=\"SHORTNAME\"",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": "show tag values FROM INTERFACES with key=\"device\"",
+        "query": "show tag values FROM INTERFACES with key=\"SHORTNAME\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -2474,14 +2474,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values FROM INTERFACES with key=\"LINKNAME\" where device=~/$rtr/",
+        "definition": "show tag values FROM INTERFACES with key=\"LINKNAME\" where SHORTNAME=~/$rtr/",
         "hide": 0,
         "includeAll": true,
         "label": "Interface",
         "multi": true,
         "name": "ifname",
         "options": [],
-        "query": "show tag values FROM INTERFACES with key=\"LINKNAME\" where device=~/$rtr/",
+        "query": "show tag values FROM INTERFACES with key=\"LINKNAME\" where SHORTNAME=~/$rtr/",
         "refresh": 1,
         "regex": "et-.*|xe-.*|ge-.*|ae|lt-*|ps-*|fti-*|gr-*",
         "skipUrlSync": false,

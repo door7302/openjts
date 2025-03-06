@@ -46,7 +46,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "<h2><center>All devices Alarms</center></h2>",
+        "content": "<h2><center>All SHORTNAMEs Alarms</center></h2>",
         "mode": "html"
       },
       "pluginVersion": "10.3.1",
@@ -137,7 +137,7 @@
           "measurement": "DDOS_STATS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"policer-state\"), \"policer-violation-count\" FROM \"DDOS_STATS\" WHERE time > now()-15m and policer-state=~/.*VIOLATING.*/ GROUP BY \"device\"::tag, \"protocol\"::tag, \"sub_protocol\"::tag, \"_component_id\"::tag",
+          "query": "SELECT last(\"policer-state\"), \"policer-violation-count\" FROM \"DDOS_STATS\" WHERE time > now()-15m and policer-state=~/.*VIOLATING.*/ GROUP BY \"SHORTNAME\"::tag, \"protocol\"::tag, \"sub_protocol\"::tag, \"_component_id\"::tag",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -153,7 +153,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -171,7 +171,7 @@
               "Time": 0,
               "_component_id": 2,
               "policer-violation-count": 6,
-              "device": 1,
+              "SHORTNAME": 1,
               "last": 5,
               "protocol": 3,
               "sub_protocol": 4
@@ -180,7 +180,7 @@
               "Time": "Last Time Seen",
               "_component_id": "Linecard Slot",
               "policer-violation-count": "Violation Count. ",
-              "device": "Router",
+              "SHORTNAME": "Router",
               "last": "Current State",
               "protocol": "Protocol",
               "sub_protocol": "Sub Protocol"
@@ -306,7 +306,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "select sum(received_rate) from (select (\"arrival-rate\") as received_rate FROM \"DDOS_STATS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
+          "query": "select sum(received_rate) from (select (\"arrival-rate\") as received_rate FROM \"DDOS_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -405,7 +405,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "select sum(drop_rate) from (select (\"dropped-aggregate-policer_rate\") as drop_rate FROM \"DDOS_STATS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
+          "query": "select sum(drop_rate) from (select (\"dropped-aggregate-policer_rate\") as drop_rate FROM \"DDOS_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -503,7 +503,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "select sum(punt_rate) from(select ((\"arrival-rate\")-(\"dropped-aggregate-policer_rate\")) as punt_rate FROM \"DDOS_STATS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
+          "query": "select sum(punt_rate) from(select ((\"arrival-rate\")-(\"dropped-aggregate-policer_rate\")) as punt_rate FROM \"DDOS_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -626,7 +626,7 @@
           "measurement": "DDOS_STATS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"arrival-rate\" FROM \"DDOS_STATS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
+          "query": "SELECT \"arrival-rate\" FROM \"DDOS_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -642,7 +642,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -773,7 +773,7 @@
           "measurement": "DDOS_STATS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"dropped-aggregate-policer_rate\" FROM \"DDOS_STATS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
+          "query": "SELECT \"dropped-aggregate-policer_rate\" FROM \"DDOS_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -789,7 +789,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -923,7 +923,7 @@
           "measurement": "DDOS_STATS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"arrival-rate\" - \"dropped-aggregate-policer_rate\" FROM \"DDOS_STATS\" WHERE (\"device\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter \n GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0) ",
+          "query": "SELECT \"arrival-rate\" - \"dropped-aggregate-policer_rate\" FROM \"DDOS_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter \n GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0) ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -939,7 +939,7 @@
           ],
           "tags": [
             {
-              "key": "device::tag",
+              "key": "SHORTNAME::tag",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -972,14 +972,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values from DDOS_STATS with key=\"device\"",
+        "definition": "show tag values from DDOS_STATS with key=\"SHORTNAME\"",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": "show tag values from DDOS_STATS with key=\"device\"",
+        "query": "show tag values from DDOS_STATS with key=\"SHORTNAME\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1000,7 +1000,7 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values with key=\"protocol\" where device=~/$rtr/",
+        "definition": "show tag values with key=\"protocol\" where SHORTNAME=~/$rtr/",
         "description": "",
         "hide": 0,
         "includeAll": true,
@@ -1008,7 +1008,7 @@
         "multi": true,
         "name": "proto",
         "options": [],
-        "query": "show tag values with key=\"protocol\" where device=~/$rtr/",
+        "query": "show tag values with key=\"protocol\" where SHORTNAME=~/$rtr/",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,

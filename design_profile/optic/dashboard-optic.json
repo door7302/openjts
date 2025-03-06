@@ -202,7 +202,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -329,7 +329,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             },
@@ -412,7 +412,7 @@
       },
       "gridPos": {
         "h": 11,
-        "w": 24,
+        "w": 12,
         "x": 0,
         "y": 12
       },
@@ -428,7 +428,12 @@
           "show": false
         },
         "showHeader": true,
-        "sortBy": []
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "Port"
+          }
+        ]
       },
       "pluginVersion": "10.3.1",
       "targets": [
@@ -440,7 +445,7 @@
           "groupBy": [
             {
               "params": [
-                "if_name::tag"
+                "port_name::tag"
               ],
               "type": "tag"
             },
@@ -451,11 +456,12 @@
               "type": "tag"
             }
           ],
+          "hide": false,
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"rx_dbm\"), last(\"tx_dbm\") FROM \"COMPONENTS\" WHERE (\"device\" =~ /^$rtr$/) AND $timeFilter GROUP BY \"if_name\", \"lane_number\"",
-          "rawQuery": false,
+          "query": "SELECT last(\"rx_dbm\"), last(\"tx_dbm\"), last(\"current_bias\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND \"channel\"='no' and $timeFilter GROUP BY \"port_name\"::tag, \"lane_number\"",
+          "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
           "select": [
@@ -498,14 +504,14 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
           ]
         }
       ],
-      "title": "Current Power Levels",
+      "title": "Current Power Levels - non Channelized ports",
       "transformations": [
         {
           "id": "filterFieldsByName",
@@ -516,7 +522,7 @@
                 "last",
                 "last_1",
                 "last_2",
-                "if_name"
+                "port_name"
               ]
             }
           }
@@ -525,13 +531,212 @@
           "id": "organize",
           "options": {
             "excludeByName": {},
-            "indexByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "lane_number": 1,
+              "last": 2,
+              "last_1": 3,
+              "last_2": 4,
+              "port_name": 0
+            },
             "renameByName": {
               "if_name": "Name",
               "lane_number": "LANE",
               "last": "Current RX (DBm)",
               "last_1": "Current TX (DBm)",
-              "last_2": "Current Bias (mA)"
+              "last_2": "Current Bias (mA)",
+              "port_name": "Port"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "LANE"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 82
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 12
+      },
+      "id": 660,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "Port"
+          }
+        ]
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "port_name::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "lane_number"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"rx_dbm_oc\"), last(\"tx_dbm_oc\"), last(\"current_bias_oc\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND \"channel\"='yes' and $timeFilter GROUP BY \"port_name\"::tag, \"lane_number\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "rx_dbm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "tx_dbm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "current_bias"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
+        }
+      ],
+      "title": "Current Power Levels - Channelized ports",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "lane_number",
+                "last",
+                "last_1",
+                "last_2",
+                "port_name"
+              ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "lane_number": 1,
+              "last": 2,
+              "last_1": 3,
+              "last_2": 4,
+              "port_name": 0
+            },
+            "renameByName": {
+              "if_name": "Name",
+              "lane_number": "LANE",
+              "last": "Current RX (DBm)",
+              "last_1": "Current TX (DBm)",
+              "last_2": "Current Bias (mA)",
+              "port_name": "Port"
             }
           }
         }
@@ -863,7 +1068,7 @@
           ],
           "tags": [
             {
-              "key": "device",
+              "key": "SHORTNAME",
               "operator": "=~",
               "value": "/^$rtr$/"
             }
@@ -1045,7 +1250,7 @@
             "h": 4,
             "w": 24,
             "x": 0,
-            "y": 41
+            "y": 7
           },
           "id": 251,
           "options": {
@@ -1071,6 +1276,8 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
+              "query": "SELECT last(\"optic_model\"), last(\"optic_vendor\"), last(\"optic_vendor_part\"), last(\"optic_serial_no\"), last(\"optic_func_type\"), last(\"optic_fault_condition\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"port_name\"::tag =~ /^${cage:regex}$/) AND $timeFilter",
+              "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
               "select": [
@@ -1149,15 +1356,15 @@
               ],
               "tags": [
                 {
-                  "key": "device::tag",
+                  "key": "SHORTNAME::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "if_name::tag",
-                  "operator": "=",
-                  "value": "$ifname"
+                  "key": "port_name::tag",
+                  "operator": "=~",
+                  "value": "/^$cage$/"
                 }
               ]
             }
@@ -1227,7 +1434,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 45
+            "y": 11
           },
           "id": 12,
           "options": {
@@ -1278,15 +1485,71 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "if_name::tag",
+                  "key": "port_name::tag",
                   "operator": "=",
                   "value": "$ifname"
+                },
+                {
+                  "condition": "AND",
+                  "key": "channel::tag",
+                  "operator": "=",
+                  "value": "no"
+                }
+              ]
+            },
+            {
+              "alias": "Lane $tag_lane_number",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "lane_number"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "hide": false,
+              "measurement": "COMPONENTS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "rx_dbm_oc"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "port_name::tag",
+                  "operator": "=",
+                  "value": "$ifname"
+                },
+                {
+                  "condition": "AND",
+                  "key": "channel::tag",
+                  "operator": "=",
+                  "value": "yes"
                 }
               ]
             }
@@ -1327,7 +1590,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 45
+            "y": 11
           },
           "id": 11,
           "options": {
@@ -1378,15 +1641,71 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "if_name::tag",
+                  "key": "port_name::tag",
                   "operator": "=",
                   "value": "$ifname"
+                },
+                {
+                  "condition": "AND",
+                  "key": "channel::tag",
+                  "operator": "=",
+                  "value": "no"
+                }
+              ]
+            },
+            {
+              "alias": "Lane $tag_lane_number",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "lane_number"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "hide": false,
+              "measurement": "COMPONENTS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "tx_dbm_oc"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "port_name::tag",
+                  "operator": "=",
+                  "value": "$ifname"
+                },
+                {
+                  "condition": "AND",
+                  "key": "channel::tag",
+                  "operator": "=",
+                  "value": "yes"
                 }
               ]
             }
@@ -1480,7 +1799,7 @@
             "h": 10,
             "w": 6,
             "x": 0,
-            "y": 51
+            "y": 17
           },
           "id": 6,
           "options": {
@@ -1524,7 +1843,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tx_dbm\") as TX FROM \"COMPONENTS\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+              "query": "SELECT mean(\"tx_dbm\") as TX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" = '$ifname' and \"channel\"='no') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1580,7 +1899,7 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -1616,7 +1935,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tx_high_warn\") as HIGH_WARN, mean(\"tx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(60s) fill(null)",
+              "query": "SELECT mean(\"tx_high_warn\") as HIGH_WARN, mean(\"tx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1672,7 +1991,99 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "if_name",
+                  "operator": "=",
+                  "value": "$ifname"
+                }
+              ]
+            },
+            {
+              "alias": "Lane $tag_lane_number",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "30s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "COMPONENTS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"tx_dbm_oc\") as TX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" = '$ifname' and \"channel\"='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+              "rawQuery": true,
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "tx_dbm"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "rx_dbm"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "rx_high_warn"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "tx_low_warn"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -1775,7 +2186,7 @@
             "h": 10,
             "w": 6,
             "x": 6,
-            "y": 51
+            "y": 17
           },
           "id": 13,
           "options": {
@@ -1819,7 +2230,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"rx_dbm\") as RX FROM \"COMPONENTS\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+              "query": "SELECT mean(\"rx_dbm\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" = '$ifname' and \"channel\"='no') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1875,7 +2286,7 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -1911,7 +2322,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"rx_high_warn\") as HIGH_WARN, mean(\"rx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(60s) fill(null)",
+              "query": "SELECT mean(\"rx_high_warn\") as HIGH_WARN, mean(\"rx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1967,7 +2378,99 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "if_name",
+                  "operator": "=",
+                  "value": "$ifname"
+                }
+              ]
+            },
+            {
+              "alias": "Lane $tag_lane_number",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "30s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "COMPONENTS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"rx_dbm_oc\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" = '$ifname' and \"channel\"='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+              "rawQuery": true,
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "tx_dbm"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "rx_dbm"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "rx_high_warn"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "tx_low_warn"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -2070,7 +2573,7 @@
             "h": 10,
             "w": 6,
             "x": 12,
-            "y": 51
+            "y": 17
           },
           "id": 14,
           "options": {
@@ -2114,7 +2617,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"current_bias\") as BIAS FROM \"COMPONENTS\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+              "query": "SELECT mean(\"current_bias\") as BIAS FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" = '$ifname' and \"channel\"='no') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2170,7 +2673,99 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "if_name",
+                  "operator": "=",
+                  "value": "$ifname"
+                }
+              ]
+            },
+            {
+              "alias": "Lane $tag_lane_number",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "30s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "COMPONENTS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"current_bias_oc\") as BIAS FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" = '$ifname' and \"channel\"='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "tx_dbm"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "rx_dbm"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "rx_high_warn"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "tx_low_warn"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -2273,7 +2868,7 @@
             "h": 10,
             "w": 6,
             "x": 18,
-            "y": 51
+            "y": 17
           },
           "id": 9,
           "options": {
@@ -2317,7 +2912,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"current_temp\") as Temperture  FROM \"COMPONENTS\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(60s) fill(null)",
+              "query": "SELECT mean(\"current_temp\") as Temperture  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2373,7 +2968,7 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -2478,7 +3073,7 @@
             "h": 10,
             "w": 5,
             "x": 0,
-            "y": 61
+            "y": 27
           },
           "id": 15,
           "options": {
@@ -2522,7 +3117,7 @@
               "measurement": "INTERFACES_ETH",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(60s) fill(0)",
+              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2554,7 +3149,7 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -2639,7 +3234,7 @@
             "h": 10,
             "w": 5,
             "x": 5,
-            "y": 61
+            "y": 27
           },
           "id": 258,
           "options": {
@@ -2671,7 +3266,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"optic_fec_uncorrectable_blocks_rate\" FROM \"COMPONENTS\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter",
+              "query": "SELECT \"optic_fec_uncorrectable_blocks_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" = '$cage') AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2687,7 +3282,7 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
@@ -2769,7 +3364,7 @@
             "h": 10,
             "w": 14,
             "x": 10,
-            "y": 61
+            "y": 27
           },
           "id": 21,
           "options": {
@@ -2793,7 +3388,7 @@
                 "type": "influxdb",
                 "uid": "jtsuid"
               },
-              "query": "SELECT mean(\"in_frames_64_octets_rate\") as \"64_Bytes\",  mean(\"in_frames_65_127_octets_rate\") as \"65_127_Bytes\", mean(\"in_frames_128_255_octets_rate\") as \"128_255_Bytes\", mean(\"in_frames_256_511_octets_rate\") as \"256_511_Bytes\", mean(\"in_frames_512_1023_octets_rate\") as \"512_1023_Bytes\", mean(\"in_frames_1024_1518_octets_rate\") as \"1024_1518_Bytes\" FROM \"INTERFACES_ETH\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP by time(60s) ",
+              "query": "SELECT mean(\"in_frames_64_octets_rate\") as \"64_Bytes\",  mean(\"in_frames_65_127_octets_rate\") as \"65_127_Bytes\", mean(\"in_frames_128_255_octets_rate\") as \"128_255_Bytes\", mean(\"in_frames_256_511_octets_rate\") as \"256_511_Bytes\", mean(\"in_frames_512_1023_octets_rate\") as \"512_1023_Bytes\", mean(\"in_frames_1024_1518_octets_rate\") as \"1024_1518_Bytes\" FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP by time(60s) fill(previous)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series"
@@ -2811,7 +3406,7 @@
             "h": 2,
             "w": 24,
             "x": 0,
-            "y": 71
+            "y": 37
           },
           "id": 259,
           "options": {
@@ -2859,7 +3454,7 @@
             "h": 10,
             "w": 6,
             "x": 0,
-            "y": 73
+            "y": 39
           },
           "id": 253,
           "options": {
@@ -2888,10 +3483,10 @@
               },
               "groupBy": [],
               "hide": false,
-              "measurement": "INTERFACES_ETH",
+              "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(30s) fill(0)",
+              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(30s) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2913,13 +3508,13 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "if_name",
+                  "key": "port_name::tag",
                   "operator": "=",
                   "value": "$ifname"
                 }
@@ -2998,7 +3593,7 @@
             "h": 10,
             "w": 6,
             "x": 6,
-            "y": 73
+            "y": 39
           },
           "id": 257,
           "options": {
@@ -3027,10 +3622,10 @@
               },
               "groupBy": [],
               "hide": false,
-              "measurement": "INTERFACES_ETH",
+              "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(30s) fill(0)",
+              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(30s) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3046,13 +3641,13 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "if_name",
+                  "key": "port_name::tag",
                   "operator": "=",
                   "value": "$ifname"
                 }
@@ -3131,7 +3726,7 @@
             "h": 10,
             "w": 6,
             "x": 12,
-            "y": 73
+            "y": 39
           },
           "id": 16,
           "options": {
@@ -3173,10 +3768,10 @@
                 }
               ],
               "hide": false,
-              "measurement": "INTERFACES_ETH",
+              "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(30s) fill(0)",
+              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(30s) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3196,13 +3791,13 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "if_name",
+                  "key": "port_name::tag",
                   "operator": "=",
                   "value": "$ifname"
                 }
@@ -3281,7 +3876,7 @@
             "h": 10,
             "w": 6,
             "x": 18,
-            "y": 73
+            "y": 39
           },
           "id": 252,
           "options": {
@@ -3310,10 +3905,10 @@
               },
               "groupBy": [],
               "hide": false,
-              "measurement": "INTERFACES_ETH",
+              "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(30s) fill(0)",
+              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(30s) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3329,13 +3924,13 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "if_name",
+                  "key": "port_name::tag",
                   "operator": "=",
                   "value": "$ifname"
                 }
@@ -3414,7 +4009,7 @@
             "h": 10,
             "w": 6,
             "x": 0,
-            "y": 83
+            "y": 49
           },
           "id": 22,
           "options": {
@@ -3443,10 +4038,10 @@
               },
               "groupBy": [],
               "hide": false,
-              "measurement": "INTERFACES_ETH",
+              "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(30s) fill(0)",
+              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(30s) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3462,13 +4057,13 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "if_name",
+                  "key": "port_name::tag",
                   "operator": "=",
                   "value": "$ifname"
                 }
@@ -3547,7 +4142,7 @@
             "h": 10,
             "w": 6,
             "x": 6,
-            "y": 83
+            "y": 49
           },
           "id": 254,
           "options": {
@@ -3576,10 +4171,10 @@
               },
               "groupBy": [],
               "hide": false,
-              "measurement": "INTERFACES_ETH",
+              "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(30s) fill(0)",
+              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(30s) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3595,13 +4190,13 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "if_name",
+                  "key": "port_name::tag",
                   "operator": "=",
                   "value": "$ifname"
                 }
@@ -3680,7 +4275,7 @@
             "h": 10,
             "w": 6,
             "x": 12,
-            "y": 83
+            "y": 49
           },
           "id": 255,
           "options": {
@@ -3709,10 +4304,10 @@
               },
               "groupBy": [],
               "hide": false,
-              "measurement": "INTERFACES_ETH",
+              "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(30s) fill(0)",
+              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(30s) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3728,13 +4323,13 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "if_name",
+                  "key": "port_name::tag",
                   "operator": "=",
                   "value": "$ifname"
                 }
@@ -3813,7 +4408,7 @@
             "h": 10,
             "w": 6,
             "x": 18,
-            "y": 83
+            "y": 49
           },
           "id": 256,
           "options": {
@@ -3842,10 +4437,10 @@
               },
               "groupBy": [],
               "hide": false,
-              "measurement": "INTERFACES_ETH",
+              "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"device\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(30s) fill(0)",
+              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" = '$ifname') AND $timeFilter GROUP BY time(30s) fill(0)",
               "rawQuery": false,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3861,13 +4456,13 @@
               ],
               "tags": [
                 {
-                  "key": "device",
+                  "key": "SHORTNAME",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 },
                 {
                   "condition": "AND",
-                  "key": "if_name",
+                  "key": "port_name::tag",
                   "operator": "=",
                   "value": "$ifname"
                 }
@@ -3901,15 +4496,15 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values from OPINTERFACES_ETHTIC with key=\"device\"",
+        "definition": "show tag values from OPINTERFACES_ETHTIC with key=\"SHORTNAME\"",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": "show tag values from INTERFACES_ETH with key=\"device\"",
-        "refresh": 1,
+        "query": "show tag values from INTERFACES_ETH with key=\"SHORTNAME\"",
+        "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
         "sort": 0,
@@ -3919,28 +4514,52 @@
         "current": {
           "selected": true,
           "text": [
-            "All"
+            "0/0/0"
           ],
           "value": [
-            "$__all"
+            "0/0/0"
           ]
         },
         "datasource": {
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values with key=\"if_name\" where device=~/$rtr/",
+        "definition": "show tag values with key=\"port_name\" where SHORTNAME=~/$rtr/",
         "hide": 0,
         "includeAll": true,
         "label": "Phy. Port",
         "multi": true,
         "name": "ifname",
         "options": [],
-        "query": "show tag values with key=\"if_name\" where device=~/$rtr/",
-        "refresh": 1,
-        "regex": "^xe-.*|^et-.*|^ge-.*",
+        "query": "show tag values with key=\"port_name\" where SHORTNAME=~/$rtr/",
+        "refresh": 2,
+        "regex": "",
         "skipUrlSync": false,
-        "sort": 0,
+        "sort": 5,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "0/0/0",
+          "value": "0/0/0"
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "jtsuid"
+        },
+        "definition": "show tag values with key=\"port_name\" where SHORTNAME=~/$rtr/ and port_name=~/${ifname:regex}/",
+        "hide": 2,
+        "includeAll": false,
+        "label": "cage",
+        "multi": false,
+        "name": "cage",
+        "options": [],
+        "query": "show tag values with key=\"port_name\" where SHORTNAME=~/$rtr/ and port_name=~/${ifname:regex}/",
+        "refresh": 2,
+        "regex": "/^([^:]+)/",
+        "skipUrlSync": false,
+        "sort": 5,
         "type": "query"
       }
     ]
@@ -3953,6 +4572,6 @@
   "timezone": "",
   "title": "OPTICAL MONITORING PROFILE - JTS",
   "uid": "opticdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }

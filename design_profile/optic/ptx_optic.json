@@ -323,7 +323,7 @@
                 "type": "current",
                 "threshold": 1,
                 "operator": "gt",
-                "tags": ["device", "if_name"]
+                "tags": ["device", "SHORTNAME", "if_name"]
             },
             {
                 "name": "BLOCK_ERROR",
@@ -331,7 +331,7 @@
                 "type": "current",
                 "threshold": 1,
                 "operator": "gt",
-                "tags": ["device", "if_name"]
+                "tags": ["device", "SHORTNAME", "if_name"]
             }
         ]
     }],

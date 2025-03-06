@@ -184,8 +184,15 @@
       }
     ]
   }],
-  "regrex_list": [{
+  "enrichment_list": [{
     "order": 200,
+    "namepass": ["NETWORK_INSTANCE_BGP"],
+    "family": "vmx",
+    "two_levels": false,
+    "level1_tag": "device"
+  }],
+  "regrex_list": [{
+    "order": 300,
     "namepass": ["NETWORK_INSTANCE_BGP"],
     "entries": [{
       "type": 1,
