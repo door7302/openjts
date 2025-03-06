@@ -28,38 +28,12 @@
   "liveNow": false,
   "panels": [
     {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
-      },
-      "description": "",
-      "gridPos": {
-        "h": 3,
-        "w": 24,
-        "x": 0,
-        "y": 0
-      },
-      "id": 249,
-      "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
-        },
-        "content": "<H1><center>Global Information</center></H1> \n<H4><i><center>${rtr}</center></i></H4> ",
-        "mode": "html"
-      },
-      "pluginVersion": "10.3.1",
-      "transparent": true,
-      "type": "text"
-    },
-    {
       "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 3
+        "y": 0
       },
       "id": 145,
       "panels": [],
@@ -143,7 +117,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 4
+        "y": 1
       },
       "id": 158,
       "options": {
@@ -274,7 +248,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 4
+        "y": 1
       },
       "id": 159,
       "options": {
@@ -414,7 +388,7 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 12
+        "y": 9
       },
       "id": 2,
       "options": {
@@ -605,7 +579,7 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 12
+        "y": 9
       },
       "id": 660,
       "options": {
@@ -811,7 +785,7 @@
         "h": 15,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 20
       },
       "id": 4,
       "options": {
@@ -1168,7 +1142,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 38
+        "y": 35
       },
       "id": 250,
       "options": {
@@ -1190,7 +1164,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 37
       },
       "id": 19,
       "panels": [
@@ -1250,7 +1224,7 @@
             "h": 4,
             "w": 24,
             "x": 0,
-            "y": 41
+            "y": 38
           },
           "id": 251,
           "options": {
@@ -1366,7 +1340,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 45
+            "y": 42
           },
           "id": 12,
           "options": {
@@ -1522,7 +1496,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 45
+            "y": 42
           },
           "id": 11,
           "options": {
@@ -1731,7 +1705,7 @@
             "h": 10,
             "w": 6,
             "x": 0,
-            "y": 51
+            "y": 48
           },
           "id": 6,
           "options": {
@@ -1867,7 +1841,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tx_high_warn\") as HIGH_WARN, mean(\"tx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+              "query": "SELECT mean(\"tx_high_warn\") as HIGH_WARN, mean(\"tx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -2118,7 +2092,7 @@
             "h": 10,
             "w": 6,
             "x": 6,
-            "y": 51
+            "y": 48
           },
           "id": 13,
           "options": {
@@ -2254,7 +2228,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"rx_high_warn\") as HIGH_WARN, mean(\"rx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+              "query": "SELECT mean(\"rx_high_warn\") as HIGH_WARN, mean(\"rx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -2505,7 +2479,7 @@
             "h": 10,
             "w": 6,
             "x": 12,
-            "y": 51
+            "y": 48
           },
           "id": 14,
           "options": {
@@ -2800,7 +2774,7 @@
             "h": 10,
             "w": 6,
             "x": 18,
-            "y": 51
+            "y": 48
           },
           "id": 9,
           "options": {
@@ -2844,7 +2818,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"current_temp\") as Temperture  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+              "query": "SELECT mean(\"current_temp\") as Temperture  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3005,7 +2979,7 @@
             "h": 10,
             "w": 5,
             "x": 0,
-            "y": 61
+            "y": 58
           },
           "id": 15,
           "options": {
@@ -3049,7 +3023,7 @@
               "measurement": "INTERFACES_ETH",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(0)",
+              "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(0)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3166,7 +3140,7 @@
             "h": 10,
             "w": 5,
             "x": 5,
-            "y": 61
+            "y": 58
           },
           "id": 258,
           "options": {
@@ -3335,7 +3309,7 @@
             "h": 10,
             "w": 14,
             "x": 10,
-            "y": 61
+            "y": 58
           },
           "id": 21,
           "options": {
@@ -3359,7 +3333,7 @@
                 "type": "influxdb",
                 "uid": "jtsuid"
               },
-              "query": "SELECT mean(\"in_frames_64_octets_rate\") as \"64_Bytes\",  mean(\"in_frames_65_127_octets_rate\") as \"65_127_Bytes\", mean(\"in_frames_128_255_octets_rate\") as \"128_255_Bytes\", mean(\"in_frames_256_511_octets_rate\") as \"256_511_Bytes\", mean(\"in_frames_512_1023_octets_rate\") as \"512_1023_Bytes\", mean(\"in_frames_1024_1518_octets_rate\") as \"1024_1518_Bytes\" FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP by time(60s) fill(previous)",
+              "query": "SELECT mean(\"in_frames_64_octets_rate\") as \"64_Bytes\",  mean(\"in_frames_65_127_octets_rate\") as \"65_127_Bytes\", mean(\"in_frames_128_255_octets_rate\") as \"128_255_Bytes\", mean(\"in_frames_256_511_octets_rate\") as \"256_511_Bytes\", mean(\"in_frames_512_1023_octets_rate\") as \"512_1023_Bytes\", mean(\"in_frames_1024_1518_octets_rate\") as \"1024_1518_Bytes\" FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP by time(60s) fill(previous)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series"
@@ -3377,7 +3351,7 @@
             "h": 2,
             "w": 24,
             "x": 0,
-            "y": 71
+            "y": 68
           },
           "id": 259,
           "options": {
@@ -3425,7 +3399,7 @@
             "h": 10,
             "w": 6,
             "x": 0,
-            "y": 73
+            "y": 70
           },
           "id": 253,
           "options": {
@@ -3564,7 +3538,7 @@
             "h": 10,
             "w": 6,
             "x": 6,
-            "y": 73
+            "y": 70
           },
           "id": 257,
           "options": {
@@ -3697,7 +3671,7 @@
             "h": 10,
             "w": 6,
             "x": 12,
-            "y": 73
+            "y": 70
           },
           "id": 16,
           "options": {
@@ -3847,7 +3821,7 @@
             "h": 10,
             "w": 6,
             "x": 18,
-            "y": 73
+            "y": 70
           },
           "id": 252,
           "options": {
@@ -3980,7 +3954,7 @@
             "h": 10,
             "w": 6,
             "x": 0,
-            "y": 83
+            "y": 80
           },
           "id": 22,
           "options": {
@@ -4113,7 +4087,7 @@
             "h": 10,
             "w": 6,
             "x": 6,
-            "y": 83
+            "y": 80
           },
           "id": 254,
           "options": {
@@ -4246,7 +4220,7 @@
             "h": 10,
             "w": 6,
             "x": 12,
-            "y": 83
+            "y": 80
           },
           "id": 255,
           "options": {
@@ -4379,7 +4353,7 @@
             "h": 10,
             "w": 6,
             "x": 18,
-            "y": 83
+            "y": 80
           },
           "id": 256,
           "options": {
@@ -4460,8 +4434,8 @@
       {
         "current": {
           "selected": false,
-          "text": "rtme-ptx10k4-02",
-          "value": "rtme-ptx10k4-02"
+          "text": "rtme-mx-52",
+          "value": "rtme-mx-52"
         },
         "datasource": {
           "type": "influxdb",
@@ -4519,6 +4493,6 @@
   "timezone": "",
   "title": "OPTICAL MONITORING PROFILE - JTS",
   "uid": "opticdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
