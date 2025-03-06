@@ -1250,7 +1250,7 @@
             "h": 4,
             "w": 24,
             "x": 0,
-            "y": 7
+            "y": 41
           },
           "id": 251,
           "options": {
@@ -1276,97 +1276,29 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"optic_model\"), last(\"optic_vendor\"), last(\"optic_vendor_part\"), last(\"optic_serial_no\"), last(\"optic_func_type\"), last(\"optic_fault_condition\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"port_name\"::tag =~ /^${cage:regex}$/) AND $timeFilter",
+              "query": "SELECT last(\"optic_model\"), last(\"optic_vendor\"), last(\"optic_vendor_part\"), last(\"optic_serial_no\"), last(\"optic_func_type\"), last(\"optic_fault_condition\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"port_name\"::tag =~ /^${ifname:regex}$/ and \"channel\"='no') AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "optic_model"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "optic_vendor"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "optic_vendor_part"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "optic_serial_no"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "optic_func_type"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "optic_fault_condition"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "port_name::tag",
-                  "operator": "=~",
-                  "value": "/^$cage$/"
-                }
-              ]
+              "select": [],
+              "tags": []
+            },
+            {
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [],
+              "hide": false,
+              "measurement": "COMPONENTS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT last(\"optic_model\"), last(\"optic_vendor\"), last(\"optic_vendor_part\"), last(\"optic_serial_no\"), last(\"optic_func_type\"), last(\"optic_fault_condition\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"sub_ports\"::tag =~ /^.*${ifname:regex}.*$/ and \"channel\"='yes') AND $timeFilter",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "table",
+              "select": [],
+              "tags": []
             }
           ],
           "title": "Inventory Info",
@@ -1434,7 +1366,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 11
+            "y": 45
           },
           "id": 12,
           "options": {
@@ -1590,7 +1522,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 11
+            "y": 45
           },
           "id": 11,
           "options": {
@@ -1799,7 +1731,7 @@
             "h": 10,
             "w": 6,
             "x": 0,
-            "y": 17
+            "y": 51
           },
           "id": 6,
           "options": {
@@ -2186,7 +2118,7 @@
             "h": 10,
             "w": 6,
             "x": 6,
-            "y": 17
+            "y": 51
           },
           "id": 13,
           "options": {
@@ -2573,7 +2505,7 @@
             "h": 10,
             "w": 6,
             "x": 12,
-            "y": 17
+            "y": 51
           },
           "id": 14,
           "options": {
@@ -2868,7 +2800,7 @@
             "h": 10,
             "w": 6,
             "x": 18,
-            "y": 17
+            "y": 51
           },
           "id": 9,
           "options": {
@@ -3073,7 +3005,7 @@
             "h": 10,
             "w": 5,
             "x": 0,
-            "y": 27
+            "y": 61
           },
           "id": 15,
           "options": {
@@ -3234,7 +3166,7 @@
             "h": 10,
             "w": 5,
             "x": 5,
-            "y": 27
+            "y": 61
           },
           "id": 258,
           "options": {
@@ -3266,9 +3198,48 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"optic_fec_uncorrectable_blocks_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" = '$cage') AND $timeFilter",
+              "query": "SELECT \"optic_fec_uncorrectable_blocks_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" = '$ifname' and \"channel\"='no') AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "optic_fec_uncorrectable_blocks"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "if_name",
+                  "operator": "=",
+                  "value": "$ifname"
+                }
+              ]
+            },
+            {
+              "alias": "FEC Uncorrectable error block rate",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [],
+              "hide": false,
+              "measurement": "COMPONENTS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT \"optic_fec_uncorrectable_blocks_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"sub_ports\" =~ /^.*${ifname:regex}.*$/ and \"channel\"='yes') AND $timeFilter",
+              "rawQuery": true,
+              "refId": "B",
               "resultFormat": "time_series",
               "select": [
                 [
@@ -3364,7 +3335,7 @@
             "h": 10,
             "w": 14,
             "x": 10,
-            "y": 27
+            "y": 61
           },
           "id": 21,
           "options": {
@@ -3406,7 +3377,7 @@
             "h": 2,
             "w": 24,
             "x": 0,
-            "y": 37
+            "y": 71
           },
           "id": 259,
           "options": {
@@ -3454,7 +3425,7 @@
             "h": 10,
             "w": 6,
             "x": 0,
-            "y": 39
+            "y": 73
           },
           "id": 253,
           "options": {
@@ -3593,7 +3564,7 @@
             "h": 10,
             "w": 6,
             "x": 6,
-            "y": 39
+            "y": 73
           },
           "id": 257,
           "options": {
@@ -3726,7 +3697,7 @@
             "h": 10,
             "w": 6,
             "x": 12,
-            "y": 39
+            "y": 73
           },
           "id": 16,
           "options": {
@@ -3876,7 +3847,7 @@
             "h": 10,
             "w": 6,
             "x": 18,
-            "y": 39
+            "y": 73
           },
           "id": 252,
           "options": {
@@ -4009,7 +3980,7 @@
             "h": 10,
             "w": 6,
             "x": 0,
-            "y": 49
+            "y": 83
           },
           "id": 22,
           "options": {
@@ -4142,7 +4113,7 @@
             "h": 10,
             "w": 6,
             "x": 6,
-            "y": 49
+            "y": 83
           },
           "id": 254,
           "options": {
@@ -4275,7 +4246,7 @@
             "h": 10,
             "w": 6,
             "x": 12,
-            "y": 49
+            "y": 83
           },
           "id": 255,
           "options": {
@@ -4408,7 +4379,7 @@
             "h": 10,
             "w": 6,
             "x": 18,
-            "y": 49
+            "y": 83
           },
           "id": 256,
           "options": {
@@ -4489,8 +4460,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "rtme-ptx10k4-02",
+          "value": "rtme-ptx10k4-02"
         },
         "datasource": {
           "type": "influxdb",
@@ -4514,10 +4485,10 @@
         "current": {
           "selected": true,
           "text": [
-            "0/0/0"
+            "All"
           ],
           "value": [
-            "0/0/0"
+            "$__all"
           ]
         },
         "datasource": {
@@ -4537,30 +4508,6 @@
         "skipUrlSync": false,
         "sort": 5,
         "type": "query"
-      },
-      {
-        "current": {
-          "selected": false,
-          "text": "0/0/0",
-          "value": "0/0/0"
-        },
-        "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
-        },
-        "definition": "show tag values with key=\"port_name\" where SHORTNAME=~/$rtr/ and port_name=~/${ifname:regex}/",
-        "hide": 2,
-        "includeAll": false,
-        "label": "cage",
-        "multi": false,
-        "name": "cage",
-        "options": [],
-        "query": "show tag values with key=\"port_name\" where SHORTNAME=~/$rtr/ and port_name=~/${ifname:regex}/",
-        "refresh": 2,
-        "regex": "/^([^:]+)/",
-        "skipUrlSync": false,
-        "sort": 5,
-        "type": "query"
       }
     ]
   },
@@ -4572,6 +4519,6 @@
   "timezone": "",
   "title": "OPTICAL MONITORING PROFILE - JTS",
   "uid": "opticdashboard",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
