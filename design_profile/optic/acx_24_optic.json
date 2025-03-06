@@ -373,7 +373,7 @@
         "family": "acx",
         "two_levels": true,
         "level1_tag": "device",
-        "level2_tags": ["component_name"]
+        "level2_tags": ["component_name", "if_name"]
     }],
     "rate_list": [{
         "order": 500,
