@@ -1,462 +1,576 @@
 {
-    "gnmi_inputs": [{
-        "aliases": [{
-            "name": "COMPONENTS",
-            "prefix_list": ["/interfaces/interface/optics"]
-        }],
-        "subscriptions": [{
-                "name": "COMPONENTS",
-                "path": "/components/component/transceiver/state",
-                "mode": "sample",
-                "interval": 30
-            },
-            {
-                "name": "INTERFACES_ETH",
-                "path": "/interfaces/interface/ethernet/state/counters",
-                "mode": "sample",
-                "interval": 60
-            },
-            {
-                "name": "COMPONENTS",
-                "path": "/junos/system/linecard/optics",
-                "mode": "sample",
-                "interval": 30
-            },
-            {
-                "name": "COMPONENTS",
-                "path": "/components/component/optical-channel/state",
-                "mode": "sample",
-                "interval": 30
-            }
-        ]
-    }],
-    "pivot_list": [{
-        "order": 200,
-        "namepass": ["COMPONENTS"],
-        "tag": "/components/component/properties/property/name",
-        "field": "/components/component/properties/property/state/value"
-    }],
-    "rename_list": [{
-        "order": 300,
-        "namepass": ["COMPONENTS", "INTERFACES_ETH"],
-        "entries": [{
-                "type": 0,
-                "from": "/components/component/@name",
-                "to": "component_name"
-            },
-            {
-                "type": 0,
-                "from": "/components/component/name",
-                "to": "component_name"
-            },
-            {
-                "type": 0,
-                "from": "/interfaces/interface/@name",
-                "to": "if_name"
-            },
-            {
-                "type": 0,
-                "from": "/interfaces/interface/name",
-                "to": "if_name"
-            },
-            {
-                "type": 0,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_number",
-                "to": "lane_number"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_output_power_dbm",
-                "to": "tx_dbm"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_bias_current",
-                "to": "current_bias"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_temperature",
-                "to": "current_temp"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_receiver_power_dbm",
-                "to": "rx_dbm"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/laser_output_power_low_warning_threshold_dbm",
-                "to": "tx_low_warn"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/laser_rx_power_low_warning_threshold_dbm",
-                "to": "rx_low_warn"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/laser_output_power_low_alarm_threshold_dbm",
-                "to": "tx_low_alarm"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/laser_rx_power_low_alarm_threshold_dbm",
-                "to": "rx_low_alarm"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/laser_output_power_high_warning_threshold_dbm",
-                "to": "tx_high_warn"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/laser_rx_power_high_warning_threshold_dbm",
-                "to": "rx_high_warn"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/laser_output_power_high_alarm_threshold_dbm",
-                "to": "tx_high_alarm"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/laser_rx_power_high_alarm_threshold_dbm",
-                "to": "rx_high_alarm"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/module_temp_high_alarm",
-                "to": "module_temp_high_alarm"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/module_temp_high_warning",
-                "to": "module_temp_high_warning"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/module_temp_low_alarm",
-                "to": "module_temp_low_alarm"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/module_temp_low_warning",
-                "to": "module_temp_low_warning"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_bias_current_high_alarm",
-                "to": "lane_laser_bias_current_high_alarm"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_bias_current_high_warning",
-                "to": "lane_laser_bias_current_high_warning"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_bias_current_low_alarm",
-                "to": "lane_laser_bias_current_low_alarm"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_bias_current_low_warning",
-                "to": "lane_laser_bias_current_low_warning"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_output_power_high_alarm",
-                "to": "lane_laser_output_power_high_alarm"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_output_power_high_warning",
-                "to": "lane_laser_output_power_high_warning"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_output_power_low_alarm",
-                "to": "lane_laser_output_power_low_alarm"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_output_power_low_warning",
-                "to": "lane_laser_output_power_low_warning"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_receiver_power_high_alarm",
-                "to": "lane_laser_receiver_power_high_alarm"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_receiver_power_high_warning",
-                "to": "lane_laser_receiver_power_high_warning"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_receiver_power_low_alarm",
-                "to": "lane_laser_receiver_power_low_alarm"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_receiver_power_low_warning",
-                "to": "lane_laser_receiver_power_low_warning"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_rx_loss_of_signal_alarm",
-                "to": "lane_rx_loss_of_signal_alarm"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_tx_laser_disabled_alarm",
-                "to": "lane_tx_laser_disabled_alarm"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/optics/lanediags/lane/lane_tx_loss_of_signal_alarm",
-                "to": "lane_tx_loss_of_signal_alarm"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/ethernet/state/counters/in-block-errors",
-                "to": "in_block_errors"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/ethernet/state/counters/in-crc-errors",
-                "to": "in_crc_errors"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/ethernet/state/counters/in-distribution/in-frames-1024-1518-octets",
-                "to": "in_frames_1024_1518_octets"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/ethernet/state/counters/in-distribution/in-frames-128-255-octets",
-                "to": "in_frames_128_255_octets"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/ethernet/state/counters/in-distribution/in-frames-256-511-octets",
-                "to": "in_frames_256_511_octets"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/ethernet/state/counters/in-distribution/in-frames-512-1023-octets",
-                "to": "in_frames_512_1023_octets"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/ethernet/state/counters/in-distribution/in-frames-64-octets",
-                "to": "in_frames_64_octets"
-            },
-            {
-                "type": 1,
-                "from": "/interfaces/interface/ethernet/state/counters/in-distribution/in-frames-65-127-octets",
-                "to": "in_frames_65_127_octets"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/transceiver/state/form-factor",
-                "to": "optic_model"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/transceiver/state/module-functional-type",
-                "to": "optic_func_type"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/transceiver/state/vendor",
-                "to": "optic_vendor"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/transceiver/state/vendor-part",
-                "to": "optic_vendor_part"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/transceiver/state/serial-no",
-                "to": "optic_serial_no"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/transceiver/state/fault-condition",
-                "to": "optic_fault_condition"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/transceiver/state/fec-uncorrectable-blocks",
-                "to": "optic_fec_uncorrectable_blocks"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/optical-channel/state/osnr/instant",
-                "to": "osnr_instant"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/optical-channel/state/pre-fec-ber/instant",
-                "to": "prefec_instant"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/optical-channel/state/esnr/instant",
-                "to": "esnr_instant"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/optical-channel/state/chromatic-dispersion/instant",
-                "to": "chroma_instant"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/optical-channel/state/second-order-polarization-mode-dispersion/instant",
-                "to": "2nd_pola_instant"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/optical-channel/state/polarization-dependent-loss/instant",
-                "to": "pola_loss_instant"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/optical-channel/state/carrier-frequency-offset/instant",
-                "to": "carrier_off_instant"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/optical-channel/state/frequency",
-                "to": "frequency"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/optical-channel/state/input-power/instant",
-                "to": "rx_dbm_oc"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/optical-channel/state/output-power/instant",
-                "to": "tx_dbm_oc"
-            },
-            {
-                "type": 1,
-                "from": "/components/component/optical-channel/state/laser-bias-current/instant",
-                "to": "current_bias_oc"
-            }
-        ]
-    }],
-    "filtering_list": [{
-        "order": 200,
-        "namepass": ["INTERFACES_ETH"],
-        "filters": [{
-            "type": 0,
-            "key": "if_name",
-            "pattern": "^(et-|xe-|ge-).*",
-            "action": "accept"
-        }]
-    }],
-    "enrichment_list": [{
-        "order": 400,
-        "namepass": ["COMPONENTS", "INTERFACES_ETH"],
-        "family": "acx",
-        "two_levels": true,
-        "level1_tag": "device",
-        "level2_tags": ["component_name", "if_name"]
-    }],
-    "rate_list": [{
-        "order": 500,
-        "namepass": ["COMPONENTS", "INTERFACES_ETH"],
-        "fields": ["optic_fec_uncorrectable_blocks", "in_crc_errors", "in_block_errors", "in_frames_1024_1518_octets", "in_frames_128_255_octets", "in_frames_256_511_octets", "in_frames_512_1023_octets", "in_frames_64_octets", "in_frames_65_127_octets"]
-
-    }],
-    "monitoring_list": [{
-        "order": 600,
-        "namepass": ["INTERFACES", "SUBINTERFACES"],
-        "probes": [{
-                "name": "CRC_ERROR",
-                "field": "in_crc_errors_rate",
-                "type": "current",
-                "threshold": 1,
-                "operator": "gt",
-                "tags": ["device", "SHORTNAME", "if_name"]
-            },
-            {
-                "name": "BLOCK_ERROR",
-                "field": "in_block_errors_rate",
-                "type": "current",
-                "threshold": 1,
-                "operator": "gt",
-                "tags": ["device", "SHORTNAME", "if_name"]
-            }
-        ]
-    }],
-    "influx_outputs": [{
-        "retention": "autogen",
-        "fieldpass": [
-            "exception",
-            "tx_dbm",
-            "tx_dbm_oc",
-            "current_bias",
-            "current_bias_oc",
-            "current_temp",
-            "rx_dbm",
-            "rx_dbm_oc",
-            "tx_low_warn",
-            "rx_low_warn",
-            "tx_low_alarm",
-            "rx_low_alarm",
-            "tx_high_warn",
-            "rx_high_warn",
-            "tx_high_alarm",
-            "rx_high_alarm",
-            "frequency",
-            "module_temp_high_alarm",
-            "module_temp_low_alarm",
-            "module_temp_high_warning",
-            "module_temp_low_warning",
-            "lane_laser_bias_current_high_alarm",
-            "lane_laser_bias_current_low_alarm",
-            "lane_laser_bias_current_high_warning",
-            "lane_laser_bias_current_low_warning",
-            "lane_laser_output_power_high_alarm",
-            "lane_laser_output_power_low_alarm",
-            "lane_laser_output_power_high_warning",
-            "lane_laser_output_power_low_warning",
-            "lane_laser_receiver_power_high_alarm",
-            "lane_laser_receiver_power_low_alarm",
-            "lane_laser_receiver_power_high_warning",
-            "lane_laser_receiver_power_low_warning",
-            "lane_rx_loss_of_signal_alarm",
-            "lane_tx_laser_disabled_alarm",
-            "lane_tx_loss_of_signal_alarm",
-            "in_block_errors_rate",
-            "in_crc_errors_rate",
-            "in_frames_1024_1518_octets_rate",
-            "in_frames_128_255_octets_rate",
-            "in_frames_256_511_octets_rate",
-            "in_frames_512_1023_octets_rate",
-            "in_frames_64_octets_rate",
-            "in_frames_65_127_octets_rate",
-            "optic_model",
-            "optic_func_type",
-            "optic_vendor",
-            "optic_vendor_part",
-            "optic_serial_no",
-            "optic_fault_condition",
-            "optic_fec_uncorrectable_blocks_rate",
-            "osnr_instant",
-            "prefec_instant",
-            "esnr_instant",
-            "chroma_instant",
-            "2nd_pola_instant",
-            "pola_loss_instant",
-            "carrier_off_instant"
-        ]
-    }]
+    "gnmi_inputs": [
+        {
+            "aliases": [
+                {
+                    "name": "COMPONENTS",
+                    "prefix_list": [
+                        "/interfaces/interface/optics"
+                    ]
+                }
+            ],
+            "subscriptions": [
+                {
+                    "name": "COMPONENTS",
+                    "path": "/components/component/transceiver/state",
+                    "mode": "sample",
+                    "interval": 30
+                },
+                {
+                    "name": "INTERFACES_ETH",
+                    "path": "/interfaces/interface/ethernet/state",
+                    "mode": "sample",
+                    "interval": 60
+                },
+                {
+                    "name": "COMPONENTS",
+                    "path": "/junos/system/linecard/optics",
+                    "mode": "sample",
+                    "interval": 30
+                },
+                {
+                    "name": "COMPONENTS",
+                    "path": "/components/component/optical-channel/state",
+                    "mode": "sample",
+                    "interval": 30
+                },
+                {
+                    "name": "INTERFACES",
+                    "path": "/interfaces/interface/state/counters",
+                    "mode": "sample",
+                    "interval": 30
+                }
+            ]
+        }
+    ],
+    "pivot_list": [
+        {
+            "order": 200,
+            "namepass": [
+                "COMPONENTS"
+            ],
+            "tag": "/components/component/properties/property/name",
+            "field": "/components/component/properties/property/state/value"
+        }
+    ],
+    "rename_list": [
+        {
+            "order": 300,
+            "namepass": [
+                "COMPONENTS",
+                "INTERFACES_ETH",
+                "INTERFACES"
+            ],
+            "entries": [
+                {
+                    "type": 0,
+                    "from": "/components/component/@name",
+                    "to": "component_name"
+                },
+                {
+                    "type": 0,
+                    "from": "/components/component/name",
+                    "to": "component_name"
+                },
+                {
+                    "type": 0,
+                    "from": "/interfaces/interface/@name",
+                    "to": "if_name"
+                },
+                {
+                    "type": 0,
+                    "from": "/interfaces/interface/name",
+                    "to": "if_name"
+                },
+                {
+                    "type": 0,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_number",
+                    "to": "lane_number"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_output_power_dbm",
+                    "to": "tx_dbm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_bias_current",
+                    "to": "current_bias"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_temperature",
+                    "to": "current_temp"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_receiver_power_dbm",
+                    "to": "rx_dbm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/laser_output_power_low_warning_threshold_dbm",
+                    "to": "tx_low_warn"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/laser_rx_power_low_warning_threshold_dbm",
+                    "to": "rx_low_warn"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/laser_output_power_low_alarm_threshold_dbm",
+                    "to": "tx_low_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/laser_rx_power_low_alarm_threshold_dbm",
+                    "to": "rx_low_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/laser_output_power_high_warning_threshold_dbm",
+                    "to": "tx_high_warn"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/laser_rx_power_high_warning_threshold_dbm",
+                    "to": "rx_high_warn"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/laser_output_power_high_alarm_threshold_dbm",
+                    "to": "tx_high_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/laser_rx_power_high_alarm_threshold_dbm",
+                    "to": "rx_high_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/module_temp_high_alarm",
+                    "to": "module_temp_high_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/module_temp_high_warning",
+                    "to": "module_temp_high_warning"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/module_temp_low_alarm",
+                    "to": "module_temp_low_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/module_temp_low_warning",
+                    "to": "module_temp_low_warning"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_bias_current_high_alarm",
+                    "to": "lane_laser_bias_current_high_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_bias_current_high_warning",
+                    "to": "lane_laser_bias_current_high_warning"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_bias_current_low_alarm",
+                    "to": "lane_laser_bias_current_low_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_bias_current_low_warning",
+                    "to": "lane_laser_bias_current_low_warning"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_output_power_high_alarm",
+                    "to": "lane_laser_output_power_high_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_output_power_high_warning",
+                    "to": "lane_laser_output_power_high_warning"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_output_power_low_alarm",
+                    "to": "lane_laser_output_power_low_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_output_power_low_warning",
+                    "to": "lane_laser_output_power_low_warning"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_receiver_power_high_alarm",
+                    "to": "lane_laser_receiver_power_high_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_receiver_power_high_warning",
+                    "to": "lane_laser_receiver_power_high_warning"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_receiver_power_low_alarm",
+                    "to": "lane_laser_receiver_power_low_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_receiver_power_low_warning",
+                    "to": "lane_laser_receiver_power_low_warning"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_rx_loss_of_signal_alarm",
+                    "to": "lane_rx_loss_of_signal_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_tx_laser_disabled_alarm",
+                    "to": "lane_tx_laser_disabled_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_tx_loss_of_signal_alarm",
+                    "to": "lane_tx_loss_of_signal_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/ethernet/state/counters/in-block-errors",
+                    "to": "in_block_errors"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/ethernet/state/counters/in-crc-errors",
+                    "to": "in_crc_errors"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/ethernet/state/counters/in-distribution/in-frames-1024-1518-octets",
+                    "to": "in_frames_1024_1518_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/ethernet/state/counters/in-distribution/in-frames-128-255-octets",
+                    "to": "in_frames_128_255_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/ethernet/state/counters/in-distribution/in-frames-256-511-octets",
+                    "to": "in_frames_256_511_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/ethernet/state/counters/in-distribution/in-frames-512-1023-octets",
+                    "to": "in_frames_512_1023_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/ethernet/state/counters/in-distribution/in-frames-64-octets",
+                    "to": "in_frames_64_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/ethernet/state/counters/in-distribution/in-frames-65-127-octets",
+                    "to": "in_frames_65_127_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/transceiver/state/form-factor",
+                    "to": "optic_model"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/transceiver/state/module-functional-type",
+                    "to": "optic_func_type"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/transceiver/state/vendor",
+                    "to": "optic_vendor"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/transceiver/state/vendor-part",
+                    "to": "optic_vendor_part"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/transceiver/state/serial-no",
+                    "to": "optic_serial_no"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/transceiver/state/fault-condition",
+                    "to": "optic_fault_condition"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/transceiver/state/fec-uncorrectable-blocks",
+                    "to": "optic_fec_uncorrectable_blocks"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/optical-channel/state/osnr/instant",
+                    "to": "osnr_instant"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/optical-channel/state/pre-fec-ber/instant",
+                    "to": "prefec_instant"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/optical-channel/state/esnr/instant",
+                    "to": "esnr_instant"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/optical-channel/state/chromatic-dispersion/instant",
+                    "to": "chroma_instant"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/optical-channel/state/second-order-polarization-mode-dispersion/instant",
+                    "to": "2nd_pola_instant"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/optical-channel/state/polarization-dependent-loss/instant",
+                    "to": "pola_loss_instant"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/optical-channel/state/carrier-frequency-offset/instant",
+                    "to": "carrier_off_instant"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/optical-channel/state/frequency",
+                    "to": "frequency"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/optical-channel/state/input-power/instant",
+                    "to": "rx_dbm_oc"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/optical-channel/state/output-power/instant",
+                    "to": "tx_dbm_oc"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/optical-channel/state/laser-bias-current/instant",
+                    "to": "current_bias_oc"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/state/counters/in-octets",
+                    "to": "in_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/state/counters/out-octets",
+                    "to": "out_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/ethernet/state/port-speed",
+                    "to": "port_speed"
+                },
+                {
+                    "type": 1,
+                    "from": "/components/component/transceiver/state/fec-corrected-bits",
+                    "to": "fec_corrected_bits"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/wavelength_setpoint",
+                    "to": "wavelength_setpoint"
+                }
+            ]
+        }
+    ],
+    "filtering_list": [
+        {
+            "order": 200,
+            "namepass": [
+                "INTERFACES_ETH",
+                "INTERFACES"
+            ],
+            "filters": [
+                {
+                    "type": 0,
+                    "key": "if_name",
+                    "pattern": "^(et-|xe-|ge-).*",
+                    "action": "accept"
+                }
+            ]
+        }
+    ],
+    "converter_list": [
+        {
+            "order": 300,
+            "namepass": [
+                "COMPONENTS"
+            ],
+            "float_type": [
+                "wavelength_setpoint"
+            ]
+        }
+    ],
+    "enrichment_list": [
+        {
+            "order": 400,
+            "namepass": [
+                "COMPONENTS",
+                "INTERFACES_ETH",
+                "INTERFACES"
+            ],
+            "family": "acx",
+            "two_levels": true,
+            "level1_tag": "device",
+            "level2_tags": [
+                "component_name",
+                "if_name"
+            ]
+        }
+    ],
+    "rate_list": [
+        {
+            "order": 500,
+            "namepass": [
+                "COMPONENTS",
+                "INTERFACES_ETH",
+                "INTERFACES"
+            ],
+            "fields": [
+                "optic_fec_uncorrectable_blocks",
+                "in_crc_errors",
+                "in_block_errors",
+                "in_frames_1024_1518_octets",
+                "in_frames_128_255_octets",
+                "in_frames_256_511_octets",
+                "in_frames_512_1023_octets",
+                "in_frames_64_octets",
+                "in_frames_65_127_octets",
+                "in_octets",
+                "out_octets",
+                "fec_corrected_bits"
+            ]
+        }
+    ],
+    "monitoring_list": [
+        {
+            "order": 600,
+            "namepass": [
+                "INTERFACES_ETH"
+            ],
+            "probes": [
+                {
+                    "name": "CRC_ERROR",
+                    "field": "in_crc_errors_rate",
+                    "type": "current",
+                    "threshold": 1,
+                    "operator": "gt",
+                    "tags": [
+                        "device",
+                        "SHORTNAME",
+                        "if_name"
+                    ]
+                },
+                {
+                    "name": "BLOCK_ERROR",
+                    "field": "in_block_errors_rate",
+                    "type": "current",
+                    "threshold": 1,
+                    "operator": "gt",
+                    "tags": [
+                        "device",
+                        "SHORTNAME",
+                        "if_name"
+                    ]
+                }
+            ]
+        }
+    ],
+    "influx_outputs": [
+        {
+            "retention": "autogen",
+            "fieldpass": [
+                "exception",
+                "tx_dbm",
+                "tx_dbm_oc",
+                "current_bias",
+                "current_bias_oc",
+                "current_temp",
+                "rx_dbm",
+                "rx_dbm_oc",
+                "tx_low_warn",
+                "rx_low_warn",
+                "tx_low_alarm",
+                "rx_low_alarm",
+                "tx_high_warn",
+                "rx_high_warn",
+                "tx_high_alarm",
+                "rx_high_alarm",
+                "frequency",
+                "module_temp_high_alarm",
+                "module_temp_low_alarm",
+                "module_temp_high_warning",
+                "module_temp_low_warning",
+                "lane_laser_bias_current_high_alarm",
+                "lane_laser_bias_current_low_alarm",
+                "lane_laser_bias_current_high_warning",
+                "lane_laser_bias_current_low_warning",
+                "lane_laser_output_power_high_alarm",
+                "lane_laser_output_power_low_alarm",
+                "lane_laser_output_power_high_warning",
+                "lane_laser_output_power_low_warning",
+                "lane_laser_receiver_power_high_alarm",
+                "lane_laser_receiver_power_low_alarm",
+                "lane_laser_receiver_power_high_warning",
+                "lane_laser_receiver_power_low_warning",
+                "lane_rx_loss_of_signal_alarm",
+                "lane_tx_laser_disabled_alarm",
+                "lane_tx_loss_of_signal_alarm",
+                "in_block_errors_rate",
+                "in_crc_errors_rate",
+                "in_frames_1024_1518_octets_rate",
+                "in_frames_128_255_octets_rate",
+                "in_frames_256_511_octets_rate",
+                "in_frames_512_1023_octets_rate",
+                "in_frames_64_octets_rate",
+                "in_frames_65_127_octets_rate",
+                "optic_model",
+                "optic_func_type",
+                "optic_vendor",
+                "optic_vendor_part",
+                "optic_serial_no",
+                "optic_fault_condition",
+                "optic_fec_uncorrectable_blocks_rate",
+                "osnr_instant",
+                "prefec_instant",
+                "esnr_instant",
+                "chroma_instant",
+                "2nd_pola_instant",
+                "pola_loss_instant",
+                "carrier_off_instant",
+                "in_octets_rate",
+                "out_octets_rate",
+                "fec_corrected_bits_rate",
+                "port_speed",
+                "wavelength_setpoint"
+            ]
+        }
+    ]
 }

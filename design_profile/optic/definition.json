@@ -2,7 +2,7 @@
   "version": 1,
   "min-interval": 30,
   "cheatsheet": "optic.png",
-  "description": "This profile provides template for collecting optical data. V1.3",
+  "description": "This profile provides template for collecting optical data",
   "telegraf": {
     "mx": [{
         "version": ">=24.2",
@@ -40,6 +40,7 @@
   },
   "kapacitor": null,
   "grafana": [
-    "dashboard-optic.json"
+    "dashboard-optic.json",
+    "dashboard-zr.json"
   ]
 }
