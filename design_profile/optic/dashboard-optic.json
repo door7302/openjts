@@ -1249,7 +1249,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1265,7 +1266,7 @@
             "h": 4,
             "w": 24,
             "x": 0,
-            "y": 6
+            "y": 34
           },
           "id": 666,
           "options": {
@@ -1366,7 +1367,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1383,7 +1385,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 10
+            "y": 38
           },
           "id": 12,
           "options": {
@@ -1525,7 +1527,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1542,7 +1545,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 10
+            "y": 38
           },
           "id": 11,
           "options": {
@@ -1717,7 +1720,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1773,7 +1777,7 @@
             "h": 10,
             "w": 6,
             "x": 0,
-            "y": 16
+            "y": 44
           },
           "id": 6,
           "options": {
@@ -2215,7 +2219,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2271,7 +2276,7 @@
             "h": 10,
             "w": 6,
             "x": 6,
-            "y": 16
+            "y": 44
           },
           "id": 13,
           "options": {
@@ -2712,7 +2717,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2768,7 +2774,7 @@
             "h": 10,
             "w": 6,
             "x": 12,
-            "y": 16
+            "y": 44
           },
           "id": 14,
           "options": {
@@ -3210,7 +3216,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -3266,7 +3273,7 @@
             "h": 10,
             "w": 6,
             "x": 18,
-            "y": 16
+            "y": 44
           },
           "id": 9,
           "options": {
@@ -3618,7 +3625,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -3655,7 +3663,7 @@
             "h": 10,
             "w": 5,
             "x": 0,
-            "y": 26
+            "y": 54
           },
           "id": 15,
           "options": {
@@ -3798,7 +3806,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -3815,7 +3824,7 @@
             "h": 10,
             "w": 5,
             "x": 5,
-            "y": 26
+            "y": 54
           },
           "id": 258,
           "options": {
@@ -3966,7 +3975,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -3983,7 +3993,7 @@
             "h": 10,
             "w": 14,
             "x": 10,
-            "y": 26
+            "y": 54
           },
           "id": 21,
           "options": {
@@ -4064,7 +4074,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -4081,7 +4092,7 @@
             "h": 10,
             "w": 24,
             "x": 0,
-            "y": 36
+            "y": 64
           },
           "id": 667,
           "options": {
@@ -4227,7 +4238,7 @@
             "h": 2,
             "w": 24,
             "x": 0,
-            "y": 46
+            "y": 74
           },
           "id": 259,
           "options": {
@@ -4262,7 +4273,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "dark-blue"
+                    "color": "dark-blue",
+                    "value": null
                   }
                 ]
               },
@@ -4275,7 +4287,7 @@
             "h": 3,
             "w": 8,
             "x": 0,
-            "y": 48
+            "y": 76
           },
           "id": 668,
           "options": {
@@ -4365,7 +4377,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "dark-blue"
+                    "color": "dark-blue",
+                    "value": null
                   }
                 ]
               },
@@ -4378,7 +4391,7 @@
             "h": 3,
             "w": 8,
             "x": 8,
-            "y": 48
+            "y": 76
           },
           "id": 669,
           "options": {
@@ -4482,7 +4495,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "dark-blue"
+                    "color": "dark-blue",
+                    "value": null
                   }
                 ]
               },
@@ -4495,7 +4509,7 @@
             "h": 3,
             "w": 8,
             "x": 16,
-            "y": 48
+            "y": 76
           },
           "id": 670,
           "options": {
@@ -4527,7 +4541,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"port_speed\") as wave FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex}.*$/ ) AND $timeFilter",
+              "query": "SELECT last(\"port_speed\") as speed FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex}.*$/ ) AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -4573,6 +4587,7 @@
                 "includeByName": {},
                 "indexByName": {},
                 "renameByName": {
+                  "speed": "Port Speed",
                   "wave": "Optical Channel Wavelength λ (nm)"
                 }
               }
@@ -4630,7 +4645,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -4647,7 +4663,7 @@
             "h": 10,
             "w": 8,
             "x": 0,
-            "y": 51
+            "y": 79
           },
           "id": 257,
           "options": {
@@ -4762,7 +4778,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -4779,7 +4796,7 @@
             "h": 10,
             "w": 8,
             "x": 8,
-            "y": 51
+            "y": 79
           },
           "id": 256,
           "options": {
@@ -4894,7 +4911,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -4911,7 +4929,7 @@
             "h": 10,
             "w": 8,
             "x": 16,
-            "y": 51
+            "y": 79
           },
           "id": 255,
           "options": {
@@ -5026,7 +5044,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5043,7 +5062,7 @@
             "h": 10,
             "w": 8,
             "x": 0,
-            "y": 61
+            "y": 89
           },
           "id": 16,
           "options": {
@@ -5175,7 +5194,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5192,7 +5212,7 @@
             "h": 10,
             "w": 8,
             "x": 8,
-            "y": 61
+            "y": 89
           },
           "id": 252,
           "options": {
@@ -5307,7 +5327,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5324,7 +5345,7 @@
             "h": 10,
             "w": 8,
             "x": 16,
-            "y": 61
+            "y": 89
           },
           "id": 254,
           "options": {
@@ -5439,7 +5460,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5456,7 +5478,7 @@
             "h": 10,
             "w": 8,
             "x": 0,
-            "y": 71
+            "y": 99
           },
           "id": 22,
           "options": {
@@ -5571,7 +5593,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5588,7 +5611,7 @@
             "h": 10,
             "w": 8,
             "x": 8,
-            "y": 71
+            "y": 99
           },
           "id": 661,
           "options": {
@@ -5742,7 +5765,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -5759,7 +5783,7 @@
             "h": 10,
             "w": 8,
             "x": 16,
-            "y": 71
+            "y": 99
           },
           "id": 662,
           "options": {
@@ -5847,8 +5871,8 @@
       {
         "current": {
           "selected": false,
-          "text": "rtme-ptx10k4-02",
-          "value": "rtme-ptx10k4-02"
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "influxdb",

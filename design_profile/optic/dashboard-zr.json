@@ -54,7 +54,7 @@
       "type": "text"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -62,432 +62,432 @@
         "y": 2
       },
       "id": 145,
-      "panels": [
+      "panels": [],
+      "title": "GLOBAL ALARMS",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "mode": "gradient",
+              "type": "color-background"
+            },
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 0
+          },
+          "mappings": [
+            {
+              "options": {
+                "false": {
+                  "color": "transparent",
+                  "index": 1,
+                  "text": "no"
+                },
+                "true": {
+                  "color": "dark-red",
+                  "index": 0,
+                  "text": "ERROR"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 134
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 4,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
         {
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "fixed"
-              },
-              "custom": {
-                "align": "auto",
-                "cellOptions": {
-                  "mode": "gradient",
-                  "type": "color-background"
-                },
-                "filterable": false,
-                "inspect": false,
-                "minWidth": 0
-              },
-              "mappings": [
-                {
-                  "options": {
-                    "false": {
-                      "color": "transparent",
-                      "index": 1,
-                      "text": "no"
-                    },
-                    "true": {
-                      "color": "dark-red",
-                      "index": 0,
-                      "text": "ERROR"
-                    }
-                  },
-                  "type": "value"
-                }
+          "groupBy": [
+            {
+              "params": [
+                "if_name::tag"
               ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  }
-                ]
-              },
-              "unitScale": true
-            },
-            "overrides": [
+              "type": "tag"
+            }
+          ],
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"lane_laser_bias_current_high_alarm\"), last(\"lane_laser_bias_current_high_warning\"), last(\"lane_laser_bias_current_low_warning\"), last(\"lane_laser_output_power_high_alarm\"), last(\"lane_laser_output_power_high_warning\"), last(\"lane_laser_output_power_low_alarm\"), last(\"lane_laser_output_power_low_warning\"), last(\"lane_laser_receiver_power_high_alarm\"), last(\"lane_laser_receiver_power_low_alarm\"), last(\"lane_laser_receiver_power_high_warning\"), last(\"lane_laser_receiver_power_low_warning\"), last(\"lane_laser_bias_current_low_alarm\"), last(\"lane_rx_loss_of_signal_alarm\"), last(\"lane_tx_loss_of_signal_alarm\"), last(\"module_temp_high_alarm\"), last(\"module_temp_high_warning\"), last(\"module_temp_low_alarm\"), last(\"module_temp_low_warning\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter GROUP BY \"if_name\"::tag",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
               {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Name"
-                },
-                "properties": [
-                  {
-                    "id": "custom.width",
-                    "value": 134
-                  }
-                ]
+                "params": [
+                  "lane_laser_bias_current_high_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_bias_current_high_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_bias_current_low_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_output_power_high_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_output_power_high_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_output_power_low_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_output_power_low_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_receiver_power_high_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_receiver_power_low_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_receiver_power_high_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_receiver_power_low_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_bias_current_low_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_rx_loss_of_signal_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_tx_loss_of_signal_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "module_temp_high_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "module_temp_high_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "module_temp_low_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "module_temp_low_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
               }
             ]
-          },
-          "gridPos": {
-            "h": 15,
-            "w": 24,
-            "x": 0,
-            "y": 3
-          },
-          "id": 4,
-          "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "enablePagination": false,
-              "fields": "",
-              "reducer": [
-                "sum"
-              ],
-              "show": false
-            },
-            "showHeader": true,
-            "sortBy": []
-          },
-          "pluginVersion": "10.3.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "if_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "measurement": "COMPONENTS",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT last(\"lane_laser_bias_current_high_alarm\"), last(\"lane_laser_bias_current_high_warning\"), last(\"lane_laser_bias_current_low_warning\"), last(\"lane_laser_output_power_high_alarm\"), last(\"lane_laser_output_power_high_warning\"), last(\"lane_laser_output_power_low_alarm\"), last(\"lane_laser_output_power_low_warning\"), last(\"lane_laser_receiver_power_high_alarm\"), last(\"lane_laser_receiver_power_low_alarm\"), last(\"lane_laser_receiver_power_high_warning\"), last(\"lane_laser_receiver_power_low_warning\"), last(\"lane_laser_bias_current_low_alarm\"), last(\"lane_rx_loss_of_signal_alarm\"), last(\"lane_tx_loss_of_signal_alarm\"), last(\"module_temp_high_alarm\"), last(\"module_temp_high_warning\"), last(\"module_temp_low_alarm\"), last(\"module_temp_low_warning\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter GROUP BY \"if_name\"::tag",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "table",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "lane_laser_bias_current_high_alarm"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "lane_laser_bias_current_high_warning"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "lane_laser_bias_current_low_warning"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "lane_laser_output_power_high_alarm"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "lane_laser_output_power_high_warning"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "lane_laser_output_power_low_alarm"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "lane_laser_output_power_low_warning"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "lane_laser_receiver_power_high_alarm"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "lane_laser_receiver_power_low_alarm"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "lane_laser_receiver_power_high_warning"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "lane_laser_receiver_power_low_warning"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "lane_laser_bias_current_low_alarm"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "lane_rx_loss_of_signal_alarm"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "lane_tx_loss_of_signal_alarm"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "module_temp_high_alarm"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "module_temp_high_warning"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "module_temp_low_alarm"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "module_temp_low_warning"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "port_name::tag",
-                  "operator": "=~",
-                  "value": "/^$port$/"
-                }
-              ]
-            }
           ],
-          "title": "Current Optical Alarm",
-          "transformations": [
+          "tags": [
             {
-              "id": "filterFieldsByName",
-              "options": {
-                "include": {
-                  "names": [
-                    "last",
-                    "last_1",
-                    "last_2",
-                    "last_3",
-                    "last_4",
-                    "last_5",
-                    "last_6",
-                    "last_7",
-                    "last_8",
-                    "last_9",
-                    "last_10",
-                    "last_11",
-                    "last_12",
-                    "last_13",
-                    "last_14",
-                    "last_15",
-                    "last_16",
-                    "last_17",
-                    "if_name"
-                  ]
-                }
-              }
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
             },
             {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "if_name": false
-                },
-                "indexByName": {
-                  "if_name": 0,
-                  "last": 3,
-                  "last_1": 11,
-                  "last_10": 13,
-                  "last_11": 7,
-                  "last_12": 17,
-                  "last_13": 18,
-                  "last_14": 4,
-                  "last_15": 12,
-                  "last_16": 8,
-                  "last_17": 16,
-                  "last_2": 15,
-                  "last_3": 2,
-                  "last_4": 10,
-                  "last_5": 6,
-                  "last_6": 14,
-                  "last_7": 1,
-                  "last_8": 5,
-                  "last_9": 9
-                },
-                "renameByName": {
-                  "if_name": "Name",
-                  "last": "BIAS H. Alrm",
-                  "last_1": "BIAS H. Warn",
-                  "last_10": "RX L. Warn",
-                  "last_11": "BIAS L. Alrm",
-                  "last_12": "RX LOS",
-                  "last_13": "TX LOS",
-                  "last_14": "Temp H. Alrm",
-                  "last_15": "Temp H. Warn",
-                  "last_16": "Temp L. Alrm",
-                  "last_17": "Temp L. Warn",
-                  "last_2": "BIAS L. Warn",
-                  "last_3": "TX H. Alrm",
-                  "last_4": "TX H. Warn",
-                  "last_5": "TX L. Alrm",
-                  "last_6": "TX L. Warn",
-                  "last_7": "RX H. Alrm",
-                  "last_8": "RX L. Alrm",
-                  "last_9": "RX H. Warn"
-                }
-              }
+              "condition": "AND",
+              "key": "port_name::tag",
+              "operator": "=~",
+              "value": "/^$port$/"
             }
-          ],
-          "type": "table"
+          ]
         }
       ],
-      "title": "GLOBAL ALARMS",
-      "type": "row"
+      "title": "Current Optical Alarm",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "last",
+                "last_1",
+                "last_2",
+                "last_3",
+                "last_4",
+                "last_5",
+                "last_6",
+                "last_7",
+                "last_8",
+                "last_9",
+                "last_10",
+                "last_11",
+                "last_12",
+                "last_13",
+                "last_14",
+                "last_15",
+                "last_16",
+                "last_17",
+                "if_name"
+              ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "if_name": false
+            },
+            "indexByName": {
+              "if_name": 0,
+              "last": 3,
+              "last_1": 11,
+              "last_10": 13,
+              "last_11": 7,
+              "last_12": 17,
+              "last_13": 18,
+              "last_14": 4,
+              "last_15": 12,
+              "last_16": 8,
+              "last_17": 16,
+              "last_2": 15,
+              "last_3": 2,
+              "last_4": 10,
+              "last_5": 6,
+              "last_6": 14,
+              "last_7": 1,
+              "last_8": 5,
+              "last_9": 9
+            },
+            "renameByName": {
+              "if_name": "Name",
+              "last": "BIAS H. Alrm",
+              "last_1": "BIAS H. Warn",
+              "last_10": "RX L. Warn",
+              "last_11": "BIAS L. Alrm",
+              "last_12": "RX LOS",
+              "last_13": "TX LOS",
+              "last_14": "Temp H. Alrm",
+              "last_15": "Temp H. Warn",
+              "last_16": "Temp L. Alrm",
+              "last_17": "Temp L. Warn",
+              "last_2": "BIAS L. Warn",
+              "last_3": "TX H. Alrm",
+              "last_4": "TX H. Warn",
+              "last_5": "TX L. Alrm",
+              "last_6": "TX L. Warn",
+              "last_7": "RX H. Alrm",
+              "last_8": "RX L. Alrm",
+              "last_9": "RX H. Warn"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "collapsed": false,
@@ -495,7 +495,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 3
+        "y": 8
       },
       "id": 19,
       "panels": [],
@@ -560,7 +560,7 @@
         "h": 4,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 9
       },
       "id": 260,
       "options": {
@@ -678,7 +678,7 @@
         "h": 3,
         "w": 8,
         "x": 0,
-        "y": 8
+        "y": 13
       },
       "id": 253,
       "options": {
@@ -782,7 +782,7 @@
         "h": 3,
         "w": 8,
         "x": 8,
-        "y": 8
+        "y": 13
       },
       "id": 265,
       "options": {
@@ -900,7 +900,7 @@
         "h": 3,
         "w": 8,
         "x": 16,
-        "y": 8
+        "y": 13
       },
       "id": 266,
       "options": {
@@ -1016,7 +1016,7 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 11
+        "y": 16
       },
       "id": 12,
       "options": {
@@ -1177,7 +1177,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 11
+        "y": 16
       },
       "id": 11,
       "options": {
@@ -1410,7 +1410,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 17
+        "y": 22
       },
       "id": 262,
       "options": {
@@ -1909,7 +1909,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 17
+        "y": 22
       },
       "id": 261,
       "options": {
@@ -2409,7 +2409,7 @@
         "h": 10,
         "w": 6,
         "x": 0,
-        "y": 26
+        "y": 31
       },
       "id": 263,
       "options": {
@@ -2780,7 +2780,7 @@
         "h": 10,
         "w": 6,
         "x": 6,
-        "y": 26
+        "y": 31
       },
       "id": 22,
       "options": {
@@ -2912,7 +2912,7 @@
         "h": 10,
         "w": 6,
         "x": 12,
-        "y": 26
+        "y": 31
       },
       "id": 267,
       "options": {
@@ -3083,7 +3083,7 @@
         "h": 10,
         "w": 6,
         "x": 18,
-        "y": 26
+        "y": 31
       },
       "id": 258,
       "options": {
@@ -3255,7 +3255,7 @@
         "h": 10,
         "w": 6,
         "x": 0,
-        "y": 36
+        "y": 41
       },
       "id": 16,
       "options": {
@@ -3404,7 +3404,7 @@
         "h": 10,
         "w": 6,
         "x": 6,
-        "y": 36
+        "y": 41
       },
       "id": 254,
       "options": {
@@ -3536,7 +3536,7 @@
         "h": 10,
         "w": 6,
         "x": 12,
-        "y": 36
+        "y": 41
       },
       "id": 256,
       "options": {
@@ -3668,7 +3668,7 @@
         "h": 10,
         "w": 6,
         "x": 18,
-        "y": 36
+        "y": 41
       },
       "id": 255,
       "options": {
@@ -3800,7 +3800,7 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 46
+        "y": 51
       },
       "id": 264,
       "options": {
@@ -3937,7 +3937,7 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 46
+        "y": 51
       },
       "id": 21,
       "options": {
@@ -4107,7 +4107,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "",
           "value": ""
         },
@@ -4132,8 +4132,8 @@
       {
         "current": {
           "selected": false,
-          "text": "0/0/28",
-          "value": "0/0/28"
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "influxdb",
