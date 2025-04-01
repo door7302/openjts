@@ -86,7 +86,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -110,7 +111,8 @@
                       "mode": "absolute",
                       "steps": [
                         {
-                          "color": "green"
+                          "color": "green",
+                          "value": null
                         },
                         {
                           "color": "#EAB839",
@@ -138,7 +140,7 @@
             "h": 6,
             "w": 12,
             "x": 0,
-            "y": 44
+            "y": 4
           },
           "id": 663,
           "options": {
@@ -251,7 +253,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -268,7 +271,7 @@
             "h": 6,
             "w": 12,
             "x": 12,
-            "y": 44
+            "y": 4
           },
           "id": 664,
           "options": {
@@ -1292,7 +1295,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"optic_model\"), last(\"optic_vendor\"), last(\"optic_vendor_part\"), last(\"optic_serial_no\"), last(\"optic_func_type\"), last(\"optic_fault_condition\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"port_name\"::tag =~ /^.*${ifname:regex}.*$/ and \"channel\"='no') AND $timeFilter and optic_desc != '' group by optic_desc",
+              "query": "SELECT last(\"optic_model\"), last(\"optic_vendor\"), last(\"optic_vendor_part\"), last(\"optic_serial_no\"), last(\"optic_func_type\"), last(\"optic_fault_condition\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"port_name\"::tag =~ /^.*${ifname:regex} .*$/ and \"channel\"='no') AND $timeFilter and optic_desc != '' group by optic_desc",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -1422,7 +1425,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"rx_dbm\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex}.*$/ AND \"channel\"::tag = 'no') AND $timeFilter GROUP BY \"lane_number\"",
+              "query": "SELECT \"rx_dbm\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ AND \"channel\"::tag = 'no') AND $timeFilter GROUP BY \"lane_number\"",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1474,7 +1477,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"rx_dbm_oc\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex}.*$/  AND \"channel\"::tag = 'yes') AND $timeFilter GROUP BY \"lane_number\"",
+              "query": "SELECT \"rx_dbm_oc\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/  AND \"channel\"::tag = 'yes') AND $timeFilter GROUP BY \"lane_number\"",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1582,7 +1585,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"tx_dbm\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex}.*$/  AND \"channel\"::tag = 'no') AND $timeFilter GROUP BY \"lane_number\"",
+              "query": "SELECT \"tx_dbm\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/  AND \"channel\"::tag = 'no') AND $timeFilter GROUP BY \"lane_number\"",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -1634,7 +1637,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"tx_dbm_oc\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex}.*$/ AND \"channel\"::tag = 'yes') AND $timeFilter GROUP BY \"lane_number\"",
+              "query": "SELECT \"tx_dbm_oc\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ AND \"channel\"::tag = 'yes') AND $timeFilter GROUP BY \"lane_number\"",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -1822,7 +1825,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tx_dbm\") as TX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex}.*$/ and \"channel\"='no') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+              "query": "SELECT mean(\"tx_dbm\") as TX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex} .*$/ and \"channel\"='no') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2006,7 +2009,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"tx_dbm_oc\") as TX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex}.*$/ and \"channel\"='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+              "query": "SELECT mean(\"tx_dbm_oc\") as TX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex} .*$/ and \"channel\"='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
               "rawQuery": true,
               "refId": "C",
               "resultFormat": "time_series",
@@ -2320,7 +2323,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"rx_dbm\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex}.*$/ and \"channel\"='no') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+              "query": "SELECT mean(\"rx_dbm\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex} .*$/ and \"channel\"='no') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2504,7 +2507,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"rx_dbm_oc\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex}.*$/  and \"channel\"='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+              "query": "SELECT mean(\"rx_dbm_oc\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex} .*$/  and \"channel\"='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
               "rawQuery": true,
               "refId": "C",
               "resultFormat": "time_series",
@@ -2819,7 +2822,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"current_bias\") as BIAS FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex}.*$/ and \"channel\"='no') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+              "query": "SELECT mean(\"current_bias\") as BIAS FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex} .*$/ and \"channel\"='no') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -2911,7 +2914,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"current_bias_oc\") as BIAS FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex}.*$/  and \"channel\"='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+              "query": "SELECT mean(\"current_bias_oc\") as BIAS FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex} .*$/  and \"channel\"='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -3286,7 +3289,9 @@
               ],
               "displayMode": "table",
               "placement": "bottom",
-              "showLegend": true
+              "showLegend": true,
+              "sortBy": "Name",
+              "sortDesc": false
             },
             "tooltip": {
               "mode": "multi",
@@ -3295,7 +3300,7 @@
           },
           "targets": [
             {
-              "alias": "Temperture",
+              "alias": "Module Temperture",
               "datasource": {
                 "type": "influxdb",
                 "uid": "jtsuid"
@@ -3318,7 +3323,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"current_temp\") as Temperture  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}.*$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+              "query": "SELECT mean(\"current_module_temp\") as Temperture  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}.*$/) AND $timeFilter GROUP BY time(60s) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -3569,9 +3574,101 @@
                   "value": "$ifname"
                 }
               ]
+            },
+            {
+              "alias": "Lane $tag_lane_number Laser Temperture",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "30s"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "COMPONENTS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"current_laser_temp\") as TempertureL  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}.*$/) AND $timeFilter GROUP BY time(60s), lane_number fill(null)",
+              "rawQuery": true,
+              "refId": "D",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "tx_dbm"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "rx_dbm"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "rx_high_warn"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "tx_low_warn"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "if_name",
+                  "operator": "=",
+                  "value": "$ifname"
+                }
+              ]
             }
           ],
-          "title": "$ifname - Module Temperture",
+          "title": "$ifname - Temperture",
           "transformations": [],
           "type": "timeseries"
         },
@@ -3856,7 +3953,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"optic_fec_uncorrectable_blocks_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex}.*$/  and \"channel\"='no') AND $timeFilter",
+              "query": "SELECT \"optic_fec_uncorrectable_blocks_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex} .*$/  and \"channel\"='no') AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4137,7 +4234,7 @@
               "measurement": "INTERFACES",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"in_octets_rate\"*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex}.*$/ ) AND $timeFilter",
+              "query": "SELECT \"in_octets_rate\"*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4193,7 +4290,7 @@
               "measurement": "INTERFACES",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"out_octets_rate\"*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex}.*$/ ) AND $timeFilter",
+              "query": "SELECT \"out_octets_rate\"*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
               "rawQuery": true,
               "refId": "B",
               "resultFormat": "time_series",
@@ -4273,8 +4370,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "dark-blue",
-                    "value": null
+                    "color": "dark-blue"
                   }
                 ]
               },
@@ -4319,7 +4415,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"frequency\")*1000000 as freq FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex}.*$/ ) AND $timeFilter",
+              "query": "SELECT last(\"frequency\")*1000000 as freq FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -4377,8 +4473,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "dark-blue",
-                    "value": null
+                    "color": "dark-blue"
                   }
                 ]
               },
@@ -4423,7 +4518,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"wavelength_setpoint\") as wave FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex}.*$/ ) AND $timeFilter",
+              "query": "SELECT last(\"wavelength_setpoint\") as wave FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -4495,8 +4590,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "dark-blue",
-                    "value": null
+                    "color": "dark-blue"
                   }
                 ]
               },
@@ -4541,7 +4635,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT last(\"port_speed\") as speed FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex}.*$/ ) AND $timeFilter",
+              "query": "SELECT last(\"port_speed\") as speed FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "table",
@@ -4645,8 +4739,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -4695,7 +4788,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"carrier_off_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex}.*$/ ) AND $timeFilter",
+              "query": "SELECT \"carrier_off_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4778,8 +4871,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -4828,7 +4920,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"pola_loss_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex}.*$/ ) AND $timeFilter",
+              "query": "SELECT \"pola_loss_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -4911,8 +5003,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -4961,7 +5052,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"2nd_pola_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag=~/^.*${ifname:regex}.*$/ ) AND $timeFilter",
+              "query": "SELECT \"2nd_pola_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag=~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5044,8 +5135,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -5107,7 +5197,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT mean(\"osnr_instant\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex}.*$/ ) AND $timeFilter GROUP BY time(60s) fill(null)",
+              "query": "SELECT mean(\"osnr_instant\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter GROUP BY time(60s) fill(null)",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5194,8 +5284,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -5244,7 +5333,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"esnr_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex}.*$/ ) AND $timeFilter",
+              "query": "SELECT \"esnr_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5327,8 +5416,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -5377,7 +5465,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"chroma_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex}.*$/ ) AND $timeFilter",
+              "query": "SELECT \"chroma_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5460,8 +5548,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -5510,7 +5597,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"prefec_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex}.*$/ ) AND $timeFilter",
+              "query": "SELECT \"prefec_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5593,8 +5680,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -5643,7 +5729,7 @@
               "measurement": "COMPONENTS",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"optic_fec_uncorrectable_blocks\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex}.*$/  and \"channel\"='no') AND $timeFilter",
+              "query": "SELECT \"optic_fec_uncorrectable_blocks\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex} .*$/  and \"channel\"='no') AND $timeFilter",
               "rawQuery": true,
               "refId": "A",
               "resultFormat": "time_series",
@@ -5765,8 +5851,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",

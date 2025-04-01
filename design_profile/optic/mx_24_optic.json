@@ -133,7 +133,7 @@
                 {
                     "type": 1,
                     "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_temperature",
-                    "to": "current_temp"
+                    "to": "current_laser_temp"
                 },
                 {
                     "type": 1,
@@ -479,6 +479,11 @@
                     "type": 1,
                     "from": "/interfaces/interface/optics/wavelength_setpoint",
                     "to": "wavelength_setpoint"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/module_temp",
+                    "to": "current_module_temp"
                 }
             ]
         }
@@ -595,7 +600,8 @@
                 "tx_dbm_oc",
                 "current_bias",
                 "current_bias_oc",
-                "current_temp",
+                "current_laser_temp",
+                "current_module_temp",
                 "rx_dbm",
                 "rx_dbm_oc",
                 "tx_low_warn",
