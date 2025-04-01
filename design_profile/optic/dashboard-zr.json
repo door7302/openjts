@@ -2432,7 +2432,7 @@
       },
       "targets": [
         {
-          "alias": "Temperture",
+          "alias": "Module Temperture",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
@@ -2455,7 +2455,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"current_temp\") as Temperture  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}.*$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "query": "SELECT mean(\"current_module_temp\") as Temperture  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}.*$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2706,9 +2706,101 @@
               "value": "$ifname"
             }
           ]
+        },
+        {
+          "alias": "Lane $tag_lane_number Laser Temperture",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "30s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"current_laser_temp\") as TempertureL  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}.*$/) AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+          "rawQuery": true,
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "tx_dbm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rx_dbm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rx_high_warn"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "tx_low_warn"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "if_name",
+              "operator": "=",
+              "value": "$ifname"
+            }
+          ]
         }
       ],
-      "title": "$ifname - Module Temperture",
+      "title": "$ifname - Temperture",
       "transformations": [],
       "type": "timeseries"
     },
@@ -4107,7 +4199,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "",
           "value": ""
         },
@@ -4132,8 +4224,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "0/0/14",
+          "value": "0/0/14"
         },
         "datasource": {
           "type": "influxdb",
