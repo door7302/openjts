@@ -586,7 +586,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"optic_model\"), last(\"optic_vendor\"), last(\"optic_vendor_part\"), last(\"optic_serial_no\"), last(\"optic_func_type\"), last(\"optic_fault_condition\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"port_name\"::tag =~ /^.*${ifname:regex}. *$/ and \"channel\"='no') AND $timeFilter and optic_desc != '' group by optic_desc",
+          "query": "SELECT last(\"optic_model\"), last(\"optic_vendor\"), last(\"optic_vendor_part\"), last(\"optic_serial_no\"), last(\"optic_func_type\"), last(\"optic_fault_condition\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"port_name\"::tag =~ /^.*${ifname:regex} .*$/ and \"channel\"='no') AND $timeFilter and optic_desc != '' group by optic_desc",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
