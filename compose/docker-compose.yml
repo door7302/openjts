@@ -15,7 +15,7 @@ services:
       - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf
       - ./influxdb/data:/var/lib/influxdb
   telegraf_mx:
-    build: https://github.com/door7302/jts_telegraf.git#v1.0.13
+    build: https://github.com/door7302/jts_telegraf.git#v1.0.14
     image: jts_telegraf:latest
     container_name: telegraf_mx
     restart: always
