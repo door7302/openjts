@@ -19,6 +19,10 @@
     "acx": [{
       "version": "all",
       "conf": "acx_health.json"
+    }],
+    "qfx": [{
+      "version": "all",
+      "conf": "qfx_health.json"
     }]
   },
   "kapacitor": null,
