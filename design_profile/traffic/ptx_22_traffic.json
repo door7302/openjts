@@ -395,7 +395,9 @@
                         "if_name",
                         "queue_id",
                         "queue_name",
-                        "LINKNAME"
+                        "LINKNAME",
+                        "_component_id",
+                        "pfe_index"
                     ]
                 },
                 {
@@ -410,7 +412,9 @@
                         "if_name",
                         "queue_id",
                         "queue_name",
-                        "LINKNAME"
+                        "LINKNAME",
+                        "_component_id",
+                        "pfe_index"
                     ]
                 },
                 {
