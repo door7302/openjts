@@ -73,7 +73,7 @@
           },
           "mappings": [],
           "noValue": "No data or Sensor not supported",
-              "thresholds": {
+          "thresholds": {
             "mode": "absolute",
             "steps": [
               {
@@ -253,7 +253,7 @@
           },
           "mappings": [],
           "noValue": "No data or Sensor not supported",
-              "unitScale": true
+          "unitScale": true
         },
         "overrides": []
       },
@@ -362,7 +362,7 @@
           },
           "mappings": [],
           "noValue": "No data or Sensor not supported",
-              "thresholds": {
+          "thresholds": {
             "mode": "absolute",
             "steps": [
               {
@@ -594,7 +594,7 @@
           },
           "mappings": [],
           "noValue": "No data or Sensor not supported",
-              "thresholds": {
+          "thresholds": {
             "mode": "absolute",
             "steps": [
               {
@@ -785,7 +785,7 @@
           },
           "mappings": [],
           "noValue": "No data or Sensor not supported",
-              "thresholds": {
+          "thresholds": {
             "mode": "absolute",
             "steps": [
               {
@@ -975,7 +975,7 @@
           },
           "mappings": [],
           "noValue": "No data or Sensor not supported",
-              "thresholds": {
+          "thresholds": {
             "mode": "absolute",
             "steps": [
               {
@@ -1352,8 +1352,8 @@
             }
           },
           "mappings": [],
+          "min": 0,
           "noValue": "No data or Sensor not supported",
-              "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1543,8 +1543,8 @@
           },
           "decimals": 0,
           "mappings": [],
+          "max": 100,
           "noValue": "No data or Sensor not supported",
-              "max": 100,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1572,7 +1572,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
+        "h": 6,
         "w": 9,
         "x": 0,
         "y": 71
@@ -1605,10 +1605,11 @@
             "uid": "jtsuid"
           },
           "groupBy": [],
+          "hide": false,
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"cos_buffer_cur\")/last(\"cos_buffer_size\")*100 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter group by queue_id fill(0)",
+          "query": "SELECT last(\"cos_buffer_cur\")/last(\"cos_buffer_size\")*100 as value FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter group by queue_id fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1652,8 +1653,8 @@
           },
           "decimals": 0,
           "mappings": [],
+          "max": 100,
           "noValue": "No data or Sensor not supported",
-              "max": 100,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1681,7 +1682,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
+        "h": 6,
         "w": 9,
         "x": 9,
         "y": 71
@@ -1717,7 +1718,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"cos_buffer_peak\")/last(\"cos_buffer_size\")*100 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter group by queue_id fill(0)",
+          "query": "SELECT last(\"cos_buffer_peak\")/last(\"cos_buffer_size\")*100 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter group by queue_id fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1768,12 +1769,12 @@
           },
           "mappings": [],
           "noValue": "No data or Sensor not supported",
-              "unitScale": true
+          "unitScale": true
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 20,
+        "h": 22,
         "w": 6,
         "x": 18,
         "y": 71
@@ -1851,6 +1852,225 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "max": 100,
+          "noValue": "No data or Sensor not supported",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50
+              },
+              {
+                "color": "orange",
+                "value": 70
+              },
+              {
+                "color": "dark-red",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 9,
+        "x": 0,
+        "y": 77
+      },
+      "id": 56,
+      "options": {
+        "displayMode": "lcd",
+        "maxVizHeight": 300,
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "namePlacement": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "alias": "Q$tag_queue_id",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(value) from (select last(\"voq_cos_buffer_cur_percent\") as value FROM \"JUNOS_QMON\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname') and $timeFilter group by queue_id, pfe_index, _component_id, _subcomponent_id) group by queue_id fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cos_buffer_usage"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "VOQ System - Max Current Buffer utilization per queue - $ifname",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "max": 100,
+          "noValue": "No data or Sensor not supported",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50
+              },
+              {
+                "color": "orange",
+                "value": 70
+              },
+              {
+                "color": "dark-red",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 9,
+        "x": 9,
+        "y": 77
+      },
+      "id": 57,
+      "options": {
+        "displayMode": "lcd",
+        "maxVizHeight": 300,
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "namePlacement": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "alias": "Q$tag_queue_id",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT max(value) from (select last(\"voq_cos_buffer_peak_percent\") as value FROM \"JUNOS_QMON\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname') and $timeFilter group by queue_id, pfe_index, _component_id, _subcomponent_id) group by queue_id fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cos_buffer_usage"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "VOQ System - Max Peak Buffer utilization per queue - $ifname",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
             "mode": "palette-classic"
           },
           "custom": {
@@ -1887,9 +2107,8 @@
           },
           "decimals": 0,
           "mappings": [],
+          "max": 100,
           "noValue": "No data or Sensor not supported",
-              "max": 100,
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1920,7 +2139,7 @@
         "h": 10,
         "w": 9,
         "x": 0,
-        "y": 81
+        "y": 83
       },
       "id": 50,
       "options": {
@@ -1946,12 +2165,52 @@
             "uid": "jtsuid"
           },
           "groupBy": [],
+          "hide": true,
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT(\"cos_buffer_cur\")/(\"cos_buffer_size\")*100 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter group by queue_id fill(0)",
+          "query": "SELECT(\"cos_buffer_cur\")/(\"cos_buffer_size\")*100 as value FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='' and value !='0') and $timeFilter group by queue_id fill(null)",
           "rawQuery": true,
           "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cos_buffer_usage"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        },
+        {
+          "alias": "Queue Utilization $tag_queue_id",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select (\"voq_cos_buffer_cur_percent\") as value FROM \"JUNOS_QMON\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and value !='0' ) and $timeFilter group by queue_id, pfe_index, _component_id, _subcomponent_id fill(null)",
+          "rawQuery": true,
+          "refId": "B",
           "resultFormat": "time_series",
           "select": [
             [
@@ -2025,9 +2284,9 @@
           },
           "decimals": 0,
           "mappings": [],
-          "noValue": "No data or Sensor not supported",
-              "max": 100,
+          "max": 100,
           "min": 0,
+          "noValue": "No data or Sensor not supported",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -2058,7 +2317,7 @@
         "h": 10,
         "w": 9,
         "x": 9,
-        "y": 81
+        "y": 83
       },
       "id": 55,
       "options": {
@@ -2163,7 +2422,7 @@
           },
           "mappings": [],
           "noValue": "No data or Sensor not supported",
-              "thresholds": {
+          "thresholds": {
             "mode": "absolute",
             "steps": [
               {
@@ -2185,7 +2444,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 91
+        "y": 93
       },
       "id": 48,
       "options": {
@@ -2306,7 +2565,7 @@
           },
           "mappings": [],
           "noValue": "No data or Sensor not supported",
-              "thresholds": {
+          "thresholds": {
             "mode": "absolute",
             "steps": [
               {
@@ -2328,7 +2587,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 91
+        "y": 93
       },
       "id": 4,
       "options": {
@@ -2449,7 +2708,7 @@
           },
           "mappings": [],
           "noValue": "No data or Sensor not supported",
-              "thresholds": {
+          "thresholds": {
             "mode": "absolute",
             "steps": [
               {
@@ -2471,7 +2730,7 @@
         "h": 12,
         "w": 12,
         "x": 0,
-        "y": 103
+        "y": 105
       },
       "id": 49,
       "options": {
@@ -2592,7 +2851,7 @@
           },
           "mappings": [],
           "noValue": "No data or Sensor not supported",
-              "thresholds": {
+          "thresholds": {
             "mode": "absolute",
             "steps": [
               {
@@ -2614,7 +2873,7 @@
         "h": 12,
         "w": 12,
         "x": 12,
-        "y": 103
+        "y": 105
       },
       "id": 5,
       "options": {
@@ -2700,9 +2959,9 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "",
-          "value": ""
+          "selected": true,
+          "text": "rtme-ptx10001-36mr-10",
+          "value": "rtme-ptx10001-36mr-10"
         },
         "datasource": {
           "type": "influxdb",
@@ -2725,8 +2984,12 @@
       {
         "current": {
           "selected": true,
-          "text": [],
-          "value": []
+          "text": [
+            "et-0/1/5 - TORTPORT4/41"
+          ],
+          "value": [
+            "et-0/1/5 - TORTPORT4/41"
+          ]
         },
         "datasource": {
           "type": "influxdb",

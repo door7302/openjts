@@ -262,26 +262,6 @@
                 },
                 {
                     "type": 1,
-                    "from": "/interfaces/interface/state/counters/out-queue/allocated-buffer-size",
-                    "to": "cos_buffer_size"
-                },
-                {
-                    "type": 1,
-                    "from": "/interfaces/interface/state/counters/out-queue/peak-buffer-occupancy",
-                    "to": "cos_buffer_peak"
-                },
-                {
-                    "type": 1,
-                    "from": "/interfaces/interface/state/counters/out-queue/cur-buffer-occupancy",
-                    "to": "cos_buffer_cur"
-                },
-                {
-                    "type": 1,
-                    "from": "/interfaces/interface/state/counters/out-queue/avg-buffer-occupancy",
-                    "to": "cos_buffer_avg"
-                },
-                {
-                    "type": 1,
                     "from": "/cos/interfaces/interface/input/queues/queue/pfes/pfe/avg-queue-length-bytes",
                     "to": "voq_cos_buffer_avg"
                 },
@@ -483,10 +463,6 @@
                 "cos_red_dropped_packets_rate",
                 "cos_tail_dropped_packets_rate",
                 "cos_forwarded_packets_rate",
-                "cos_buffer_size",
-                "cos_buffer_peak",
-                "cos_buffer_cur",
-                "cos_buffer_avg",
                 "mcast_in_pkts_rate",
                 "mcast_out_pkts_rate",
                 "bcast_in_pkts_rate",
