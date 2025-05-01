@@ -13,6 +13,10 @@
       "conf": "mx_traffic.json"
     }],
     "ptx": [{
+      "version": ">=22.2",
+      "conf": "ptx_22_traffic.json"
+    },
+    {
       "version": "all",
       "conf": "ptx_traffic.json"
     }],
