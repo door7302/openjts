@@ -3102,8 +3102,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "PHYSICAL IF. INTERFACES MONITORING PROFILE - JTS",
-  "uid": "trafficdashboard",
+  "title": "VoQ SYSTEM (PTX) MONITORING PROFILE - JTS",
+  "uid": "trafficvoqdashboard",
   "version": 1,
   "weekStart": ""
 }

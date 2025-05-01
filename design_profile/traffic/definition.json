@@ -30,6 +30,7 @@
   ],
   "grafana": [
     "dashboard-traffic.json",
+    "dashboard-voq.json",
     "dashboard-unit_traffic.json"
   ]
 }
