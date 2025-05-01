@@ -140,7 +140,7 @@
         ]
       },
       "gridPos": {
-        "h": 12,
+        "h": 7,
         "w": 15,
         "x": 0,
         "y": 2
@@ -329,19 +329,6 @@
       "type": "piechart"
     },
     {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 14
-      },
-      "id": 19,
-      "panels": [],
-      "title": "Drop Details - Timestamp",
-      "type": "row"
-    },
-    {
       "datasource": {
         "type": "influxdb",
         "uid": "jtsuid"
@@ -394,10 +381,10 @@
         ]
       },
       "gridPos": {
-        "h": 10,
-        "w": 24,
+        "h": 5,
+        "w": 15,
         "x": 0,
-        "y": 15
+        "y": 9
       },
       "id": 17,
       "options": {
@@ -486,23 +473,24 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "datasource",
+        "uid": "grafana"
       },
+      "description": "",
       "gridPos": {
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 14
       },
-      "id": 39,
+      "id": 51,
       "options": {
         "code": {
           "language": "plaintext",
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "<h2><center>Per Interface details</center><h2>",
+        "content": "<h2><center>Traffic info $ifname</center></h2>",
         "mode": "html"
       },
       "pluginVersion": "10.3.1",
@@ -510,2485 +498,2210 @@
       "type": "text"
     },
     {
-      "collapsed": true,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 27
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
-      "id": 13,
-      "panels": [
-        {
-          "datasource": {
-            "type": "datasource",
-            "uid": "grafana"
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
           },
-          "description": "",
-          "gridPos": {
-            "h": 2,
-            "w": 24,
-            "x": 0,
-            "y": 28
-          },
-          "id": 51,
-          "options": {
-            "code": {
-              "language": "plaintext",
-              "showLineNumbers": false,
-              "showMiniMap": false
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 8,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
             },
-            "content": "<h2><center>Traffic info $ifname</center></h2>",
-            "mode": "html"
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
-          "pluginVersion": "10.3.1",
-          "transparent": true,
-          "type": "text"
+          "mappings": [],
+          "noValue": "No data or Sensor not supported",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bps",
+          "unitScale": true
         },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 18,
+        "x": 0,
+        "y": 16
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
         {
+          "alias": "Input Bps",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 8,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "smooth",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "noValue": "No data or Sensor not supported",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "bps",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 12,
-            "w": 24,
-            "x": 0,
-            "y": 30
-          },
-          "id": 2,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull",
-                "mean",
-                "min",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "alias": "Input Bps",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": false,
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"in_octets_rate\")*8  FROM \"INTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "in_octets_rate"
-                    ],
-                    "type": "field"
-                  }
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"in_octets_rate\")*8  FROM \"INTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "in_octets_rate"
                 ],
-                [
-                  {
-                    "params": [
-                      "out_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            },
-            {
-              "alias": "Output Bps",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": false,
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"out_octets_rate\")*8 FROM \"INTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME = '$ifname'  and if_unit='') AND $timeFilter group by time($sample_interval)",
-              "rawQuery": true,
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "in_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "out_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            }
-          ],
-          "title": "Port statistics Bps - $ifname",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {}
-            }
-          ],
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 8,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "smooth",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "noValue": "No data or Sensor not supported",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "pps",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 15,
-            "w": 12,
-            "x": 0,
-            "y": 42
-          },
-          "id": 3,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull",
-                "mean",
-                "min",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "alias": "Input pps",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"in_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "in_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "out_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            },
-            {
-              "alias": "Output pps",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": false,
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"out_pkts_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
-              "rawQuery": true,
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "in_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "out_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            }
-          ],
-          "title": "Port Global statistics Pps Traffic - $ifname",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {}
-            }
-          ],
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 8,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "smooth",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "noValue": "No data or Sensor not supported",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "pps",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 15,
-            "w": 12,
-            "x": 12,
-            "y": 42
-          },
-          "id": 53,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull",
-                "mean",
-                "min",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "alias": "Unicast Input pps",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": false,
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"in_pkts_rate\") - (mean(\"bcast_in_pkts_rate\")+mean(\"mcast_in_pkts_rate\"))  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='')AND $timeFilter group by time($sample_interval)",
-              "rawQuery": true,
-              "refId": "E",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "in_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "out_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            },
-            {
-              "alias": "Unicast Output pps",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": false,
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"out_pkts_rate\") - (mean(\"bcast_out_pkts_rate\")+mean(\"mcast_out_pkts_rate\"))  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
-              "rawQuery": true,
-              "refId": "F",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "in_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "out_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            },
-            {
-              "alias": "Mcast Input pps",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"mcast_in_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "in_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "out_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            },
-            {
-              "alias": "Mcast Output pps",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": false,
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"mcast_out_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
-              "rawQuery": true,
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "in_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "out_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            },
-            {
-              "alias": "Bcast Input pps",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": false,
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"bcast_in_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
-              "rawQuery": true,
-              "refId": "C",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "in_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "out_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            },
-            {
-              "alias": "Bcast Output pps",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": false,
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"bcast_out_pkts_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter group by time($sample_interval)",
-              "rawQuery": true,
-              "refId": "D",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "in_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "out_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            }
-          ],
-          "title": "Port statistics Pps Traffic - per Type - $ifname",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {}
-            }
-          ],
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 5,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "smooth",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "min": 0,
-              "noValue": "No data or Sensor not supported",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "pps",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 12,
-            "w": 24,
-            "x": 0,
-            "y": 57
-          },
-          "id": 7,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true,
-              "sortBy": "Last *",
-              "sortDesc": true,
-              "width": 0
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "alias": "RED Drop pps - Q$tag_queue_id",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "queue_name"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "hide": false,
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"cos_red_dropped_packets_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and  $timeFilter GROUP BY \"queue_id\",  time($sample_interval)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "cos_red_dropped_packets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            },
-            {
-              "alias": "Tail Drop pps - Q$tag_queue_id",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "$interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "queue_name"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "hide": false,
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"cos_tail_dropped_packets_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND $timeFilter GROUP BY time($sample_interval), \"queue_id\"",
-              "rawQuery": true,
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "cos_tail_dropped_packets_rate"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            }
-          ],
-          "title": "Drop per queue - $ifname",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "datasource",
-            "uid": "grafana"
-          },
-          "description": "",
-          "gridPos": {
-            "h": 2,
-            "w": 24,
-            "x": 0,
-            "y": 69
-          },
-          "id": 52,
-          "options": {
-            "code": {
-              "language": "plaintext",
-              "showLineNumbers": false,
-              "showMiniMap": false
-            },
-            "content": "<h2><center>Queues details $ifname</center></h2>",
-            "mode": "html"
-          },
-          "pluginVersion": "10.3.1",
-          "transparent": true,
-          "type": "text"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "decimals": 0,
-              "mappings": [],
-              "max": 100,
-              "noValue": "No data or Sensor not supported",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "yellow",
-                    "value": 50
-                  },
-                  {
-                    "color": "orange",
-                    "value": 70
-                  },
-                  {
-                    "color": "dark-red",
-                    "value": 95
-                  }
-                ]
-              },
-              "unit": "percent",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 9,
-            "x": 0,
-            "y": 71
-          },
-          "id": 9,
-          "options": {
-            "displayMode": "lcd",
-            "maxVizHeight": 300,
-            "minVizHeight": 10,
-            "minVizWidth": 0,
-            "namePlacement": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showUnfilled": true,
-            "sizing": "auto",
-            "valueMode": "color"
-          },
-          "pluginVersion": "10.3.1",
-          "targets": [
-            {
-              "alias": "Q$tag_queue_id",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": false,
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT last(\"cos_buffer_cur\")/last(\"cos_buffer_size\")*100 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter group by queue_id fill(0)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "cos_buffer_usage"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            }
-          ],
-          "title": "Current Buffer utilization per queue - $ifname",
-          "type": "bargauge"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "decimals": 0,
-              "mappings": [],
-              "max": 100,
-              "noValue": "No data or Sensor not supported",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "yellow",
-                    "value": 50
-                  },
-                  {
-                    "color": "orange",
-                    "value": 70
-                  },
-                  {
-                    "color": "dark-red",
-                    "value": 95
-                  }
-                ]
-              },
-              "unit": "percent",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 9,
-            "x": 9,
-            "y": 71
-          },
-          "id": 54,
-          "options": {
-            "displayMode": "lcd",
-            "maxVizHeight": 300,
-            "minVizHeight": 10,
-            "minVizWidth": 0,
-            "namePlacement": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showUnfilled": true,
-            "sizing": "auto",
-            "valueMode": "color"
-          },
-          "pluginVersion": "10.3.1",
-          "targets": [
-            {
-              "alias": "Q$tag_queue_id",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT last(\"cos_buffer_peak\")/last(\"cos_buffer_size\")*100 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter group by queue_id fill(0)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "cos_buffer_usage"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            }
-          ],
-          "title": "Peak Buffer utilization per queue - $ifname",
-          "type": "bargauge"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                }
-              },
-              "mappings": [],
-              "noValue": "No data or Sensor not supported",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 22,
-            "w": 6,
-            "x": 18,
-            "y": 71
-          },
-          "id": 11,
-          "options": {
-            "displayLabels": [
-              "percent",
-              "name"
+                "type": "field"
+              }
             ],
-            "legend": {
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true,
-              "values": [
-                "percent"
-              ]
-            },
-            "pieType": "pie",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "alias": "Q$tag_queue_id",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "queue_name"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT \"cos_forwarded_octets_rate\"*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='')  and $timeFilter GROUP BY \"queue_id\" fill(0)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "cos_forwarded_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": []
-            }
+            [
+              {
+                "params": [
+                  "out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
           ],
-          "title": "Per Queue Traffic balancing - $ifname",
-          "type": "piechart"
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
         },
         {
+          "alias": "Output Bps",
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "decimals": 0,
-              "mappings": [],
-              "max": 100,
-              "noValue": "No data or Sensor not supported",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "yellow",
-                    "value": 50
-                  },
-                  {
-                    "color": "orange",
-                    "value": 70
-                  },
-                  {
-                    "color": "dark-red",
-                    "value": 95
-                  }
-                ]
-              },
-              "unit": "percent",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 9,
-            "x": 0,
-            "y": 77
-          },
-          "id": 56,
-          "options": {
-            "displayMode": "lcd",
-            "maxVizHeight": 300,
-            "minVizHeight": 10,
-            "minVizWidth": 0,
-            "namePlacement": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showUnfilled": true,
-            "sizing": "auto",
-            "valueMode": "color"
-          },
-          "pluginVersion": "10.3.1",
-          "targets": [
-            {
-              "alias": "Q$tag_queue_id",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": false,
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT max(value) from (select last(\"voq_cos_buffer_cur_percent\") as value FROM \"JUNOS_QMON\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname') and $timeFilter group by queue_id, pfe_index, _component_id, _subcomponent_id) group by queue_id fill(0)",
-              "rawQuery": true,
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "cos_buffer_usage"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            }
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"out_octets_rate\")*8 FROM \"INTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/  and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
           ],
-          "title": "VOQ System - Max Current Buffer utilization per queue - $ifname",
-          "type": "bargauge"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "decimals": 0,
-              "mappings": [],
-              "max": 100,
-              "noValue": "No data or Sensor not supported",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "yellow",
-                    "value": 50
-                  },
-                  {
-                    "color": "orange",
-                    "value": 70
-                  },
-                  {
-                    "color": "dark-red",
-                    "value": 95
-                  }
-                ]
-              },
-              "unit": "percent",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 6,
-            "w": 9,
-            "x": 9,
-            "y": 77
-          },
-          "id": 57,
-          "options": {
-            "displayMode": "lcd",
-            "maxVizHeight": 300,
-            "minVizHeight": 10,
-            "minVizWidth": 0,
-            "namePlacement": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showUnfilled": true,
-            "sizing": "auto",
-            "valueMode": "color"
-          },
-          "pluginVersion": "10.3.1",
-          "targets": [
+          "tags": [
             {
-              "alias": "Q$tag_queue_id",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT max(value) from (select last(\"voq_cos_buffer_peak_percent\") as value FROM \"JUNOS_QMON\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname') and $timeFilter group by queue_id, pfe_index, _component_id, _subcomponent_id) group by queue_id fill(0)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "cos_buffer_usage"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            }
-          ],
-          "title": "VOQ System - Max Peak Buffer utilization per queue - $ifname",
-          "type": "bargauge"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "smooth",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "decimals": 0,
-              "mappings": [],
-              "max": 100,
-              "noValue": "No data or Sensor not supported",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "yellow",
-                    "value": 50
-                  },
-                  {
-                    "color": "orange",
-                    "value": 70
-                  },
-                  {
-                    "color": "dark-red",
-                    "value": 95
-                  }
-                ]
-              },
-              "unit": "percent",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 9,
-            "x": 0,
-            "y": 83
-          },
-          "id": 50,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "10.3.1",
-          "targets": [
-            {
-              "alias": "Queue Utilization $tag_queue_id",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": false,
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT(\"cos_buffer_cur\")/(\"cos_buffer_size\")*100 as value FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter group by queue_id fill(0)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "cos_buffer_usage"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
             },
             {
-              "alias": "PFE $tag_pfe_index VOQ Utilization $tag_queue_id",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": false,
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "select voq_cos_buffer_cur_percent FROM \"JUNOS_QMON\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname') and $timeFilter group by queue_id, pfe_index, _component_id, _subcomponent_id fill(0)",
-              "rawQuery": true,
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "cos_buffer_usage"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
             }
-          ],
-          "title": "Current Buffer utilization per queue - $ifname",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "smooth",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "decimals": 0,
-              "mappings": [],
-              "max": 100,
-              "min": 0,
-              "noValue": "No data or Sensor not supported",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "yellow",
-                    "value": 50
-                  },
-                  {
-                    "color": "orange",
-                    "value": 70
-                  },
-                  {
-                    "color": "dark-red",
-                    "value": 95
-                  }
-                ]
-              },
-              "unit": "percent",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 10,
-            "w": 9,
-            "x": 9,
-            "y": 83
-          },
-          "id": 55,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "pluginVersion": "10.3.1",
-          "targets": [
-            {
-              "alias": "Queue Utilization $tag_queue_id",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT(\"cos_buffer_peak\")/(\"cos_buffer_size\")*100 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter group by queue_id fill(0)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "cos_buffer_usage"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            },
-            {
-              "alias": "PFE $tag_pfe_index VOQ Utilization $tag_queue_id",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [],
-              "hide": false,
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "select voq_cos_buffer_peak_percent FROM \"JUNOS_QMON\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname') and $timeFilter group by queue_id, pfe_index, _component_id, _subcomponent_id fill(0)",
-              "rawQuery": true,
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "cos_buffer_usage"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            }
-          ],
-          "title": "Peak Buffer utilization per queue - $ifname",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 8,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "smooth",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "noValue": "No data or Sensor not supported",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "bps",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 12,
-            "w": 12,
-            "x": 0,
-            "y": 93
-          },
-          "id": 48,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true,
-              "sortBy": "Last *",
-              "sortDesc": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "alias": "Input Bps - Q$tag_queue_id",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "queue_name"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"cos_queued_octets_rate\")*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "cos_forwarded_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            }
-          ],
-          "title": "Queued Traffic Bps per Queue - $ifname",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {}
-            }
-          ],
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 8,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "smooth",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "noValue": "No data or Sensor not supported",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "bps",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 12,
-            "w": 12,
-            "x": 12,
-            "y": 93
-          },
-          "id": 4,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true,
-              "sortBy": "Last *",
-              "sortDesc": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "alias": "Input Bps - Q$tag_queue_id",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "queue_name"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"cos_forwarded_octets_rate\")*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='')  and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "cos_forwarded_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            }
-          ],
-          "title": "Forwarded Traffic Bps per Queue - $ifname",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {}
-            }
-          ],
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 8,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "smooth",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "noValue": "No data or Sensor not supported",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "pps",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 12,
-            "w": 12,
-            "x": 0,
-            "y": 105
-          },
-          "id": 49,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true,
-              "sortBy": "Last *",
-              "sortDesc": false
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "alias": "Input pps - Q$tag_queue_id",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "queue_name"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"cos_queued_packets_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='')  and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "cos_forwarded_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            }
-          ],
-          "title": "Queued Traffic Pps per Queue - $ifname",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {}
-            }
-          ],
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 8,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "smooth",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "noValue": "No data or Sensor not supported",
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "pps",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 12,
-            "w": 12,
-            "x": 12,
-            "y": 105
-          },
-          "id": 5,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull",
-                "mean",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true,
-              "sortBy": "Last *",
-              "sortDesc": false
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "desc"
-            }
-          },
-          "targets": [
-            {
-              "alias": "Input pps - Q$tag_queue_id",
-              "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
-              },
-              "groupBy": [
-                {
-                  "params": [
-                    "queue_name"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "measurement": "INTERFACES",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"cos_forwarded_packets_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME = '$ifname' and if_unit='') AND   $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "cos_forwarded_octets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "LINKNAME",
-                  "operator": "=~",
-                  "value": "/^$ifname$/"
-                }
-              ]
-            }
-          ],
-          "title": "Forwarded Traffic Pps per Queue - $ifname",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {}
-            }
-          ],
-          "type": "timeseries"
+          ]
         }
       ],
-      "repeat": "ifname",
-      "repeatDirection": "h",
-      "title": "Traffic and Queues information - $ifname",
-      "type": "row"
+      "title": "Port statistics Bps - $ifname",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {}
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": [],
+          "noValue": "No data or Sensor not supported",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 18,
+        "y": 16
+      },
+      "id": 11,
+      "options": {
+        "displayLabels": [
+          "percent",
+          "name"
+        ],
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "values": [
+            "percent"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Q$tag_queue_id",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "queue_name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"cos_forwarded_octets_rate\"*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='')  and $timeFilter GROUP BY \"queue_id\" fill(0)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cos_forwarded_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "title": "Per Queue Traffic balancing - $ifname",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 8,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "No data or Sensor not supported",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 25
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Input pps",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"in_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        },
+        {
+          "alias": "Output pps",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"out_pkts_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "Port Global statistics Pps Traffic - $ifname",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {}
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 8,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "No data or Sensor not supported",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 12,
+        "y": 25
+      },
+      "id": 53,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Unicast Input pps",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"in_pkts_rate\") - (mean(\"bcast_in_pkts_rate\")+mean(\"mcast_in_pkts_rate\"))  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/  and if_unit='')AND $timeFilter group by time($sample_interval)",
+          "rawQuery": true,
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        },
+        {
+          "alias": "Unicast Output pps",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"out_pkts_rate\") - (mean(\"bcast_out_pkts_rate\")+mean(\"mcast_out_pkts_rate\"))  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/  and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "rawQuery": true,
+          "refId": "F",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        },
+        {
+          "alias": "Mcast Input pps",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"mcast_in_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        },
+        {
+          "alias": "Mcast Output pps",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"mcast_out_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/  and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        },
+        {
+          "alias": "Bcast Input pps",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"bcast_in_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        },
+        {
+          "alias": "Bcast Output pps",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"bcast_out_pkts_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/  and if_unit='') AND $timeFilter group by time($sample_interval)",
+          "rawQuery": true,
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "Port statistics Pps Traffic - per Type - $ifname",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {}
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 34
+      },
+      "id": 52,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h2><center>Queues details $ifname</center></h2>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.3.1",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 8,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "No data or Sensor not supported",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 0,
+        "y": 36
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Last *",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Input Bps - Q$tag_queue_id",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "queue_name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"cos_forwarded_octets_rate\")*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/  and if_unit='')  and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cos_forwarded_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "Forwarded Traffic Bps per Queue - $ifname",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {}
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 8,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "No data or Sensor not supported",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 12,
+        "x": 12,
+        "y": 36
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Last *",
+          "sortDesc": false
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Input pps - Q$tag_queue_id",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "queue_name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"cos_forwarded_packets_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/  and if_unit='') AND   $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cos_forwarded_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "Forwarded Traffic Pps per Queue - $ifname",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {}
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 5,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "noValue": "No data or Sensor not supported",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "pps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 13,
+        "w": 24,
+        "x": 0,
+        "y": 48
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Last *",
+          "sortDesc": true,
+          "width": 0
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "alias": "RED Drop pps - Q$tag_queue_id",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "queue_name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"cos_red_dropped_packets_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/  and if_unit='') and  $timeFilter GROUP BY \"queue_id\",  time($sample_interval)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cos_red_dropped_packets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        },
+        {
+          "alias": "Tail Drop pps - Q$tag_queue_id",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "queue_name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"cos_tail_dropped_packets_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/  and if_unit='') AND $timeFilter GROUP BY time($sample_interval), \"queue_id\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cos_tail_dropped_packets_rate"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "Drop per queue - $ifname",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 61
+      },
+      "id": 61,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h2><center>VoQ details $ifname</center></h2>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.3.1",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 2,
+        "w": 8,
+        "x": 0,
+        "y": 63
+      },
+      "id": 64,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h3><center>CURRENT</center></h3>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.3.1",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 2,
+        "w": 8,
+        "x": 8,
+        "y": 63
+      },
+      "id": 65,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h3><center>AVERAGE</center></h3>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.3.1",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 2,
+        "w": 8,
+        "x": 16,
+        "y": 63
+      },
+      "id": 66,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h3><center>PEAK</center></h3>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.3.1",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "max": 100,
+          "noValue": "No data or Sensor not supported",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50
+              },
+              {
+                "color": "orange",
+                "value": 70
+              },
+              {
+                "color": "dark-red",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 8,
+        "x": 0,
+        "y": 65
+      },
+      "id": 56,
+      "options": {
+        "displayMode": "lcd",
+        "maxVizHeight": 300,
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "alias": "FPC $tag__component_id PFE $tag_pfe_index Q$tag_queue_id",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select last(\"voq_cos_buffer_cur_percent\") as value FROM \"JUNOS_QMON\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ ) and $timeFilter group by queue_id, pfe_index, _component_id, _subcomponent_id fill(0)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cos_buffer_usage"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "VOQ System - Current Buffer utilization per queue - $ifname",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "max": 100,
+          "noValue": "No data or Sensor not supported",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50
+              },
+              {
+                "color": "orange",
+                "value": 70
+              },
+              {
+                "color": "dark-red",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 8,
+        "x": 8,
+        "y": 65
+      },
+      "id": 59,
+      "options": {
+        "displayMode": "lcd",
+        "maxVizHeight": 300,
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "alias": "FPC $tag__component_id PFE $tag_pfe_index Q$tag_queue_id",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select last(\"voq_cos_buffer_avg_percent\") as value FROM \"JUNOS_QMON\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ ) and $timeFilter group by queue_id, pfe_index, _component_id, _subcomponent_id fill(0)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cos_buffer_usage"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "VOQ System - Average Buffer utilization per queue - $ifname",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "max": 100,
+          "noValue": "No data or Sensor not supported",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50
+              },
+              {
+                "color": "orange",
+                "value": 70
+              },
+              {
+                "color": "dark-red",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 8,
+        "x": 16,
+        "y": 65
+      },
+      "id": 60,
+      "options": {
+        "displayMode": "lcd",
+        "maxVizHeight": 300,
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "namePlacement": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "valueMode": "color"
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "alias": "FPC $tag__component_id PFE $tag_pfe_index Q$tag_queue_id",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select last(\"voq_cos_buffer_peak_percent\") as value FROM \"JUNOS_QMON\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ ) and $timeFilter group by queue_id, pfe_index, _component_id, _subcomponent_id fill(0)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cos_buffer_usage"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "VOQ System - Peak Buffer utilization per queue - $ifname",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "max": 100,
+          "noValue": "No data or Sensor not supported",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50
+              },
+              {
+                "color": "orange",
+                "value": 70
+              },
+              {
+                "color": "dark-red",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 21,
+        "w": 8,
+        "x": 0,
+        "y": 81
+      },
+      "id": 50,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "alias": "FPC $tag__component_id PFE $tag_pfe_index VOQ Utilization $tag_queue_id",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select voq_cos_buffer_cur_percent FROM \"JUNOS_QMON\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ ) and $timeFilter group by queue_id, pfe_index, _component_id, _subcomponent_id fill(0)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cos_buffer_usage"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "Current Buffer utilization per queue - $ifname",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "max": 100,
+          "noValue": "No data or Sensor not supported",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50
+              },
+              {
+                "color": "orange",
+                "value": 70
+              },
+              {
+                "color": "dark-red",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 21,
+        "w": 8,
+        "x": 8,
+        "y": 81
+      },
+      "id": 62,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "alias": "FPC $tag__component_id PFE $tag_pfe_index VOQ Utilization $tag_queue_id",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select voq_cos_buffer_avg_percent FROM \"JUNOS_QMON\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ ) and $timeFilter group by queue_id, pfe_index, _component_id, _subcomponent_id fill(0)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cos_buffer_usage"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "Average Buffer utilization per queue - $ifname",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "max": 100,
+          "noValue": "No data or Sensor not supported",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 50
+              },
+              {
+                "color": "orange",
+                "value": 70
+              },
+              {
+                "color": "dark-red",
+                "value": 95
+              }
+            ]
+          },
+          "unit": "percent",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 21,
+        "w": 8,
+        "x": 16,
+        "y": 81
+      },
+      "id": 63,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "alias": "FPC $tag__component_id PFE $tag_pfe_index VOQ Utilization $tag_queue_id",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select voq_cos_buffer_peak_percent FROM \"JUNOS_QMON\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ ) and $timeFilter group by queue_id, pfe_index, _component_id, _subcomponent_id fill(0)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cos_buffer_usage"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
+        }
+      ],
+      "title": "Peak Buffer utilization per queue - $ifname",
+      "type": "timeseries"
     }
   ],
   "refresh": "1m",
@@ -2999,7 +2712,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "",
           "value": ""
         },
@@ -3007,14 +2720,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values FROM INTERFACES with key=\"SHORTNAME\"",
+        "definition": "show tag values FROM INTERFACES with key=\"SHORTNAME\" WHERE \"FAMILY\"='ptx'",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": "show tag values FROM INTERFACES with key=\"SHORTNAME\"",
+        "query": "show tag values FROM INTERFACES with key=\"SHORTNAME\" WHERE \"FAMILY\"='ptx'",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -3024,12 +2737,8 @@
       {
         "current": {
           "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "influxdb",
@@ -3037,9 +2746,9 @@
         },
         "definition": "show tag values FROM INTERFACES with key=\"LINKNAME\" where SHORTNAME=~/$rtr/",
         "hide": 0,
-        "includeAll": true,
+        "includeAll": false,
         "label": "Interface",
-        "multi": true,
+        "multi": false,
         "name": "ifname",
         "options": [],
         "query": "show tag values FROM INTERFACES with key=\"LINKNAME\" where SHORTNAME=~/$rtr/",
@@ -3054,9 +2763,9 @@
         "auto_count": 30,
         "auto_min": "31s",
         "current": {
-          "selected": false,
-          "text": "2m",
-          "value": "2m"
+          "selected": true,
+          "text": "1m",
+          "value": "1m"
         },
         "hide": 0,
         "label": "Mean",
@@ -3073,12 +2782,12 @@
             "value": "31s"
           },
           {
-            "selected": false,
+            "selected": true,
             "text": "1m",
             "value": "1m"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "2m",
             "value": "2m"
           },
