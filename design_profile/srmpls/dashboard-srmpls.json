@@ -37,7 +37,7 @@
       },
       "id": 40,
       "panels": [],
-      "title": "Router Info & Alarms",
+      "title": "Router Info",
       "type": "row"
     },
     {
@@ -152,12 +152,12 @@
             "indexByName": {
               "HW_TYPE": 1,
               "MODEL": 3,
+              "SHORTNAME": 2,
               "Time": 0,
               "VERSION": 4,
               "_component_id": 5,
               "component": 8,
               "component_name": 9,
-              "SHORTNAME": 2,
               "host": 10,
               "if_name": 6,
               "last": 12,
@@ -166,482 +166,13 @@
             },
             "renameByName": {
               "MODEL": "Router Model",
-              "VERSION": "Device Version",
-              "SHORTNAME": "Device Name"
+              "SHORTNAME": "Device Name",
+              "VERSION": "Device Version"
             }
           }
         }
       ],
       "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "auto",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unitScale": true
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 24,
-        "x": 0,
-        "y": 6
-      },
-      "id": 38,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "Time Triggered"
-          }
-        ]
-      },
-      "pluginVersion": "10.3.1",
-      "targets": [
-        {
-          "alias": "",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "ERRORS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT last(\"alarm_severity\"), last(\"alarm_resource\"), last(\"alarm_time\")/1000000, last(\"alarm_text\") FROM \"JUNOS_ALARMS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and  $timeFilter GROUP BY \"/system/alarms/alarm/id\"",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "alarm_severity"
-                ],
-                "type": "field"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "alarm_resource"
-                ],
-                "type": "field"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "alarm_time"
-                ],
-                "type": "field"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "alarm_text"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            }
-          ]
-        },
-        {
-          "alias": "",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "ERRORS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT last(\"alarm_severity_net\"), last(\"alarm_resource_net\"), last(\"alarm_time_net\"), last(\"alarm_text_net\") FROM \"JUNOS_ALARMS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and  $timeFilter GROUP BY \"alarm_id_net\"",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "alarm_severity"
-                ],
-                "type": "field"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "alarm_resource"
-                ],
-                "type": "field"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "alarm_time"
-                ],
-                "type": "field"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "alarm_text"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            }
-          ]
-        }
-      ],
-      "title": "Chassis Alarms",
-      "transformations": [
-        {
-          "id": "convertFieldType",
-          "options": {
-            "conversions": [
-              {
-                "dateFormat": "",
-                "destinationType": "time",
-                "targetField": "last_2"
-              }
-            ],
-            "fields": {}
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "/system/alarms/alarm/id": true,
-              "Time": true,
-              "alarm_id_net": true
-            },
-            "includeByName": {},
-            "indexByName": {
-              "Time": 0,
-              "last": 2,
-              "last_1": 3,
-              "last_2": 1,
-              "last_3": 4
-            },
-            "renameByName": {
-              "last": "Severity",
-              "last_1": "Type",
-              "last_2": "Time Triggered",
-              "last_3": "Info"
-            }
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 12
-      },
-      "id": 41,
-      "panels": [],
-      "repeat": "prop_name",
-      "repeatDirection": "h",
-      "title": "RAW NPU STATISTICS FOR $comp_name - KPI $prop_name",
-      "type": "row"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 2,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineStyle": {
-              "fill": "solid"
-            },
-            "lineWidth": 2,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unitScale": true
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 17,
-        "x": 0,
-        "y": 13
-      },
-      "id": 1,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "mean",
-            "max",
-            "min"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "alias": "$prop_name",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [],
-          "measurement": "HW_NPU",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "component_name::tag",
-              "operator": "=~",
-              "value": "/^$comp_name$/"
-            },
-            {
-              "condition": "AND",
-              "key": "property_name::tag",
-              "operator": "=~",
-              "value": "/^$prop_name$/"
-            }
-          ]
-        }
-      ],
-      "title": "History of $prop_name",
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "displayName": "$prop_name",
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "blue",
-                "value": null
-              }
-            ]
-          },
-          "unitScale": true
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 7,
-        "x": 17,
-        "y": 13
-      },
-      "id": 2,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "center",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showPercentChange": false,
-        "text": {
-          "titleSize": 20
-        },
-        "textMode": "auto",
-        "wideLayout": false
-      },
-      "pluginVersion": "10.3.1",
-      "targets": [
-        {
-          "alias": "$prop_name",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [],
-          "measurement": "HW_NPU",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "value"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "component_name::tag",
-              "operator": "=~",
-              "value": "/^$comp_name$/"
-            },
-            {
-              "condition": "AND",
-              "key": "property_name::tag",
-              "operator": "=~",
-              "value": "/^$prop_name$/"
-            }
-          ]
-        }
-      ],
-      "title": "Current Value of $prop_name",
-      "type": "stat"
     }
   ],
   "refresh": "30s",
@@ -653,21 +184,21 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "mx9",
+          "value": "mx9"
         },
         "datasource": {
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values from HW_NPU with key=\"SHORTNAME\"",
+        "definition": "show tag values from SRMPLS_IF_STATS with key=\"SHORTNAME\"",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": "show tag values from HW_NPU with key=\"SHORTNAME\"",
+        "query": "show tag values from SRMPLS_IF_STATS with key=\"SHORTNAME\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -677,23 +208,23 @@
       {
         "current": {
           "selected": false,
-          "text": "FPC0:NPU0",
-          "value": "FPC0:NPU0"
+          "text": "ge-0/0/0",
+          "value": "ge-0/0/0"
         },
         "datasource": {
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values from HW_NPU  with key=\"component_name\" where SHORTNAME=~/$rtr/",
+        "definition": "show tag values from INTERFACES with key=\"if_name\" where SHORTNAME=~/$rtr/",
         "hide": 0,
         "includeAll": false,
-        "label": "HW Component",
+        "label": "Interface",
         "multi": false,
-        "name": "comp_name",
+        "name": "ifname",
         "options": [],
-        "query": "show tag values from HW_NPU  with key=\"component_name\" where SHORTNAME=~/$rtr/",
+        "query": "show tag values from INTERFACES with key=\"if_name\" where SHORTNAME=~/$rtr/",
         "refresh": 1,
-        "regex": ".*NPU.*",
+        "regex": "",
         "skipUrlSync": false,
         "sort": 1,
         "type": "query"
@@ -712,14 +243,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values from HW_NPU with key=\"property_name\" where component_name=~/$comp_name/",
+        "definition": "show tag values from SRMPLS_SID_STATS with key=\"mpls_label\" where SHORTNAME=~/$rtr/",
         "hide": 0,
         "includeAll": true,
-        "label": "HW Property",
+        "label": "MPLS SID",
         "multi": true,
-        "name": "prop_name",
+        "name": "mpls_sid",
         "options": [],
-        "query": "show tag values from HW_NPU with key=\"property_name\" where component_name=~/$comp_name/",
+        "query": "show tag values from SRMPLS_SID_STATS with key=\"mpls_label\" where SHORTNAME=~/$rtr/",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
