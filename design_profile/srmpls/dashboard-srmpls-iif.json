@@ -1,0 +1,1140 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 2,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 40,
+      "panels": [],
+      "title": "Router Info",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "color-background"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 7,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "alias": "",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "HW_NPU",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"in_octets_rate\") FROM \"INTERFACES\" WHERE \"SHORTNAME\"::tag=~ /^$rtr$/ AND $timeFilter and MODEL!='' group by VERSION, MODEL, SHORTNAME",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "component_name::tag",
+              "operator": "=~",
+              "value": "/^$comp_name$/"
+            },
+            {
+              "condition": "AND",
+              "key": "property_name::tag",
+              "operator": "=~",
+              "value": "/^$prop_name$/"
+            }
+          ]
+        }
+      ],
+      "title": "Router Info",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "HW_TYPE": true,
+              "Time": true,
+              "_component_id": true,
+              "component": true,
+              "component_name": true,
+              "host": true,
+              "if_name": true,
+              "last": true,
+              "path": true,
+              "property_name": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "HW_TYPE": 1,
+              "MODEL": 3,
+              "SHORTNAME": 2,
+              "Time": 0,
+              "VERSION": 4,
+              "_component_id": 5,
+              "component": 8,
+              "component_name": 9,
+              "host": 10,
+              "if_name": 6,
+              "last": 12,
+              "path": 11,
+              "property_name": 7
+            },
+            "renameByName": {
+              "MODEL": "Router Model",
+              "SHORTNAME": "Device Name",
+              "VERSION": "Device Version"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 41,
+      "panels": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 7,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "fieldMinMax": false,
+              "mappings": [],
+              "min": 0,
+              "noValue": "No Data or Sensor not supported",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "bps",
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 6
+          },
+          "id": 42,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "alias": "$tag_ifl_name In Bps",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "SRMPLS_IF_STATS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"sr_in_octets_rate\")*8 FROM \"SRMPLS_IF_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"ifl_name\"::tag =~ /^.*${ifname:regex}.*$/) AND $timeFilter GROUP BY ifl_name, time($interval) fill(null)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sr_in_octets_rate"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME::tag",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "ifl_name::tag",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
+            },
+            {
+              "alias": "$tag_ifl_name Out Bps",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "SRMPLS_IF_STATS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"sr_out_octets_rate\")*8 FROM \"SRMPLS_IF_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"ifl_name\"::tag =~ /^.*${ifname:regex}.*$/) AND $timeFilter GROUP BY ifl_name, time($interval) fill(null)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sr_in_octets_rate"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME::tag",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "ifl_name::tag",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
+            }
+          ],
+          "title": "SR IN/OUT Bps Traffic",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 7,
+                "gradientMode": "opacity",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "smooth",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "fieldMinMax": false,
+              "mappings": [],
+              "min": 0,
+              "noValue": "No Data or Sensor not supported",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "pps",
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 18,
+            "x": 0,
+            "y": 15
+          },
+          "id": 43,
+          "options": {
+            "legend": {
+              "calcs": [
+                "lastNotNull",
+                "mean",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "alias": "$tag_ifl_name In PPS",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "measurement": "SRMPLS_IF_STATS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"sr_in_pkts_rate\") FROM \"SRMPLS_IF_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"ifl_name\"::tag =~ /^.*${ifname:regex}.*$/) AND $timeFilter GROUP BY ifl_name, time($interval) fill(null)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sr_in_octets_rate"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME::tag",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "ifl_name::tag",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
+            },
+            {
+              "alias": "$tag_ifl_name Out PPS",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "SRMPLS_IF_STATS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"sr_out_pkts_rate\") FROM \"SRMPLS_IF_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"ifl_name\"::tag =~ /^.*${ifname:regex}.*$/) AND $timeFilter GROUP BY ifl_name, time($interval) fill(null)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sr_in_octets_rate"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME::tag",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "ifl_name::tag",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
+            }
+          ],
+          "title": "SR IN/OUT PPS Traffic",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "fieldMinMax": false,
+              "mappings": [],
+              "max": 1,
+              "min": 0,
+              "noValue": "No Data or Sensor not supported",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "orange",
+                    "value": 0.5
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 0.7
+                  },
+                  {
+                    "color": "green",
+                    "value": 0.9
+                  }
+                ]
+              },
+              "unit": "percentunit",
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 3,
+            "x": 18,
+            "y": 15
+          },
+          "id": 44,
+          "options": {
+            "displayMode": "lcd",
+            "maxVizHeight": 300,
+            "minVizHeight": 16,
+            "minVizWidth": 8,
+            "namePlacement": "auto",
+            "orientation": "vertical",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^percent_in$/",
+              "values": false
+            },
+            "showUnfilled": true,
+            "sizing": "auto",
+            "valueMode": "color"
+          },
+          "pluginVersion": "10.3.1",
+          "targets": [
+            {
+              "alias": "$tag_ifl_name In Bps",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "SRMPLS_IF_STATS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"sr_in_octets_rate\")*8 FROM \"SRMPLS_IF_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"ifl_name\"::tag =~ /^.*${ifname:regex}.*$/) AND time>now()-10m and time<now()-2m GROUP BY ifl_name, time(2m) ",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sr_in_octets_rate"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME::tag",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "ifl_name::tag",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
+            },
+            {
+              "alias": "$tag_if_name All In Bps",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "SRMPLS_IF_STATS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"in_octets_rate\")*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"if_name\"::tag =~ /^.*${ifname:regex}.*$/) AND time>now()-10m and time<now()-2m GROUP BY if_name, time(2m)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sr_in_octets_rate"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME::tag",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "ifl_name::tag",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
+            }
+          ],
+          "title": "In SR MPLS Ratio",
+          "transformations": [
+            {
+              "id": "calculateField",
+              "options": {
+                "alias": "percent_in",
+                "binary": {
+                  "left": "ge-0/0/0.0 In Bps",
+                  "operator": "/",
+                  "right": "ge-0/0/0 All In Bps"
+                },
+                "mode": "binary",
+                "reduce": {
+                  "reducer": "sum"
+                },
+                "replaceFields": true
+              }
+            }
+          ],
+          "type": "bargauge"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "fieldMinMax": false,
+              "mappings": [],
+              "max": 1,
+              "min": 0,
+              "noValue": "No Data or Sensor not supported",
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "red",
+                    "value": null
+                  },
+                  {
+                    "color": "orange",
+                    "value": 0.5
+                  },
+                  {
+                    "color": "yellow",
+                    "value": 0.7
+                  },
+                  {
+                    "color": "green",
+                    "value": 0.9
+                  }
+                ]
+              },
+              "unit": "percentunit",
+              "unitScale": true
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 10,
+            "w": 3,
+            "x": 21,
+            "y": 15
+          },
+          "id": 45,
+          "options": {
+            "displayMode": "lcd",
+            "maxVizHeight": 300,
+            "minVizHeight": 16,
+            "minVizWidth": 8,
+            "namePlacement": "auto",
+            "orientation": "vertical",
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "/^percent_out$/",
+              "values": false
+            },
+            "showUnfilled": true,
+            "sizing": "auto",
+            "valueMode": "color"
+          },
+          "pluginVersion": "10.3.1",
+          "targets": [
+            {
+              "alias": "$tag_ifl_name Out Bps",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "SRMPLS_IF_STATS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"sr_out_octets_rate\")*8 FROM \"SRMPLS_IF_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"ifl_name\"::tag =~ /^.*${ifname:regex}.*$/) AND time>now()-10m and time<now()-2m GROUP BY ifl_name, time(2m) ",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sr_in_octets_rate"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME::tag",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "ifl_name::tag",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
+            },
+            {
+              "alias": "$tag_if_name All Out Bps",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "$__interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "null"
+                  ],
+                  "type": "fill"
+                }
+              ],
+              "hide": false,
+              "measurement": "SRMPLS_IF_STATS",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"out_octets_rate\")*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"if_name\"::tag =~ /^.*${ifname:regex}.*$/) AND time>now()-10m and time<now()-2m GROUP BY if_name, time(2m)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "sr_in_octets_rate"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME::tag",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "ifl_name::tag",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
+            }
+          ],
+          "title": "Out SR MPLS Ratio",
+          "transformations": [
+            {
+              "id": "calculateField",
+              "options": {
+                "alias": "percent_out",
+                "binary": {
+                  "left": "ge-0/0/0.0 Out Bps",
+                  "operator": "/",
+                  "right": "ge-0/0/0 All Out Bps"
+                },
+                "mode": "binary",
+                "reduce": {
+                  "reducer": "sum"
+                },
+                "replaceFields": true
+              }
+            }
+          ],
+          "type": "bargauge"
+        }
+      ],
+      "repeat": "ifname",
+      "repeatDirection": "h",
+      "title": "SR MPLS Interface Traffic - $ifname",
+      "type": "row"
+    }
+  ],
+  "refresh": "30s",
+  "revision": 1,
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "",
+          "value": ""
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "jtsuid"
+        },
+        "definition": "show tag values from SRMPLS_IF_STATS with key=\"SHORTNAME\"",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Router",
+        "multi": false,
+        "name": "rtr",
+        "options": [],
+        "query": "show tag values from SRMPLS_IF_STATS with key=\"SHORTNAME\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "jtsuid"
+        },
+        "definition": "show tag values from INTERFACES with key=\"if_name\" where SHORTNAME=~/$rtr/",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Interface",
+        "multi": true,
+        "name": "ifname",
+        "options": [],
+        "query": "show tag values from INTERFACES with key=\"if_name\" where SHORTNAME=~/$rtr/",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "jtsuid"
+        },
+        "definition": "show tag values from SRMPLS_SID_STATS with key=\"mpls_label\" where SHORTNAME=~/$rtr/",
+        "hide": 0,
+        "includeAll": true,
+        "label": "MPLS SID",
+        "multi": true,
+        "name": "mpls_sid",
+        "options": [],
+        "query": "show tag values from SRMPLS_SID_STATS with key=\"mpls_label\" where SHORTNAME=~/$rtr/",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "1m",
+          "value": "1m"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Aggregation Interval",
+        "multi": false,
+        "name": "interval",
+        "options": [
+          {
+            "selected": false,
+            "text": "31s",
+            "value": "31s"
+          },
+          {
+            "selected": true,
+            "text": "1m",
+            "value": "1m"
+          },
+          {
+            "selected": false,
+            "text": "2m",
+            "value": "2m"
+          },
+          {
+            "selected": false,
+            "text": "5m",
+            "value": "5m"
+          }
+        ],
+        "query": "31s, 1m, 2m, 5m",
+        "queryValue": "",
+        "skipUrlSync": false,
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "SR MPLS PER INTF. MONITORING PROFILE - JTSO",
+  "uid": "srmplsiifdashboard",
+  "version": 1,
+  "weekStart": ""
+}
