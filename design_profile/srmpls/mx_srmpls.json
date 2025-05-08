@@ -90,12 +90,12 @@
                 },
                 {
                     "type": 0,
-                    "from": "mpls/signaling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter/mpls-label",
+                    "from": "/mpls/signaling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter/mpls-label",
                     "to": "mpls_label"
                 },
                 {
                     "type": 0,
-                    "from": "mpls/signalling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter/mpls-label",
+                    "from": "/mpls/signalling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter/mpls-label",
                     "to": "mpls_label"
                 },
                 {
