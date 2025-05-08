@@ -1,24 +1,36 @@
 {
-  "version": 1,
-  "min-interval": 30,
-  "cheatsheet": "srmpls.png",
-  "description": "This profile provides monitoring information for SR-MPLS.",
-  "telegraf": {
-    "mx": [{
-      "version": "all",
-      "conf": "mx_srmpls.json"
-    }],
-    "ptx": [{
-      "version": "all",
-      "conf": "ptx_srmpls.json"
-    }],
-    "acx": [{
-      "version": "all",
-      "conf": "acx_srmpls.json"
-    }]
-  },
-  "kapacitor": [],
-  "grafana": [
-    "dashboard-srmpls.json"
-  ]
+    "version": 1,
+    "min-interval": 30,
+    "cheatsheet": "srmpls.png",
+    "description": "This profile provides monitoring information for SR-MPLS.",
+    "telegraf": {
+        "mx": [
+            {
+                "version": "all",
+                "conf": "mx_srmpls.json"
+            }
+        ],
+        "ptx": [
+            {
+                "version": "all",
+                "conf": "ptx_srmpls.json"
+            }
+        ],
+        "acx": [
+            {
+                "version": "all",
+                "conf": "acx_srmpls.json"
+            }
+        ],
+        "vmx": [
+            {
+                "version": "all",
+                "conf": "vmx_srmpls.json"
+            }
+        ]
+    },
+    "kapacitor": [],
+    "grafana": [
+        "dashboard-srmpls.json"
+    ]
 }

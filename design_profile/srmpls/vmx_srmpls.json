@@ -219,7 +219,7 @@
                 "SRMPLS_SID_STATS",
                 "INTERFACES"
             ],
-            "family": "mx",
+            "family": "vmx",
             "two_levels": true,
             "level1_tag": "device",
             "level2_tag": "if_name"
