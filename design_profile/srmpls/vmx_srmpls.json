@@ -211,6 +211,24 @@
             ]
         }
     ],
+    "filtering_list": [
+        {
+            "order": 200,
+            "namepass": [
+                "SRMPLS_IF_STATS",
+                "SRMPLS_SID_STATS",
+                "INTERFACES"
+            ],
+            "filters": [
+                {
+                    "type": 0,
+                    "key": "if_name",
+                    "pattern": "^(et-|xe-|ge-|ae|lt-|ps-|fti-|gr-|demux).*",
+                    "action": "accept"
+                }
+            ]
+        }
+    ],
     "enrichment_list": [
         {
             "order": 200,
@@ -254,7 +272,7 @@
             "retention": "autogen",
             "fieldpass": [
                 "in_octets_rate",
-                "in_octets_rate",
+                "out_octets_rate",
                 "in_pkts_rate",
                 "out_pkts_rate",
                 "sr_in_octets_rate",
