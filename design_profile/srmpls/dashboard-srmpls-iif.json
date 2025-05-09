@@ -58,6 +58,7 @@
             "inspect": false
           },
           "mappings": [],
+          "noValue": "NA",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -102,7 +103,7 @@
           "measurement": "HW_NPU",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"in_octets_rate\") FROM \"INTERFACES\" WHERE \"SHORTNAME\"::tag=~ /^$rtr$/ AND $timeFilter and MODEL!='' group by VERSION, MODEL, SHORTNAME",
+          "query": "SELECT last(\"in_octets_rate\") FROM \"INTERFACES\" WHERE \"SHORTNAME\"::tag=~ /^$rtr$/ AND $timeFilter and MODEL!='' group by VERSION, MODEL, SHORTNAME, MPLS_V4_SID, MPLS_V6_SID",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -150,22 +151,18 @@
             },
             "includeByName": {},
             "indexByName": {
-              "HW_TYPE": 1,
-              "MODEL": 3,
-              "SHORTNAME": 2,
+              "MODEL": 2,
+              "MPLS_V4_SID": 4,
+              "MPLS_V6_SID": 5,
+              "SHORTNAME": 1,
               "Time": 0,
-              "VERSION": 4,
-              "_component_id": 5,
-              "component": 8,
-              "component_name": 9,
-              "host": 10,
-              "if_name": 6,
-              "last": 12,
-              "path": 11,
-              "property_name": 7
+              "VERSION": 3,
+              "last": 6
             },
             "renameByName": {
               "MODEL": "Router Model",
+              "MPLS_V4_SID": "MPLS V4 SID",
+              "MPLS_V6_SID": "MPLS V6 SID",
               "SHORTNAME": "Device Name",
               "VERSION": "Device Version"
             }
@@ -659,7 +656,7 @@
           "pluginVersion": "10.3.1",
           "targets": [
             {
-              "alias": "$tag_ifl_name In Bps",
+              "alias": "In Bps",
               "datasource": {
                 "type": "influxdb",
                 "uid": "jtsuid"
@@ -715,7 +712,7 @@
               ]
             },
             {
-              "alias": "$tag_if_name All In Bps",
+              "alias": "All In Bps",
               "datasource": {
                 "type": "influxdb",
                 "uid": "jtsuid"
@@ -778,9 +775,9 @@
               "options": {
                 "alias": "percent_in",
                 "binary": {
-                  "left": "ge-0/0/0.0 In Bps",
+                  "left": "In Bps",
                   "operator": "/",
-                  "right": "ge-0/0/0 All In Bps"
+                  "right": "All In Bps"
                 },
                 "mode": "binary",
                 "reduce": {
@@ -861,7 +858,7 @@
           "pluginVersion": "10.3.1",
           "targets": [
             {
-              "alias": "$tag_ifl_name Out Bps",
+              "alias": "Out Bps",
               "datasource": {
                 "type": "influxdb",
                 "uid": "jtsuid"
@@ -917,7 +914,7 @@
               ]
             },
             {
-              "alias": "$tag_if_name All Out Bps",
+              "alias": "All Out Bps",
               "datasource": {
                 "type": "influxdb",
                 "uid": "jtsuid"
@@ -980,9 +977,9 @@
               "options": {
                 "alias": "percent_out",
                 "binary": {
-                  "left": "ge-0/0/0.0 Out Bps",
+                  "left": "Out Bps",
                   "operator": "/",
-                  "right": "ge-0/0/0 All Out Bps"
+                  "right": "All Out Bps"
                 },
                 "mode": "binary",
                 "reduce": {
@@ -1017,14 +1014,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values from SRMPLS_IF_STATS with key=\"SHORTNAME\"",
+        "definition": "show tag values from SRMPLS_IF_STATS with key=\"SHORTNAME\" where $timeFilter",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": "show tag values from SRMPLS_IF_STATS with key=\"SHORTNAME\"",
+        "query": "show tag values from SRMPLS_IF_STATS with key=\"SHORTNAME\" where $timeFilter",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1045,14 +1042,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values from INTERFACES with key=\"if_name\" where SHORTNAME=~/$rtr/",
+        "definition": "show tag values from INTERFACES with key=\"if_name\" where SHORTNAME=~/$rtr/ and $timeFilter",
         "hide": 0,
         "includeAll": true,
         "label": "Interface",
         "multi": true,
         "name": "ifname",
         "options": [],
-        "query": "show tag values from INTERFACES with key=\"if_name\" where SHORTNAME=~/$rtr/",
+        "query": "show tag values from INTERFACES with key=\"if_name\" where SHORTNAME=~/$rtr/ and $timeFilter",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1061,35 +1058,7 @@
       },
       {
         "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
-        "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
-        },
-        "definition": "show tag values from SRMPLS_SID_STATS with key=\"mpls_label\" where SHORTNAME=~/$rtr/",
-        "hide": 0,
-        "includeAll": true,
-        "label": "MPLS SID",
-        "multi": true,
-        "name": "mpls_sid",
-        "options": [],
-        "query": "show tag values from SRMPLS_SID_STATS with key=\"mpls_label\" where SHORTNAME=~/$rtr/",
-        "refresh": 1,
-        "regex": "",
-        "skipUrlSync": false,
-        "sort": 1,
-        "type": "query"
-      },
-      {
-        "current": {
-          "selected": true,
+          "selected": false,
           "text": "1m",
           "value": "1m"
         },
