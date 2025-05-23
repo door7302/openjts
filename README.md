@@ -4,7 +4,24 @@
 
 ## Disclaimer
 
-This project is a "side time project". I'm not a software developper, so be indulgent with me :). 
+This project is a "side time project" supported in 'best-effor' :) and I'm not a software developper, so be indulgent with me :). 
+
+## SUPPORTED USE CASES (Profiles)
+
+Today OpenJTS supports: 
+
+- **HEALTH PROFILE**: Monitoring the health of the router - many environmental data.
+- **TRAFFIC PROFILE**: Monitoring of traffic and traffic error including queue drops, VoQ, Queue depth (depends on HW), and many other traffic KPI for Physical and Logical interfaces.
+- **BGP PROFILE**: BGP statistics per neighbor, family, peer-group routing statistics, including on-change session events.
+- **DDOS PROFILE**: Monitoring of the DDOS Protection statistics 
+- **FILTER PROFILE**: Monitoring of all your firewall filter counters and policers at PFE and port levels. 
+- **POWER PROFILE**: Monitoring of the power consumption of each active chassis components. Include temperature and Fan speed monitoring. Include an aggregated view. 
+- **OPTIC PROFILE**: Moniroting of the optic KPIs: level, alarms. Support OTN optics. ZR/ZR+ dedicated dashboard. 
+- **SRMPLS PROFILE**: Monitoring of SR MPLS traffic: per interface and per label (SID)
+
+> Note: Depending the platform and the version you may have access to more of less information. Also, some profiles are not supported on some PF/Version. Please refer to the "doc" menu from the JTSO portal. 
+
+> Note 2: Some statistics requiere specific device configuration.
 
 ## Quick Overview
 

@@ -20,6 +20,8 @@ Router health KPIs: CPU, Memory, Errors, Drops...
 
 ### Dashboard screenshots
 
+#### Router health details
+
 ![health1.png](./img/profiles/health/health1.png)
 
     (1) Select Route
@@ -52,6 +54,8 @@ Router health KPIs: CPU, Memory, Errors, Drops...
     (1) History of per FPC/MPC Fabric drops
     (2) History of per FPC/MPC input Fabric rate (pps)
     (3) History of per FPC/MPC output Fabric rate (pps)
+
+#### NPU Statistics
 
 ![hw-mon1.png](./img/profiles/health/hw-mon1.png)
 
@@ -101,6 +105,8 @@ Traffic KPIs: peer queue statistics, per port statistics, queue-depth, drop per 
 
 ### Dashboard screenshots
 
+#### Physical Interfaces Traffic
+
 ![traffic1.png](./img/profiles/traffic/traffic1.png)
 
     (1) Filter per router, physical interfaces
@@ -128,6 +134,8 @@ Traffic KPIs: peer queue statistics, per port statistics, queue-depth, drop per 
     (3) Queued traffic per queue – in pps 
     (4) Real Forwarded traffic per queue - in pps
 
+#### Logical Interfaces Traffic
+
 ![unit1.png](./img/profiles/traffic/unit1.png)
 
     (1) Select physical port and unit(s)
@@ -139,6 +147,28 @@ Traffic KPIs: peer queue statistics, per port statistics, queue-depth, drop per 
 
     (1) Per unit traffic in Bps and PPS
 
+#### VoQ System (PTX Only)
+
+Need specific configuration on the device to enable the feature.
+
+![voq1.png](./img/profiles/traffic/voq1.png)
+
+    (1) Filter per router, physical interfaces
+    (2) Current real-time traffic alarms (RED, TAIL, CRC) drops - monitored by the ALARMING Telegraf plugin
+    (3) Overall traffic distribution – per Queue
+    (4) Details of each real-time traffic alarms (point 2) 
+    (5) For each port port statistics – In/Out in bps and pps & traffic types
+    (6) Traffic distribution – per queue – for a specific port
+
+![voq2.png](./img/profiles/traffic/voq2.png)
+
+    (1) Forwarded traffic per egress queue in Bps and PPS
+    (2) Egress Queue drops
+
+![voq3.png](./img/profiles/traffic/voq3.png)
+
+    (1) Real time per VoQ Depth information – Current / Average and Peak
+    (2) History graphs for VoQ Depth
 
 ## Optic profile
 
@@ -192,6 +222,8 @@ Provide also the overall input traffic view and the ratio Watts per Gbps.
 
 ### Dashboard screenshots
 
+#### Per router Power consumption 
+
 ![power1.png](./img/profiles/power-ext/power1.png)
 
     (1) Chassis information 
@@ -232,6 +264,8 @@ Provide also the overall input traffic view and the ratio Watts per Gbps.
     (2) History over the time of each CB/Fabric/RE power consumption 
     (3) Per PEM/PSM current power consumption 
     (4) History over the time of each PEM/PSM power consumption 
+
+#### Power aggregation Dashboard
 
 ![power8.png](./img/profiles/power-ext/power8.png)
 
@@ -276,4 +310,30 @@ Currently, only supported for MX & PTX
     (5) History of received pps, per Linecard, for a given protocol and one or several sub-protocol.
     (6) History of dropped pps, per Linecard, for a given protocol and one or several sub-protocol.
     (7) History of punted pps, per Linecard, to the RE for a given protocol and one or several sub-protocol.
-    
+
+
+## SR MPLS profile
+
+SR MPLS KPIs: SR MPLS Traffic per interfaces, per SID, ingress egress - need specific configuration on the device to enable the feature
+
+### Sensor path details
+
+![srmpls.png](./img/sensors/srmpls.png)
+
+### Dashboard screenshots
+
+#### Per Interface SR MPLS Stats
+
+![srmpls1.png](./img/profiles/srmpls/srmpls1.png)
+
+    (1) Filter per router, physical interfaces
+    (2) SR MPLS in/out Bps/Pps per interface 
+    (3) The percentage of SR MPLS traffic relative to other traffic (on this interface)
+
+#### Per LABEL (SID) SR MPLS Stats
+
+![srmpls2.png](./img/profiles/srmpls/srmpls2.png)
+
+    (1) Filter per router, MPLS LABEL (derived from SID)
+    (2) Traffic load per SID (LABEL)
+    (3) Traffic in PPS and BPS per SID (LABEL)
