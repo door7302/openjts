@@ -1,0 +1,289 @@
+{
+    "gnmi_inputs": [
+        {
+            "aliases": [
+                {
+                    "name": "SRMPLS_IF_STATS",
+                    "prefix_list": [
+                        "/mpls/signalling-protocols/segment-routing/interfaces/interface",
+                        "/mpls/signaling-protocols/segment-routing/interfaces/interface"
+                    ]
+                },
+                {
+                    "name": "SRMPLS_SID_STATS",
+                    "prefix_list": [
+                        "/mpls/signalling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter/state/counters",
+                        "/mpls/signaling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter/state/counters"
+                    ]
+                }
+            ],
+            "subscriptions": [
+                {
+                    "name": "SRMPLS_IF_STATS",
+                    "path": "/mpls/signaling-protocols/segment-routing/interfaces",
+                    "mode": "sample",
+                    "interval": 30
+                },
+                {
+                    "name": "SRMPLS_SID_STATS",
+                    "path": "/junos/services/segment-routing/sid/usage",
+                    "mode": "sample",
+                    "interval": 30
+                },
+                {
+                    "name": "INTERFACES",
+                    "path": "/interfaces/interface/state",
+                    "mode": "sample",
+                    "interval": 30
+                }
+            ]
+        }
+    ],
+    "rename_list": [
+        {
+            "order": 100,
+            "namepass": [
+                "SRMPLS_IF_STATS",
+                "SRMPLS_SID_STATS",
+                "INTERFACES"
+            ],
+            "entries": [
+                {
+                    "type": 0,
+                    "from": "/interfaces/interface/name",
+                    "to": "if_name"
+                },
+                {
+                    "type": 0,
+                    "from": "/interfaces/interface/@name",
+                    "to": "if_name"
+                },
+                {
+                    "type": 0,
+                    "from": "/interfaces/interface/if-name",
+                    "to": "if_name"
+                },
+                {
+                    "type": 0,
+                    "from": "/interfaces/interface/@if-name",
+                    "to": "if_name"
+                },
+                {
+                    "type": 0,
+                    "from": "/mpls/signalling-protocols/segment-routing/interfaces/interface/name",
+                    "to": "ifl_name"
+                },
+                {
+                    "type": 0,
+                    "from": "/mpls/signaling-protocols/segment-routing/interfaces/interface/name",
+                    "to": "ifl_name"
+                },
+                {
+                    "type": 0,
+                    "from": "/mpls/signaling-protocols/segment-routing/interfaces/interface/state/counters/name",
+                    "to": "egress_ifl_counter_name"
+                },
+                {
+                    "type": 0,
+                    "from": "/mpls/signalling-protocols/segment-routing/interfaces/interface/state/counters/name",
+                    "to": "egress_ifl_counter_name"
+                },
+                {
+                    "type": 0,
+                    "from": "/mpls/signaling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter/mpls-label",
+                    "to": "mpls_label"
+                },
+                {
+                    "type": 0,
+                    "from": "/mpls/signalling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter/mpls-label",
+                    "to": "mpls_label"
+                },
+                {
+                    "type": 0,
+                    "from": "/mpls/signaling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter/state/counters/name",
+                    "to": "sid_counter_name"
+                },
+                {
+                    "type": 0,
+                    "from": "/mpls/signalling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter/state/counters/name",
+                    "to": "sid_counter_name"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/state/counters/in-octets",
+                    "to": "in_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/state/counters/out-octets",
+                    "to": "out_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/state/counters/if-in-octets",
+                    "to": "in_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/state/counters/if-out-octets",
+                    "to": "out_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/state/counters/in-pkts",
+                    "to": "in_pkts"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/state/counters/out-pkts",
+                    "to": "out_pkts"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/state/counters/if-in-pkts",
+                    "to": "in_pkts"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/state/counters/if-out-pkts",
+                    "to": "out_pkts"
+                },
+                {
+                    "type": 1,
+                    "from": "/mpls/signaling-protocols/segment-routing/interfaces/interface/in-octets",
+                    "to": "sr_in_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/mpls/signaling-protocols/segment-routing/interfaces/interface/in-octets",
+                    "to": "sr_in_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/mpls/signaling-protocols/segment-routing/interfaces/interface/in-pkts",
+                    "to": "sr_in_pkts"
+                },
+                {
+                    "type": 1,
+                    "from": "/mpls/signaling-protocols/segment-routing/interfaces/interface/in-pkts",
+                    "to": "sr_in_pkts"
+                },
+                {
+                    "type": 1,
+                    "from": "/mpls/signaling-protocols/segment-routing/interfaces/interface/state/counters/out-octets",
+                    "to": "sr_out_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/mpls/signalling-protocols/segment-routing/interfaces/interface/state/counters/out-octets",
+                    "to": "sr_out_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/mpls/signaling-protocols/segment-routing/interfaces/interface/state/counters/out-pkts",
+                    "to": "sr_out_pkts"
+                },
+                {
+                    "type": 1,
+                    "from": "/mpls/signalling-protocols/segment-routing/interfaces/interface/state/counters/out-pkts",
+                    "to": "sr_out_pkts"
+                },
+                {
+                    "type": 1,
+                    "from": "/mpls/signaling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter/state/counters/in-octets",
+                    "to": "sid_in_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/mpls/signalling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter/state/counters/in-octets",
+                    "to": "sid_in_octets"
+                },
+                {
+                    "type": 1,
+                    "from": "/mpls/signaling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter/state/counters/in-pkts",
+                    "to": "sid_in_pkts"
+                },
+                {
+                    "type": 1,
+                    "from": "/mpls/signalling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter/state/counters/in-pkts",
+                    "to": "sid_in_pkts"
+                }
+            ]
+        }
+    ],
+    "filtering_list": [
+        {
+            "order": 200,
+            "namepass": [
+                "SRMPLS_IF_STATS",
+                "SRMPLS_SID_STATS",
+                "INTERFACES"
+            ],
+            "filters": [
+                {
+                    "type": 0,
+                    "key": "if_name",
+                    "pattern": "^(et-|xe-|ge-|ae|lt-|ps-|fti-|gr-|demux).*",
+                    "action": "accept"
+                }
+            ]
+        }
+    ],
+    "enrichment_list": [
+        {
+            "order": 200,
+            "namepass": [
+                "SRMPLS_IF_STATS",
+                "SRMPLS_SID_STATS",
+                "INTERFACES"
+            ],
+            "family": "vmx",
+            "two_levels": true,
+            "level1_tag": "device",
+            "level2_tag": "if_name"
+        }
+    ],
+    "rate_list": [
+        {
+            "order": 300,
+            "namepass": [
+                "SRMPLS_IF_STATS",
+                "SRMPLS_SID_STATS",
+                "INTERFACES"
+            ],
+            "fields": [
+                "in_octets",
+                "out_octets",
+                "in_pkts",
+                "out_pkts",
+                "sr_in_octets",
+                "sr_in_pkts",
+                "sr_out_octets",
+                "sr_out_pkts",
+                "sid_in_octets",
+                "sid_in_pkts",
+                "sid_out_octets",
+                "sid_out_pkts"
+            ]
+        }
+    ],
+    "influx_outputs": [
+        {
+            "retention": "autogen",
+            "fieldpass": [
+                "in_octets_rate",
+                "out_octets_rate",
+                "in_pkts_rate",
+                "out_pkts_rate",
+                "sr_in_octets_rate",
+                "sr_in_pkts_rate",
+                "sr_out_octets_rate",
+                "sr_out_pkts_rate",
+                "sid_in_octets_rate",
+                "sid_in_pkts_rate",
+                "sid_out_octets_rate",
+                "sid_out_pkts_rate"
+            ]
+        }
+    ]
+}
