@@ -1,6 +1,9 @@
 {
   "gnmi_inputs": [{
-    "aliases": [
+    "aliases": [{
+        "name": "JUNOS_CMERROR",
+        "prefix_list": ["/junos/chassis/cmerror/counters"]
+      },
       {
         "name": "COMPONENTS",
         "prefix_list": ["/components/component"]
@@ -17,6 +20,12 @@
         "path": "/junos/system/linecard/packet/usage",
         "mode": "sample",
         "interval": 60
+      },
+      {
+        "name": "JUNOS_CMERROR",
+        "path": "/junos/system/cmerror/counters",
+        "mode": "sample",
+        "interval": 30
       },
       {
         "name": "SYSTEM",
@@ -99,7 +108,7 @@
     },
     {
       "order": 301,
-      "namepass": ["COMPONENTS", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS", "JUNOS_FABRIC"],
+      "namepass": ["COMPONENTS", "JUNOS_CMERROR", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS", "JUNOS_FABRIC"],
       "entries": [{
           "type": 0,
           "from": "/components/component/properties/property/@name",
@@ -122,6 +131,11 @@
         },
         {
           "type": 0,
+          "from": "/junos/chassis/cmerror/counters/name",
+          "to": "cmerror_name"
+        },
+        {
+          "type": 0,
           "from": "/system/processes/process/pid",
           "to": "process_pid"
         },
@@ -134,6 +148,36 @@
           "type": 0,
           "from": "/junos/events/event/id",
           "to": "event_id"
+        },
+        {
+          "type": 1,
+          "from": "/junos/chassis/cmerror/counters/description",
+          "to": "cmerror_desc"
+        },
+        {
+          "type": 1,
+          "from": "/junos/chassis/cmerror/counters/fru-slot",
+          "to": "cmerror_slot"
+        },
+        {
+          "type": 1,
+          "from": "/junos/chassis/cmerror/counters/identifier",
+          "to": "cmerror_id"
+        },
+        {
+          "type": 1,
+          "from": "/junos/chassis/cmerror/counters/last-updated",
+          "to": "cmerror_update"
+        },
+        {
+          "type": 1,
+          "from": "/junos/chassis/cmerror/counters/last-cleared-at",
+          "to": "cmerror_clear"
+        },
+        {
+          "type": 1,
+          "from": "/junos/chassis/cmerror/counters/occur-count",
+          "to": "cmerror_count"
         },
         {
           "type": 1,
@@ -245,12 +289,13 @@
   ],
   "converter_list": [{
     "order": 400,
-    "namepass": ["COMPONENTS", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS", "JUNOS_FABRIC", "HW_NPU"],
+    "namepass": ["COMPONENTS", "JUNOS_CMERROR", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS", "JUNOS_FABRIC", "HW_NPU"],
     "integer_type": [
       "idle_cpu",
       "linecard_cpu",
       "linecard_memory",
       "buffer_usage",
+      "cmerror_slot",
       "value"
     ],
     "tag_type": [
@@ -265,7 +310,7 @@
   }],
   "enrichment_list": [{
     "order": 400,
-    "namepass": ["COMPONENTS", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS", "JUNOS_FABRIC", "HW_NPU"],
+    "namepass": ["COMPONENTS", "JUNOS_CMERROR", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS", "JUNOS_FABRIC", "HW_NPU"],
     "family": "acx",
     "two_levels": false,
     "level1_tag": "device"
@@ -317,6 +362,12 @@
     "fieldpass": [
       "exception",
       "value",
+      "cmerror_desc",
+      "cmerror_slot",
+      "cmerror_id",
+      "cmerror_update",
+      "cmerror_clear",
+      "cmerror_count",
       "process_memory_usage",
       "process_cpu_utilization",
       "core_cpu_avg",

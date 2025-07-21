@@ -4,26 +4,40 @@
   "cheatsheet": "health.png",
   "description": "This profile provides template for collecting router health data",
   "telegraf": {
-    "vmx": [{
-      "version": "all",
-      "conf": "vmx_health.json"
-    }],
-    "mx": [{
-      "version": "all",
-      "conf": "mx_health.json"
-    }],
-    "ptx": [{
-      "version": "all",
-      "conf": "ptx_health.json"
-    }],
-    "acx": [{
-      "version": "all",
-      "conf": "acx_health.json"
-    }],
-    "qfx": [{
-      "version": "all",
-      "conf": "qfx_health.json"
-    }]
+    "vmx": [
+      {
+        "version": "all",
+        "conf": "vmx_health.json"
+      }
+    ],
+    "mx": [
+      {
+        "version": "all",
+        "conf": "mx_health.json"
+      }
+    ],
+    "ptx": [
+      {
+        "version": "all",
+        "conf": "ptx_health.json"
+      }
+    ],
+    "acx": [
+      {
+        "version": ">=23.2",
+        "conf": "acx_23_health.json"
+      },
+      {
+        "version": "all",
+        "conf": "acx_health.json"
+      }
+    ],
+    "qfx": [
+      {
+        "version": "all",
+        "conf": "qfx_health.json"
+      }
+    ]
   },
   "kapacitor": null,
   "grafana": [
