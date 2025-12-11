@@ -244,7 +244,7 @@ services:
       - ./grafana/data:/var/lib/grafana
       - ./grafana/plugins:/var/lib/grafana/plugins
   jtso:
-    build: https://github.com/door7302/jtso.git#v1.0.18
+    build: https://github.com/door7302/jtso.git#v1.0.19
     image: jtso:latest
     container_name: jtso
     restart: always
