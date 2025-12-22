@@ -191,7 +191,7 @@
     "two_levels": false,
     "level1_tag": "device"
   }],
-  "regrex_list": [{
+  "regex_list": [{
     "order": 300,
     "namepass": ["NETWORK_INSTANCE_BGP"],
     "entries": [{
