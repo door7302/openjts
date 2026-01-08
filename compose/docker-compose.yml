@@ -204,7 +204,7 @@ services:
       - influxdb
     volumes:
       - /var/log:/var/log
-      - ./telegraf/vevo:/etc/telegraf/
+      - ./telegraf/ondemand:/etc/telegraf/
       - ./telegraf/metadata:/var/metadata
       - ./telegraf/cert:/var/cert
     command:
