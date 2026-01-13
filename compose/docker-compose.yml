@@ -271,6 +271,7 @@ services:
       - ./.version:/etc/jtso/openjts.version
       - ./jtso/cert:/var/cert
       - ./jtso/profiles:/var/profiles
+      - ./jtso/ondemand:/var/ondemand
       - ./jtso/active_profiles:/var/active_profiles
       - ./telegraf:/var/shared/telegraf
       - ./telegraf/metadata:/var/metadata
