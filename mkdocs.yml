@@ -1,5 +1,5 @@
 copyright: This site is maintained by David Roy. Powered by
-  Material for MkDocs & Pandoc
+  Material for MkDocs
 docs_dir: docs
 extra:
   generator: false
