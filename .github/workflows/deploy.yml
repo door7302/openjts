@@ -2,8 +2,6 @@ name: Build and Deploy MkDocs OpenJTS Site
 
 on:
   push:
-    branches:
-      - '**'
     branches-ignore:
       - gh-pages
   workflow_dispatch:
