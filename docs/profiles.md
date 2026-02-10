@@ -282,10 +282,6 @@ Currently supported on **MX** and **PTX** platforms only.
 SR MPLS KPIs include traffic per interface, per SID, ingress, and egress.  
 Requires specific device configuration.
 
-### Sensor Path Details
-
-![srmpls.png](./img/sensors/srmpls.png)
-
 ### Dashboard Screenshots
 
 #### Per-Interface SR MPLS Statistics
