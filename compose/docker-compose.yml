@@ -217,7 +217,7 @@ services:
     depends_on:
       - influxdb
     ports:
-      - '9092:9092'
+      - '9292:9292'
     environment:
       - KAPACITOR_AS_ROOT=true
     volumes:
@@ -231,7 +231,7 @@ services:
       - '${CHRONOGRAF_PORT}:8888'
     environment:
       - INFLUXDB_URL=http://influxdb:8086 
-      - KAPACITOR_URL=http://kapacitor:9092 
+      - KAPACITOR_URL=http://kapacitor:9292 
     depends_on:
       - influxdb
       - kapacitor
