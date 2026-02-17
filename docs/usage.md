@@ -222,7 +222,7 @@ Results are displayed in tree view format:
 
 ![jtso-browser-4.png](./img/jtso-browser-4.png)
 
-# Create On-Demand Graph
+## Create On-Demand Graph
 
 This feature is designed for troubleshooting purposes when existing profiles are not sufficient.
 
