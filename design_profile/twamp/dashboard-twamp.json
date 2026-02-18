@@ -1,0 +1,1305 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": 115,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 3,
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#6ED0E0",
+                "value": 0.25
+              },
+              {
+                "color": "#EAB839",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 2
+              }
+            ]
+          },
+          "unit": "percent",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 0,
+        "y": 0
+      },
+      "id": 10,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "query": "SELECT \n  100.0 * (SUM(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probes-sent\") \n           - SUM(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-responses\")) \n         / SUM(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probes-sent\") \n  AS \"cumulative_loss_pct\"\nFROM \"JUNOS_TWAMP\"\nWHERE $timeFilter \n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/ \n  AND \"/junos/twamp/client/probe-test-results/owner\" =~ /^${owner:regex}$/ \n  AND \"/junos/twamp/client/probe-test-results/test-name\" =~ /^${twamp_test:regex}$/ \n  AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\" =~ /^${scope:regex}$/ \n  AND \"path\" = '/junos/twamp/client/probe-test-results/probe-test-generic-results'",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "Packet Loss %",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "decimals": 3,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 80
+              },
+              {
+                "color": "red",
+                "value": 150
+              }
+            ]
+          },
+          "unit": "ms",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 5,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "query": "SELECT min(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/min-delay\")/1000 AS \"min_rtt_last_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/junos/twamp/client/probe-test-results/owner\" =~ /^${owner:regex}$/ AND \"/junos/twamp/client/probe-test-results/test-name\" =~ /^${twamp_test:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\" =~ /^${scope:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\" =~ /^${mtype:regex}$/ AND \"path\"='/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements'",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "Min RTT (ms)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "ms",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 10,
+        "y": 0
+      },
+      "id": 11,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "query": "SELECT MEAN(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/avg-delay\") / 1000 \nAS \"avg_of_avgs_rtt_ms\" \nFROM \"JUNOS_TWAMP\" \nWHERE $timeFilter \n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/ \n  AND \"/junos/twamp/client/probe-test-results/owner\" =~ /^${owner:regex}$/ \n  AND \"/junos/twamp/client/probe-test-results/test-name\" =~ /^${twamp_test:regex}$/ \n  AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\" =~ /^${scope:regex}$/ \n  AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\" =~ /^${mtype:regex}$/ \n  AND \"path\" = '/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements'",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "Average RTT",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "decimals": 3,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "yellow",
+                "value": 120
+              },
+              {
+                "color": "red",
+                "value": 250
+              }
+            ]
+          },
+          "unit": "ms",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 5,
+        "x": 15,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "query": "SELECT max(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/max-delay\")/1000 AS \"max_rtt_last_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/junos/twamp/client/probe-test-results/owner\" =~ /^${owner:regex}$/ AND \"/junos/twamp/client/probe-test-results/test-name\" =~ /^${twamp_test:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\" =~ /^${scope:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\" =~ /^${mtype:regex}$/ AND \"path\"='/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements'",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "Max RTT (ms)",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "points",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "decimals": 3,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "ms",
+          "unitScale": true
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*min_rtt_ms$"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    8,
+                    4
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*avg_rtt_ms$"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    10,
+                    10
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              },
+              {
+                "id": "custom.showPoints",
+                "value": "always"
+              },
+              {
+                "id": "custom.pointSize",
+                "value": 3
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*max_rtt_ms$"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    2,
+                    4
+                  ],
+                  "fill": "dash"
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "JUNOS_TWAMP.Avg all Min RTT (ms)"
+            },
+            "properties": [
+              {
+                "id": "custom.drawStyle",
+                "value": "line"
+              },
+              {
+                "id": "custom.lineStyle"
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "light-green",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.spanNulls",
+                "value": true
+              },
+              {
+                "id": "custom.showPoints",
+                "value": "never"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "query": "SELECT min(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/min-delay\")/1000 AS \"min_rtt_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/junos/twamp/client/probe-test-results/owner\" =~ /^${owner:regex}$/ AND \"/junos/twamp/client/probe-test-results/test-name\" =~ /^${twamp_test:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\" =~ /^${scope:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\" = 'ROUND_TRIP_TIME' AND \"path\"='/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "query": "SELECT max(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/max-delay\")/1000 AS \"max_rtt_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/junos/twamp/client/probe-test-results/owner\" =~ /^${owner:regex}$/ AND \"/junos/twamp/client/probe-test-results/test-name\" =~ /^${twamp_test:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\" =~ /^${scope:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\" = 'ROUND_TRIP_TIME' AND \"path\"='/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "query": "SELECT mean(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/avg-delay\")/1000 AS \"avg_rtt_ms\"\nFROM \"JUNOS_TWAMP\"\nWHERE $timeFilter\n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/\n  AND \"/junos/twamp/client/probe-test-results/owner\" =~ /^${owner:regex}$/\n  AND \"/junos/twamp/client/probe-test-results/test-name\" =~ /^${twamp_test:regex}$/\n  AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\" =~ /^${scope:regex}$/\n  AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\" = 'ROUND_TRIP_TIME'\n  AND \"path\"='/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements'\nGROUP BY time($__interval) fill(null)\n",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/min-delay\")/1000 AS \"Avg all Min RTT (ms)\"\nFROM \"JUNOS_TWAMP\"\nWHERE $timeFilter \n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/ \n  AND \"/junos/twamp/client/probe-test-results/owner\" =~ /^${owner:regex}$/ \n  AND \"/junos/twamp/client/probe-test-results/test-name\" =~ /^${twamp_test:regex}$/ \n  AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\" =~ /^${scope:regex}$/ \n  AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\" = 'ROUND_TRIP_TIME' \n  AND \"path\"='/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements'\nGROUP BY time(365d) fill(previous)",
+          "rawQuery": true,
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "hide": true,
+          "query": "SELECT mean(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/max-delay\")/1000 AS \"Avg all Max RTT (ms)\"\nFROM \"JUNOS_TWAMP\"\nWHERE $timeFilter \n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/ \n  AND \"/junos/twamp/client/probe-test-results/owner\" =~ /^${owner:regex}$/ \n  AND \"/junos/twamp/client/probe-test-results/test-name\" =~ /^${twamp_test:regex}$/ \n  AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\" =~ /^${scope:regex}$/ \n  AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\" = 'ROUND_TRIP_TIME' \n  AND \"path\"='/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements'\nGROUP BY time(365d) fill(previous)",
+          "rawQuery": true,
+          "refId": "E",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "Min/Avg/Max RTT Trend (ms)",
+      "transformations": [
+        {
+          "id": "configFromData",
+          "options": {
+            "applyTo": {
+              "id": "byType",
+              "options": "number"
+            },
+            "configRefId": "D",
+            "mappings": [
+              {
+                "fieldName": "JUNOS_TWAMP.Avg all Min RTT (ms)",
+                "handlerKey": "threshold1"
+              }
+            ]
+          }
+        }
+      ],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 4,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 3,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "ms",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max"
+          ],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Mean",
+          "sortDesc": false
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "hide": true,
+          "query": "SELECT mean(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/jitter-delay\") / 1000 AS \"rtt_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/junos/twamp/client/probe-test-results/owner\" =~ /^${owner:regex}$/ AND \"/junos/twamp/client/probe-test-results/test-name\" =~ /^${twamp_test:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\" =~ /^${scope:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\" = 'ROUND_TRIP_TIME' AND \"path\"='/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "query": "SELECT mean(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/jitter-delay\") / 1000 AS \"negative_rtt_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/junos/twamp/client/probe-test-results/owner\" =~ /^${owner:regex}$/ AND \"/junos/twamp/client/probe-test-results/test-name\" =~ /^${twamp_test:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\" =~ /^${scope:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\" = 'NEGATIVE_RTT_JITTER' AND \"path\"='/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "query": "SELECT mean(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/jitter-delay\") / 1000 AS \"positive_rtt_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/junos/twamp/client/probe-test-results/owner\" =~ /^${owner:regex}$/ AND \"/junos/twamp/client/probe-test-results/test-name\" =~ /^${twamp_test:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\" =~ /^${scope:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\" = 'POSITIVE_RTT_JITTER' AND \"path\"='/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "RTT Jitter",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 3,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "ms",
+          "unitScale": true
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "min_jitter_ms"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    8,
+                    4
+                  ],
+                  "fill": "dash"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_jitter_ms"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 3
+              },
+              {
+                "id": "custom.showPoints",
+                "value": "always"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max_jitter_ms"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    4,
+                    4
+                  ],
+                  "fill": "dash"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 21,
+        "x": 0,
+        "y": 26
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "query": "SELECT mean(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/jitter-delay\")/1000 AS \"avg_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/junos/twamp/client/probe-test-results/owner\" =~ /^${owner:regex}$/ AND \"/junos/twamp/client/probe-test-results/test-name\" =~ /^${twamp_test:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\" =~ /^${scope:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\" = 'ROUND_TRIP_TIME' AND \"path\"='/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "hide": true,
+          "query": "SELECT max(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/jitter-delay\")/1000 AS \"max_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/junos/twamp/client/probe-test-results/owner\" =~ /^${owner:regex}$/ AND \"/junos/twamp/client/probe-test-results/test-name\" =~ /^${twamp_test:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\" =~ /^${scope:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\" = 'ROUND_TRIP_TIME' AND \"path\"='/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "hide": true,
+          "query": "SELECT min(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/jitter-delay\")/1000 AS \"min_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/junos/twamp/client/probe-test-results/owner\" =~ /^${owner:regex}$/ AND \"/junos/twamp/client/probe-test-results/test-name\" =~ /^${twamp_test:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\" =~ /^${scope:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\" = 'ROUND_TRIP_TIME' AND \"path\"='/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "RTT Jitter",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "yellow",
+                "value": 5
+              },
+              {
+                "color": "red",
+                "value": 20
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "min_rtt_ms"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "decimals",
+                "value": 3
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "max_rtt_ms"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "decimals",
+                "value": 3
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_rtt_ms"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "decimals",
+                "value": 3
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "jitter_ms"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "decimals",
+                "value": 3
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 16,
+        "x": 0,
+        "y": 34
+      },
+      "id": 7,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "max_rtt_ms"
+          }
+        ]
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "query": "SELECT last(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/min-delay\")/1000 AS min_rtt_ms, last(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/max-delay\")/1000 AS max_rtt_ms, last(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/avg-delay\")/1000 AS avg_rtt_ms, last(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/jitter-delay\")/1000 AS jitter_ms FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/junos/twamp/client/probe-test-results/owner\" =~ /^${owner:regex}$/ AND \"/junos/twamp/client/probe-test-results/test-name\" =~ /^${twamp_test:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\" =~ /^${scope:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\" =~ /^${mtype:regex}$/ AND \"path\"='/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements' GROUP BY \"/junos/twamp/client/probe-test-results/test-name\" LIMIT 250",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table"
+        }
+      ],
+      "title": "Per-Test RTT/Jitter Snapshot (min/max/avg/jitter)",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 3,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 34
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "query": "SELECT count(\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/avg-delay\") AS \"points_per_10s\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/junos/twamp/client/probe-test-results/owner\" =~ /^${owner:regex}$/ AND \"/junos/twamp/client/probe-test-results/test-name\" =~ /^${twamp_test:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\" =~ /^${scope:regex}$/ AND \"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\" =~ /^${mtype:regex}$/ AND \"path\"='/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements' GROUP BY time(10s) fill(0)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
+        }
+      ],
+      "title": "Ingest Cadence (points / 10s)",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "5m",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "rtme-mx10k4-01",
+          "value": "rtme-mx10k4-01"
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "jtsuid"
+        },
+        "definition": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"SHORTNAME\"",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "rtr",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"SHORTNAME\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "PE2_CC",
+          "value": "PE2_CC"
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "jtsuid"
+        },
+        "definition": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"/junos/twamp/client/probe-test-results/owner\" WHERE \"SHORTNAME\" =~ /^$rtr$/",
+        "hide": 0,
+        "includeAll": true,
+        "multi": false,
+        "name": "owner",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"/junos/twamp/client/probe-test-results/owner\" WHERE \"SHORTNAME\" =~ /^$rtr$/",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "jtsuid"
+        },
+        "definition": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"/junos/twamp/client/probe-test-results/test-name\" WHERE \"SHORTNAME\" =~ /^$rtr$/",
+        "hide": 0,
+        "includeAll": true,
+        "multi": true,
+        "name": "twamp_test",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"/junos/twamp/client/probe-test-results/test-name\" WHERE \"SHORTNAME\" =~ /^$rtr$/",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "LAST_TEST",
+          "value": "LAST_TEST"
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "jtsuid"
+        },
+        "definition": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\"",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "scope",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "ROUND_TRIP_TIME",
+          "value": "ROUND_TRIP_TIME"
+        },
+        "datasource": {
+          "type": "influxdb",
+          "uid": "jtsuid"
+        },
+        "definition": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\"",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "mtype",
+        "options": [],
+        "query": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type\"",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "TWAMP Ops/SLA (RTT + Jitter) - JTS",
+  "uid": "dashboardtwamp",
+  "version": 36,
+  "weekStart": ""
+}

@@ -264,7 +264,10 @@ services:
     container_name: jtso
     restart: always
     user: root
+    environment:
+      - APP_SECRET=${APP_SECRET}
     volumes:
+      - appdata:/data
       - /var/log:/var/log
       - ./jtso/db:/etc/jtso
       - ./jtso/config.yml:/etc/jtso/config.yml
@@ -279,3 +282,5 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - '${JTSO_PORT}:8082'
+volumes:
+  appdata:

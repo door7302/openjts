@@ -1,7 +1,6 @@
 {
     "version": 1,
     "min-interval": 30,
-    "cheatsheet": "srmpls.png",
     "description": "This profile provides monitoring information for SR-MPLS.",
     "telegraf": {
         "mx": [

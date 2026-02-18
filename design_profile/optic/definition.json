@@ -1,7 +1,6 @@
 {
   "version": 1,
   "min-interval": 30,
-  "cheatsheet": "optic.png",
   "description": "This profile provides template for collecting optical data",
   "telegraf": {
     "mx": [{

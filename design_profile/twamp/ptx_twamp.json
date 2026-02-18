@@ -1,0 +1,165 @@
+{
+    "gnmi_inputs": [
+        {
+            "aliases": [],
+            "subscriptions": [
+                {
+                    "name": "JUNOS_TWAMP",
+                    "path": "/junos/twamp/client/probe-test-results/probe-test-generic-results[results-scope=LAST_TEST]/last-test-time",
+                    "mode": "sample",
+                    "interval": 30
+                },
+                {
+                    "name": "JUNOS_TWAMP",
+                    "path": "/junos/twamp/client/probe-test-results/probe-test-generic-results[results-scope=LAST_TEST]/loss-percentage",
+                    "mode": "sample",
+                    "interval": 30
+                },
+                {
+                    "name": "JUNOS_TWAMP",
+                    "path": "/junos/twamp/client/probe-test-results/probe-test-generic-results[results-scope=LAST_TEST]/probe-responses",
+                    "mode": "sample",
+                    "interval": 30
+                },
+                {
+                    "name": "JUNOS_TWAMP",
+                    "path": "/junos/twamp/client/probe-test-results/probe-test-generic-results[results-scope=LAST_TEST]/probes-sent",
+                    "mode": "sample",
+                    "interval": 30
+                },
+                {
+                    "name": "JUNOS_TWAMP",
+                    "path": "/junos/twamp/client/probe-test-results/probe-test-generic-results[results-scope=LAST_TEST]/probe-test-generic-measurements[probe-measurement-type=ROUND_TRIP_TIME]",
+                    "mode": "sample",
+                    "interval": 30
+                },
+                {
+                    "name": "JUNOS_TWAMP",
+                    "path": "/junos/twamp/client/probe-test-results/probe-test-generic-results[results-scope=LAST_TEST]/probe-test-generic-measurements[probe-measurement-type=NEGATIVE_RTT_JITTER]",
+                    "mode": "sample",
+                    "interval": 30
+                },
+                {
+                    "name": "JUNOS_TWAMP",
+                    "path": "/junos/twamp/client/probe-test-results/probe-test-generic-results[results-scope=LAST_TEST]/probe-test-generic-measurements[probe-measurement-type=POSITIVE_RTT_JITTER]",
+                    "mode": "sample",
+                    "interval": 30
+                }
+            ]
+        }
+    ],
+    "rename_list": [
+        {
+            "order": 100,
+            "namepass": [
+                "JUNOS_TWAMP"
+            ],
+            "entries": [
+                {
+                    "type": 0,
+                    "from": "/junos/twamp/client/probe-test-results/owner",
+                    "to": "test_owner"
+                },
+                {
+                    "type": 0,
+                    "from": "/junos/twamp/client/probe-test-results/test-name",
+                    "to": "test_name"
+                },
+                {
+                    "type": 0,
+                    "from": "/junos/twamp/client/probe-test-results/probe-test-generic-results/results-scope",
+                    "to": "results_scope"
+                },
+                {
+                    "type": 0,
+                    "from": "/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/probe-measurement-type",
+                    "to": "probe_measurement_type"
+                },
+                {
+                    "type": 1,
+                    "from": "/junos/twamp/client/probe-test-results/probe-test-generic-results/loss-percentage",
+                    "to": "loss_percentage"
+                },
+                {
+                    "type": 1,
+                    "from": "/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-responses",
+                    "to": "probe_responses"
+                },
+                {
+                    "type": 1,
+                    "from": "/junos/twamp/client/probe-test-results/probe-test-generic-results/probes-sent",
+                    "to": "probes_sent"
+                },
+                {
+                    "type": 1,
+                    "from": "/junos/twamp/client/probe-test-results/probe-test-generic-results/last-test-time",
+                    "to": "last_test_time"
+                },
+                {
+                    "type": 1,
+                    "from": "/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/avg-delay",
+                    "to": "avg_delay"
+                },
+                {
+                    "type": 1,
+                    "from": "/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/jitter-delay",
+                    "to": "jitter_delay"
+                },
+                {
+                    "type": 1,
+                    "from": "/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/max-delay",
+                    "to": "max_delay"
+                },
+                {
+                    "type": 1,
+                    "from": "/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/min-delay",
+                    "to": "min_delay"
+                },
+                {
+                    "type": 1,
+                    "from": "/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/sum-delay",
+                    "to": "sum_delay"
+                },
+                {
+                    "type": 1,
+                    "from": "/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/samples",
+                    "to": "samples"
+                },
+                {
+                    "type": 1,
+                    "from": "/junos/twamp/client/probe-test-results/probe-test-generic-results/probe-test-generic-measurements/stddev-delay",
+                    "to": "stddev_delay"
+                }
+            ]
+        }
+    ],
+    "enrichment_list": [
+        {
+            "order": 200,
+            "namepass": [
+                "JUNOS_TWAMP"
+            ],
+            "family": "ptx",
+            "two_levels": false,
+            "level1_tag": "device"
+        }
+    ],
+    "influx_outputs": [
+        {
+            "retention": "autogen",
+            "fieldpass": [
+                "last_test_time",
+                "loss_percentage",
+                "probe_responses",
+                "probes_sent",
+                "avg_delay",
+                "jitter_delay",
+                "max_delay",
+                "min_delay",
+                "sum_delay",
+                "stddev_delay",
+                "samples"
+            ]
+        }
+    ]
+}
