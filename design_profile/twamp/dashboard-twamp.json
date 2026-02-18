@@ -91,7 +91,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "SELECT \n  100.0 * (SUM(\"probes_sent\") \n           - SUM(\"probe_responses\")) \n         / SUM(\"probes_sent\") \n  AS \"cumulative_loss_pct\"\nFROM \"JUNOS_TWAMP\"\nWHERE $timeFilter \n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/ \n  AND \"/test_owner\" =~ /^${test_owner:regex}$/ \n  AND \"/test_name\" =~ /^${twamp_test:regex}$/ \n  AND \"results_scope\" =~ /^${scope:regex}$/ \n  AND \"path\" = '/probe-test-generic-results'",
+          "query": "SELECT \n  100.0 * (SUM(\"probes_sent\") \n           - SUM(\"probe_responses\")) \n         / SUM(\"probes_sent\") \n  AS \"cumulative_loss_pct\"\nFROM \"JUNOS_TWAMP\"\nWHERE $timeFilter \n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/ \n  AND \"test_owner\" =~ /^${test_owner:regex}$/ \n  AND \"test_name\" =~ /^${twamp_test:regex}$/ \n  AND \"results_scope\" =~ /^${scope:regex}$/ \n  AND \"path\" = '/probe-test-generic-results'",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -161,7 +161,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "SELECT min(\"min_delay\")/1000 AS \"min_rtt_last_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/test_owner\" =~ /^${test_owner:regex}$/ AND \"/test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" =~ /^${mtype:regex}$/ AND \"path\"='probe-test-generic-measurements'",
+          "query": "SELECT min(\"min_delay\")/1000 AS \"min_rtt_last_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" =~ /^${mtype:regex}$/ AND \"path\"='probe-test-generic-measurements'",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -229,7 +229,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "SELECT MEAN(\"avg_delay\") / 1000 \nAS \"avg_of_avgs_rtt_ms\" \nFROM \"JUNOS_TWAMP\" \nWHERE $timeFilter \n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/ \n  AND \"/test_owner\" =~ /^${test_owner:regex}$/ \n  AND \"/test_name\" =~ /^${twamp_test:regex}$/ \n  AND \"results_scope\" =~ /^${scope:regex}$/ \n  AND \"probe_measurement_type\" =~ /^${mtype:regex}$/ \n  AND \"path\" = 'probe-test-generic-measurements'",
+          "query": "SELECT MEAN(\"avg_delay\") / 1000 \nAS \"avg_of_avgs_rtt_ms\" \nFROM \"JUNOS_TWAMP\" \nWHERE $timeFilter \n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/ \n  AND \"test_owner\" =~ /^${test_owner:regex}$/ \n  AND \"test_name\" =~ /^${twamp_test:regex}$/ \n  AND \"results_scope\" =~ /^${scope:regex}$/ \n  AND \"probe_measurement_type\" =~ /^${mtype:regex}$/ \n  AND \"path\" = 'probe-test-generic-measurements'",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -299,7 +299,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "SELECT max(\"max_delay\")/1000 AS \"max_rtt_last_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/test_owner\" =~ /^${test_owner:regex}$/ AND \"/test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" =~ /^${mtype:regex}$/ AND \"path\"='probe-test-generic-measurements'",
+          "query": "SELECT max(\"max_delay\")/1000 AS \"max_rtt_last_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" =~ /^${mtype:regex}$/ AND \"path\"='probe-test-generic-measurements'",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -522,7 +522,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "SELECT min(\"min_delay\")/1000 AS \"min_rtt_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/test_owner\" =~ /^${test_owner:regex}$/ AND \"/test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME' AND \"path\"='probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
+          "query": "SELECT min(\"min_delay\")/1000 AS \"min_rtt_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME' AND \"path\"='probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -532,7 +532,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "SELECT max(\"max_delay\")/1000 AS \"max_rtt_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/test_owner\" =~ /^${test_owner:regex}$/ AND \"/test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME' AND \"path\"='probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
+          "query": "SELECT max(\"max_delay\")/1000 AS \"max_rtt_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME' AND \"path\"='probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -542,7 +542,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "SELECT mean(\"avg_delay\")/1000 AS \"avg_rtt_ms\"\nFROM \"JUNOS_TWAMP\"\nWHERE $timeFilter\n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/\n  AND \"/test_owner\" =~ /^${test_owner:regex}$/\n  AND \"/test_name\" =~ /^${twamp_test:regex}$/\n  AND \"results_scope\" =~ /^${scope:regex}$/\n  AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME'\n  AND \"path\"='probe-test-generic-measurements'\nGROUP BY time($__interval) fill(null)\n",
+          "query": "SELECT mean(\"avg_delay\")/1000 AS \"avg_rtt_ms\"\nFROM \"JUNOS_TWAMP\"\nWHERE $timeFilter\n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/\n  AND \"test_owner\" =~ /^${test_owner:regex}$/\n  AND \"test_name\" =~ /^${twamp_test:regex}$/\n  AND \"results_scope\" =~ /^${scope:regex}$/\n  AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME'\n  AND \"path\"='probe-test-generic-measurements'\nGROUP BY time($__interval) fill(null)\n",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series"
@@ -569,7 +569,7 @@
           "hide": false,
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"min_delay\")/1000 AS \"Avg all Min RTT (ms)\"\nFROM \"JUNOS_TWAMP\"\nWHERE $timeFilter \n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/ \n  AND \"/test_owner\" =~ /^${test_owner:regex}$/ \n  AND \"/test_name\" =~ /^${twamp_test:regex}$/ \n  AND \"results_scope\" =~ /^${scope:regex}$/ \n  AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME' \n  AND \"path\"='probe-test-generic-measurements'\nGROUP BY time(365d) fill(previous)",
+          "query": "SELECT mean(\"min_delay\")/1000 AS \"Avg all Min RTT (ms)\"\nFROM \"JUNOS_TWAMP\"\nWHERE $timeFilter \n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/ \n  AND \"test_owner\" =~ /^${test_owner:regex}$/ \n  AND \"test_name\" =~ /^${twamp_test:regex}$/ \n  AND \"results_scope\" =~ /^${scope:regex}$/ \n  AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME' \n  AND \"path\"='probe-test-generic-measurements'\nGROUP BY time(365d) fill(previous)",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -595,7 +595,7 @@
             "uid": "jtsuid"
           },
           "hide": true,
-          "query": "SELECT mean(\"max_delay\")/1000 AS \"Avg all Max RTT (ms)\"\nFROM \"JUNOS_TWAMP\"\nWHERE $timeFilter \n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/ \n  AND \"/test_owner\" =~ /^${test_owner:regex}$/ \n  AND \"/test_name\" =~ /^${twamp_test:regex}$/ \n  AND \"results_scope\" =~ /^${scope:regex}$/ \n  AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME' \n  AND \"path\"='probe-test-generic-measurements'\nGROUP BY time(365d) fill(previous)",
+          "query": "SELECT mean(\"max_delay\")/1000 AS \"Avg all Max RTT (ms)\"\nFROM \"JUNOS_TWAMP\"\nWHERE $timeFilter \n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/ \n  AND \"test_owner\" =~ /^${test_owner:regex}$/ \n  AND \"test_name\" =~ /^${twamp_test:regex}$/ \n  AND \"results_scope\" =~ /^${scope:regex}$/ \n  AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME' \n  AND \"path\"='probe-test-generic-measurements'\nGROUP BY time(365d) fill(previous)",
           "rawQuery": true,
           "refId": "E",
           "resultFormat": "time_series"
@@ -712,7 +712,7 @@
             "uid": "jtsuid"
           },
           "hide": true,
-          "query": "SELECT mean(\"jitter_delay\") / 1000 AS \"rtt_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/test_owner\" =~ /^${test_owner:regex}$/ AND \"/test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME' AND \"path\"='probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
+          "query": "SELECT mean(\"jitter_delay\") / 1000 AS \"rtt_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME' AND \"path\"='probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -722,7 +722,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "SELECT mean(\"jitter_delay\") / 1000 AS \"negative_rtt_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/test_owner\" =~ /^${test_owner:regex}$/ AND \"/test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'NEGATIVE_RTT_JITTER' AND \"path\"='probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
+          "query": "SELECT mean(\"jitter_delay\") / 1000 AS \"negative_rtt_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'NEGATIVE_RTT_JITTER' AND \"path\"='probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -732,7 +732,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "SELECT mean(\"jitter_delay\") / 1000 AS \"positive_rtt_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/test_owner\" =~ /^${test_owner:regex}$/ AND \"/test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'POSITIVE_RTT_JITTER' AND \"path\"='probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
+          "query": "SELECT mean(\"jitter_delay\") / 1000 AS \"positive_rtt_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'POSITIVE_RTT_JITTER' AND \"path\"='probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series"
@@ -899,7 +899,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "SELECT mean(\"jitter_delay\")/1000 AS \"avg_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/test_owner\" =~ /^${test_owner:regex}$/ AND \"/test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME' AND \"path\"='probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
+          "query": "SELECT mean(\"jitter_delay\")/1000 AS \"avg_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME' AND \"path\"='probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -910,7 +910,7 @@
             "uid": "jtsuid"
           },
           "hide": true,
-          "query": "SELECT max(\"jitter_delay\")/1000 AS \"max_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/test_owner\" =~ /^${test_owner:regex}$/ AND \"/test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME' AND \"path\"='probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
+          "query": "SELECT max(\"jitter_delay\")/1000 AS \"max_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME' AND \"path\"='probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series"
@@ -921,7 +921,7 @@
             "uid": "jtsuid"
           },
           "hide": true,
-          "query": "SELECT min(\"jitter_delay\")/1000 AS \"min_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/test_owner\" =~ /^${test_owner:regex}$/ AND \"/test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME' AND \"path\"='probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
+          "query": "SELECT min(\"jitter_delay\")/1000 AS \"min_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME' AND \"path\"='probe-test-generic-measurements' GROUP BY time($__interval) fill(null)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series"
@@ -952,7 +952,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "yellow",
@@ -1065,7 +1066,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "SELECT last(\"min_delay\")/1000 AS min_rtt_ms, last(\"max_delay\")/1000 AS max_rtt_ms, last(\"avg_delay\")/1000 AS avg_rtt_ms, last(\"jitter_delay\")/1000 AS jitter_ms FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/test_owner\" =~ /^${test_owner:regex}$/ AND \"/test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" =~ /^${mtype:regex}$/ AND \"path\"='probe-test-generic-measurements' GROUP BY \"/test_name\" LIMIT 250",
+          "query": "SELECT last(\"min_delay\")/1000 AS min_rtt_ms, last(\"max_delay\")/1000 AS max_rtt_ms, last(\"avg_delay\")/1000 AS avg_rtt_ms, last(\"jitter_delay\")/1000 AS jitter_ms FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" =~ /^${mtype:regex}$/ AND \"path\"='probe-test-generic-measurements' GROUP BY \"test_name\" LIMIT 250",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table"
@@ -1122,7 +1123,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               }
             ]
           },
@@ -1157,7 +1159,7 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "query": "SELECT count(\"avg_delay\") AS \"points_per_10s\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"/test_owner\" =~ /^${test_owner:regex}$/ AND \"/test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" =~ /^${mtype:regex}$/ AND \"path\"='probe-test-generic-measurements' GROUP BY time(10s) fill(0)",
+          "query": "SELECT count(\"avg_delay\") AS \"points_per_10s\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" =~ /^${mtype:regex}$/ AND \"path\"='probe-test-generic-measurements' GROUP BY time(10s) fill(0)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series"
@@ -1198,8 +1200,8 @@
       {
         "current": {
           "selected": true,
-          "text": "All",
-          "value": "$__all"
+          "text": "PE2_CC",
+          "value": "PE2_CC"
         },
         "datasource": {
           "type": "influxdb",
@@ -1222,10 +1224,12 @@
         "current": {
           "selected": true,
           "text": [
-            "All"
+            "TS1",
+            "TS23"
           ],
           "value": [
-            "$__all"
+            "TS1",
+            "TS23"
           ]
         },
         "datasource": {
@@ -1299,8 +1303,8 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "TWAMP Ops/SLA (RTT + Jitter) - JTS",
+  "title": "TWAMP SLA (RTT + Jitter) - JTS",
   "uid": "dashboardtwamp",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
