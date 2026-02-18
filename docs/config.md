@@ -1,8 +1,29 @@
 # Configuration of OpenJTS
 
+## Change the APP_SECRET
+
+Gnmi and Netconf passwords are encrypted into the DB. JTSO uses an external secret that could be changed if needed. For that edit the `.env` file:
+
+```shell
+vi compose/.env
+
+[...]
+APP_SECRET="DEFAULT_APP_SECRET_CHANGE_ME"
+[...]
+```
+
+A change of the secret requires a reboot of the stack (if this one was running during the modification):
+
+```shell
+cd compose/
+
+docker compose down
+docker compose up -d
+```
+
 ## Enable HTTPS (Optional)
 
-If you want to enable HTTPS for both **JTSO** and **Grafana**, you can generate a self-signed certificate.
+If you want to enable HTTPS for both **JTSO** and **Grafana**, you can generate a self-signed certificate (see below) or use your own certificate.
 
 ### 1. Generate Self-Signed Certificates
 
@@ -53,6 +74,25 @@ modules:
     server_key: "server.key"
 ```
 
+Then change the JTSO port from 80 to 443 in `.env` file
+
+```shell
+vi compose/.env
+
+[...]
+JTSO_PORT=443
+[...]
+```
+
+You must restart the stack then (if this one was running during the modification):
+
+```shell
+cd compose/
+
+docker compose down
+docker compose up -d
+```
+
 ### 3. Copy Certificates to Grafana Cert Folder
 
 ```shell
@@ -77,12 +117,21 @@ cert_file = /tmp/server.crt
 cert_key = /tmp/server.key
 ```
 
+You must restart the Grafana container then (if this one was running during the modification):
+
+```shell
+cd compose/
+
+docker compose restart grafana
+```
+
 ## Incoming Ports
 
 By default:
 
 - **JTSO Portal** → TCP port 80
 - **Grafana** → TCP port 8080
+- **Chronograf** → TCP port 8080
 
 You can modify these public-facing ports by editing the `.env` file before starting the stack.
 
@@ -90,6 +139,7 @@ You can modify these public-facing ports by editing the `.env` file before start
 cat compose/.env
 
 GRAFANA_PORT=8080
+CHRONOGRAF_PORT=8081
 JTSO_PORT=80
 ```
 
@@ -105,6 +155,14 @@ modules:
     port: 8080
 ```
 
+You must restart the Grafana container then (if this one was running during the modification):
+
+```shell
+cd compose/
+
+docker compose restart grafana
+```
+
 ## Outgoing Ports
 
 OpenJTS establishes TCP sessions toward routing devices for:
@@ -112,7 +170,13 @@ OpenJTS establishes TCP sessions toward routing devices for:
 - **NETCONF** → default TCP 830
 - **gNMI (gRPC)** → default TCP 9339
 
-These ports can be modified if required.
+These ports can be modified if required. Once modified, it requires to restart JTSO - don't forget to modify your router's config as well. 
+
+```shell
+cd compose/
+
+docker compose restart jtso
+```
 
 ### Change NETCONF Port
 

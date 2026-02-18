@@ -73,20 +73,28 @@ The button turns **red** when active.
 
 ![jtso-debug.png](./img/jtso-debug.png)
 
-## Configure Credentials
+## Change Settings
 
 Go to:
 
 ```
-Admin > Credentials
+Admin > Settings
 ```
+
+![jtso-settings-1.png](./img/jtso-settings-1.png)
+
+### Change Credentials 
 
 Here you must configure:
 
 - NETCONF username/password
 - gNMI username/password
 
-These credentials must be identical across all routers.
+> **Note**: Default credential for both protocols is lab/lab123
+
+⚠️ **These credentials must be identical across all routers**
+
+### Enabling/Disabling gNMI TLS
 
 You can also configure:
 
@@ -94,9 +102,28 @@ You can also configure:
 - Skip certificate verification (enabled by default)
 - Client-side TLS authentication (disabled by default)
 
-⚠️ TLS configuration is global: either all routers use TLS or none.
+⚠️ **TLS configuration is global: either all routers use TLS or none**
 
-![jtso-cred.png](./img/jtso-cred.png)
+> **Note**: By default the tool uses clear-text mode for gNMI 
+
+### Enable Kafka export
+
+You could use Kafka export in parallel of the data injestion into InfluxDB. 
+
+> **Note*: Kafka is not part of the stack
+
+Make sure the OpenJTS VM will be able to connect to Kafka bus, otherwise the telegraf instances should continoustly reboot. 
+
+![jtso-settings-2.png](./img/jtso-settings-2.png)
+
+External Kafka export applies to all profiles including On-demand profile. As of now, several Kafka Brokers may be configured, but only one Topic is allowed today. You could configure:
+
+- **Kafka Brokers**: a list of tuple (address:port) seperated with a comma
+- **Kafka Topic**: the topic on which to produce
+- **Kafka Version**: the version of the Kafka bus
+- **Kafka Format**: the encoding format - today only **json** or **influx** format are supported 
+- **Kafka Compression**: the supported codec are: **none**, **gzip**, **snappy**, **lz4** and **zstd**
+- **Kafka Max Message Size**: Value in bytes - default value is **1MB**
 
 ## Configure Inventory
 
