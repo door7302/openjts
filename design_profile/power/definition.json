@@ -1,7 +1,6 @@
 {
   "version": 1,
   "min-interval": 60,
-  "cheatsheet": "power.png",
   "description": "This profile provides extensive data regarding power consumption.",
   "telegraf": {
     "mx": [{

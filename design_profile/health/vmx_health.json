@@ -2,6 +2,7 @@
   "gnmi_inputs": [{
     "aliases": [{
       "name": "JUNOS_CMERROR",
+      "aliasof": "/junos/system/cmerror/counters",
       "prefix_list": ["/junos/chassis/cmerror/counters"]
     }],
     "subscriptions": [{

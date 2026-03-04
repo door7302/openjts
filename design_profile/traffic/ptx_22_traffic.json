@@ -4,6 +4,7 @@
             "aliases": [
                 {
                     "name": "JUNOS_QMON",
+                    "aliasof": "/junos/system/linecard/qmon-sw",
                     "prefix_list": [
                         "/cos/interfaces/interface/input/queues/queue/pfes/pfe"
                     ]

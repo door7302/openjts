@@ -2,6 +2,7 @@
   "gnmi_inputs": [{
     "aliases": [{
       "name": "DDOS_STATS",
+      "aliasof": "/junos/system/linecard/ddos",
       "prefix_list": ["/ddos-stats/group"]
     }],
     "subscriptions": [{

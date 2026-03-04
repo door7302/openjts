@@ -4,6 +4,7 @@
             "aliases": [
                 {
                     "name": "COMPONENTS",
+                    "aliasof": "/junos/system/linecard/optics",
                     "prefix_list": [
                         "/interfaces/interface/optics"
                     ]

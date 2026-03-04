@@ -1,0 +1,109 @@
+name: Build and Deploy MkDocs OpenJTS Site
+
+on:
+  push:
+    branches-ignore:
+      - gh-pages
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  # ==========================================================
+  # BUILD + DEPLOY
+  # ==========================================================
+  build-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ----------------------------
+      # Python setup
+      # ----------------------------
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # ----------------------------
+      # Install MkDocs dependencies
+      # ----------------------------
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip
+          pip install mkdocs==1.4.2
+          pip install mkdocs-material==9.6.9
+          pip install mkdocs-material[extras]
+          pip install pymdown-extensions==10.16.1
+          pip install markdown-katex==202406.1035
+          pip install mkdocs-gen-files==0.5.0
+          pip install mkdocs-minify-plugin==0.8.0
+          pip install pyyaml==6.0.1
+          pip install bs4==0.0.2
+
+      # ----------------------------
+      # Build MkDocs
+      # ----------------------------
+      - name: Build MkDocs site
+        run: |
+          mkdocs build --strict
+
+      # ----------------------------
+      # Deploy to GitHub Pages
+      # ----------------------------
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./site
+          keep_files: true
+          destination_dir: ${{ github.ref_name != 'main' && github.ref_name || '' }}
+
+  # ==========================================================
+  # CLEANUP JOB
+  # ==========================================================
+  cleanup-previews:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Install GitHub CLI
+        uses: cli/cli@v2
+
+      - name: Remove obsolete branch previews
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          cd gh-pages
+
+          WHITELIST="addon assets books download images search stylesheets"
+          ACTIVE_BRANCHES=$(gh api repos/${GITHUB_REPOSITORY}/branches --jq '.[].name')
+
+          for dir in *; do
+            [ -d "$dir" ] || continue
+
+            if echo "$WHITELIST" | grep -qw "$dir"; then
+              continue
+            fi
+
+            if ! echo "$ACTIVE_BRANCHES" | grep -qw "$dir"; then
+              echo "Removing obsolete preview: $dir"
+              rm -rf "$dir"
+            fi
+          done
+
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add .
+          git commit -m "Cleanup obsolete branch previews" || echo "Nothing to clean"
+          git push

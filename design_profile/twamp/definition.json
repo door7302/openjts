@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "min-interval": 10,
+  "description": "This profile provides template for collecting router twamp data",
+  "telegraf": {
+    "vmx": [
+      {
+        "version": "all",
+        "conf": "vmx_twamp.json"
+      }
+    ],
+    "mx": [
+      {
+        "version": ">=23.2",
+        "conf": "mx_twamp.json"
+      }
+    ],
+    "ptx": [
+      {
+        "version": ">=23.2",
+        "conf": "ptx_twamp.json"
+      }
+    ]
+  },
+  "kapacitor": null,
+  "grafana": [
+    "dashboard-twamp.json"
+  ]
+}

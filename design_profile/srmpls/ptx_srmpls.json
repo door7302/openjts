@@ -4,6 +4,7 @@
             "aliases": [
                 {
                     "name": "SRMPLS_IF_STATS",
+                    "aliasof": "/mpls/signaling-protocols/segment-routing/interfaces",
                     "prefix_list": [
                         "/mpls/signalling-protocols/segment-routing/interfaces/interface",
                         "/mpls/signaling-protocols/segment-routing/interfaces/interface"
@@ -11,6 +12,7 @@
                 },
                 {
                     "name": "SRMPLS_SID_STATS",
+                    "aliasof": "/junos/services/segment-routing/sid/usage",
                     "prefix_list": [
                         "/mpls/signalling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter/state/counters",
                         "/mpls/signaling-protocols/segment-routing/aggregate-sid-counters/aggregate-sid-counter/state/counters"

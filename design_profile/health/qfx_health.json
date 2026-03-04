@@ -115,11 +115,6 @@
         },
         {
           "type": 0,
-          "from": "/junos/chassis/cmerror/counters/name",
-          "to": "cmerror_name"
-        },
-        {
-          "type": 0,
           "from": "/system/processes/process/pid",
           "to": "process_pid"
         },
@@ -234,7 +229,6 @@
       "linecard_cpu",
       "linecard_memory",
       "buffer_usage",
-      "cmerror_slot",
       "value"
     ],
     "tag_type": [

@@ -194,6 +194,21 @@ services:
       - ./telegraf/cert:/var/cert
     command:
       --config-directory /etc/telegraf/telegraf.d
+  telegraf_ondemand:
+    image: jts_telegraf:latest
+    container_name: telegraf_ondemand
+    restart: always
+    user: root
+    depends_on:
+      - telegraf_mx
+      - influxdb
+    volumes:
+      - /var/log:/var/log
+      - ./telegraf/ondemand:/etc/telegraf/
+      - ./telegraf/metadata:/var/metadata
+      - ./telegraf/cert:/var/cert
+    command:
+      --config-directory /etc/telegraf/telegraf.d
   kapacitor:
     image: kapacitor:1.7
     container_name: kapacitor
@@ -202,7 +217,7 @@ services:
     depends_on:
       - influxdb
     ports:
-      - '9092:9092'
+      - '9292:9292'
     environment:
       - KAPACITOR_AS_ROOT=true
     volumes:
@@ -216,7 +231,7 @@ services:
       - '${CHRONOGRAF_PORT}:8888'
     environment:
       - INFLUXDB_URL=http://influxdb:8086 
-      - KAPACITOR_URL=http://kapacitor:9092 
+      - KAPACITOR_URL=http://kapacitor:9292 
     depends_on:
       - influxdb
       - kapacitor
@@ -244,18 +259,22 @@ services:
       - ./grafana/data:/var/lib/grafana
       - ./grafana/plugins:/var/lib/grafana/plugins
   jtso:
-    build: https://github.com/door7302/jtso.git#v1.0.19
+    build: https://github.com/door7302/jtso.git#v1.1.0
     image: jtso:latest
     container_name: jtso
     restart: always
     user: root
+    environment:
+      - APP_SECRET=${APP_SECRET}
     volumes:
+      - appdata:/data
       - /var/log:/var/log
       - ./jtso/db:/etc/jtso
       - ./jtso/config.yml:/etc/jtso/config.yml
       - ./.version:/etc/jtso/openjts.version
       - ./jtso/cert:/var/cert
       - ./jtso/profiles:/var/profiles
+      - ./jtso/ondemand:/var/ondemand
       - ./jtso/active_profiles:/var/active_profiles
       - ./telegraf:/var/shared/telegraf
       - ./telegraf/metadata:/var/metadata
@@ -263,3 +282,5 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - '${JTSO_PORT}:8082'
+volumes:
+  appdata:

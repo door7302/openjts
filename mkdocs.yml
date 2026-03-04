@@ -1,0 +1,80 @@
+copyright: This site is maintained by David Roy. Powered by
+  Material for MkDocs
+docs_dir: docs
+extra:
+  generator: false
+  social:
+  - icon: fontawesome/brands/linkedin
+    link: https://www.linkedin.com/in/david-roy-6aa26133/
+  - icon: fontawesome/brands/github
+    link: https://github.com/door7302
+extra_css:
+- https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css
+- https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css
+- stylesheets/extra.css
+extra_javascript:
+- https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js
+- https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js
+- https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js
+- https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js
+- js/extra.js
+markdown_extensions:
+- attr_list
+- pymdownx.extra
+- markdown_katex
+- toc:
+    permalink: true
+    toc_depth: 3
+- pymdownx.highlight:
+    anchor_linenums: true
+    guess_lang: false
+    linenums: true
+nav:
+- Home: index.md
+- Getting started:
+  - Installation: install.md
+  - Configuration: config.md
+  - Update the tool: update.md
+- User Guide: usage.md
+- Supported Profiles: profiles.md
+- About: about.md
+plugins:
+- search:
+    separator: '[\s\-\_]'
+- minify:
+    minify_html: true
+site_author: David Roy
+site_name: OpenJTS - A complete Juniper Telemetry Stack
+theme:
+  favicon: img/favicon.ico
+  features:
+  - toc.follow
+  - navigation.top
+  - navigation.tabs
+  - navigation.instant
+  - navigation.footer
+  - navigation.indexes
+  - search.suggest
+  - content.code.annotate
+  - content.code.copy
+  - content.code.select
+  - content.action.edit
+  - content.tooltips
+  - content.footnote.tooltips
+  font:
+    code: Nova
+    text: Google Sans
+  language: en
+  logo: img/favicon.ico
+  name: material
+  palette:
+  - media: '(prefers-color-scheme: light)'
+    scheme: default
+    toggle:
+      icon: material/brightness-7
+      name: Switch to dark mode
+  - media: '(prefers-color-scheme: dark)'
+    scheme: slate
+    toggle:
+      icon: material/brightness-auto
+      name: Switch to light mode

@@ -2,6 +2,7 @@
   "gnmi_inputs": [{
     "aliases": [{
       "name": "FIREWALL",
+      "aliasof": "/junos/system/linecard/firewall",
       "prefix_list": ["/junos/firewall/state/counter", "/junos/firewall/state/policer"]
     }],
     "subscriptions": [{
