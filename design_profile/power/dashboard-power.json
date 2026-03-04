@@ -162,10 +162,10 @@
             },
             "indexByName": {
               "MODEL": 2,
+              "SHORTNAME": 1,
               "Time": 0,
               "VERSION": 3,
               "component_name": 4,
-              "SHORTNAME": 1,
               "last": 5,
               "last_1": 6,
               "last_2": 7,
@@ -173,8 +173,8 @@
               "last_4": 9
             },
             "renameByName": {
-              "component_name": "Component",
               "SHORTNAME": "Router",
+              "component_name": "Component",
               "last": "System Allocated",
               "last_1": "System Capacity",
               "last_2": "System Maximum",
@@ -569,10 +569,10 @@
             },
             "indexByName": {
               "MODEL": 2,
+              "SHORTNAME": 1,
               "Time": 0,
               "VERSION": 3,
               "component_name": 4,
-              "SHORTNAME": 1,
               "last": 5,
               "last_1": 6,
               "last_2": 7,
@@ -580,8 +580,8 @@
               "last_4": 9
             },
             "renameByName": {
-              "component_name": "Component",
               "SHORTNAME": "Router",
+              "component_name": "Component",
               "last": "System Allocated",
               "last_1": "System Capacity",
               "last_2": "System Maximum",
@@ -726,10 +726,10 @@
             },
             "indexByName": {
               "MODEL": 2,
+              "SHORTNAME": 1,
               "Time": 0,
               "VERSION": 3,
               "component_name": 4,
-              "SHORTNAME": 1,
               "last": 5,
               "last_1": 6,
               "last_2": 7,
@@ -737,8 +737,8 @@
               "last_4": 9
             },
             "renameByName": {
-              "component_name": "Component",
               "SHORTNAME": "Router",
+              "component_name": "Component",
               "last": "System Allocated",
               "last_1": "System Capacity",
               "last_2": "System Maximum",
@@ -1664,7 +1664,7 @@
             "uid": "jtsuid"
           },
           "groupBy": [],
-          "hide": false,
+          "hide": true,
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
@@ -1705,15 +1705,15 @@
               "Time": false
             },
             "indexByName": {
+              "SHORTNAME": 1,
               "Time": 0,
               "component_name": 2,
-              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
-              "component_name": "FPC Slot",
               "SHORTNAME": "Router",
+              "component_name": "FPC Slot",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -1824,7 +1824,7 @@
             "uid": "jtsuid"
           },
           "groupBy": [],
-          "hide": false,
+          "hide": true,
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
@@ -1973,15 +1973,15 @@
           "options": {
             "excludeByName": {},
             "indexByName": {
+              "SHORTNAME": 1,
               "Time": 0,
               "component_name": 2,
-              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
-              "component_name": "FPC Slot",
               "SHORTNAME": "Router",
+              "component_name": "FPC Slot",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -2123,15 +2123,15 @@
           "options": {
             "excludeByName": {},
             "indexByName": {
+              "SHORTNAME": 1,
               "Time": 0,
               "component_name": 2,
-              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
-              "component_name": "FPC Slot",
               "SHORTNAME": "Router",
+              "component_name": "FPC Slot",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -2292,20 +2292,20 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "Time": true,
-              "SHORTNAME": true
+              "SHORTNAME": true,
+              "Time": true
             },
             "includeByName": {},
             "indexByName": {
+              "SHORTNAME": 1,
               "Time": 0,
               "component_name": 2,
-              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
-              "component_name": "FPC Slot",
               "SHORTNAME": "Router",
+              "component_name": "FPC Slot",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -2445,15 +2445,15 @@
           "options": {
             "excludeByName": {},
             "indexByName": {
+              "SHORTNAME": 1,
               "Time": 0,
               "component_name": 2,
-              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
-              "component_name": "FPC Slot",
               "SHORTNAME": "Router",
+              "component_name": "FPC Slot",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -2599,20 +2599,20 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "Time": true,
-              "SHORTNAME": true
+              "SHORTNAME": true,
+              "Time": true
             },
             "includeByName": {},
             "indexByName": {
+              "SHORTNAME": 1,
               "Time": 0,
               "component_name": 2,
-              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
-              "component_name": "Fan Name",
               "SHORTNAME": "Router",
+              "component_name": "Fan Name",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -2752,15 +2752,15 @@
           "options": {
             "excludeByName": {},
             "indexByName": {
+              "SHORTNAME": 1,
               "Time": 0,
               "component_name": 2,
-              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
-              "component_name": "FPC Slot",
               "SHORTNAME": "Router",
+              "component_name": "FPC Slot",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -3159,20 +3159,20 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "Time": true,
-              "SHORTNAME": true
+              "SHORTNAME": true,
+              "Time": true
             },
             "includeByName": {},
             "indexByName": {
+              "SHORTNAME": 1,
               "Time": 0,
               "component_name": 2,
-              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
-              "component_name": "Component Name",
               "SHORTNAME": "Router",
+              "component_name": "Component Name",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -3312,15 +3312,15 @@
           "options": {
             "excludeByName": {},
             "indexByName": {
+              "SHORTNAME": 1,
               "Time": 0,
               "component_name": 2,
-              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
-              "component_name": "FPC Slot",
               "SHORTNAME": "Router",
+              "component_name": "FPC Slot",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -3375,7 +3375,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3505,20 +3506,20 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "Time": true,
-              "SHORTNAME": true
+              "SHORTNAME": true,
+              "Time": true
             },
             "includeByName": {},
             "indexByName": {
+              "SHORTNAME": 1,
               "Time": 0,
               "component_name": 2,
-              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
-              "component_name": "PEM",
               "SHORTNAME": "Router",
+              "component_name": "PEM",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -3575,7 +3576,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3694,15 +3696,15 @@
           "options": {
             "excludeByName": {},
             "indexByName": {
+              "SHORTNAME": 1,
               "Time": 0,
               "component_name": 2,
-              "SHORTNAME": 1,
               "last": 3,
               "last_1": 4
             },
             "renameByName": {
-              "component_name": "FPC Slot",
               "SHORTNAME": "Router",
+              "component_name": "FPC Slot",
               "last": "Current Power Usage",
               "last_1": "Maximum Power "
             }
@@ -3719,7 +3721,7 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "",
           "value": ""
         },
