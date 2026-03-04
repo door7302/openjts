@@ -47,11 +47,14 @@ OpenJTS currently supports the following monitoring profiles:
 - **SRMPLS PROFILE**  
   Monitoring SR-MPLS traffic per interface and per label (SID).
 
+- **TWAMP PROFILE**  
+  Monitoring TWAMP Probe Results.
+
 ---
 
 > **Note:** Available telemetry data depends on platform and Junos version.  
 > Some profiles may not be supported on certain platforms or PFEs.  
-> Please refer to the **"Doc"** section in the JTSO portal for detailed compatibility information.
+> Please refer to the **"Profiles Management"** section in the JTSO portal for detailed compatibility information.
 
 > **Note 2:** Some statistics require specific device configuration to be enabled.
 
