@@ -299,3 +299,24 @@ Requires specific device configuration.
 - (1) Filter by router and MPLS label (derived from SID)  
 - (2) Traffic load per SID (label)  
 - (3) Traffic in bps and pps per SID (label)  
+
+
+## TWAMP Profile
+
+TWAMP profile includes TWAMP Lite statistics. 
+
+### Dashboard Screenshots
+
+#### Global and 
+
+![twamp1.png](./img/profiles/twamp/twamp1.png)
+
+- (1) Filter by router and Test Owner, Test Name, Result Scope (Only Last Test supported today) and Probe Type. 
+- (2) Overall current KPIs
+- (3) RTT for All Probe Types
+- (4) Min, Max, Avg. RTT trend for a specific Probe Type
+
+![twamp2.png](./img/profiles/twamp/twamp2.png)
+
+- (1) Per Test RTT/Jitter Snapshot for a given Probe Type
+- (2) Injest cadence for a given Probe Type

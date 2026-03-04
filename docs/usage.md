@@ -81,9 +81,9 @@ Go to:
 Admin > Settings
 ```
 
-![jtso-settings-1.png](./img/jtso-settings-1.png)
-
 ### Change Credentials 
+
+![jtso-settings-1.png](./img/jtso-settings-1.png)
 
 Here you must configure:
 
@@ -96,6 +96,8 @@ Here you must configure:
 
 ### Enabling/Disabling gNMI TLS
 
+![jtso-settings-2.png](./img/jtso-settings-2.png)
+
 You can also configure:
 
 - Enable/Disable TLS for gNMI (global setting)
@@ -106,6 +108,54 @@ You can also configure:
 
 > **Note**: By default the tool uses clear-text mode for gNMI 
 
+### Tunning Telegraf Parameters 
+
+![jtso-settings-2.png](./img/jtso-settings-3.png)
+
+You could tune some global telegraf paramaters. Changes will affect all the Telegraf instances. 
+You could tune these parameters: 
+
+- `metric_batch_size` (default: `5000`)
+
+**Definition:**  
+Maximum number of metrics sent to an output plugin in a single write operation.
+
+**Implications:**
+Larger value → fewer write calls, better throughput efficiency. Smaller value → more frequent writes, lower per-flush memory usage.
+
+- `metric_buffer_limit` (default: `100000`)
+
+**Definition:**  
+Maximum number of metrics that can be queued in memory waiting to be written.
+
+**Behavior:**
+If outputs are slow or unreachable, metrics accumulate in memory. When the limit is reached, new incoming metrics are dropped.
+
+**Recommendation:**  
+Should be at least `2 × metric_batch_size`.
+
+- `flush_interval` (default: `5s`)
+
+**Definition:**  
+Time interval between flush attempts to output plugins.
+
+**Behavior:**
+Every `flush_interval`, up to `metric_batch_size` metrics are sent. Lower value → lower latency. Higher value → better batching efficiency.
+
+- `flush_jitter` (default: `0s`)
+
+**Definition:**  
+Random delay added to the `flush_interval` before each flush.
+
+**Purpose:**
+Prevents synchronized flush spikes when multiple Telegraf instances run simultaneously. Useful in large distributed deployments.
+
+**Example behavior:**
+- `flush_interval = 10s`
+- `flush_jitter = 5s`  
+
+> Actual flush occurs randomly between 10s and 15s.
+
 ### Enable Kafka export
 
 You could use Kafka export in parallel of the data injestion into InfluxDB. 
@@ -114,7 +164,7 @@ You could use Kafka export in parallel of the data injestion into InfluxDB.
 
 Make sure the OpenJTS VM will be able to connect to Kafka bus, otherwise the telegraf instances should continoustly reboot. 
 
-![jtso-settings-2.png](./img/jtso-settings-2.png)
+![jtso-settings-4.png](./img/jtso-settings-4.png)
 
 External Kafka export applies to all profiles including On-demand profile. As of now, several Kafka Brokers may be configured, but only one Topic is allowed today. You could configure:
 
