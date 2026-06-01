@@ -25,7 +25,7 @@
         "pattern": "(?:CHASSIS\d+:)?FPC(\d+):PIC(\d+):(?:NPU\d+:)?PORT(\d+):(?:X[Cc][Vv][Rr]\d+:)?OCH(\d+)",
         "replacement": "${1}/${2}/${3}:${4}",
         "is_result": true,
-        "result_key": "CHANNEL_ID"
+        "result_key": "PORT_ID"
       }
     ]
   }

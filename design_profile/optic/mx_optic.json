@@ -381,7 +381,7 @@
                     "key": "component_name",
                     "pattern": "(?:CHASSIS\\d+:)?FPC(\\d+):PIC(\\d+):(?:NPU\\d+:)?PORT(\\d+):(?:X[Cc][Vv][Rr]\\d+:)?OCH(\\d+)(?::(.*))?",
                     "replacement": "${1}/${2}/${3}:${4}",
-                    "result_key": "CHANNEL_ID"
+                    "result_key": "PORT_ID"
                 }
             ]
         }
@@ -410,7 +410,6 @@
             "level1_tag": "device",
             "level2_tags": [
                 "PORT_ID",
-                "CHANNEL_ID",
                 "if_name"
             ]
         }
