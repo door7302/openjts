@@ -530,7 +530,7 @@
                 "rx_high_warn",
                 "tx_high_alarm",
                 "rx_high_alarm",
-                 "bias_high_alarm",
+                "bias_high_alarm",
                 "bias_low_alarm",
                 "bias_high_warn",
                 "bias_low_warn",

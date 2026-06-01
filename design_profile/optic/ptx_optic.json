@@ -144,6 +144,46 @@
                 },
                 {
                     "type": 1,
+                    "from": "/interfaces/interface/optics/laser_bias_current_high_alarm_threshold",
+                    "to": "bias_high_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/laser_bias_current_low_alarm_threshold",
+                    "to": "bias_low_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/laser_bias_current_high_warning_threshold",
+                    "to": "bias_high_warn"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/laser_bias_current_low_warning_threshold",
+                    "to": "bias_low_warn"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/module_temp_high_alarm_threshold",
+                    "to": "temp_high_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/module_temp_low_alarm_threshold",
+                    "to": "temp_low_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/module_temp_high_warning_threshold",
+                    "to": "temp_high_warn"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/module_temp_low_warning_threshold",
+                    "to": "temp_low_warn"
+                },
+                {
+                    "type": 1,
                     "from": "/interfaces/interface/optics/module_temp_high_alarm",
                     "to": "module_temp_high_alarm"
                 },
@@ -490,6 +530,14 @@
                 "rx_high_warn",
                 "tx_high_alarm",
                 "rx_high_alarm",
+                "bias_high_alarm",
+                "bias_low_alarm",
+                "bias_high_warn",
+                "bias_low_warn",
+                "temp_high_alarm",
+                "temp_low_alarm",
+                "temp_high_warn",
+                "temp_low_warn",
                 "module_temp_high_alarm",
                 "module_temp_low_alarm",
                 "module_temp_high_warning",
