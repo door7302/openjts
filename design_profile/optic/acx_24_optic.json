@@ -121,6 +121,11 @@
                     "from": "/components/component/transceiver/physical-channels/channel/index",
                     "to": "lane_number"
                 },
+                 {
+                    "type": 0,
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_number",
+                    "to": "lane_number"
+                },
                 {
                     "type": 1,
                     "from": "/components/component/transceiver/physical-channels/channel/state/output-power/instant",

@@ -131,7 +131,7 @@
         ]
       },
       "gridPos": {
-        "h": 5,
+        "h": 9,
         "w": 24,
         "x": 0,
         "y": 3
@@ -496,7 +496,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 12
       },
       "id": 19,
       "panels": [],
@@ -561,7 +561,7 @@
         "h": 4,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 13
       },
       "id": 260,
       "options": {
@@ -662,7 +662,7 @@
         "h": 3,
         "w": 8,
         "x": 0,
-        "y": 13
+        "y": 17
       },
       "id": 253,
       "options": {
@@ -766,7 +766,7 @@
         "h": 3,
         "w": 8,
         "x": 8,
-        "y": 13
+        "y": 17
       },
       "id": 265,
       "options": {
@@ -884,7 +884,7 @@
         "h": 3,
         "w": 8,
         "x": 16,
-        "y": 13
+        "y": 17
       },
       "id": 266,
       "options": {
@@ -1000,7 +1000,7 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 16
+        "y": 20
       },
       "id": 12,
       "options": {
@@ -1038,9 +1038,61 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"rx_dbm\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY \"lane_number\"",
+          "query": "SELECT \"rx_dbm_oc\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter and HAS_CHANNEL!='yes' GROUP BY \"lane_number\"",
           "rawQuery": true,
           "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "rx_dbm"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME::tag",
+              "operator": "=",
+              "value": "$port"
+            },
+            {
+              "condition": "AND",
+              "key": "channel::tag",
+              "operator": "=",
+              "value": "no"
+            }
+          ]
+        },
+        {
+          "alias": "Lane $tag_lane_number",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "lane_number"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"rx_dbm\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter and HAS_CHANNEL='no' GROUP BY \"lane_number\"",
+          "rawQuery": true,
+          "refId": "B",
           "resultFormat": "time_series",
           "select": [
             [
@@ -1109,7 +1161,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 16
+        "y": 20
       },
       "id": 11,
       "options": {
@@ -1147,7 +1199,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"tx_dbm\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/  AND \"channel\"::tag = 'no') AND $timeFilter GROUP BY \"lane_number\"",
+          "query": "SELECT \"tx_dbm_oc\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter and HAS_CHANNEL!='yes' GROUP BY \"lane_number\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1199,7 +1251,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"tx_dbm_oc\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ AND \"channel\"::tag = 'yes') AND $timeFilter GROUP BY \"lane_number\"",
+          "query": "SELECT \"tx_dbm\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter and HAS_CHANNEL='no' GROUP BY \"lane_number\"",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1342,7 +1394,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 22
+        "y": 26
       },
       "id": 262,
       "options": {
@@ -1387,7 +1439,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"rx_dbm\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/ and \"channel\"='no') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+          "query": "SELECT mean(\"rx_dbm\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/ and \"HAS_CHANNEL\"='no') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1479,7 +1531,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"rx_high_warn\") as HIGH_WARN, mean(\"rx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "query": "SELECT mean(\"rx_high_warn\") as HIGH_WARN, mean(\"rx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1571,7 +1623,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"rx_dbm_oc\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/  and \"channel\"='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+          "query": "SELECT mean(\"rx_dbm_oc\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/  and \"HAS_CHANNEL\"!='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -1663,7 +1715,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"rx_high_alarm\") as HIGH_ALARM, mean(\"rx_low_alarm\") as LOW_ALARM FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "query": "SELECT mean(\"rx_high_alarm\") as HIGH_ALARM, mean(\"rx_low_alarm\") as LOW_ALARM FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -1841,7 +1893,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 22
+        "y": 26
       },
       "id": 261,
       "options": {
@@ -1887,7 +1939,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"tx_dbm\") as TX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/ and \"channel\"='no') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+          "query": "SELECT mean(\"tx_dbm\") as TX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/ and \"HAS_CHANNEL\"='no') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1979,7 +2031,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"tx_high_warn\") as HIGH_WARN, mean(\"tx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "query": "SELECT mean(\"tx_high_warn\") as HIGH_WARN, mean(\"tx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -2071,7 +2123,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"tx_dbm_oc\") as TX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/ and \"channel\"='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+          "query": "SELECT mean(\"tx_dbm_oc\") as TX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/ and \"HAS_CHANNEL\"!='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -2163,7 +2215,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"tx_high_alarm\") as HIGH_ALARM, mean(\"tx_low_alarm\") as LOW_ALARM FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "query": "SELECT mean(\"tx_high_alarm\") as HIGH_ALARM, mean(\"tx_low_alarm\") as LOW_ALARM FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -2284,7 +2336,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2340,7 +2393,7 @@
         "h": 10,
         "w": 6,
         "x": 0,
-        "y": 31
+        "y": 35
       },
       "id": 263,
       "options": {
@@ -2386,7 +2439,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"current_module_temp\") as Temperture  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${port:regex}.*$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "query": "SELECT mean(\"current_module_temp\") as Temperture  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}.*$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2478,7 +2531,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"temp_high_warn\") as HIGH_WARN, mean(\"temp_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "query": "SELECT mean(\"temp_high_warn\") as HIGH_WARN, mean(\"temp_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -2570,7 +2623,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"temp_high_alarm\") as HIGH_ALARM, mean(\"temp_low_alarm\") as LOW_ALARM FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "query": "SELECT mean(\"temp_high_alarm\") as HIGH_ALARM, mean(\"temp_low_alarm\") as LOW_ALARM FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -2662,7 +2715,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"current_laser_temp\") as TempertureL  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${port:regex}.*$/) AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+          "query": "SELECT mean(\"current_laser_temp\") as TempertureL  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}.*$/) AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -2785,7 +2838,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2802,7 +2856,7 @@
         "h": 10,
         "w": 6,
         "x": 6,
-        "y": 31
+        "y": 35
       },
       "id": 22,
       "options": {
@@ -2916,7 +2970,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -2933,7 +2988,7 @@
         "h": 10,
         "w": 6,
         "x": 12,
-        "y": 31
+        "y": 35
       },
       "id": 267,
       "options": {
@@ -2964,48 +3019,9 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"fec_corrected_bits_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/  and \"channel\"='no') AND $timeFilter",
+          "query": "SELECT \"fec_corrected_bits_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${cage:regex}.*$/) AND $timeFilter and \"HAS_CHANNEL\" = 'yes'",
           "rawQuery": true,
           "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "optic_fec_uncorrectable_blocks"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
-        },
-        {
-          "alias": "FEC Uncorrectable error block rate",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"fec_corrected_bits_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"sub_ports\" =~/^.*${port:regex}.*$/  and \"channel\"='yes') AND $timeFilter",
-          "rawQuery": true,
-          "refId": "B",
           "resultFormat": "time_series",
           "select": [
             [
@@ -3086,7 +3102,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3103,7 +3120,7 @@
         "h": 10,
         "w": 6,
         "x": 18,
-        "y": 31
+        "y": 35
       },
       "id": 258,
       "options": {
@@ -3135,7 +3152,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"optic_fec_uncorrectable_blocks_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/  and \"channel\"='no') AND $timeFilter",
+          "query": "SELECT \"optic_fec_uncorrectable_blocks_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/) AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -3257,7 +3274,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3274,7 +3292,7 @@
         "h": 10,
         "w": 6,
         "x": 0,
-        "y": 41
+        "y": 45
       },
       "id": 16,
       "options": {
@@ -3405,7 +3423,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3422,7 +3441,7 @@
         "h": 10,
         "w": 6,
         "x": 6,
-        "y": 41
+        "y": 45
       },
       "id": 254,
       "options": {
@@ -3536,7 +3555,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3553,7 +3573,7 @@
         "h": 10,
         "w": 6,
         "x": 12,
-        "y": 41
+        "y": 45
       },
       "id": 256,
       "options": {
@@ -3667,7 +3687,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3684,7 +3705,7 @@
         "h": 10,
         "w": 6,
         "x": 18,
-        "y": 41
+        "y": 45
       },
       "id": 255,
       "options": {
@@ -3798,7 +3819,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3815,7 +3837,7 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 51
+        "y": 55
       },
       "id": 264,
       "options": {
@@ -3853,7 +3875,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"transport_optic_cur\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY \"transport_optic_name\"",
+          "query": "SELECT \"transport_optic_cur\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY \"transport_optic_name\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -3934,7 +3956,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3951,7 +3974,7 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 51
+        "y": 55
       },
       "id": 21,
       "options": {
@@ -4123,10 +4146,12 @@
         "current": {
           "selected": true,
           "text": [
-            "0/0/12:0 - LANE0"
+            "et-0/0/12:0 - LANE0",
+            "et-0/0/12:1 - LANE1"
           ],
           "value": [
-            "0/0/12:0 - LANE0"
+            "et-0/0/12:0 - LANE0",
+            "et-0/0/12:1 - LANE1"
           ]
         },
         "datasource": {
@@ -4149,24 +4174,28 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "0/0/1",
-          "value": "0/0/1"
+          "selected": true,
+          "text": [
+            "0/0/1"
+          ],
+          "value": [
+            "0/0/1"
+          ]
         },
         "datasource": {
           "type": "influxdb",
           "uid": "jtsuid"
         },
         "definition": "show tag values FROM COMPONENTS with key=\"LINKNAME\" where SHORTNAME=~/$rtr/ and LINKNAME=~/^${port:regex}$/ and $timeFilter",
-        "hide": 2,
-        "includeAll": false,
+        "hide": 0,
+        "includeAll": true,
         "label": "cage",
-        "multi": false,
+        "multi": true,
         "name": "cage",
         "options": [],
         "query": "show tag values FROM COMPONENTS with key=\"LINKNAME\" where SHORTNAME=~/$rtr/ and LINKNAME=~/^${port:regex}$/ and $timeFilter",
         "refresh": 2,
-        "regex": "(^\\d+/\\d+/\\d).*",
+        "regex": "^.*-(\\d+/\\d+/\\d).*",
         "skipUrlSync": false,
         "sort": 5,
         "type": "query"
@@ -4181,6 +4210,6 @@
   "timezone": "",
   "title": "ZR/ZR+ OPTICS PROFILE - JTS",
   "uid": "opticzrdashboard",
-  "version": 2,
+  "version": 4,
   "weekStart": ""
 }
