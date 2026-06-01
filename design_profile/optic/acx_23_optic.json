@@ -434,7 +434,7 @@
                     "type": 2,
                     "is_key": true,
                     "key": "component_name",
-                    "pattern": "(?:CHASSIS\\d+:)?FPC(\\d+):PIC(\\d+):(?:NPU\\d+:)?PORT(\\d+)$",
+                    "pattern": "(?:CHASSIS\\d+:)?FPC(\\d+):PIC(\\d+):(?:NPU\\d+:)?PORT(\\d+)",
                     "replacement": "${1}/${2}/${3}",
                     "is_result": true,
                     "result_key": "PORT_ID"
