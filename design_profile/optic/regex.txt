@@ -1,0 +1,33 @@
+[
+  {
+    "order": 1,
+    "namepass": [],
+    "entries": [
+      {
+        "type": 2,
+        "is_key": true,
+        "key": "component_name",
+        "pattern": "(?:CHASSIS\d+:)?FPC(\d+):PIC(\d+):(?:NPU\d+:)?PORT(\d+)",
+        "replacement": "${1}/${2}/${3}",
+        "is_result": true,
+        "result_key": "PORT_ID"
+      }
+    ]
+  },
+  {
+    "order": 2,
+    "namepass": [],
+    "entries": [
+      {
+        "type": 2,
+        "is_key": true,
+        "key": "component_name",
+        "pattern": "(?:CHASSIS\d+:)?FPC(\d+):PIC(\d+):(?:NPU\d+:)?PORT(\d+):(?:X[Cc][Vv][Rr]\d+:)?OCH(\d+)",
+        "replacement": "${1}/${2}/${3}:${4}",
+        "is_result": true,
+        "result_key": "CHANNEL_ID"
+      }
+    ]
+  }
+]
+

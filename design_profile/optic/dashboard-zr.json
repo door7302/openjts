@@ -4207,14 +4207,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values FROM COMPONENTS with key=\"port_name\" where SHORTNAME=~/$rtr/ and $timeFilter and optic_desc=~/.*(ZR|zr).*/",
+        "definition": "show tag values FROM COMPONENTS with key=\"port_name\" where SHORTNAME=~/$rtr/ and $timeFilter and optic_desc=~/.*(400|800).*(ZR|zr).*/",
         "hide": 0,
         "includeAll": false,
         "label": "Phy. Port with ZR/ZR+ optic",
         "multi": false,
         "name": "port",
         "options": [],
-        "query": "show tag values FROM COMPONENTS with key=\"port_name\" where SHORTNAME=~/$rtr/ and $timeFilter and optic_desc=~/.*(ZR|zr).*/",
+        "query": "show tag values FROM COMPONENTS with key=\"port_name\" where SHORTNAME=~/$rtr/ and $timeFilter and optic_desc=~/.*(400|800).*(ZR|zr).*/",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -4224,8 +4224,8 @@
       {
         "current": {
           "selected": false,
-          "text": "0/0/14",
-          "value": "0/0/14"
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "influxdb",
