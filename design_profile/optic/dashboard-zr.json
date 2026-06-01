@@ -166,10 +166,11 @@
               "type": "tag"
             }
           ],
+          "hide": false,
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"lane_laser_bias_current_high_alarm\"), last(\"lane_laser_bias_current_high_warning\"), last(\"lane_laser_bias_current_low_warning\"), last(\"lane_laser_output_power_high_alarm\"), last(\"lane_laser_output_power_high_warning\"), last(\"lane_laser_output_power_low_alarm\"), last(\"lane_laser_output_power_low_warning\"), last(\"lane_laser_receiver_power_high_alarm\"), last(\"lane_laser_receiver_power_low_alarm\"), last(\"lane_laser_receiver_power_high_warning\"), last(\"lane_laser_receiver_power_low_warning\"), last(\"lane_laser_bias_current_low_alarm\"), last(\"lane_rx_loss_of_signal_alarm\"), last(\"lane_tx_loss_of_signal_alarm\"), last(\"module_temp_high_alarm\"), last(\"module_temp_high_warning\"), last(\"module_temp_low_alarm\"), last(\"module_temp_low_warning\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"PORT_DESC\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter GROUP BY \"if_name\"::tag",
+          "query": "SELECT last(\"lane_laser_bias_current_high_alarm\"), last(\"lane_laser_bias_current_high_warning\"), last(\"lane_laser_bias_current_low_warning\"), last(\"lane_laser_output_power_high_alarm\"), last(\"lane_laser_output_power_high_warning\"), last(\"lane_laser_output_power_low_alarm\"), last(\"lane_laser_output_power_low_warning\"), last(\"lane_laser_receiver_power_high_alarm\"), last(\"lane_laser_receiver_power_low_alarm\"), last(\"lane_laser_receiver_power_high_warning\"), last(\"lane_laser_receiver_power_low_warning\"), last(\"lane_laser_bias_current_low_alarm\"), last(\"lane_rx_loss_of_signal_alarm\"), last(\"lane_tx_loss_of_signal_alarm\"), last(\"module_temp_high_alarm\"), last(\"module_temp_high_warning\"), last(\"module_temp_low_alarm\"), last(\"module_temp_low_warning\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter GROUP BY \"if_name\"::tag",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -499,7 +500,7 @@
       },
       "id": 19,
       "panels": [],
-      "repeat": "ifname",
+      "repeat": "port",
       "repeatDirection": "h",
       "title": "INTERFACE DETAIL - $ifname",
       "type": "row"
@@ -586,26 +587,9 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"optic_model\"), last(\"optic_vendor\"), last(\"optic_vendor_part\"), last(\"optic_serial_no\"), last(\"optic_func_type\"), last(\"optic_fault_condition\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"PORT_DESC\"::tag =~ /^.*${ifname:regex} .*$/ and \"channel\"='no') AND $timeFilter and OPTIC_DESC != '' group by OPTIC_DESC",
+          "query": "SELECT last(\"optic_model\"), last(\"optic_vendor\"), last(\"optic_vendor_part\"), last(\"optic_serial_no\"), last(\"optic_func_type\"), last(\"optic_fault_condition\") FROM \"COMPONENTS\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"PORT_DESC\"::tag =~ /^.*${cage:regex}.*$/ AND $timeFilter ",
           "rawQuery": true,
           "refId": "A",
-          "resultFormat": "table",
-          "select": [],
-          "tags": []
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT last(\"optic_model\"), last(\"optic_vendor\"), last(\"optic_vendor_part\"), last(\"optic_serial_no\"), last(\"optic_func_type\"), last(\"optic_fault_condition\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"sub_ports\"::tag =~ /^.*${ifname:regex}.*$/ and \"channel\"='yes') AND $timeFilter and OPTIC_DESC != '' group by OPTIC_DESC",
-          "rawQuery": true,
-          "refId": "B",
           "resultFormat": "table",
           "select": [],
           "tags": []
@@ -622,23 +606,23 @@
             },
             "includeByName": {},
             "indexByName": {
+              "OPTIC_DESC": 2,
               "Time": 0,
               "last": 1,
               "last_1": 4,
               "last_2": 5,
               "last_3": 6,
               "last_4": 3,
-              "last_5": 7,
-              "OPTIC_DESC": 2
+              "last_5": 7
             },
             "renameByName": {
+              "OPTIC_DESC": "Optic Description",
               "last": "Optic Model",
               "last_1": "Optic Vendor",
               "last_2": "Optic Vendor Part Number",
               "last_3": "Optic Vendor Serial Number",
               "last_4": "Optic Type",
-              "last_5": "Fault Condition?",
-              "OPTIC_DESC": "Optic Description"
+              "last_5": "Fault Condition?"
             }
           }
         }
@@ -710,7 +694,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"frequency\")*1000000 as freq FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"PORT_DESC\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
+          "query": "SELECT last(\"frequency\")*1000000 as freq FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"PORT_DESC\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -745,7 +729,7 @@
           ]
         }
       ],
-      "title": "$ifname - Frequency",
+      "title": "$port - Frequency",
       "transformations": [],
       "type": "stat"
     },
@@ -814,7 +798,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"wavelength_setpoint\") as wave FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"PORT_DESC\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
+          "query": "SELECT last(\"wavelength_setpoint\") as wave FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -849,7 +833,7 @@
           ]
         }
       ],
-      "title": "$ifname - Wavelength",
+      "title": "$port - Wavelength",
       "transformations": [
         {
           "id": "organize",
@@ -932,7 +916,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"port_speed\") as speed FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"PORT_DESC\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
+          "query": "SELECT last(\"port_speed\") as speed FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -1054,7 +1038,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"rx_dbm\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"PORT_DESC\"::tag =~/^.*${ifname:regex} .*$/ AND \"channel\"::tag = 'no') AND $timeFilter GROUP BY \"lane_number\"",
+          "query": "SELECT \"rx_dbm\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"PORT_DESC\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY \"lane_number\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1085,58 +1069,6 @@
               "key": "channel::tag",
               "operator": "=",
               "value": "no"
-            }
-          ]
-        },
-        {
-          "alias": "Lane $tag_lane_number",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [
-            {
-              "params": [
-                "lane_number"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"rx_dbm_oc\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"PORT_DESC\"::tag =~/^.*${ifname:regex} .*$/  AND \"channel\"::tag = 'yes') AND $timeFilter GROUP BY \"lane_number\"",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "rx_dbm_oc"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "PORT_DESC::tag",
-              "operator": "=",
-              "value": "$ifname"
-            },
-            {
-              "condition": "AND",
-              "key": "channel::tag",
-              "operator": "=",
-              "value": "yes"
             }
           ]
         }
@@ -2352,8 +2284,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2854,8 +2785,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -2986,8 +2916,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3157,8 +3086,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3329,8 +3257,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3478,8 +3405,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3610,8 +3536,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3742,8 +3667,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3874,8 +3798,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4011,8 +3934,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4176,8 +4098,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "rtme-mx301-01",
+          "value": "rtme-mx301-01"
         },
         "datasource": {
           "type": "influxdb",
@@ -4199,22 +4121,26 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "",
-          "value": ""
+          "selected": true,
+          "text": [
+            "0/0/12:0 - LANE0"
+          ],
+          "value": [
+            "0/0/12:0 - LANE0"
+          ]
         },
         "datasource": {
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values FROM COMPONENTS with key=\"PORT_DESC\" where SHORTNAME=~/$rtr/ and $timeFilter and OPTIC_DESC=~/.*(400|800).*(ZR|zr).*/",
+        "definition": "show tag values FROM COMPONENTS with key=\"PORT_DESC\" where SHORTNAME=~/$rtr/ and $timeFilter and OPTIC_DESC=~/.*(400|800).*(ZR|zr).*/ and HAS_CHANNEL != 'yes'",
         "hide": 0,
-        "includeAll": false,
+        "includeAll": true,
         "label": "Phy. Port with ZR/ZR+ optic",
-        "multi": false,
+        "multi": true,
         "name": "port",
         "options": [],
-        "query": "show tag values FROM COMPONENTS with key=\"PORT_DESC\" where SHORTNAME=~/$rtr/ and $timeFilter and OPTIC_DESC=~/.*(400|800).*(ZR|zr).*/",
+        "query": "show tag values FROM COMPONENTS with key=\"PORT_DESC\" where SHORTNAME=~/$rtr/ and $timeFilter and OPTIC_DESC=~/.*(400|800).*(ZR|zr).*/ and HAS_CHANNEL != 'yes'",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -4224,8 +4150,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "0/0/1",
+          "value": "0/0/1"
         },
         "datasource": {
           "type": "influxdb",
@@ -4236,11 +4162,11 @@
         "includeAll": false,
         "label": "cage",
         "multi": false,
-        "name": "ifname",
+        "name": "cage",
         "options": [],
         "query": "show tag values FROM COMPONENTS with key=\"PORT_DESC\" where SHORTNAME=~/$rtr/ and PORT_DESC=~/^${port:regex}$/ and $timeFilter",
         "refresh": 2,
-        "regex": "(^\\d+/\\d+/\\d+(?::\\d+)?).*",
+        "regex": "(^\\d+/\\d+/\\d).*",
         "skipUrlSync": false,
         "sort": 5,
         "type": "query"
@@ -4255,6 +4181,6 @@
   "timezone": "",
   "title": "ZR/ZR+ OPTICS PROFILE - JTS",
   "uid": "opticzrdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
