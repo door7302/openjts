@@ -409,7 +409,8 @@
             "two_levels": true,
             "level1_tag": "device",
             "level2_tags": [
-                "component_name",
+                "PORT_ID",
+                "CHANNEL_ID",
                 "if_name"
             ]
         }
