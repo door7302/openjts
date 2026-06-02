@@ -31,12 +31,6 @@
                 },
                 {
                     "name": "COMPONENTS",
-                    "path": "/components/component/transceiver/physical-channels",
-                    "mode": "sample",
-                    "interval": 30
-                },
-                {
-                    "name": "COMPONENTS",
                     "path": "/components/component/optical-channel/state",
                     "mode": "sample",
                     "interval": 30
@@ -116,11 +110,6 @@
                     "from": "/interfaces/interface/name",
                     "to": "if_name"
                 },
-                {
-                    "type": 0,
-                    "from": "/components/component/transceiver/physical-channels/channel/index",
-                    "to": "lane_number"
-                },
                  {
                     "type": 0,
                     "from": "/interfaces/interface/optics/lanediags/lane/lane_number",
@@ -128,12 +117,12 @@
                 },
                 {
                     "type": 1,
-                    "from": "/components/component/transceiver/physical-channels/channel/state/output-power/instant",
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_output_power_dbm",
                     "to": "tx_dbm"
                 },
                 {
                     "type": 1,
-                    "from": "/components/component/transceiver/physical-channels/channel/state/laser-bias-current/instant",
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_bias_current",
                     "to": "current_bias"
                 },
                 {
@@ -143,7 +132,7 @@
                 },
                 {
                     "type": 1,
-                    "from": "/components/component/transceiver/physical-channels/channel/state/input-power/instant",
+                    "from": "/interfaces/interface/optics/lanediags/lane/lane_laser_receiver_power_dbm",
                     "to": "rx_dbm"
                 },
                 {
