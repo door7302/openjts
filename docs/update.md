@@ -29,6 +29,7 @@ Remove the previously built images to ensure a clean rebuild:
 
 ```shell
 docker image rm jtso -f
+
 docker image rm jts_telegraf -f
 ```
 
