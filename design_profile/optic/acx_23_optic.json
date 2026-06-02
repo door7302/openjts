@@ -150,6 +150,46 @@
                 },
                 {
                     "type": 1,
+                    "from": "/interfaces/interface/optics/laser_bias_current_high_alarm_threshold",
+                    "to": "bias_high_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/laser_bias_current_low_alarm_threshold",
+                    "to": "bias_low_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/laser_bias_current_high_warning_threshold",
+                    "to": "bias_high_warn"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/laser_bias_current_low_warning_threshold",
+                    "to": "bias_low_warn"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/module_temp_high_alarm_threshold",
+                    "to": "temp_high_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/module_temp_low_alarm_threshold",
+                    "to": "temp_low_alarm"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/module_temp_high_warning_threshold",
+                    "to": "temp_high_warn"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/optics/module_temp_low_warning_threshold",
+                    "to": "temp_low_warn"
+                },
+                {
+                    "type": 1,
                     "from": "/interfaces/interface/optics/module_temp_high_alarm",
                     "to": "module_temp_high_alarm"
                 },
@@ -423,6 +463,30 @@
             ]
         }
     ],
+    "regex_list": [
+        {
+            "order": 250,
+            "namepass": [
+                "COMPONENTS"
+            ],
+            "entries": [
+                {
+                    "type": 2,
+                    "key": "component_name",
+                    "pattern": "(?:CHASSIS\\d+:)?FPC(\\d+):PIC(\\d+):(?:NPU\\d+:)?PORT(\\d+)(?::(.*))?",
+                    "replacement": "${1}/${2}/${3}",
+                    "result_key": "PORT_ID"
+                },
+                {
+                    "type": 2,
+                    "key": "component_name",
+                    "pattern": "(?:CHASSIS\\d+:)?FPC(\\d+):PIC(\\d+):(?:NPU\\d+:)?PORT(\\d+):(?:X[Cc][Vv][Rr]\\d+:)?OCH(\\d+)(?::(.*))?",
+                    "replacement": "${1}/${2}/${3}:${4}",
+                    "result_key": "PORT_ID"
+                }
+            ]
+        }
+    ],
     "converter_list": [
         {
             "order": 300,
@@ -430,7 +494,11 @@
                 "COMPONENTS"
             ],
             "float_type": [
-                "wavelength_setpoint"
+                "wavelength_setpoint",
+                "temp_high_alarm",
+                "temp_high_warn",
+                "temp_low_alarm",
+                "temp_low_warn"
             ]
         }
     ],
@@ -446,7 +514,7 @@
             "two_levels": true,
             "level1_tag": "device",
             "level2_tags": [
-                "component_name",
+                "PORT_ID",
                 "if_name"
             ]
         }
@@ -530,6 +598,14 @@
                 "rx_high_warn",
                 "tx_high_alarm",
                 "rx_high_alarm",
+                "bias_high_alarm",
+                "bias_low_alarm",
+                "bias_high_warn",
+                "bias_low_warn",
+                "temp_high_alarm",
+                "temp_low_alarm",
+                "temp_high_warn",
+                "temp_low_warn",
                 "frequency",
                 "module_temp_high_alarm",
                 "module_temp_low_alarm",

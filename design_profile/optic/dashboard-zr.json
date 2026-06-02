@@ -61,10 +61,136 @@
         "x": 0,
         "y": 2
       },
-      "id": 145,
+      "id": 19,
       "panels": [],
-      "title": "GLOBAL ALARMS",
+      "repeat": "port",
+      "repeatDirection": "h",
+      "title": "INTERFACE DETAIL - $port",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "color-background"
+            },
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "false": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "NO"
+                },
+                "true": {
+                  "color": "dark-red",
+                  "index": 1,
+                  "text": "YES"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "noValue": "NA",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 260,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"optic_model\"), last(\"optic_vendor\"), last(\"optic_vendor_part\"), last(\"optic_serial_no\"), last(\"optic_func_type\"), last(\"optic_fault_condition\") FROM \"COMPONENTS\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"LINKNAME\"::tag =~ /^.*${cage:regex}.*$/ AND $timeFilter ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [],
+          "tags": []
+        }
+      ],
+      "title": "$port - Inventory Info",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "last_3": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "OPTIC_DESC": 2,
+              "Time": 0,
+              "last": 1,
+              "last_1": 4,
+              "last_2": 5,
+              "last_3": 6,
+              "last_4": 3,
+              "last_5": 7
+            },
+            "renameByName": {
+              "OPTIC_DESC": "Optic Description",
+              "last": "Optic Model",
+              "last_1": "Optic Vendor",
+              "last_2": "Optic Vendor Part Number",
+              "last_3": "Optic Vendor Serial Number",
+              "last_4": "Optic Type",
+              "last_5": "Fault Condition?"
+            }
+          }
+        }
+      ],
+      "type": "table"
     },
     {
       "datasource": {
@@ -131,10 +257,10 @@
         ]
       },
       "gridPos": {
-        "h": 5,
+        "h": 4,
         "w": 24,
         "x": 0,
-        "y": 3
+        "y": 7
       },
       "id": 4,
       "options": {
@@ -149,7 +275,12 @@
           "show": false
         },
         "showHeader": true,
-        "sortBy": []
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "recpow_low_alarm"
+          }
+        ]
       },
       "pluginVersion": "10.3.1",
       "targets": [
@@ -166,10 +297,11 @@
               "type": "tag"
             }
           ],
+          "hide": false,
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"lane_laser_bias_current_high_alarm\"), last(\"lane_laser_bias_current_high_warning\"), last(\"lane_laser_bias_current_low_warning\"), last(\"lane_laser_output_power_high_alarm\"), last(\"lane_laser_output_power_high_warning\"), last(\"lane_laser_output_power_low_alarm\"), last(\"lane_laser_output_power_low_warning\"), last(\"lane_laser_receiver_power_high_alarm\"), last(\"lane_laser_receiver_power_low_alarm\"), last(\"lane_laser_receiver_power_high_warning\"), last(\"lane_laser_receiver_power_low_warning\"), last(\"lane_laser_bias_current_low_alarm\"), last(\"lane_rx_loss_of_signal_alarm\"), last(\"lane_tx_loss_of_signal_alarm\"), last(\"module_temp_high_alarm\"), last(\"module_temp_high_warning\"), last(\"module_temp_low_alarm\"), last(\"module_temp_low_warning\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter GROUP BY \"if_name\"::tag",
+          "query": "SELECT last(\"lane_laser_bias_current_high_alarm\") AS bias_high_alarm, last(\"lane_laser_bias_current_high_warning\") AS bias_high_warn, last(\"lane_laser_bias_current_low_alarm\") AS bias_low_alarm, last(\"lane_laser_bias_current_low_warning\") AS bias_low_warn, last(\"lane_laser_output_power_high_alarm\") AS outpow_high_alarm, last(\"lane_laser_output_power_high_warning\") AS outpow_high_warn, last(\"lane_laser_output_power_low_alarm\") AS outpow_low_alarm, last(\"lane_laser_output_power_low_warning\") AS outpow_low_warn, last(\"lane_laser_receiver_power_high_alarm\") AS recpow_high_alarm, last(\"lane_laser_receiver_power_high_warning\") AS recpow_high_warn, last(\"lane_laser_receiver_power_low_alarm\") AS recpow_low_alarm, last(\"lane_laser_receiver_power_low_warning\") AS recpow_low_warn, last(\"lane_rx_loss_of_signal_alarm\") AS rx_los_alarm, last(\"lane_tx_loss_of_signal_alarm\") AS tx_los_alarm, last(\"lane_tx_laser_disabled_alarm\") AS tx_laser_disabled FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) and lane_number != '' AND $timeFilter GROUP BY \"if_name\"::tag, \"lane_number\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -399,7 +531,7 @@
             },
             {
               "condition": "AND",
-              "key": "port_name::tag",
+              "key": "LINKNAME::tag",
               "operator": "=~",
               "value": "/^$port$/"
             }
@@ -409,6 +541,7 @@
       "title": "Current Optical Alarm",
       "transformations": [
         {
+          "disabled": true,
           "id": "filterFieldsByName",
           "options": {
             "include": {
@@ -440,8 +573,10 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "Time": true,
               "if_name": false
             },
+            "includeByName": {},
             "indexByName": {
               "if_name": 0,
               "last": 3,
@@ -490,90 +625,106 @@
       "type": "table"
     },
     {
-      "collapsed": false,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 8
-      },
-      "id": 19,
-      "panels": [],
-      "repeat": "ifname",
-      "repeatDirection": "h",
-      "title": "INTERFACE DETAIL - $ifname",
-      "type": "row"
-    },
-    {
       "datasource": {
         "type": "influxdb",
         "uid": "jtsuid"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "fixed"
           },
           "custom": {
-            "align": "center",
+            "align": "auto",
             "cellOptions": {
+              "mode": "gradient",
               "type": "color-background"
             },
-            "inspect": false
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 0
           },
           "mappings": [
             {
               "options": {
                 "false": {
-                  "color": "green",
-                  "index": 0,
-                  "text": "NO"
+                  "color": "transparent",
+                  "index": 1,
+                  "text": "no"
+                },
+                "null": {
+                  "color": "transparent",
+                  "index": 2,
+                  "text": "N.A"
                 },
                 "true": {
                   "color": "dark-red",
-                  "index": 1,
-                  "text": "YES"
+                  "index": 0,
+                  "text": "ERROR"
                 }
               },
               "type": "value"
             }
           ],
-          "noValue": "NA",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },
           "unitScale": true
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 134
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Temp H. Alrm"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 106
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 4,
         "w": 24,
         "x": 0,
-        "y": 9
+        "y": 11
       },
-      "id": 260,
+      "id": 271,
       "options": {
         "cellHeight": "sm",
         "footer": {
           "countRows": false,
+          "enablePagination": false,
           "fields": "",
           "reducer": [
             "sum"
           ],
           "show": false
         },
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": []
       },
       "pluginVersion": "10.3.1",
       "targets": [
@@ -582,63 +733,306 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "groupBy": [],
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT last(\"optic_model\"), last(\"optic_vendor\"), last(\"optic_vendor_part\"), last(\"optic_serial_no\"), last(\"optic_func_type\"), last(\"optic_fault_condition\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"port_name\"::tag =~ /^.*${ifname:regex} .*$/ and \"channel\"='no') AND $timeFilter and optic_desc != '' group by optic_desc",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [],
-          "tags": []
-        },
-        {
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [],
+          "groupBy": [
+            {
+              "params": [
+                "if_name::tag"
+              ],
+              "type": "tag"
+            }
+          ],
           "hide": false,
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"optic_model\"), last(\"optic_vendor\"), last(\"optic_vendor_part\"), last(\"optic_serial_no\"), last(\"optic_func_type\"), last(\"optic_fault_condition\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"sub_ports\"::tag =~ /^.*${ifname:regex}.*$/ and \"channel\"='yes') AND $timeFilter and optic_desc != '' group by optic_desc",
+          "query": "SELECT last(\"module_temp_high_alarm\") AS temp_high_alarm, last(\"module_temp_high_warning\") AS temp_high_warn, last(\"module_temp_low_alarm\") AS temp_low_alarm, last(\"module_temp_low_warning\") AS temp_low_warn FROM \"COMPONENTS\" WHERE \"SHORTNAME\" =~ /^$rtr$/ and \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ GROUP BY \"if_name\"",
           "rawQuery": true,
-          "refId": "B",
+          "refId": "A",
           "resultFormat": "table",
-          "select": [],
-          "tags": []
+          "select": [
+            [
+              {
+                "params": [
+                  "lane_laser_bias_current_high_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_bias_current_high_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_bias_current_low_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_output_power_high_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_output_power_high_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_output_power_low_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_output_power_low_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_receiver_power_high_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_receiver_power_low_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_receiver_power_high_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_receiver_power_low_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_bias_current_low_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_rx_loss_of_signal_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_tx_loss_of_signal_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "module_temp_high_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "module_temp_high_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "module_temp_low_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "module_temp_low_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
-      "title": "$ifname - Inventory Info",
+      "title": "Module Temperature Alarms",
       "transformations": [
         {
           "id": "organize",
           "options": {
             "excludeByName": {
               "Time": true,
-              "last_3": true
+              "if_name": false,
+              "last_3": false,
+              "last_7": false
             },
             "includeByName": {},
             "indexByName": {
-              "Time": 0,
-              "last": 1,
-              "last_1": 4,
-              "last_2": 5,
-              "last_3": 6,
-              "last_4": 3,
+              "if_name": 0,
+              "lane_number": 1,
+              "last": 4,
+              "last_1": 12,
+              "last_10": 14,
+              "last_11": 8,
+              "last_12": 18,
+              "last_13": 19,
+              "last_14": 5,
+              "last_15": 13,
+              "last_16": 9,
+              "last_17": 17,
+              "last_18": 20,
+              "last_2": 16,
+              "last_3": 3,
+              "last_4": 11,
               "last_5": 7,
-              "optic_desc": 2
+              "last_6": 15,
+              "last_7": 2,
+              "last_8": 6,
+              "last_9": 10
             },
             "renameByName": {
-              "last": "Optic Model",
-              "last_1": "Optic Vendor",
-              "last_2": "Optic Vendor Part Number",
-              "last_3": "Optic Vendor Serial Number",
-              "last_4": "Optic Type",
-              "last_5": "Fault Condition?",
-              "optic_desc": "Optic Description"
+              "if_name": "Name",
+              "lane_number": "Lane",
+              "last": "BIAS H. Alrm",
+              "last_1": "BIAS H. Warn",
+              "last_10": "RX L. Warn",
+              "last_11": "BIAS L. Alrm",
+              "last_12": "RX LOS",
+              "last_13": "TX LOS",
+              "last_14": "Temp H. Alrm",
+              "last_15": "Temp H. Warn",
+              "last_16": "Temp L. Alrm",
+              "last_17": "Temp L. Warn",
+              "last_18": "TX LASER",
+              "last_2": "BIAS L. Warn",
+              "last_3": "TX H. Alrm",
+              "last_4": "TX H. Warn",
+              "last_5": "TX L. Alrm",
+              "last_6": "TX L. Warn",
+              "last_7": "RX H. Alrm",
+              "last_8": "RX L. Alrm",
+              "last_9": "RX H. Warn"
             }
           }
         }
@@ -678,7 +1072,7 @@
         "h": 3,
         "w": 8,
         "x": 0,
-        "y": 13
+        "y": 15
       },
       "id": 253,
       "options": {
@@ -710,7 +1104,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"frequency\")*1000000 as freq FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
+          "query": "SELECT last(\"frequency\")*1000000 as freq FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -738,14 +1132,14 @@
             },
             {
               "condition": "AND",
-              "key": "port_name::tag",
+              "key": "LINKNAME::tag",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         }
       ],
-      "title": "$ifname - Frequency",
+      "title": "$port - Frequency",
       "transformations": [],
       "type": "stat"
     },
@@ -782,7 +1176,7 @@
         "h": 3,
         "w": 8,
         "x": 8,
-        "y": 13
+        "y": 15
       },
       "id": 265,
       "options": {
@@ -814,7 +1208,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"wavelength_setpoint\") as wave FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
+          "query": "SELECT last(\"wavelength_setpoint\") as wave FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -842,14 +1236,14 @@
             },
             {
               "condition": "AND",
-              "key": "port_name::tag",
+              "key": "LINKNAME::tag",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         }
       ],
-      "title": "$ifname - Wavelength",
+      "title": "$port - Wavelength",
       "transformations": [
         {
           "id": "organize",
@@ -900,7 +1294,7 @@
         "h": 3,
         "w": 8,
         "x": 16,
-        "y": 13
+        "y": 15
       },
       "id": 266,
       "options": {
@@ -932,7 +1326,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"port_speed\") as speed FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
+          "query": "SELECT last(\"port_speed\") as speed FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -960,14 +1354,14 @@
             },
             {
               "condition": "AND",
-              "key": "port_name::tag",
+              "key": "LINKNAME::tag",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         }
       ],
-      "title": "$ifname - Port Speed",
+      "title": "$port - Port Speed",
       "transformations": [
         {
           "id": "organize",
@@ -1016,7 +1410,7 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 16
+        "y": 18
       },
       "id": 12,
       "options": {
@@ -1051,10 +1445,11 @@
               "type": "tag"
             }
           ],
+          "hide": true,
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"rx_dbm\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ AND \"channel\"::tag = 'no') AND $timeFilter GROUP BY \"lane_number\"",
+          "query": "SELECT \"rx_dbm_oc\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter and HAS_CHANNEL!='yes' GROUP BY \"lane_number\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1076,9 +1471,9 @@
             },
             {
               "condition": "AND",
-              "key": "port_name::tag",
+              "key": "LINKNAME::tag",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             },
             {
               "condition": "AND",
@@ -1106,7 +1501,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"rx_dbm_oc\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/  AND \"channel\"::tag = 'yes') AND $timeFilter GROUP BY \"lane_number\"",
+          "query": "SELECT \"rx_dbm\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY \"lane_number\"",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1114,7 +1509,7 @@
             [
               {
                 "params": [
-                  "rx_dbm_oc"
+                  "rx_dbm"
                 ],
                 "type": "field"
               }
@@ -1128,20 +1523,20 @@
             },
             {
               "condition": "AND",
-              "key": "port_name::tag",
+              "key": "LINKNAME::tag",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             },
             {
               "condition": "AND",
               "key": "channel::tag",
               "operator": "=",
-              "value": "yes"
+              "value": "no"
             }
           ]
         }
       ],
-      "title": "$ifname - Current RX",
+      "title": "$port - Current RX",
       "type": "stat"
     },
     {
@@ -1177,7 +1572,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 16
+        "y": 18
       },
       "id": 11,
       "options": {
@@ -1212,10 +1607,11 @@
               "type": "tag"
             }
           ],
+          "hide": true,
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"tx_dbm\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/  AND \"channel\"::tag = 'no') AND $timeFilter GROUP BY \"lane_number\"",
+          "query": "SELECT \"tx_dbm_oc\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter and HAS_CHANNEL!='yes' GROUP BY \"lane_number\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1237,9 +1633,9 @@
             },
             {
               "condition": "AND",
-              "key": "port_name::tag",
+              "key": "LINKNAME::tag",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             },
             {
               "condition": "AND",
@@ -1267,7 +1663,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"tx_dbm_oc\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ AND \"channel\"::tag = 'yes') AND $timeFilter GROUP BY \"lane_number\"",
+          "query": "SELECT \"tx_dbm\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY \"lane_number\"",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1289,9 +1685,9 @@
             },
             {
               "condition": "AND",
-              "key": "port_name::tag",
+              "key": "LINKNAME::tag",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             },
             {
               "condition": "AND",
@@ -1302,7 +1698,7 @@
           ]
         }
       ],
-      "title": "$ifname - Current TX",
+      "title": "$port - Current TX",
       "type": "stat"
     },
     {
@@ -1410,7 +1806,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 22
+        "y": 24
       },
       "id": 262,
       "options": {
@@ -1423,8 +1819,8 @@
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "sortBy": "Name",
-          "sortDesc": false
+          "sortBy": "Last *",
+          "sortDesc": true
         },
         "tooltip": {
           "mode": "multi",
@@ -1455,7 +1851,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"rx_dbm\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex} .*$/ and \"channel\"='no') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+          "query": "SELECT mean(\"rx_dbm\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1519,7 +1915,7 @@
               "condition": "AND",
               "key": "if_name",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         },
@@ -1547,7 +1943,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"rx_high_warn\") as HIGH_WARN, mean(\"rx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "query": "SELECT mean(\"rx_high_warn\") as HIGH_WARN, mean(\"rx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1611,7 +2007,7 @@
               "condition": "AND",
               "key": "if_name",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         },
@@ -1635,11 +2031,11 @@
               "type": "fill"
             }
           ],
-          "hide": false,
+          "hide": true,
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"rx_dbm_oc\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex} .*$/  and \"channel\"='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+          "query": "SELECT mean(\"rx_dbm_oc\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/  and \"HAS_CHANNEL\"!='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -1703,7 +2099,7 @@
               "condition": "AND",
               "key": "if_name",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         },
@@ -1731,7 +2127,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"rx_high_alarm\") as HIGH_ALARM, mean(\"rx_low_alarm\") as LOW_ALARM FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "query": "SELECT mean(\"rx_high_alarm\") as HIGH_ALARM, mean(\"rx_low_alarm\") as LOW_ALARM FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -1795,12 +2191,12 @@
               "condition": "AND",
               "key": "if_name",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         }
       ],
-      "title": "$ifname - RX",
+      "title": "$port - RX",
       "transformations": [],
       "type": "timeseries"
     },
@@ -1909,9 +2305,9 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 22
+        "y": 24
       },
-      "id": 261,
+      "id": 268,
       "options": {
         "legend": {
           "calcs": [
@@ -1922,8 +2318,8 @@
           "displayMode": "table",
           "placement": "right",
           "showLegend": true,
-          "sortBy": "Name",
-          "sortDesc": false
+          "sortBy": "Last *",
+          "sortDesc": true
         },
         "tooltip": {
           "mode": "multi",
@@ -1951,11 +2347,10 @@
               "type": "fill"
             }
           ],
-          "hide": false,
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"tx_dbm\") as TX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex} .*$/ and \"channel\"='no') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+          "query": "SELECT mean(\"rx_dbm\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2019,7 +2414,7 @@
               "condition": "AND",
               "key": "if_name",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         },
@@ -2047,7 +2442,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"tx_high_warn\") as HIGH_WARN, mean(\"tx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "query": "SELECT mean(\"rx_high_warn\") as HIGH_WARN, mean(\"rx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -2111,7 +2506,7 @@
               "condition": "AND",
               "key": "if_name",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         },
@@ -2135,11 +2530,11 @@
               "type": "fill"
             }
           ],
-          "hide": false,
+          "hide": true,
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"tx_dbm_oc\") as TX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex} .*$/ and \"channel\"='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+          "query": "SELECT mean(\"rx_dbm_oc\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/  and \"HAS_CHANNEL\"!='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -2203,7 +2598,7 @@
               "condition": "AND",
               "key": "if_name",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         },
@@ -2231,7 +2626,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"tx_high_alarm\") as HIGH_ALARM, mean(\"tx_low_alarm\") as LOW_ALARM FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "query": "SELECT mean(\"rx_high_alarm\") as HIGH_ALARM, mean(\"rx_low_alarm\") as LOW_ALARM FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -2295,12 +2690,513 @@
               "condition": "AND",
               "key": "if_name",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         }
       ],
-      "title": "$ifname - TX",
+      "title": "$port - RX",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-red",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "mamp",
+          "unitScale": true
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*WARN"
+            },
+            "properties": [
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*ALARM"
+            },
+            "properties": [
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 33
+      },
+      "id": 269,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Last *",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "asc"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Lane $tag_lane_number",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "30s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"current_bias\") as BIAS FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "tx_dbm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rx_dbm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rx_high_warn"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "tx_low_warn"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "if_name",
+              "operator": "=",
+              "value": "$port"
+            }
+          ]
+        },
+        {
+          "alias": "Lane $tag_lane_number",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "30s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": true,
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"current_bias_oc\") as BIAS FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/  and \"HAS_CHANNEL\"!='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "tx_dbm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rx_dbm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rx_high_warn"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "tx_low_warn"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "if_name",
+              "operator": "=",
+              "value": "$port"
+            }
+          ]
+        },
+        {
+          "alias": "WARN",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "30s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"bias_high_warn\") as HIGH_WARN, mean(\"bias_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}.*/) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "tx_dbm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rx_dbm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rx_high_warn"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "tx_low_warn"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "if_name",
+              "operator": "=",
+              "value": "$port"
+            }
+          ]
+        },
+        {
+          "alias": "ALARM",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "30s"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"bias_high_alarm\") as HIGH_ALARM, mean(\"bias_low_alarm\") as LOW_ALARM FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "rawQuery": true,
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "tx_dbm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rx_dbm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "rx_high_warn"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "tx_low_warn"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "if_name",
+              "operator": "=",
+              "value": "$port"
+            }
+          ]
+        }
+      ],
+      "title": "$port - BIAS",
       "transformations": [],
       "type": "timeseries"
     },
@@ -2407,9 +3303,9 @@
       },
       "gridPos": {
         "h": 10,
-        "w": 6,
-        "x": 0,
-        "y": 31
+        "w": 12,
+        "x": 12,
+        "y": 33
       },
       "id": 263,
       "options": {
@@ -2422,8 +3318,8 @@
           "displayMode": "table",
           "placement": "bottom",
           "showLegend": true,
-          "sortBy": "Name",
-          "sortDesc": false
+          "sortBy": "Last *",
+          "sortDesc": true
         },
         "tooltip": {
           "mode": "multi",
@@ -2455,7 +3351,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"current_module_temp\") as Temperture  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}.*$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "query": "SELECT mean(\"current_module_temp\") as Temperture  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}.*$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -2519,7 +3415,7 @@
               "condition": "AND",
               "key": "if_name",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         },
@@ -2547,7 +3443,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"temp_high_warn\") as HIGH_WARN, mean(\"temp_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "query": "SELECT mean(\"temp_high_warn\") as HIGH_WARN, mean(\"temp_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -2611,7 +3507,7 @@
               "condition": "AND",
               "key": "if_name",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         },
@@ -2639,7 +3535,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"temp_high_alarm\") as HIGH_ALARM, mean(\"temp_low_alarm\") as LOW_ALARM FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "query": "SELECT mean(\"temp_high_alarm\") as HIGH_ALARM, mean(\"temp_low_alarm\") as LOW_ALARM FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -2703,7 +3599,7 @@
               "condition": "AND",
               "key": "if_name",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         },
@@ -2731,7 +3627,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"current_laser_temp\") as TempertureL  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\" =~/.*${ifname:regex}.*$/) AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
+          "query": "SELECT mean(\"current_laser_temp\") as TempertureL  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}.*$/) AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
           "rawQuery": true,
           "refId": "D",
           "resultFormat": "time_series",
@@ -2795,487 +3691,12 @@
               "condition": "AND",
               "key": "if_name",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         }
       ],
-      "title": "$ifname - Temperture",
-      "transformations": [],
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "dark-red",
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "noValue": "Not Supported or No Data",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "none",
-          "unitScale": true
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 6,
-        "x": 6,
-        "y": 31
-      },
-      "id": 22,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "min",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "asc"
-        }
-      },
-      "targets": [
-        {
-          "alias": "Pre-FEC",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"prefec_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "prefec_instant"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "port_name::tag",
-              "operator": "=",
-              "value": "$ifname"
-            }
-          ]
-        }
-      ],
-      "title": "$ifname - Pre-FEC",
-      "transformations": [],
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "dark-red",
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "noValue": "Not Supported or No Data",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "bps",
-          "unitScale": true
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 6,
-        "x": 12,
-        "y": 31
-      },
-      "id": 267,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "min",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "asc"
-        }
-      },
-      "targets": [
-        {
-          "alias": "FEC Uncorrectable error block rate",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"fec_corrected_bits_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex} .*$/  and \"channel\"='no') AND $timeFilter",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "optic_fec_uncorrectable_blocks"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$ifname"
-            }
-          ]
-        },
-        {
-          "alias": "FEC Uncorrectable error block rate",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"fec_corrected_bits_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"sub_ports\" =~/^.*${ifname:regex}.*$/  and \"channel\"='yes') AND $timeFilter",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "optic_fec_uncorrectable_blocks"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$ifname"
-            }
-          ]
-        }
-      ],
-      "title": "$ifname - FEC Corrected Bits Rate",
-      "transformations": [],
-      "type": "timeseries"
-    },
-    {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "fixedColor": "dark-red",
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisBorderShow": false,
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "never",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "noValue": "Not Supported or No Data",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "blocks/s",
-          "unitScale": true
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 10,
-        "w": 6,
-        "x": 18,
-        "y": 31
-      },
-      "id": 258,
-      "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull",
-            "mean",
-            "min",
-            "max"
-          ],
-          "displayMode": "table",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "asc"
-        }
-      },
-      "targets": [
-        {
-          "alias": "FEC Uncorrectable error block rate",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"optic_fec_uncorrectable_blocks_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\" =~/^.*${ifname:regex} .*$/  and \"channel\"='no') AND $timeFilter",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "optic_fec_uncorrectable_blocks"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$ifname"
-            }
-          ]
-        },
-        {
-          "alias": "FEC Uncorrectable error block rate",
-          "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
-          },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"optic_fec_uncorrectable_blocks_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"sub_ports\" =~/^.*${ifname:regex}.*$/  and \"channel\"='yes') AND $timeFilter",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "optic_fec_uncorrectable_blocks"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$ifname"
-            }
-          ]
-        }
-      ],
-      "title": "$ifname - FEC Uncorrected Error Block Rate",
+      "title": "$port - Temperture",
       "transformations": [],
       "type": "timeseries"
     },
@@ -3347,7 +3768,7 @@
         "h": 10,
         "w": 6,
         "x": 0,
-        "y": 41
+        "y": 43
       },
       "id": 16,
       "options": {
@@ -3391,7 +3812,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"osnr_instant\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter GROUP BY time(60s) fill(null)",
+          "query": "SELECT mean(\"osnr_instant\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter GROUP BY time(60s) fill(null)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -3417,14 +3838,544 @@
             },
             {
               "condition": "AND",
-              "key": "port_name::tag",
+              "key": "LINKNAME::tag",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         }
       ],
-      "title": "$ifname - OSNR",
+      "title": "$port - OSNR",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-red",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "Not Supported or No Data",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "dB",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 6,
+        "x": 6,
+        "y": 43
+      },
+      "id": 270,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "asc"
+        }
+      },
+      "targets": [
+        {
+          "alias": "ESNR",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"esnr_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "esnr_instant"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME::tag",
+              "operator": "=",
+              "value": "$port"
+            }
+          ]
+        }
+      ],
+      "title": "$port - ESNR",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-red",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "Not Supported or No Data",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 6,
+        "x": 12,
+        "y": 43
+      },
+      "id": 22,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "asc"
+        }
+      },
+      "targets": [
+        {
+          "alias": "Pre-FEC",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"prefec_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "prefec_instant"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME::tag",
+              "operator": "=",
+              "value": "$port"
+            }
+          ]
+        }
+      ],
+      "title": "$port - Pre-FEC",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-red",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "Not Supported or No Data",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 6,
+        "x": 18,
+        "y": 43
+      },
+      "id": 267,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "asc"
+        }
+      },
+      "targets": [
+        {
+          "alias": "FEC Uncorrectable error block rate",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"fec_corrected_bits_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${cage:regex}.*$/) AND $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "optic_fec_uncorrectable_blocks"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "if_name",
+              "operator": "=",
+              "value": "$port"
+            }
+          ]
+        }
+      ],
+      "title": "$port - FEC Corrected Bits Rate",
+      "transformations": [],
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "fixedColor": "dark-red",
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "Not Supported or No Data",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "blocks/s",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 6,
+        "x": 0,
+        "y": 53
+      },
+      "id": 258,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "mean",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "asc"
+        }
+      },
+      "targets": [
+        {
+          "alias": "FEC Uncorrectable error block rate",
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "hide": false,
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"optic_fec_uncorrectable_blocks_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${cage:regex}.*$/) AND $timeFilter",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "optic_fec_uncorrectable_blocks"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "if_name",
+              "operator": "=",
+              "value": "$port"
+            }
+          ]
+        }
+      ],
+      "title": "$port - FEC Uncorrected Error Block Rate",
       "transformations": [],
       "type": "timeseries"
     },
@@ -3496,7 +4447,7 @@
         "h": 10,
         "w": 6,
         "x": 6,
-        "y": 41
+        "y": 53
       },
       "id": 254,
       "options": {
@@ -3527,7 +4478,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"chroma_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
+          "query": "SELECT \"chroma_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -3549,14 +4500,14 @@
             },
             {
               "condition": "AND",
-              "key": "port_name::tag",
+              "key": "LINKNAME::tag",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         }
       ],
-      "title": "$ifname - Chromatic Dispersion",
+      "title": "$port - Chromatic Dispersion",
       "transformations": [],
       "type": "timeseries"
     },
@@ -3628,7 +4579,7 @@
         "h": 10,
         "w": 6,
         "x": 12,
-        "y": 41
+        "y": 53
       },
       "id": 256,
       "options": {
@@ -3659,7 +4610,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"pola_loss_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
+          "query": "SELECT \"pola_loss_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -3681,14 +4632,14 @@
             },
             {
               "condition": "AND",
-              "key": "port_name::tag",
+              "key": "LINKNAME::tag",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         }
       ],
-      "title": "$ifname - Polarization Dependent Loss",
+      "title": "$port - Polarization Dependent Loss",
       "transformations": [],
       "type": "timeseries"
     },
@@ -3760,7 +4711,7 @@
         "h": 10,
         "w": 6,
         "x": 18,
-        "y": 41
+        "y": 53
       },
       "id": 255,
       "options": {
@@ -3791,7 +4742,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"2nd_pola_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag=~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
+          "query": "SELECT \"2nd_pola_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag=~/^.*${port:regex}.*$/ ) AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -3813,14 +4764,14 @@
             },
             {
               "condition": "AND",
-              "key": "port_name::tag",
+              "key": "LINKNAME::tag",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         }
       ],
-      "title": "$ifname - Second Order Polarization Mode Dispersion",
+      "title": "$port - Second Order Polarization Mode Dispersion",
       "transformations": [],
       "type": "timeseries"
     },
@@ -3892,7 +4843,7 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 51
+        "y": 63
       },
       "id": 264,
       "options": {
@@ -3930,7 +4881,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"transport_optic_cur\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"if_name\"::tag =~/^.*${ifname:regex}.*$/) AND $timeFilter GROUP BY \"transport_optic_name\"",
+          "query": "SELECT \"transport_optic_cur\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY \"transport_optic_name\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -3954,12 +4905,12 @@
               "condition": "AND",
               "key": "if_name::tag",
               "operator": "=",
-              "value": "$ifname"
+              "value": "$port"
             }
           ]
         }
       ],
-      "title": "$ifname - Netconf additionnal info",
+      "title": "$port - Netconf additionnal info",
       "transformations": [],
       "type": "timeseries"
     },
@@ -4029,7 +4980,7 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 51
+        "y": 63
       },
       "id": 21,
       "options": {
@@ -4074,7 +5025,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"in_octets_rate\"*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
+          "query": "SELECT \"in_octets_rate\"*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -4100,9 +5051,9 @@
             },
             {
               "condition": "AND",
-              "key": "port_name::tag",
+              "key": "LINKNAME::tag",
               "operator": "=~",
-              "value": "/^$ifname$/"
+              "value": "/^$port$/"
             }
           ]
         },
@@ -4130,7 +5081,7 @@
           "measurement": "INTERFACES",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"out_octets_rate\"*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"port_name\"::tag =~/^.*${ifname:regex} .*$/ ) AND $timeFilter",
+          "query": "SELECT \"out_octets_rate\"*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -4156,14 +5107,14 @@
             },
             {
               "condition": "AND",
-              "key": "port_name::tag",
+              "key": "LINKNAME::tag",
               "operator": "=~",
-              "value": "/^$ifname$/"
+              "value": "/^$port$/"
             }
           ]
         }
       ],
-      "title": "$ifname - Traffic info",
+      "title": "$port - Traffic info",
       "type": "timeseries"
     }
   ],
@@ -4199,7 +5150,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "",
           "value": ""
         },
@@ -4207,14 +5158,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values FROM COMPONENTS with key=\"port_name\" where SHORTNAME=~/$rtr/ and $timeFilter and optic_desc=~/.*(ZR|zr).*/",
+        "definition": "show tag values FROM COMPONENTS with key=\"LINKNAME\" where SHORTNAME=~/$rtr/ and $timeFilter and OPTIC_DESC=~/.*(400|800).*(ZR|zr).*/ and HAS_CHANNEL != 'yes'",
         "hide": 0,
         "includeAll": false,
         "label": "Phy. Port with ZR/ZR+ optic",
         "multi": false,
         "name": "port",
         "options": [],
-        "query": "show tag values FROM COMPONENTS with key=\"port_name\" where SHORTNAME=~/$rtr/ and $timeFilter and optic_desc=~/.*(ZR|zr).*/",
+        "query": "show tag values FROM COMPONENTS with key=\"LINKNAME\" where SHORTNAME=~/$rtr/ and $timeFilter and OPTIC_DESC=~/.*(400|800).*(ZR|zr).*/ and HAS_CHANNEL != 'yes'",
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -4224,23 +5175,23 @@
       {
         "current": {
           "selected": false,
-          "text": "0/0/14",
-          "value": "0/0/14"
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values FROM COMPONENTS with key=\"port_name\" where SHORTNAME=~/$rtr/ and port_name=~/^${port:regex}$/ and $timeFilter",
+        "definition": "show tag values FROM COMPONENTS with key=\"LINKNAME\" where SHORTNAME=~/$rtr/ and LINKNAME=~/^${port:regex}$/ and $timeFilter",
         "hide": 2,
         "includeAll": false,
         "label": "cage",
         "multi": false,
-        "name": "ifname",
+        "name": "cage",
         "options": [],
-        "query": "show tag values FROM COMPONENTS with key=\"port_name\" where SHORTNAME=~/$rtr/ and port_name=~/^${port:regex}$/ and $timeFilter",
+        "query": "show tag values FROM COMPONENTS with key=\"LINKNAME\" where SHORTNAME=~/$rtr/ and LINKNAME=~/^${port:regex}$/ and $timeFilter",
         "refresh": 2,
-        "regex": "(^\\d+/\\d+/\\d+(?::\\d+)?).*",
+        "regex": "^.*-(\\d+/\\d+/\\d+).*",
         "skipUrlSync": false,
         "sort": 5,
         "type": "query"
@@ -4255,6 +5206,6 @@
   "timezone": "",
   "title": "ZR/ZR+ OPTICS PROFILE - JTS",
   "uid": "opticzrdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
