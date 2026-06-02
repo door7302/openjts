@@ -5,7 +5,6 @@
 To start OpenJTS, deploy the stack using Docker Compose.
 
 ```shell
-# Start the stack (single Telegraf instance)
 cd compose/
 sudo docker compose up -d
 ```
