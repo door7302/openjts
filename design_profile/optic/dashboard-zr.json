@@ -73,6 +73,130 @@
         "type": "influxdb",
         "uid": "jtsuid"
       },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "cellOptions": {
+              "type": "color-background"
+            },
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "false": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "NO"
+                },
+                "true": {
+                  "color": "dark-red",
+                  "index": 1,
+                  "text": "YES"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "noValue": "NA",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 3
+      },
+      "id": 260,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [],
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"optic_model\"), last(\"optic_vendor\"), last(\"optic_vendor_part\"), last(\"optic_serial_no\"), last(\"optic_func_type\"), last(\"optic_fault_condition\") FROM \"COMPONENTS\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"LINKNAME\"::tag =~ /^.*${cage:regex}.*$/ AND $timeFilter ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [],
+          "tags": []
+        }
+      ],
+      "title": "$port - Inventory Info",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "last_3": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "OPTIC_DESC": 2,
+              "Time": 0,
+              "last": 1,
+              "last_1": 4,
+              "last_2": 5,
+              "last_3": 6,
+              "last_4": 3,
+              "last_5": 7
+            },
+            "renameByName": {
+              "OPTIC_DESC": "Optic Description",
+              "last": "Optic Model",
+              "last_1": "Optic Vendor",
+              "last_2": "Optic Vendor Part Number",
+              "last_3": "Optic Vendor Serial Number",
+              "last_4": "Optic Type",
+              "last_5": "Fault Condition?"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -136,7 +260,7 @@
         "h": 4,
         "w": 24,
         "x": 0,
-        "y": 3
+        "y": 7
       },
       "id": 4,
       "options": {
@@ -177,7 +301,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"lane_laser_bias_current_high_alarm\") AS bias_high_alarm, last(\"lane_laser_bias_current_high_warning\") AS bias_high_warn, last(\"lane_laser_bias_current_low_alarm\") AS bias_low_alarm, last(\"lane_laser_bias_current_low_warning\") AS bias_low_warn, last(\"lane_laser_output_power_high_alarm\") AS outpow_high_alarm, last(\"lane_laser_output_power_high_warning\") AS outpow_high_warn, last(\"lane_laser_output_power_low_alarm\") AS outpow_low_alarm, last(\"lane_laser_output_power_low_warning\") AS outpow_low_warn, last(\"lane_laser_receiver_power_high_alarm\") AS recpow_high_alarm, last(\"lane_laser_receiver_power_high_warning\") AS recpow_high_warn, last(\"lane_laser_receiver_power_low_alarm\") AS recpow_low_alarm, last(\"lane_laser_receiver_power_low_warning\") AS recpow_low_warn, last(\"lane_rx_loss_of_signal_alarm\") AS rx_los_alarm, last(\"lane_tx_loss_of_signal_alarm\") AS tx_los_alarm, last(\"lane_tx_laser_disabled_alarm\") AS tx_laser_disabled, last(\"module_temp_high_alarm\") AS temp_high_alarm, last(\"module_temp_high_warning\") AS temp_high_warn, last(\"module_temp_low_alarm\") AS temp_low_alarm, last(\"module_temp_low_warning\") AS temp_low_warn FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY \"if_name\"::tag",
+          "query": "SELECT last(\"lane_laser_bias_current_high_alarm\") AS bias_high_alarm, last(\"lane_laser_bias_current_high_warning\") AS bias_high_warn, last(\"lane_laser_bias_current_low_alarm\") AS bias_low_alarm, last(\"lane_laser_bias_current_low_warning\") AS bias_low_warn, last(\"lane_laser_output_power_high_alarm\") AS outpow_high_alarm, last(\"lane_laser_output_power_high_warning\") AS outpow_high_warn, last(\"lane_laser_output_power_low_alarm\") AS outpow_low_alarm, last(\"lane_laser_output_power_low_warning\") AS outpow_low_warn, last(\"lane_laser_receiver_power_high_alarm\") AS recpow_high_alarm, last(\"lane_laser_receiver_power_high_warning\") AS recpow_high_warn, last(\"lane_laser_receiver_power_low_alarm\") AS recpow_low_alarm, last(\"lane_laser_receiver_power_low_warning\") AS recpow_low_warn, last(\"lane_rx_loss_of_signal_alarm\") AS rx_los_alarm, last(\"lane_tx_loss_of_signal_alarm\") AS tx_los_alarm, last(\"lane_tx_laser_disabled_alarm\") AS tx_laser_disabled FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) and lane_number != '' AND $timeFilter GROUP BY \"if_name\"::tag, \"lane_number\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -505,71 +629,102 @@
         "type": "influxdb",
         "uid": "jtsuid"
       },
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "fixed"
           },
           "custom": {
-            "align": "center",
+            "align": "auto",
             "cellOptions": {
+              "mode": "gradient",
               "type": "color-background"
             },
-            "inspect": false
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 0
           },
           "mappings": [
             {
               "options": {
                 "false": {
-                  "color": "green",
-                  "index": 0,
-                  "text": "NO"
+                  "color": "transparent",
+                  "index": 1,
+                  "text": "no"
+                },
+                "null": {
+                  "color": "transparent",
+                  "index": 2,
+                  "text": "N.A"
                 },
                 "true": {
                   "color": "dark-red",
-                  "index": 1,
-                  "text": "YES"
+                  "index": 0,
+                  "text": "ERROR"
                 }
               },
               "type": "value"
             }
           ],
-          "noValue": "NA",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },
           "unitScale": true
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 134
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Temp H. Alrm"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 106
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 4,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 11
       },
-      "id": 260,
+      "id": 271,
       "options": {
         "cellHeight": "sm",
         "footer": {
           "countRows": false,
+          "enablePagination": false,
           "fields": "",
           "reducer": [
             "sum"
           ],
           "show": false
         },
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": []
       },
       "pluginVersion": "10.3.1",
       "targets": [
@@ -578,46 +733,306 @@
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "groupBy": [],
+          "groupBy": [
+            {
+              "params": [
+                "if_name::tag"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"optic_model\"), last(\"optic_vendor\"), last(\"optic_vendor_part\"), last(\"optic_serial_no\"), last(\"optic_func_type\"), last(\"optic_fault_condition\") FROM \"COMPONENTS\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"LINKNAME\"::tag =~ /^.*${cage:regex}.*$/ AND $timeFilter ",
+          "query": "SELECT last(\"module_temp_high_alarm\") AS temp_high_alarm, last(\"module_temp_high_warning\") AS temp_high_warn, last(\"module_temp_low_alarm\") AS temp_low_alarm, last(\"module_temp_low_warning\") AS temp_low_warn FROM \"COMPONENTS\" WHERE \"SHORTNAME\" =~ /^$rtr$/ and \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ GROUP BY \"if_name\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
-          "select": [],
-          "tags": []
+          "select": [
+            [
+              {
+                "params": [
+                  "lane_laser_bias_current_high_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_bias_current_high_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_bias_current_low_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_output_power_high_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_output_power_high_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_output_power_low_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_output_power_low_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_receiver_power_high_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_receiver_power_low_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_receiver_power_high_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_receiver_power_low_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_bias_current_low_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_rx_loss_of_signal_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_tx_loss_of_signal_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "module_temp_high_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "module_temp_high_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "module_temp_low_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "module_temp_low_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
-      "title": "$port - Inventory Info",
+      "title": "Module Temperature Alarms",
       "transformations": [
         {
           "id": "organize",
           "options": {
             "excludeByName": {
               "Time": true,
-              "last_3": true
+              "if_name": false,
+              "last_3": false,
+              "last_7": false
             },
             "includeByName": {},
             "indexByName": {
-              "OPTIC_DESC": 2,
-              "Time": 0,
-              "last": 1,
-              "last_1": 4,
-              "last_2": 5,
-              "last_3": 6,
-              "last_4": 3,
-              "last_5": 7
+              "if_name": 0,
+              "lane_number": 1,
+              "last": 4,
+              "last_1": 12,
+              "last_10": 14,
+              "last_11": 8,
+              "last_12": 18,
+              "last_13": 19,
+              "last_14": 5,
+              "last_15": 13,
+              "last_16": 9,
+              "last_17": 17,
+              "last_18": 20,
+              "last_2": 16,
+              "last_3": 3,
+              "last_4": 11,
+              "last_5": 7,
+              "last_6": 15,
+              "last_7": 2,
+              "last_8": 6,
+              "last_9": 10
             },
             "renameByName": {
-              "OPTIC_DESC": "Optic Description",
-              "last": "Optic Model",
-              "last_1": "Optic Vendor",
-              "last_2": "Optic Vendor Part Number",
-              "last_3": "Optic Vendor Serial Number",
-              "last_4": "Optic Type",
-              "last_5": "Fault Condition?"
+              "if_name": "Name",
+              "lane_number": "Lane",
+              "last": "BIAS H. Alrm",
+              "last_1": "BIAS H. Warn",
+              "last_10": "RX L. Warn",
+              "last_11": "BIAS L. Alrm",
+              "last_12": "RX LOS",
+              "last_13": "TX LOS",
+              "last_14": "Temp H. Alrm",
+              "last_15": "Temp H. Warn",
+              "last_16": "Temp L. Alrm",
+              "last_17": "Temp L. Warn",
+              "last_18": "TX LASER",
+              "last_2": "BIAS L. Warn",
+              "last_3": "TX H. Alrm",
+              "last_4": "TX H. Warn",
+              "last_5": "TX L. Alrm",
+              "last_6": "TX L. Warn",
+              "last_7": "RX H. Alrm",
+              "last_8": "RX L. Alrm",
+              "last_9": "RX H. Warn"
             }
           }
         }
@@ -657,7 +1072,7 @@
         "h": 3,
         "w": 8,
         "x": 0,
-        "y": 11
+        "y": 15
       },
       "id": 253,
       "options": {
@@ -761,7 +1176,7 @@
         "h": 3,
         "w": 8,
         "x": 8,
-        "y": 11
+        "y": 15
       },
       "id": 265,
       "options": {
@@ -879,7 +1294,7 @@
         "h": 3,
         "w": 8,
         "x": 16,
-        "y": 11
+        "y": 15
       },
       "id": 266,
       "options": {
@@ -995,7 +1410,7 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 14
+        "y": 18
       },
       "id": 12,
       "options": {
@@ -1157,7 +1572,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 14
+        "y": 18
       },
       "id": 11,
       "options": {
@@ -1391,7 +1806,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 20
+        "y": 24
       },
       "id": 262,
       "options": {
@@ -1890,7 +2305,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 20
+        "y": 24
       },
       "id": 268,
       "options": {
@@ -2389,7 +2804,7 @@
         "h": 10,
         "w": 12,
         "x": 0,
-        "y": 29
+        "y": 33
       },
       "id": 269,
       "options": {
@@ -2890,7 +3305,7 @@
         "h": 10,
         "w": 12,
         "x": 12,
-        "y": 29
+        "y": 33
       },
       "id": 263,
       "options": {
@@ -3353,7 +3768,7 @@
         "h": 10,
         "w": 6,
         "x": 0,
-        "y": 39
+        "y": 43
       },
       "id": 16,
       "options": {
@@ -3502,7 +3917,7 @@
         "h": 10,
         "w": 6,
         "x": 6,
-        "y": 39
+        "y": 43
       },
       "id": 270,
       "options": {
@@ -3635,7 +4050,7 @@
         "h": 10,
         "w": 6,
         "x": 12,
-        "y": 39
+        "y": 43
       },
       "id": 22,
       "options": {
@@ -3767,7 +4182,7 @@
         "h": 10,
         "w": 6,
         "x": 18,
-        "y": 39
+        "y": 43
       },
       "id": 267,
       "options": {
@@ -3899,7 +4314,7 @@
         "h": 10,
         "w": 6,
         "x": 0,
-        "y": 49
+        "y": 53
       },
       "id": 258,
       "options": {
@@ -4032,7 +4447,7 @@
         "h": 10,
         "w": 6,
         "x": 6,
-        "y": 49
+        "y": 53
       },
       "id": 254,
       "options": {
@@ -4164,7 +4579,7 @@
         "h": 10,
         "w": 6,
         "x": 12,
-        "y": 49
+        "y": 53
       },
       "id": 256,
       "options": {
@@ -4296,7 +4711,7 @@
         "h": 10,
         "w": 6,
         "x": 18,
-        "y": 49
+        "y": 53
       },
       "id": 255,
       "options": {
@@ -4428,7 +4843,7 @@
         "h": 11,
         "w": 12,
         "x": 0,
-        "y": 59
+        "y": 63
       },
       "id": 264,
       "options": {
@@ -4565,7 +4980,7 @@
         "h": 11,
         "w": 12,
         "x": 12,
-        "y": 59
+        "y": 63
       },
       "id": 21,
       "options": {
@@ -4711,9 +5126,9 @@
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": "rtme-mx301-01",
-          "value": "rtme-mx301-01"
+          "selected": false,
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "influxdb",
@@ -4736,8 +5151,8 @@
       {
         "current": {
           "selected": true,
-          "text": "et-0/0/12:3 - Unknown",
-          "value": "et-0/0/12:3 - Unknown"
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "influxdb",
@@ -4760,8 +5175,8 @@
       {
         "current": {
           "selected": false,
-          "text": "0/0/12",
-          "value": "0/0/12"
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "influxdb",
@@ -4791,6 +5206,6 @@
   "timezone": "",
   "title": "ZR/ZR+ OPTICS PROFILE - JTS",
   "uid": "opticzrdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }

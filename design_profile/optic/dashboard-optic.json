@@ -953,7 +953,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"lane_laser_bias_current_high_alarm\") AS bias_high_alarm, last(\"lane_laser_bias_current_high_warning\") AS bias_high_warn, last(\"lane_laser_bias_current_low_alarm\") AS bias_low_alarm, last(\"lane_laser_bias_current_low_warning\") AS bias_low_warn, last(\"lane_laser_output_power_high_alarm\") AS outpow_high_alarm, last(\"lane_laser_output_power_high_warning\") AS outpow_high_warn, last(\"lane_laser_output_power_low_alarm\") AS outpow_low_alarm, last(\"lane_laser_output_power_low_warning\") AS outpow_low_warn, last(\"lane_laser_receiver_power_high_alarm\") AS recpow_high_alarm, last(\"lane_laser_receiver_power_high_warning\") AS recpow_high_warn, last(\"lane_laser_receiver_power_low_alarm\") AS recpow_low_alarm, last(\"lane_laser_receiver_power_low_warning\") AS recpow_low_warn, last(\"lane_rx_loss_of_signal_alarm\") AS rx_los_alarm, last(\"lane_tx_loss_of_signal_alarm\") AS tx_los_alarm, last(\"lane_tx_laser_disabled_alarm\") AS tx_laser_disabled, last(\"module_temp_high_alarm\") AS temp_high_alarm, last(\"module_temp_high_warning\") AS temp_high_warn, last(\"module_temp_low_alarm\") AS temp_low_alarm, last(\"module_temp_low_warning\") AS temp_low_warn FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) GROUP BY \"if_name\" ",
+          "query": "SELECT last(\"lane_laser_bias_current_high_alarm\") AS bias_high_alarm, last(\"lane_laser_bias_current_high_warning\") AS bias_high_warn, last(\"lane_laser_bias_current_low_alarm\") AS bias_low_alarm, last(\"lane_laser_bias_current_low_warning\") AS bias_low_warn, last(\"lane_laser_output_power_high_alarm\") AS outpow_high_alarm, last(\"lane_laser_output_power_high_warning\") AS outpow_high_warn, last(\"lane_laser_output_power_low_alarm\") AS outpow_low_alarm, last(\"lane_laser_output_power_low_warning\") AS outpow_low_warn, last(\"lane_laser_receiver_power_high_alarm\") AS recpow_high_alarm, last(\"lane_laser_receiver_power_high_warning\") AS recpow_high_warn, last(\"lane_laser_receiver_power_low_alarm\") AS recpow_low_alarm, last(\"lane_laser_receiver_power_low_warning\") AS recpow_low_warn, last(\"lane_rx_loss_of_signal_alarm\") AS rx_los_alarm, last(\"lane_tx_loss_of_signal_alarm\") AS tx_los_alarm, last(\"lane_tx_laser_disabled_alarm\") AS tx_laser_disabled FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and lane_number != '' GROUP BY \"if_name\", \"lane_number\"",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -1421,6 +1421,421 @@
       "fieldConfig": {
         "defaults": {
           "color": {
+            "mode": "fixed"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "mode": "gradient",
+              "type": "color-background"
+            },
+            "filterable": false,
+            "inspect": false,
+            "minWidth": 0
+          },
+          "mappings": [
+            {
+              "options": {
+                "false": {
+                  "color": "transparent",
+                  "index": 1,
+                  "text": "no"
+                },
+                "null": {
+                  "color": "transparent",
+                  "index": 2,
+                  "text": "N.A"
+                },
+                "true": {
+                  "color": "dark-red",
+                  "index": 0,
+                  "text": "ERROR"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Name"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 134
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Temp H. Alrm"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 106
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 24,
+        "x": 0,
+        "y": 44
+      },
+      "id": 671,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "if_name::tag"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"module_temp_high_alarm\") AS temp_high_alarm, last(\"module_temp_high_warning\") AS temp_high_warn, last(\"module_temp_low_alarm\") AS temp_low_alarm, last(\"module_temp_low_warning\") AS temp_low_warn FROM \"COMPONENTS\" WHERE \"SHORTNAME\" =~ /^$rtr$/ and \"LINKNAME\"::tag =~/^.*${port:regex}.*$/  GROUP BY \"if_name\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "lane_laser_bias_current_high_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_bias_current_high_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_bias_current_low_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_output_power_high_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_output_power_high_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_output_power_low_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_output_power_low_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_receiver_power_high_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_receiver_power_low_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_receiver_power_high_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_receiver_power_low_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_laser_bias_current_low_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_rx_loss_of_signal_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "lane_tx_loss_of_signal_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "module_temp_high_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "module_temp_high_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "module_temp_low_alarm"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "module_temp_low_warning"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "last"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
+        }
+      ],
+      "title": "Module Temperature Alarms",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "if_name": false,
+              "last_3": false,
+              "last_7": false
+            },
+            "includeByName": {},
+            "indexByName": {
+              "if_name": 0,
+              "lane_number": 1,
+              "last": 4,
+              "last_1": 12,
+              "last_10": 14,
+              "last_11": 8,
+              "last_12": 18,
+              "last_13": 19,
+              "last_14": 5,
+              "last_15": 13,
+              "last_16": 9,
+              "last_17": 17,
+              "last_18": 20,
+              "last_2": 16,
+              "last_3": 3,
+              "last_4": 11,
+              "last_5": 7,
+              "last_6": 15,
+              "last_7": 2,
+              "last_8": 6,
+              "last_9": 10
+            },
+            "renameByName": {
+              "if_name": "Name",
+              "lane_number": "Lane",
+              "last": "BIAS H. Alrm",
+              "last_1": "BIAS H. Warn",
+              "last_10": "RX L. Warn",
+              "last_11": "BIAS L. Alrm",
+              "last_12": "RX LOS",
+              "last_13": "TX LOS",
+              "last_14": "Temp H. Alrm",
+              "last_15": "Temp H. Warn",
+              "last_16": "Temp L. Alrm",
+              "last_17": "Temp L. Warn",
+              "last_18": "TX LASER",
+              "last_2": "BIAS L. Warn",
+              "last_3": "TX H. Alrm",
+              "last_4": "TX H. Warn",
+              "last_5": "TX L. Alrm",
+              "last_6": "TX L. Warn",
+              "last_7": "RX H. Alrm",
+              "last_8": "RX L. Alrm",
+              "last_9": "RX H. Warn"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
             "mode": "thresholds"
           },
           "mappings": [],
@@ -1447,7 +1862,7 @@
         "h": 6,
         "w": 12,
         "x": 0,
-        "y": 44
+        "y": 48
       },
       "id": 12,
       "options": {
@@ -1608,7 +2023,7 @@
         "h": 6,
         "w": 12,
         "x": 12,
-        "y": 44
+        "y": 48
       },
       "id": 11,
       "options": {
@@ -1840,7 +2255,7 @@
         "h": 10,
         "w": 6,
         "x": 0,
-        "y": 50
+        "y": 54
       },
       "id": 13,
       "options": {
@@ -2341,7 +2756,7 @@
         "h": 10,
         "w": 6,
         "x": 6,
-        "y": 50
+        "y": 54
       },
       "id": 6,
       "options": {
@@ -2842,7 +3257,7 @@
         "h": 10,
         "w": 6,
         "x": 12,
-        "y": 50
+        "y": 54
       },
       "id": 14,
       "options": {
@@ -3343,7 +3758,7 @@
         "h": 10,
         "w": 6,
         "x": 18,
-        "y": 50
+        "y": 54
       },
       "id": 9,
       "options": {
@@ -3827,7 +4242,7 @@
         "h": 10,
         "w": 5,
         "x": 0,
-        "y": 60
+        "y": 64
       },
       "id": 15,
       "options": {
@@ -3988,7 +4403,7 @@
         "h": 10,
         "w": 5,
         "x": 5,
-        "y": 60
+        "y": 64
       },
       "id": 258,
       "options": {
@@ -4118,7 +4533,7 @@
         "h": 10,
         "w": 14,
         "x": 10,
-        "y": 60
+        "y": 64
       },
       "id": 21,
       "options": {
@@ -4217,7 +4632,7 @@
         "h": 10,
         "w": 24,
         "x": 0,
-        "y": 70
+        "y": 74
       },
       "id": 667,
       "options": {
@@ -4363,7 +4778,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 80
+        "y": 84
       },
       "id": 259,
       "options": {
@@ -4412,7 +4827,7 @@
         "h": 3,
         "w": 8,
         "x": 0,
-        "y": 82
+        "y": 86
       },
       "id": 668,
       "options": {
@@ -4516,7 +4931,7 @@
         "h": 3,
         "w": 8,
         "x": 8,
-        "y": 82
+        "y": 86
       },
       "id": 669,
       "options": {
@@ -4634,7 +5049,7 @@
         "h": 3,
         "w": 8,
         "x": 16,
-        "y": 82
+        "y": 86
       },
       "id": 670,
       "options": {
@@ -4788,7 +5203,7 @@
         "h": 10,
         "w": 8,
         "x": 0,
-        "y": 85
+        "y": 89
       },
       "id": 257,
       "options": {
@@ -4921,7 +5336,7 @@
         "h": 10,
         "w": 8,
         "x": 8,
-        "y": 85
+        "y": 89
       },
       "id": 256,
       "options": {
@@ -5054,7 +5469,7 @@
         "h": 10,
         "w": 8,
         "x": 16,
-        "y": 85
+        "y": 89
       },
       "id": 255,
       "options": {
@@ -5187,7 +5602,7 @@
         "h": 10,
         "w": 8,
         "x": 0,
-        "y": 95
+        "y": 99
       },
       "id": 16,
       "options": {
@@ -5337,7 +5752,7 @@
         "h": 10,
         "w": 8,
         "x": 8,
-        "y": 95
+        "y": 99
       },
       "id": 252,
       "options": {
@@ -5470,7 +5885,7 @@
         "h": 10,
         "w": 8,
         "x": 16,
-        "y": 95
+        "y": 99
       },
       "id": 254,
       "options": {
@@ -5585,8 +6000,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5603,7 +6017,7 @@
         "h": 10,
         "w": 8,
         "x": 0,
-        "y": 105
+        "y": 109
       },
       "id": 22,
       "options": {
@@ -5718,8 +6132,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5736,7 +6149,7 @@
         "h": 10,
         "w": 8,
         "x": 8,
-        "y": 105
+        "y": 109
       },
       "id": 661,
       "options": {
@@ -5851,8 +6264,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5869,7 +6281,7 @@
         "h": 10,
         "w": 8,
         "x": 16,
-        "y": 105
+        "y": 109
       },
       "id": 662,
       "options": {
@@ -5953,8 +6365,8 @@
       {
         "current": {
           "selected": false,
-          "text": "rtme-mx301-01",
-          "value": "rtme-mx301-01"
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "influxdb",
@@ -5977,8 +6389,8 @@
       {
         "current": {
           "selected": false,
-          "text": "et-0/0/12:0 - LANE0",
-          "value": "et-0/0/12:0 - LANE0"
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "influxdb",
@@ -6001,8 +6413,8 @@
       {
         "current": {
           "selected": false,
-          "text": "0/0/12",
-          "value": "0/0/12"
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "influxdb",
@@ -6032,6 +6444,6 @@
   "timezone": "",
   "title": "OPTIC MONITORING PROFILE - JTSO",
   "uid": "opticdashboard",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
