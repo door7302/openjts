@@ -856,6 +856,11 @@
           "mappings": [
             {
               "options": {
+                "-1": {
+                  "color": "transparent",
+                  "index": 2,
+                  "text": "N.A"
+                },
                 "false": {
                   "color": "transparent",
                   "index": 1,
@@ -891,6 +896,18 @@
               {
                 "id": "custom.width",
                 "value": 134
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Temp H. Alrm"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 106
               }
             ]
           }
@@ -932,10 +949,11 @@
               "type": "tag"
             }
           ],
+          "hide": false,
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"lane_laser_bias_current_high_alarm\"), last(\"lane_laser_bias_current_high_warning\"), last(\"lane_laser_bias_current_low_warning\"), last(\"lane_laser_output_power_high_alarm\"), last(\"lane_laser_output_power_high_warning\"), last(\"lane_laser_output_power_low_alarm\"), last(\"lane_laser_output_power_low_warning\"), last(\"lane_laser_receiver_power_high_alarm\"), last(\"lane_laser_receiver_power_low_alarm\"), last(\"lane_laser_receiver_power_high_warning\"), last(\"lane_laser_receiver_power_low_warning\"), last(\"lane_laser_bias_current_low_alarm\"), last(\"lane_rx_loss_of_signal_alarm\"), last(\"lane_tx_loss_of_signal_alarm\"), last(\"module_temp_high_alarm\"), last(\"module_temp_high_warning\"), last(\"module_temp_low_alarm\"), last(\"module_temp_low_warning\"), last(\"lane_tx_laser_disabled_alarm\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter GROUP BY \"if_name\"::tag",
+          "query": "SELECT\n  -- Bias current\n  last(\"lane_laser_bias_current_high_alarm\")   AS bias_high_alarm,\n  last(\"lane_laser_bias_current_high_warning\") AS bias_high_warn,\n  last(\"lane_laser_bias_current_low_alarm\")    AS bias_low_alarm,\n  last(\"lane_laser_bias_current_low_warning\")  AS bias_low_warn,\n\n  -- Output power\n  last(\"lane_laser_output_power_high_alarm\")   AS outpow_high_alarm,\n  last(\"lane_laser_output_power_high_warning\") AS outpow_high_warn,\n  last(\"lane_laser_output_power_low_alarm\")    AS outpow_low_alarm,\n  last(\"lane_laser_output_power_low_warning\")  AS outpow_low_warn,\n\n  -- Receiver power\n  last(\"lane_laser_receiver_power_high_alarm\") AS recpow_high_alarm,\n  last(\"lane_laser_receiver_power_high_warning\") AS recpow_high_warn,\n  last(\"lane_laser_receiver_power_low_alarm\")  AS recpow_low_alarm,\n  last(\"lane_laser_receiver_power_low_warning\") AS recpow_low_warn,\n\n  -- Loss of signal\n  last(\"lane_rx_loss_of_signal_alarm\")         AS rx_los_alarm,\n  last(\"lane_tx_loss_of_signal_alarm\")         AS tx_los_alarm,\n\n  -- Tx laser disabled\n  last(\"lane_tx_laser_disabled_alarm\")         AS tx_laser_disabled,\n\n  -- Module temperature\n  last(\"module_temp_high_alarm\")               AS temp_high_alarm,\n  last(\"module_temp_high_warning\")             AS temp_high_warn,\n  last(\"module_temp_low_alarm\")                AS temp_low_alarm,\n  last(\"module_temp_low_warning\")              AS temp_low_warn\nFROM \"COMPONENTS\"\nWHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter\nGROUP BY \"if_name\"::tag, lane_number fill(-1)",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -1169,64 +1187,41 @@
       "title": "Current Optical Alarm",
       "transformations": [
         {
-          "id": "filterFieldsByName",
-          "options": {
-            "include": {
-              "names": [
-                "if_name",
-                "last",
-                "last_1",
-                "last_2",
-                "last_3",
-                "last_4",
-                "last_5",
-                "last_6",
-                "last_7",
-                "last_8",
-                "last_9",
-                "last_10",
-                "last_11",
-                "last_12",
-                "last_13",
-                "last_14",
-                "last_15",
-                "last_16",
-                "last_17",
-                "last_18"
-              ]
-            }
-          }
-        },
-        {
           "id": "organize",
           "options": {
             "excludeByName": {
-              "if_name": false
+              "Time": true,
+              "if_name": false,
+              "last_3": false,
+              "last_7": false
             },
             "includeByName": {},
             "indexByName": {
               "if_name": 0,
-              "last": 3,
-              "last_1": 11,
-              "last_10": 13,
-              "last_11": 7,
-              "last_12": 17,
-              "last_13": 18,
-              "last_14": 4,
-              "last_15": 12,
-              "last_16": 8,
-              "last_17": 16,
-              "last_2": 15,
-              "last_3": 2,
-              "last_4": 10,
-              "last_5": 6,
-              "last_6": 14,
-              "last_7": 1,
-              "last_8": 5,
-              "last_9": 9
+              "lane_number": 1,
+              "last": 4,
+              "last_1": 12,
+              "last_10": 14,
+              "last_11": 8,
+              "last_12": 18,
+              "last_13": 19,
+              "last_14": 5,
+              "last_15": 13,
+              "last_16": 9,
+              "last_17": 17,
+              "last_18": 20,
+              "last_2": 16,
+              "last_3": 3,
+              "last_4": 11,
+              "last_5": 7,
+              "last_6": 15,
+              "last_7": 2,
+              "last_8": 6,
+              "last_9": 10
             },
             "renameByName": {
               "if_name": "Name",
+              "lane_number": "Lane",
               "last": "BIAS H. Alrm",
               "last_1": "BIAS H. Warn",
               "last_10": "RX L. Warn",
@@ -3794,8 +3789,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3975,8 +3969,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4105,8 +4098,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4204,8 +4196,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4403,8 +4394,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue",
-                "value": null
+                "color": "dark-blue"
               }
             ]
           },
@@ -4507,8 +4497,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue",
-                "value": null
+                "color": "dark-blue"
               }
             ]
           },
@@ -4625,8 +4614,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue",
-                "value": null
+                "color": "dark-blue"
               }
             ]
           },
@@ -4775,8 +4763,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4908,8 +4895,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5041,8 +5027,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5174,8 +5159,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5324,8 +5308,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5457,8 +5440,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5590,8 +5572,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5723,8 +5704,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5856,8 +5836,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -5957,9 +5936,9 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "",
-          "value": ""
+          "selected": true,
+          "text": "rtme-mx301-01",
+          "value": "rtme-mx301-01"
         },
         "datasource": {
           "type": "influxdb",
@@ -5982,8 +5961,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "et-0/0/1 - TEST",
+          "value": "et-0/0/1 - TEST"
         },
         "datasource": {
           "type": "influxdb",
@@ -6006,8 +5985,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "0/0/1",
+          "value": "0/0/1"
         },
         "datasource": {
           "type": "influxdb",
@@ -6037,6 +6016,6 @@
   "timezone": "",
   "title": "OPTIC MONITORING PROFILE - JTSO",
   "uid": "opticdashboard",
-  "version": 4,
+  "version": 1,
   "weekStart": ""
 }
