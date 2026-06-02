@@ -151,7 +151,12 @@
           "show": false
         },
         "showHeader": true,
-        "sortBy": []
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "recpow_low_alarm"
+          }
+        ]
       },
       "pluginVersion": "10.3.1",
       "targets": [
@@ -172,7 +177,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT last(\"lane_laser_bias_current_high_alarm\"), last(\"lane_laser_bias_current_high_warning\"), last(\"lane_laser_bias_current_low_warning\"), last(\"lane_laser_output_power_high_alarm\"), last(\"lane_laser_output_power_high_warning\"), last(\"lane_laser_output_power_low_alarm\"), last(\"lane_laser_output_power_low_warning\"), last(\"lane_laser_receiver_power_high_alarm\"), last(\"lane_laser_receiver_power_low_alarm\"), last(\"lane_laser_receiver_power_high_warning\"), last(\"lane_laser_receiver_power_low_warning\"), last(\"lane_laser_bias_current_low_alarm\"), last(\"lane_rx_loss_of_signal_alarm\"), last(\"lane_tx_loss_of_signal_alarm\"), last(\"module_temp_high_alarm\"), last(\"module_temp_high_warning\"), last(\"module_temp_low_alarm\"), last(\"module_temp_low_warning\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY \"if_name\"::tag",
+          "query": "SELECT last(\"lane_laser_bias_current_high_alarm\") AS bias_high_alarm, last(\"lane_laser_bias_current_high_warning\") AS bias_high_warn, last(\"lane_laser_bias_current_low_alarm\") AS bias_low_alarm, last(\"lane_laser_bias_current_low_warning\") AS bias_low_warn, last(\"lane_laser_output_power_high_alarm\") AS outpow_high_alarm, last(\"lane_laser_output_power_high_warning\") AS outpow_high_warn, last(\"lane_laser_output_power_low_alarm\") AS outpow_low_alarm, last(\"lane_laser_output_power_low_warning\") AS outpow_low_warn, last(\"lane_laser_receiver_power_high_alarm\") AS recpow_high_alarm, last(\"lane_laser_receiver_power_high_warning\") AS recpow_high_warn, last(\"lane_laser_receiver_power_low_alarm\") AS recpow_low_alarm, last(\"lane_laser_receiver_power_low_warning\") AS recpow_low_warn, last(\"lane_rx_loss_of_signal_alarm\") AS rx_los_alarm, last(\"lane_tx_loss_of_signal_alarm\") AS tx_los_alarm, last(\"lane_tx_laser_disabled_alarm\") AS tx_laser_disabled, last(\"module_temp_high_alarm\") AS temp_high_alarm, last(\"module_temp_high_warning\") AS temp_high_warn, last(\"module_temp_low_alarm\") AS temp_low_alarm, last(\"module_temp_low_warning\") AS temp_low_warn FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY \"if_name\"::tag",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -412,6 +417,7 @@
       "title": "Current Optical Alarm",
       "transformations": [
         {
+          "disabled": true,
           "id": "filterFieldsByName",
           "options": {
             "include": {
@@ -443,8 +449,10 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "Time": true,
               "if_name": false
             },
+            "includeByName": {},
             "indexByName": {
               "if_name": 0,
               "last": 3,
@@ -4703,9 +4711,9 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "",
-          "value": ""
+          "selected": true,
+          "text": "rtme-mx301-01",
+          "value": "rtme-mx301-01"
         },
         "datasource": {
           "type": "influxdb",
@@ -4727,9 +4735,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "",
-          "value": ""
+          "selected": true,
+          "text": "et-0/0/12:3 - Unknown",
+          "value": "et-0/0/12:3 - Unknown"
         },
         "datasource": {
           "type": "influxdb",
@@ -4752,8 +4760,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "0/0/12",
+          "value": "0/0/12"
         },
         "datasource": {
           "type": "influxdb",
@@ -4783,6 +4791,6 @@
   "timezone": "",
   "title": "ZR/ZR+ OPTICS PROFILE - JTS",
   "uid": "opticzrdashboard",
-  "version": 4,
+  "version": 1,
   "weekStart": ""
 }

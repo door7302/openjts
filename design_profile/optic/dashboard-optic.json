@@ -856,15 +856,15 @@
           "mappings": [
             {
               "options": {
-                "-1": {
-                  "color": "transparent",
-                  "index": 2,
-                  "text": "N.A"
-                },
                 "false": {
                   "color": "transparent",
                   "index": 1,
                   "text": "no"
+                },
+                "null": {
+                  "color": "transparent",
+                  "index": 2,
+                  "text": "N.A"
                 },
                 "true": {
                   "color": "dark-red",
@@ -953,7 +953,7 @@
           "measurement": "COMPONENTS",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT\n  -- Bias current\n  last(\"lane_laser_bias_current_high_alarm\")   AS bias_high_alarm,\n  last(\"lane_laser_bias_current_high_warning\") AS bias_high_warn,\n  last(\"lane_laser_bias_current_low_alarm\")    AS bias_low_alarm,\n  last(\"lane_laser_bias_current_low_warning\")  AS bias_low_warn,\n\n  -- Output power\n  last(\"lane_laser_output_power_high_alarm\")   AS outpow_high_alarm,\n  last(\"lane_laser_output_power_high_warning\") AS outpow_high_warn,\n  last(\"lane_laser_output_power_low_alarm\")    AS outpow_low_alarm,\n  last(\"lane_laser_output_power_low_warning\")  AS outpow_low_warn,\n\n  -- Receiver power\n  last(\"lane_laser_receiver_power_high_alarm\") AS recpow_high_alarm,\n  last(\"lane_laser_receiver_power_high_warning\") AS recpow_high_warn,\n  last(\"lane_laser_receiver_power_low_alarm\")  AS recpow_low_alarm,\n  last(\"lane_laser_receiver_power_low_warning\") AS recpow_low_warn,\n\n  -- Loss of signal\n  last(\"lane_rx_loss_of_signal_alarm\")         AS rx_los_alarm,\n  last(\"lane_tx_loss_of_signal_alarm\")         AS tx_los_alarm,\n\n  -- Tx laser disabled\n  last(\"lane_tx_laser_disabled_alarm\")         AS tx_laser_disabled,\n\n  -- Module temperature\n  last(\"module_temp_high_alarm\")               AS temp_high_alarm,\n  last(\"module_temp_high_warning\")             AS temp_high_warn,\n  last(\"module_temp_low_alarm\")                AS temp_low_alarm,\n  last(\"module_temp_low_warning\")              AS temp_low_warn\nFROM \"COMPONENTS\"\nWHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter\nGROUP BY \"if_name\"::tag, lane_number fill(-1)",
+          "query": "SELECT last(\"lane_laser_bias_current_high_alarm\") AS bias_high_alarm, last(\"lane_laser_bias_current_high_warning\") AS bias_high_warn, last(\"lane_laser_bias_current_low_alarm\") AS bias_low_alarm, last(\"lane_laser_bias_current_low_warning\") AS bias_low_warn, last(\"lane_laser_output_power_high_alarm\") AS outpow_high_alarm, last(\"lane_laser_output_power_high_warning\") AS outpow_high_warn, last(\"lane_laser_output_power_low_alarm\") AS outpow_low_alarm, last(\"lane_laser_output_power_low_warning\") AS outpow_low_warn, last(\"lane_laser_receiver_power_high_alarm\") AS recpow_high_alarm, last(\"lane_laser_receiver_power_high_warning\") AS recpow_high_warn, last(\"lane_laser_receiver_power_low_alarm\") AS recpow_low_alarm, last(\"lane_laser_receiver_power_low_warning\") AS recpow_low_warn, last(\"lane_rx_loss_of_signal_alarm\") AS rx_los_alarm, last(\"lane_tx_loss_of_signal_alarm\") AS tx_los_alarm, last(\"lane_tx_laser_disabled_alarm\") AS tx_laser_disabled, last(\"module_temp_high_alarm\") AS temp_high_alarm, last(\"module_temp_high_warning\") AS temp_high_warn, last(\"module_temp_low_alarm\") AS temp_low_alarm, last(\"module_temp_low_warning\") AS temp_low_warn FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) GROUP BY \"if_name\" ",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -3789,7 +3789,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3969,7 +3970,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -4098,7 +4100,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -4196,7 +4199,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -4394,7 +4398,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue"
+                "color": "dark-blue",
+                "value": null
               }
             ]
           },
@@ -4497,7 +4502,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue"
+                "color": "dark-blue",
+                "value": null
               }
             ]
           },
@@ -4614,7 +4620,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "dark-blue"
+                "color": "dark-blue",
+                "value": null
               }
             ]
           },
@@ -4763,7 +4770,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -4895,7 +4903,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -5027,7 +5036,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -5159,7 +5169,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -5308,7 +5319,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -5440,7 +5452,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -5572,7 +5585,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -5704,7 +5718,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -5836,7 +5851,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -5936,7 +5952,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "rtme-mx301-01",
           "value": "rtme-mx301-01"
         },
@@ -5961,8 +5977,8 @@
       {
         "current": {
           "selected": false,
-          "text": "et-0/0/1 - TEST",
-          "value": "et-0/0/1 - TEST"
+          "text": "et-0/0/12:0 - LANE0",
+          "value": "et-0/0/12:0 - LANE0"
         },
         "datasource": {
           "type": "influxdb",
@@ -5985,8 +6001,8 @@
       {
         "current": {
           "selected": false,
-          "text": "0/0/1",
-          "value": "0/0/1"
+          "text": "0/0/12",
+          "value": "0/0/12"
         },
         "datasource": {
           "type": "influxdb",
@@ -6016,6 +6032,6 @@
   "timezone": "",
   "title": "OPTIC MONITORING PROFILE - JTSO",
   "uid": "opticdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }

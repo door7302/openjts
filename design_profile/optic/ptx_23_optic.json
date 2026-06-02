@@ -494,7 +494,11 @@
                 "COMPONENTS"
             ],
             "float_type": [
-                "wavelength_setpoint"
+                "wavelength_setpoint",
+                "temp_high_alarm",
+                "temp_high_warn",
+                "temp_low_alarm",
+                "temp_low_warn"
             ]
         }
     ],
