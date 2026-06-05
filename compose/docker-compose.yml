@@ -259,7 +259,7 @@ services:
       - ./grafana/data:/var/lib/grafana
       - ./grafana/plugins:/var/lib/grafana/plugins
   jtso:
-    build: https://github.com/door7302/jtso.git#v1.1.2
+    build: https://github.com/door7302/jtso.git#improvements
     image: jtso:latest
     container_name: jtso
     restart: always
@@ -273,6 +273,7 @@ services:
       - ./jtso/config.yml:/etc/jtso/config.yml
       - ./.version:/etc/jtso/openjts.version
       - ./jtso/cert:/var/cert
+      - ./jtso/yang:/var/yang
       - ./jtso/profiles:/var/profiles
       - ./jtso/ondemand:/var/ondemand
       - ./jtso/active_profiles:/var/active_profiles
