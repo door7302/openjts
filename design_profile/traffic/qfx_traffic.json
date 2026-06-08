@@ -290,6 +290,26 @@
                     "type": 1,
                     "from": "/cos/interfaces/interface/input/queues/queue/pfes/pfe/peak-queue-length-percent",
                     "to": "voq_cos_buffer_peak_percent"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/state/counters/out-queue/allocated-buffer-size",
+                    "to": "cos_buffer_size"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/state/counters/out-queue/peak-buffer-occupancy",
+                    "to": "cos_buffer_peak"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/state/counters/out-queue/cur-buffer-occupancy",
+                    "to": "cos_buffer_cur"
+                },
+                {
+                    "type": 1,
+                    "from": "/interfaces/interface/state/counters/out-queue/avg-buffer-occupancy",
+                    "to": "cos_buffer_avg"
                 }
             ]
         }
@@ -477,7 +497,11 @@
                 "voq_cos_buffer_cur",
                 "voq_cos_buffer_cur_percent",
                 "voq_cos_buffer_peak",
-                "voq_cos_buffer_peak_percent"
+                "voq_cos_buffer_peak_percent",
+                "cos_buffer_size",
+                "cos_buffer_peak",
+                "cos_buffer_cur",
+                "cos_buffer_avg"
             ]
         }
     ]
