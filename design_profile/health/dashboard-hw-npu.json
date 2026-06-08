@@ -152,12 +152,12 @@
             "indexByName": {
               "HW_TYPE": 1,
               "MODEL": 3,
+              "SHORTNAME": 2,
               "Time": 0,
               "VERSION": 4,
               "_component_id": 5,
               "component": 8,
               "component_name": 9,
-              "SHORTNAME": 2,
               "host": 10,
               "if_name": 6,
               "last": 12,
@@ -166,8 +166,8 @@
             },
             "renameByName": {
               "MODEL": "Router Model",
-              "VERSION": "Device Version",
-              "SHORTNAME": "Device Name"
+              "SHORTNAME": "Device Name",
+              "VERSION": "Device Version"
             }
           }
         }
@@ -693,7 +693,7 @@
         "options": [],
         "query": "show tag values from HW_NPU  with key=\"component_name\" where SHORTNAME=~/$rtr/",
         "refresh": 1,
-        "regex": ".*NPU.*",
+        "regex": "^FPC\\d+:\\w+$",
         "skipUrlSync": false,
         "sort": 1,
         "type": "query"
@@ -712,14 +712,14 @@
           "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "show tag values from HW_NPU with key=\"property_name\" where component_name=~/$comp_name/",
+        "definition": "show tag values from HW_NPU with key=\"property_name\" where component_name='$comp_name'",
         "hide": 0,
         "includeAll": true,
         "label": "HW Property",
         "multi": true,
         "name": "prop_name",
         "options": [],
-        "query": "show tag values from HW_NPU with key=\"property_name\" where component_name=~/$comp_name/",
+        "query": "show tag values from HW_NPU with key=\"property_name\" where component_name='$comp_name'",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -734,7 +734,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "NPU HW MONITORING PROFILE - JTSO",
+  "title": "HW KPI MONITORING PROFILE - JTSO",
   "uid": "simplehwdashboard",
   "version": 1,
   "weekStart": ""
