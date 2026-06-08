@@ -36,6 +36,12 @@
         "version": "all",
         "conf": "qfx_health.json"
       }
+    ],
+    "ex": [
+      {
+        "version": "all",
+        "conf": "ex_health.json"
+      }
     ]
   },
   "kapacitor": null,

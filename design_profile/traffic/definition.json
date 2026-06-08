@@ -22,6 +22,14 @@
     "acx": [{
       "version": "all",
       "conf": "acx_traffic.json"
+    }],
+    "qfx": [{
+      "version": "all",
+      "conf": "qfx_traffic.json"
+    }],
+    "es": [{
+      "version": "all",
+      "conf": "ex_traffic.json"
     }]
   },
   "kapacitor": [
