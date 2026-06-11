@@ -25,7 +25,7 @@ jobs:
       # ----------------------------
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.12'
 
       # ----------------------------
       # Install MkDocs dependencies
@@ -33,10 +33,10 @@ jobs:
       - name: Install Python dependencies
         run: |
           pip install --upgrade pip
-          pip install mkdocs==1.4.2
+          pip install mkdocs==1.6.1
           pip install mkdocs-material==9.6.9
           pip install mkdocs-material[extras]
-          pip install pymdown-extensions==10.16.1
+          pip install pymdown-extensions==10.21.1
           pip install markdown-katex==202406.1035
           pip install mkdocs-gen-files==0.5.0
           pip install mkdocs-minify-plugin==0.8.0
