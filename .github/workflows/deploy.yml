@@ -76,8 +76,7 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
-      - name: Install GitHub CLI
-        uses: cli/cli@v2
+      # REMOVED: Install GitHub CLI step (gh is already preinstalled)
 
       - name: Remove obsolete branch previews
         env:
