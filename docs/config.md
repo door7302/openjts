@@ -4,13 +4,15 @@
 
 Gnmi and Netconf passwords are encrypted into the DB. JTSO uses an external secret that could be changed if needed. For that edit the `.env` file:
 
-````
+```
+
 vi compose/.env
 
 [...]
 APP_SECRET="DEFAULT_APP_SECRET_CHANGE_ME"
 [...]
-````
+
+```
 
 A change of the secret requires a reboot of the stack (if this one was running during the modification):
 
