@@ -8,7 +8,7 @@ https://docs.docker.com/engine/install/ubuntu/
 
 Then execute the following commands:
 
-```shell
+```
 sudo umask 022
 
 sudo apt-get update
@@ -29,7 +29,7 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 
 You must authenticate once to download images from Docker Hub:
 
-```shell
+```
 docker login --username <your-username>
 ```
 
@@ -37,7 +37,7 @@ docker login --username <your-username>
 
 Run the following test container:
 
-```shell
+```
 docker run hello-world
 ```
 
@@ -49,14 +49,14 @@ If everything is working properly, Docker should display a confirmation message.
 
 From the root account, create a dedicated user for OpenJTS:
 
-```shell
+```
 adduser openjts
 adduser openjts sudo
 ```
 
 ### 2. Switch to the New User
 
-```shell
+```
 su - openjts
 ```
 
@@ -64,7 +64,7 @@ su - openjts
 
 Create a working directory and clone the OpenJTS repository:
 
-```shell
+```
 mkdir -p ~/JTS
 cd ~/JTS
 
@@ -77,7 +77,7 @@ git clone https://github.com/door7302/openjts .
 
 Navigate to the `compose` directory and build all containers:
 
-```shell
+```
 cd compose
 docker compose build --no-cache
 ```

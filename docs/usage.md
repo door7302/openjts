@@ -4,7 +4,7 @@
 
 To start OpenJTS, deploy the stack using Docker Compose.
 
-```shell
+```
 cd compose/
 sudo docker compose up -d
 ```
@@ -13,7 +13,7 @@ sudo docker compose up -d
 
 You can verify that all containers are running with:
 
-```shell
+```
 sudo docker compose ps
 ```
 
@@ -31,7 +31,7 @@ JTS logs are written to:
 
 To stop and remove the running containers:
 
-```shell
+```
 cd compose/
 sudo docker compose down
 ```

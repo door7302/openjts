@@ -4,7 +4,7 @@
 
 Gnmi and Netconf passwords are encrypted into the DB. JTSO uses an external secret that could be changed if needed. For that edit the `.env` file:
 
-```shell
+```
 vi compose/.env
 
 [...]
@@ -14,7 +14,7 @@ APP_SECRET="DEFAULT_APP_SECRET_CHANGE_ME"
 
 A change of the secret requires a reboot of the stack (if this one was running during the modification):
 
-```shell
+```
 cd compose/
 
 docker compose down
@@ -27,7 +27,7 @@ If you want to enable HTTPS for both **JTSO** and **Grafana**, you can generate 
 
 ### 1. Generate Self-Signed Certificates
 
-```shell
+```
 # Go to the jtso certificate directory
 cd ./compose/jtso/cert
 
@@ -40,7 +40,7 @@ sudo openssl req -new -key server.key -out server.csr
 
 You will be prompted to enter certificate information:
 
-```shell
+```
 Country Name (2 letter code) [AU]: FR
 State or Province Name (full name) [Some-State]: France
 Locality Name (eg, city) []: Paris
@@ -52,7 +52,7 @@ Email Address []: xxx@yyy.com
 
 Then generate the certificate:
 
-```shell
+```
 sudo openssl x509 -req -sha256 -days 365 -in server.csr -signkey server.key -out server.crt
 ```
 
@@ -60,7 +60,7 @@ sudo openssl x509 -req -sha256 -days 365 -in server.csr -signkey server.key -out
 
 Edit the JTSO configuration file:
 
-```shell
+```
 sudo vi compose/jtso/config.yml
 ```
 
@@ -76,7 +76,7 @@ modules:
 
 Then change the JTSO port from 80 to 443 in `.env` file
 
-```shell
+```
 vi compose/.env
 
 [...]
@@ -86,7 +86,7 @@ JTSO_PORT=443
 
 You must restart the stack then (if this one was running during the modification):
 
-```shell
+```
 cd compose/
 
 docker compose down
@@ -95,7 +95,7 @@ docker compose up -d
 
 ### 3. Copy Certificates to Grafana Cert Folder
 
-```shell
+```
 cd compose/jtso/cert
 sudo cp server.* ../../grafana/cert
 ```
@@ -104,7 +104,7 @@ sudo cp server.* ../../grafana/cert
 
 Edit the Grafana configuration file:
 
-```shell
+```
 sudo vi compose/grafana/grafana.ini
 ```
 
@@ -119,7 +119,7 @@ cert_key = /tmp/server.key
 
 You must restart the Grafana container then (if this one was running during the modification):
 
-```shell
+```
 cd compose/
 
 docker compose restart grafana
@@ -135,7 +135,7 @@ By default:
 
 You can modify these public-facing ports by editing the `.env` file before starting the stack.
 
-```shell
+```
 cat compose/.env
 
 GRAFANA_PORT=8080
@@ -145,7 +145,7 @@ JTSO_PORT=80
 
 If you change the **Grafana public port**, you must also update the JTSO configuration:
 
-```shell
+```
 sudo vi compose/jtso/config.yml
 ```
 
@@ -157,7 +157,7 @@ modules:
 
 You must restart the Grafana container then (if this one was running during the modification):
 
-```shell
+```
 cd compose/
 
 docker compose restart grafana
@@ -172,7 +172,7 @@ OpenJTS establishes TCP sessions toward routing devices for:
 
 These ports can be modified if required. Once modified, it requires to restart JTSO - don't forget to modify your router's config as well. 
 
-```shell
+```
 cd compose/
 
 docker compose restart jtso
@@ -182,7 +182,7 @@ docker compose restart jtso
 
 Edit:
 
-```shell
+```
 sudo vi compose/jtso/config.yml
 ```
 
@@ -198,7 +198,7 @@ protocols:
 
 Edit:
 
-```shell
+```
 sudo vi compose/jtso/config.yml
 ```
 
@@ -217,7 +217,7 @@ To enable TLS for gNMI across all routers, create a self-signed CA.
 
 ### 1. Create Root CA
 
-```shell
+```
 cd compose/telegraf/cert
 
 sudo openssl genrsa -out RootCA.key 2048
@@ -226,7 +226,7 @@ sudo openssl req -x509 -new -key RootCA.key -days 3650 -out RootCA.crt
 
 ### 2. (Optional) Generate Telegraf Client Certificate
 
-```shell
+```
 sudo openssl genrsa -out client.key 2048
 sudo openssl req -new -key client.key -out client.csr
 sudo openssl x509 -req -in client.csr -CA RootCA.crt -CAkey RootCA.key -CAcreateserial -out client.crt -days 365
@@ -234,7 +234,7 @@ sudo openssl x509 -req -in client.csr -CA RootCA.crt -CAkey RootCA.key -CAcreate
 
 ### 3. Generate Router Certificate (Repeat for Each Router)
 
-```shell
+```
 sudo openssl genrsa -out router.key 2048
 sudo openssl req -new -key router.key -out router.csr
 sudo openssl x509 -req -in router.csr -CA RootCA.crt -CAkey RootCA.key -CAcreateserial -out router.crt -days 365
