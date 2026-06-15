@@ -23,7 +23,9 @@ git stash
 git pull
 ```
 
-### 3. Remove Old Images
+### 3. Backup enrironment files 
+
+### 4. Remove Old Images
 
 Remove the previously built images to ensure a clean rebuild:
 
@@ -33,7 +35,7 @@ docker image rm jtso -f
 docker image rm jts_telegraf -f
 ```
 
-### 4. Rebuild Containers
+### 5. Rebuild Containers
 
 ```shell
 docker compose build --no-cache
@@ -41,7 +43,9 @@ docker compose build --no-cache
 
 This forces Docker to rebuild all images without using cached layers.
 
-### 5. Restart the Stack
+### 6. Move back enrironment files 
+
+### 7. Restart the Stack
 
 ```shell
 docker compose up -d

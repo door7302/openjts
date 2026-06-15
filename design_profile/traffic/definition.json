@@ -27,7 +27,7 @@
       "version": "all",
       "conf": "qfx_traffic.json"
     }],
-    "es": [{
+    "ex": [{
       "version": "all",
       "conf": "ex_traffic.json"
     }]
