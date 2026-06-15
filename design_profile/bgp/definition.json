@@ -18,6 +18,26 @@
     "acx": [{
       "version": "all",
       "conf": "acx_bgp.json"
+    }],
+    "qfx": [{
+      "version": "all",
+      "conf": "qfx_bgp.json"
+    }],
+    "ex": [{
+      "version": "all",
+      "conf": "ex_bgp.json"
+    }],
+    "crpd": [{
+      "version": "all",
+      "conf": "crpd_bgp.json"
+    }],
+    "vjunos": [{
+      "version": "all",
+      "conf": "vjunos_bgp.json"
+    }],
+    "vevo": [{
+      "version": "all",
+      "conf": "vevo_bgp.json"
     }]
   },
   "kapacitor": null,
