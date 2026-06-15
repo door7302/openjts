@@ -265,7 +265,7 @@
   "enrichment_list": [{
     "order": 400,
     "namepass": ["INTERFACES", "SUBINTERFACES"],
-    "family": "mx",
+    "family": "ex",
     "two_levels": true,
     "level1_tag": "device",
     "level2_tags": ["if_name"]

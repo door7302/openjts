@@ -3037,7 +3037,7 @@
             }
           },
           "mappings": [],
-          "noValue": "No Date or Sensor not supported/applicable",
+          "noValue": "No Data or Sensor not supported/applicable",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -3164,7 +3164,7 @@
             }
           },
           "mappings": [],
-          "noValue": "No Date or Sensor not supported/applicable",
+          "noValue": "No Data or Sensor not supported/applicable",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -3293,7 +3293,7 @@
             }
           },
           "mappings": [],
-          "noValue": "No Date or Sensor not supported/applicable",
+          "noValue": "No Data or Sensor not supported/applicable",
           "thresholds": {
             "mode": "absolute",
             "steps": [
