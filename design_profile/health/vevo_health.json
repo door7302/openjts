@@ -200,7 +200,7 @@
   "enrichment_list": [{
     "order": 400,
     "namepass": ["COMPONENTS", "JUNOS_ALARMS", "SYSTEM",  "HW_NPU"],
-    "family": "vmx",
+    "family": "vevo",
     "two_levels": false,
     "level1_tag": "device"
   }],
