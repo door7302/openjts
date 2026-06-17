@@ -239,6 +239,8 @@ services:
       - /var/log:/var/log
       - ./grafana/cert:/etc/chronograf/certs
       - ./chronograf/config.toml:/etc/default/chronograf
+      - ./chronograf/entrypoint.sh:/entrypoint.sh
+    entrypoint: ["/entrypoint.sh"]
   grafana:
     image: grafana/grafana:10.3.1
     container_name: grafana
