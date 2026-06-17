@@ -238,8 +238,7 @@ services:
     volumes:
       - /var/log:/var/log
       - ./grafana/cert:/etc/chronograf/certs
-      - ./chronograf/config.toml:/etc/chronograf/config.toml
-    command: ["chronograf", "-config", "/etc/chronograf/config.toml"]
+      - ./chronograf/config.toml:/etc/default/chronograf
   grafana:
     image: grafana/grafana:10.3.1
     container_name: grafana
