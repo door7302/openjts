@@ -227,6 +227,8 @@ services:
   chronograf:
     image: chronograf:1.10
     container_name: chronograf
+    restart: always
+    user: root
     ports:
       - '${CHRONOGRAF_PORT}:8888'
     environment:
