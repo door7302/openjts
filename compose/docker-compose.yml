@@ -237,7 +237,7 @@ services:
       - kapacitor
     volumes:
       - /var/log:/var/log
-      - ./grafana/cert:/tmp:/etc/chronograf/certs
+      - ./grafana/cert:/etc/chronograf/certs
       - ./chronograf/config.toml:/etc/chronograf/config.toml
     command: ["chronograf", "-config", "/etc/chronograf/config.toml"]
   grafana:
