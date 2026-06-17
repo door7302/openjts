@@ -231,7 +231,9 @@ services:
       - '${CHRONOGRAF_PORT}:8888'
     environment:
       - INFLUXDB_URL=http://influxdb:8086 
-      - KAPACITOR_URL=http://kapacitor:9292 
+      - KAPACITOR_URL=http://kapacitor:9292
+      - TLS_CERTIFICATE=/etc/chronograf/certs/server.crt
+      - TLS_PRIVATE_KEY=/etc/chronograf/certs/server.key
     depends_on:
       - influxdb
       - kapacitor
