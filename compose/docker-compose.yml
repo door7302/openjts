@@ -230,8 +230,7 @@ services:
     ports:
       - '${CHRONOGRAF_PORT}:8888'
     environment:
-      - INFLUXDB_URL=http://influxdb:8086 
-      - KAPACITOR_URL=http://kapacitor:9292
+      - BOLT_PATH=/var/lib/chronograf/chronograf-v1.db
     depends_on:
       - influxdb
       - kapacitor
@@ -240,6 +239,7 @@ services:
       - ./grafana/cert:/etc/chronograf/certs
       - ./chronograf/chronograf.ini:/etc/chronograf/config.ini
       - ./chronograf/entrypoint.sh:/entrypoint.sh
+      - ./chronograf/data:/var/lib/chronograf
     entrypoint: ["bash", "-c", "chmod +x /entrypoint.sh && /entrypoint.sh"]
   grafana:
     image: grafana/grafana:10.3.1
