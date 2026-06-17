@@ -238,7 +238,7 @@ services:
     volumes:
       - /var/log:/var/log
       - ./grafana/cert:/etc/chronograf/certs
-      - ./chronograf.ini:/etc/chronograf/config.ini
+      - ./chronograf/chronograf.ini:/etc/chronograf/config.ini
       - ./chronograf/entrypoint.sh:/entrypoint.sh
     entrypoint: ["/entrypoint.sh"]
   grafana:
