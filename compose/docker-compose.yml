@@ -240,7 +240,7 @@ services:
       - ./grafana/cert:/etc/chronograf/certs
       - ./chronograf/chronograf.ini:/etc/chronograf/config.ini
       - ./chronograf/entrypoint.sh:/entrypoint.sh
-    entrypoint: ["/entrypoint.sh"]
+    entrypoint: ["bash", "-c", "chmod +x /entrypoint.sh && /entrypoint.sh"]
   grafana:
     image: grafana/grafana:10.3.1
     container_name: grafana
