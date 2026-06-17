@@ -1,0 +1,2 @@
+#tls_certificate = "/etc/chronograf/certs/server.crt"
+#tls_private_key = "/etc/chronograf/certs/server.key"
