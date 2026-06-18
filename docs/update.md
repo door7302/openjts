@@ -99,7 +99,7 @@ cp /tmp/jts-tmp/grafana.ini compose/grafana/
 cp /tmp/jts-tmp/chronograf.ini compose/chronograf/
 
 # If you use certificates you should also do this
-cp /tmp/jts-tmp/gCerts/* compose/grafana/cert/ert
+cp /tmp/jts-tmp/gCerts/* compose/grafana/cert/
 cp /tmp/jts-tmp/jCerts/* compose/jtso/cert/
 
 rm -rf /tmp/jts-tmp
