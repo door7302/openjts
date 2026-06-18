@@ -6,9 +6,10 @@ To update OpenJTS, follow the steps below.
 
 ### 1. Stop the Stack
 
-````
+```
+cd compose/
 docker compose down
-````
+```
 
 ### 2. Backup enrironment files 
 
@@ -68,6 +69,7 @@ docker image rm jts_telegraf -f
 ### 5. Rebuild Containers
 
 ````
+cd compose/
 docker compose build --no-cache
 ````
 
@@ -105,9 +107,10 @@ rm -rf /tmp/jts-tmp
 
 ### 7. Restart the Stack
 
-````
+```
+cd compose/
 docker compose up -d
-````
+```
 
 The stack is now updated and running with the latest version.
 
