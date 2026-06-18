@@ -4,18 +4,18 @@
 
 To start OpenJTS, deploy the stack using Docker Compose.
 
-```shell
+````
 cd compose/
 sudo docker compose up -d
-```
+````
 
 ## Verify Containers
 
 You can verify that all containers are running with:
 
-```shell
+````
 sudo docker compose ps
-```
+````
 
 > **Note:** Telegraf containers are started only if at least one router is assigned to the corresponding instance.
 
@@ -23,26 +23,26 @@ sudo docker compose ps
 
 JTS logs are written to:
 
-```
+````
 /var/log/jtso.log
-```
+````
 
 ## Stop the Stack
 
 To stop and remove the running containers:
 
-```shell
+````
 cd compose/
 sudo docker compose down
-```
+````
 
 ## Managing the Stack via JTSO
 
 Once the stack is running, access the JTSO portal:
 
-```
+````
 http(s)://<your-ip>:<your-port>/index.html
-```
+````
 
 The main page provides:
 
@@ -80,9 +80,9 @@ The button turns **red** when active.
 
 Go to:
 
-```
+````
 Admin > Settings
-```
+````
 
 ### Change Credentials 
 
@@ -182,9 +182,9 @@ External Kafka export applies to selected profiles (see Profiles > Association),
 
 Go to:
 
-```
+````
 Routers
-```
+````
 
 For each router, configure:
 
@@ -197,9 +197,10 @@ JTSO will automatically establish a NETCONF session to retrieve device facts (mo
 
 You can also import a CSV file. The required format is shown by clicking the **Info** button or as below:
 
-```csv
+````
+csv
 shortName;hostName
-```
+````
 
 Alternatively, to refresh a router's facts, click the refresh **icon** next to the desired router. You may also remove a router by clicking on the delete **icon**. 
 
@@ -208,9 +209,9 @@ Alternatively, to refresh a router's facts, click the refresh **icon** next to t
 
 Go to:
 
-```
+````
 Profiles > Management
-```
+````
 
 This section provides:
 
@@ -248,9 +249,9 @@ You can revert to the default interval by clicking the **Reset to Default** butt
 
 Go to:
 
-```
+````
 Profiles > Associations
-```
+````
 
 From this page, you can assign or remove profiles for each router. Any modification automatically triggers a stack reconfiguration. For a given collection of profiles, you can select the "Publish to Kafka as well" option. This option is only available/visible if Kafka has been enabled previously (see Settings). The collections of profiles for selected devices subject to Kafka export are notified via a "Kafka yellow badge".
 
@@ -258,9 +259,10 @@ From this page, you can assign or remove profiles for each router. Any modificat
 
 You can also import a CSV file. The required format is displayed by clicking the **Info** button or as shown below:
 
-```csv
+````
+csv
 shortName;profile1;profile2;profile3
-```
+````
 
 Once profiles are assigned, they are combined to generate a Telegraf configuration. To view the full aggregated Telegraf TOML configuration, click the green **file** icon:
 
@@ -270,9 +272,9 @@ Once profiles are assigned, they are combined to generate a Telegraf configurati
 
 Go to:
 
-```
+````
 Tools > Gnmi Browser
-```
+````
 
 Steps:
 
@@ -360,9 +362,9 @@ This feature is designed for troubleshooting purposes when existing profiles are
 
 It also provides a simple way to share custom profiles created by end users with the OpenJTS maintainer. This helps speed up the integration of new profiles by supplying a JSON configuration file (see below).
 
-```
+````
 Tools > On-Demand Graph
-```
+````
 
 The main On-Demand Graph UI is shown below:
 
@@ -506,9 +508,9 @@ A dedicated Grafana dashboard is automatically created:
 
 Go to:
 
-```
+````
 Admin > Stack Util. & Logs
-```
+````
 
 Monitor:
 
@@ -526,9 +528,9 @@ You can also view container logs directly:
 
 Go to:
 
-```
+````
 Admin > Manage InfluxDB
-```
+````
 
 This opens the Chronograf interface for managing InfluxDB measurements.
 
@@ -538,9 +540,9 @@ This opens the Chronograf interface for managing InfluxDB measurements.
 
 Go to:
 
-```
+````
 Admin > Manage Tick Scripts
-```
+````
 
 This opens the Chronograf interface for managing Kapacitor Tick scripts.
 
@@ -555,9 +557,9 @@ You can view or edit a specific script:
 
 Go to:
 
-```
+````
 Grafana
-```
+````
 
 This provides direct access to the Grafana portal.
 

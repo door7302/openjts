@@ -21,23 +21,23 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 sudo apt-get update
 
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-```
+````
 
 ### First-Time Docker Login
 
 You must authenticate once to download images from Docker Hub:
 
-```shell
+````
 docker login --username <your-username>
-```
+````
 
 ### Verify Installation
 
 Run the following test container:
 
-```shell
+````
 docker run hello-world
-```
+````
 
 If everything is working properly, Docker should display a confirmation message.
 
@@ -47,27 +47,27 @@ If everything is working properly, Docker should display a confirmation message.
 
 From the root account, create a dedicated user for OpenJTS:
 
-```shell
+````
 adduser openjts
 adduser openjts sudo
-```
+````
 
 ### 2. Switch to the New User
 
-```shell
+````
 su - openjts
-```
+````
 
 ### 3. Clone the Repository
 
 Create a working directory and clone the OpenJTS repository:
 
-```shell
+````
 mkdir -p ~/JTS
 cd ~/JTS
 
 git clone https://github.com/door7302/openjts .
-```
+````
 
 > **Note:** The last dot "." is useful. Don't miss it. 
 
@@ -75,9 +75,9 @@ git clone https://github.com/door7302/openjts .
 
 Navigate to the `compose` directory and build all containers:
 
-```shell
+````
 cd compose
 docker compose build --no-cache
-```
+````
 
 The stack images will now be built locally. You are ready to proceed with the configuration phase.

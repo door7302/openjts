@@ -277,27 +277,30 @@ Flowcharting requires [Grafana](https://www.grafana.com/) v5+ to run (not tested
 Download and install it 
 
 ## Manualy
-```sh
+````
+sh
 $ cd $grafana_home/data/plugin
 $ wget --no-check-certificate https://github.com/algenty/grafana-flowcharting/archive/master.zip
 $ unzip master.zip
-```
+````
 
 ## grafana-cli
 
-```sh
+````
+sh
 grafana-cli plugins install agenty-flowcharting-panel
-```
+````
 ## Build
 
-```sh
+````
+sh
 $ git clone https://github.com/algenty/grafana-flowcharting
 $ yarn build
 $ # Make zip file plugin in archives dir
 $ yarn archive
 $ # for dev watching
 $ yarn dev
-```
+````
 
 ## Class diagram
 https://www.draw.io/?chrome=0&lightbox=1&url=https%3A%2F%2Fraw.githubusercontent.com%2Falgenty%2Fflowcharting-repository%2Fmaster%2Fgraphs%2FFlowcharting_carto.drawio
