@@ -72,7 +72,7 @@
             "inspect": false
           },
           "mappings": [],
-          "noValue": "No data or Sensor not supported",
+          "noValue": "No data or Sensor not supported/applicable",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -363,8 +363,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -530,7 +529,7 @@
             "h": 2,
             "w": 24,
             "x": 0,
-            "y": 28
+            "y": 16
           },
           "id": 51,
           "options": {
@@ -612,7 +611,7 @@
             "h": 12,
             "w": 24,
             "x": 0,
-            "y": 30
+            "y": 18
           },
           "id": 2,
           "options": {
@@ -803,7 +802,7 @@
             "h": 15,
             "w": 12,
             "x": 0,
-            "y": 42
+            "y": 30
           },
           "id": 3,
           "options": {
@@ -993,7 +992,7 @@
             "h": 15,
             "w": 12,
             "x": 12,
-            "y": 42
+            "y": 30
           },
           "id": 53,
           "options": {
@@ -1349,7 +1348,7 @@
               },
               "mappings": [],
               "min": 0,
-              "noValue": "No data or Sensor not supported",
+              "noValue": "No data or Sensor not supported/applicable",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -1372,7 +1371,7 @@
             "h": 12,
             "w": 24,
             "x": 0,
-            "y": 57
+            "y": 45
           },
           "id": 7,
           "options": {
@@ -1511,7 +1510,7 @@
             "h": 2,
             "w": 24,
             "x": 0,
-            "y": 69
+            "y": 57
           },
           "id": 52,
           "options": {
@@ -1540,7 +1539,7 @@
               "decimals": 0,
               "mappings": [],
               "max": 100,
-              "noValue": "No data or Sensor not supported",
+              "noValue": "No data or Sensor not supported/applicable",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -1571,7 +1570,7 @@
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 71
+            "y": 59
           },
           "id": 9,
           "options": {
@@ -1650,7 +1649,7 @@
               "decimals": 0,
               "mappings": [],
               "max": 100,
-              "noValue": "No data or Sensor not supported",
+              "noValue": "No data or Sensor not supported/applicable",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -1681,7 +1680,7 @@
             "h": 6,
             "w": 9,
             "x": 9,
-            "y": 71
+            "y": 59
           },
           "id": 54,
           "options": {
@@ -1773,7 +1772,7 @@
             "h": 22,
             "w": 6,
             "x": 18,
-            "y": 71
+            "y": 59
           },
           "id": 11,
           "options": {
@@ -1853,7 +1852,7 @@
               "decimals": 0,
               "mappings": [],
               "max": 100,
-              "noValue": "No data or Sensor not supported",
+              "noValue": "No data or Sensor not supported/applicable",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -1884,7 +1883,7 @@
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 77
+            "y": 65
           },
           "id": 56,
           "options": {
@@ -1963,7 +1962,7 @@
               "decimals": 0,
               "mappings": [],
               "max": 100,
-              "noValue": "No data or Sensor not supported",
+              "noValue": "No data or Sensor not supported/applicable",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -1994,7 +1993,7 @@
             "h": 6,
             "w": 9,
             "x": 9,
-            "y": 77
+            "y": 65
           },
           "id": 57,
           "options": {
@@ -2104,7 +2103,7 @@
               "decimals": 0,
               "mappings": [],
               "max": 100,
-              "noValue": "No data or Sensor not supported",
+              "noValue": "No data or Sensor not supported/applicable",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -2135,7 +2134,7 @@
             "h": 10,
             "w": 9,
             "x": 0,
-            "y": 83
+            "y": 71
           },
           "id": 50,
           "options": {
@@ -2282,7 +2281,7 @@
               "mappings": [],
               "max": 100,
               "min": 0,
-              "noValue": "No data or Sensor not supported",
+              "noValue": "No data or Sensor not supported/applicable",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -2313,7 +2312,7 @@
             "h": 10,
             "w": 9,
             "x": 9,
-            "y": 83
+            "y": 71
           },
           "id": 55,
           "options": {
@@ -2456,7 +2455,7 @@
                 }
               },
               "mappings": [],
-              "noValue": "No data or Sensor not supported",
+              "noValue": "No data or Sensor not supported/applicable",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -2479,7 +2478,7 @@
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 93
+            "y": 81
           },
           "id": 48,
           "options": {
@@ -2599,7 +2598,7 @@
                 }
               },
               "mappings": [],
-              "noValue": "No data or Sensor not supported",
+              "noValue": "No data or Sensor not supported/applicable",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -2622,7 +2621,7 @@
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 93
+            "y": 81
           },
           "id": 4,
           "options": {
@@ -2742,7 +2741,7 @@
                 }
               },
               "mappings": [],
-              "noValue": "No data or Sensor not supported",
+              "noValue": "No data or Sensor not supported/applicable",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -2765,7 +2764,7 @@
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 105
+            "y": 93
           },
           "id": 49,
           "options": {
@@ -2885,7 +2884,7 @@
                 }
               },
               "mappings": [],
-              "noValue": "No data or Sensor not supported",
+              "noValue": "No data or Sensor not supported/applicable",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -2908,7 +2907,7 @@
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 105
+            "y": 93
           },
           "id": 5,
           "options": {
@@ -3000,7 +2999,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "",
           "value": ""
         },

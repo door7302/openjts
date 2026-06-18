@@ -24,12 +24,6 @@
         "path": "/system/processes/process/state",
         "mode": "sample",
         "interval": 60
-      },
-      {
-        "name": "JUNOS_EVENTS",
-        "path": "/junos/events/event",
-        "mode": "on_change",
-        "interval": 0
       }
     ]
   }],
@@ -100,7 +94,7 @@
     },
     {
       "order": 301,
-      "namepass": ["COMPONENTS", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS", "JUNOS_FABRIC"],
+      "namepass": ["COMPONENTS", "JUNOS_ALARMS", "SYSTEM",  "JUNOS_FABRIC"],
       "entries": [{
           "type": 0,
           "from": "/components/component/properties/property/@name",
@@ -130,11 +124,6 @@
           "type": 0,
           "from": "alarm-short-description",
           "to": "alarm_id_net"
-        },
-        {
-          "type": 0,
-          "from": "/junos/events/event/id",
-          "to": "event_id"
         },
         {
           "type": 1,
@@ -198,31 +187,6 @@
         },
         {
           "type": 1,
-          "from": "/junos/events/event/timestamp/microseconds",
-          "to": "microseconds"
-        },
-        {
-          "type": 1,
-          "from": "/junos/events/event/timestamp/seconds",
-          "to": "seconds"
-        },
-        {
-          "type": 1,
-          "from": "/junos/events/event/daemon",
-          "to": "daemon"
-        },
-        {
-          "type": 1,
-          "from": "/junos/events/event/hostname",
-          "to": "hostname"
-        },
-        {
-          "type": 1,
-          "from": "/junos/events/event/message",
-          "to": "message"
-        },
-        {
-          "type": 1,
           "from": "alarm-time",
           "to": "alarm_time_net"
         },
@@ -246,7 +210,7 @@
   ],
   "converter_list": [{
     "order": 400,
-    "namepass": ["COMPONENTS", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS", "JUNOS_FABRIC", "HW_NPU"],
+    "namepass": ["COMPONENTS", "JUNOS_ALARMS", "SYSTEM",  "JUNOS_FABRIC", "HW_NPU"],
     "integer_type": [
       "idle_cpu",
       "linecard_cpu",
@@ -266,7 +230,7 @@
   }],
   "enrichment_list": [{
     "order": 400,
-    "namepass": ["COMPONENTS", "JUNOS_ALARMS", "SYSTEM", "JUNOS_EVENTS", "JUNOS_FABRIC", "HW_NPU"],
+    "namepass": ["COMPONENTS", "JUNOS_ALARMS", "SYSTEM",  "JUNOS_FABRIC", "HW_NPU"],
     "family": "acx",
     "two_levels": false,
     "level1_tag": "device"
@@ -329,11 +293,6 @@
       "linecard_cpu",
       "linecard_memory",
       "buffer_usage",
-      "microseconds",
-      "seconds",
-      "daemon",
-      "hostname",
-      "message",
       "alarm_time_net",
       "alarm_severity_net",
       "alarm_text_net",

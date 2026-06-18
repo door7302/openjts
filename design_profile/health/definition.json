@@ -36,6 +36,24 @@
         "version": "all",
         "conf": "qfx_health.json"
       }
+    ],
+    "ex": [
+      {
+        "version": "all",
+        "conf": "ex_health.json"
+      }
+    ],
+    "vevo": [
+      {
+        "version": "all",
+        "conf": "vevo_health.json"
+      }
+    ],
+    "vjunos": [
+      {
+        "version": "all",
+        "conf": "vjunos_health.json"
+      }
     ]
   },
   "kapacitor": null,

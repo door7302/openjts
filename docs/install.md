@@ -8,9 +8,7 @@ https://docs.docker.com/engine/install/ubuntu/
 
 Then execute the following commands:
 
-````
-sudo umask 022
-
+```shell
 sudo apt-get update
 sudo apt-get install -y ca-certificates curl gnupg
 

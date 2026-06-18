@@ -227,16 +227,22 @@ services:
   chronograf:
     image: chronograf:1.10
     container_name: chronograf
+    restart: always
+    user: root
     ports:
       - '${CHRONOGRAF_PORT}:8888'
     environment:
-      - INFLUXDB_URL=http://influxdb:8086 
-      - KAPACITOR_URL=http://kapacitor:9292 
+      - BOLT_PATH=/var/lib/chronograf/chronograf-v1.db
     depends_on:
       - influxdb
       - kapacitor
     volumes:
       - /var/log:/var/log
+      - ./grafana/cert:/etc/chronograf/certs
+      - ./chronograf/chronograf.ini:/etc/chronograf/config.ini
+      - ./chronograf/entrypoint.sh:/entrypoint.sh
+      - ./chronograf/data:/var/lib/chronograf
+    entrypoint: ["bash", "-c", "chmod +x /entrypoint.sh && /entrypoint.sh"]
   grafana:
     image: grafana/grafana:10.3.1
     container_name: grafana
@@ -259,7 +265,7 @@ services:
       - ./grafana/data:/var/lib/grafana
       - ./grafana/plugins:/var/lib/grafana/plugins
   jtso:
-    build: https://github.com/door7302/jtso.git#v1.1.2
+    build: https://github.com/door7302/jtso.git#1.2.0
     image: jtso:latest
     container_name: jtso
     restart: always
@@ -273,6 +279,7 @@ services:
       - ./jtso/config.yml:/etc/jtso/config.yml
       - ./.version:/etc/jtso/openjts.version
       - ./jtso/cert:/var/cert
+      - ./jtso/yang:/var/yang
       - ./jtso/profiles:/var/profiles
       - ./jtso/ondemand:/var/ondemand
       - ./jtso/active_profiles:/var/active_profiles

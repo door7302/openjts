@@ -17,7 +17,7 @@ You can verify that all containers are running with:
 sudo docker compose ps
 ````
 
-> Note: Telegraf containers are started only if at least one router is assigned to the corresponding instance.
+> **Note:** Telegraf containers are started only if at least one router is assigned to the corresponding instance.
 
 ## JTS Logs
 
@@ -57,6 +57,10 @@ The main page provides:
 A dark theme is available (top-right corner):
 
 ![jtso-dark.png](./img/jtso-dark.png)
+
+A **yellow badge** may appear in the top-right corner of the navigation bar to indicate that a new release of OpenJTS is available. Click the badge to open the [update stack procedure](./update.md).
+
+![jso-update.png](./img/jtso-update.png)
 
 ### Telegraf Containers Overview
 
@@ -161,11 +165,11 @@ You could use Kafka export in parallel of the data injestion into InfluxDB.
 
 > **Note*: Kafka is not part of the stack
 
-Make sure the OpenJTS VM will be able to connect to Kafka bus, otherwise the telegraf instances should continoustly reboot. 
+Make sure the OpenJTS VM will be able to connect to Kafka bus, **otherwise the telegraf instances should continoustly reboot**. 
 
 ![jtso-settings-4.png](./img/jtso-settings-4.png)
 
-External Kafka export applies to all profiles including On-demand profile. As of now, several Kafka Brokers may be configured, but only one Topic is allowed today. You could configure:
+External Kafka export applies to selected profiles (see Profiles > Association), and it is enabled for On-demand profile as well. As of now, several Kafka Brokers may be configured, but only one Topic is allowed today. You could configure:
 
 - **Kafka Brokers**: a list of tuple (address:port) seperated with a comma
 - **Kafka Topic**: the topic on which to produce
@@ -249,8 +253,7 @@ Go to:
 Profiles > Associations
 ````
 
-From this page, you can assign or remove profiles for each router.  
-Any modification automatically triggers a stack reconfiguration.
+From this page, you can assign or remove profiles for each router. Any modification automatically triggers a stack reconfiguration. For a given collection of profiles, you can select the "Publish to Kafka as well" option. This option is only available/visible if Kafka has been enabled previously (see Settings). The collections of profiles for selected devices subject to Kafka export are notified via a "Kafka yellow badge".
 
 ![jtso-profile-1.png](./img/jtso-profile-1.png)
 
@@ -261,8 +264,7 @@ csv
 shortName;profile1;profile2;profile3
 ````
 
-Once profiles are assigned, they are combined to generate a Telegraf configuration.  
-To view the full aggregated Telegraf TOML configuration, click the green **file** icon:
+Once profiles are assigned, they are combined to generate a Telegraf configuration. To view the full aggregated Telegraf TOML configuration, click the green **file** icon:
 
 ![jtso-profile-2.png](./img/jtso-profile-2.png)
 
@@ -280,8 +282,10 @@ Steps:
 2. Enter a sensor path
 3. Click Analyze
 
-The **Merge** option replaces numeric keys with `X` for easier analysis.  
-Uncheck Merge for full XPath expansion.
+There are 2 additionnal options (disabled by default):
+
+- The **Merge** option replaces numeric keys with `X` for easier analysis. Keep this option uncheck for full XPath expansion.
+- The **Set Timeout**: By default, OpenJTS waits 30 seconds, a time window opened for receiving a stream from a device. Sometimes, some scaled paths require more than 30 seconds to collect a large amount of data. This option can be used to increase the wait time.
 
 ![jtso-browser-1.png](./img/jtso-browser-1.png)
 
@@ -299,6 +303,56 @@ Results are displayed in tree view format:
 - Search within tree (matches highlighted in yellow)
 
 ![jtso-browser-4.png](./img/jtso-browser-4.png)
+
+## Yang Schema Explorer
+
+This feature allows you to download, directly from a device, all the YANG State Data Model files and then navigate through those schemas.
+
+Go to:
+
+```text
+Tools > Yang Schema Explorer
+```
+
+The main YANG Explorer UI is shown below:
+
+![jtso-yang-1.png](./img/jtso-yang-1.png)
+
+You have two options:
+
+- Download a new set of YANG files from a given platform, i.e. a device that is part of your inventory.
+- Navigate through the existing YANG schemas, previously downloaded and stored on the OpenJTS VM.
+
+Indeed, once downloaded, YANG schemas are stored per `[platform]_[version]`. There is no need to re-download the same schemas each time.
+
+To download schemas from devices, you must enable these two lines of configuration to support the **get-schema** Netconf RPC:
+
+```junos
+set system services netconf netconf-monitoring netconf-state-schemas retrieve-standard-yang-modules
+set system services netconf netconf-monitoring netconf-state-schemas retrieve-custom-yang-modules
+```
+
+Once committed, you can download the YANG files from a selected device. If there is already an existing folder for your device's `[platform]_[version]`, the download is canceled because it is unnecessary, unless you select the **Force Download** option.
+
+> **Note:** Downloading and processing all the YANG files can take a few minutes. This is a one-time process per `[platform]_[version]`.
+
+![jtso-yang-2.png](./img/jtso-yang-2.png)
+
+Once downloaded, or if you have already downloaded the YANG schemas for a given `[platform]_[version]`, you can select an available folder from **Schema Folders** and click the **Load** button. A list of cards will appear, each one representing a YANG file.
+
+![jtso-yang-3.png](./img/jtso-yang-3.png)
+
+You can search for a given schema and then click on it to see the details:
+
+![jtso-yang-4.png](./img/jtso-yang-4.png)
+
+By default, the schema is shown as a list of XPaths. You can add other columns, such as **Type** and **Description**, if needed:
+
+![jtso-yang-5.png](./img/jtso-yang-5.png)
+
+Finally, you can use the table's column filter option to limit the view and, if needed, export the **filtered rows** to a CSV file by clicking the **Export CSV** button:
+
+![jtso-yang-6.png](./img/jtso-yang-6.png)
 
 ## Create On-Demand Graph
 
