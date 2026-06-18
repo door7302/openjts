@@ -23,7 +23,7 @@ docker compose up -d
 
 ## Enable HTTPS (Optional)
 
-If you want to enable HTTPS for both **JTSO** and **Grafana**, you can generate a self-signed certificate (see below) or use your own certificate.
+If you want to enable HTTPS for the GUIs you can generate a self-signed certificate (see below) or use your own certificate.
 
 ### 1. Generate Self-Signed Certificates
 
@@ -64,7 +64,7 @@ Edit the JTSO configuration file:
 sudo vi compose/jtso/config.yml
 ```
 
-Update the portal module by setting `https` to `true`:
+Update the portal module by setting `https` to `true`: (do not change the file names)
 
 ```yaml
 modules:
@@ -108,7 +108,7 @@ Edit the Grafana configuration file:
 sudo vi compose/grafana/grafana.ini
 ```
 
-Update the server section like that:
+Update the server section like that: (do not change the file names)
 
 ```ini
 [server]
@@ -125,13 +125,38 @@ cd compose/
 docker compose restart grafana
 ```
 
+### 5. Enable HTTPS in Chronograf (starting from JTS 1.3.0)
+
+Edit the Chronograf configuration  file:
+
+```shell 
+sudo vi compose/chronograf/chronograf.ini
+```
+
+Uncomment the 2 lines below: (do not change the path/file names)
+
+```ini
+# To enable HTTPS: uncomment these values
+TLS_CERTIFICATE=/etc/chronograf/certs/server.crt
+TLS_PRIVATE_KEY=/etc/chronograf/certs/server.key
+```
+
+You must restart the Chronograf container then (if this one was running during the modification):
+
+```shell
+cd compose/
+
+docker compose restart chronograf
+```
+
+
 ## Incoming Ports
 
 By default:
 
 - **JTSO Portal** → TCP port 80
 - **Grafana** → TCP port 8080
-- **Chronograf** → TCP port 8080
+- **Chronograf** → TCP port 8081
 
 You can modify these public-facing ports by editing the `.env` file before starting the stack.
 
@@ -143,11 +168,13 @@ CHRONOGRAF_PORT=8081
 JTSO_PORT=80
 ```
 
-If you change the **Grafana public port**, you must also update the JTSO configuration:
+- If you change the **Grafana public port**, you must also update the JTSO configuration:
 
 ```shell
 sudo vi compose/jtso/config.yml
 ```
+
+and:
 
 ```yaml
 modules:
@@ -155,22 +182,46 @@ modules:
     port: 8080
 ```
 
-You must restart the Grafana container then (if this one was running during the modification):
+You must restart the stack then (if this one was running during the modification):
 
 ```shell
 cd compose/
 
-docker compose restart grafana
+docker compose down
+docker compose up -d
+```
+
+- If you change the **Chronograf public port**, you must also update the JTSO configuration:
+
+```shell
+sudo vi compose/jtso/config.yml
+```
+
+and:
+
+```yaml
+modules:
+  chronograf:
+    port: 8081
+```
+
+You must restart the stack then (if this one was running during the modification):
+
+```shell
+cd compose/
+
+docker compose down
+docker compose up -d
 ```
 
 ## Outgoing Ports
 
 OpenJTS establishes TCP sessions toward routing devices for:
 
-- **NETCONF** → default TCP 830
-- **gNMI (gRPC)** → default TCP 9339
+- **NETCONF** → default TCP **830**
+- **gNMI (gRPC)** → default TCP **9339**
 
-These ports can be modified if required. Once modified, it requires to restart JTSO - don't forget to modify your router's config as well. 
+These ports can be modified if required. Once modified, it requires to restart JTSO - **don't forget to modify your router's config as well**. 
 
 ```shell
 cd compose/
@@ -215,7 +266,7 @@ protocols:
 To enable TLS for gNMI across all routers, create a self-signed CA.  
 ⚠️ Keep the naming convention as shown below.
 
-### 1. Create Root CA
+### 1. Create Root CA or Retrieve the ROOT CA of your organization
 
 ```shell
 cd compose/telegraf/cert
@@ -224,7 +275,7 @@ sudo openssl genrsa -out RootCA.key 2048
 sudo openssl req -x509 -new -key RootCA.key -days 3650 -out RootCA.crt
 ```
 
-### 2. (Optional) Generate Telegraf Client Certificate
+### 2. (Optional) Generate Telegraf Client Certificate or Ask your Secuity team a Client Certificat
 
 ```shell
 sudo openssl genrsa -out client.key 2048
@@ -232,7 +283,7 @@ sudo openssl req -new -key client.key -out client.csr
 sudo openssl x509 -req -in client.csr -CA RootCA.crt -CAkey RootCA.key -CAcreateserial -out client.crt -days 365
 ```
 
-### 3. Generate Router Certificate (Repeat for Each Router)
+### 3. Generate Router Certificate (Repeat for Each Router) or Ask your Security team to enroll router's certificat
 
 ```shell
 sudo openssl genrsa -out router.key 2048
@@ -241,7 +292,7 @@ sudo openssl x509 -req -in router.csr -CA RootCA.crt -CAkey RootCA.key -CAcreate
 cat router.crt router.key > router.pem
 ```
 
-Upload the following files to each router (e.g., `/var/tmp`):
+Upload the following files to each router (e.g., `/var/tmp`) - **rename your files as followed**:
 
 - `router.pem`
 - `client.crt`
@@ -260,7 +311,9 @@ request security pki ca-certificate load ca-profile ca1 filename /var/tmp/RootCA
 
 ## Configure Your Network Devices
 
-Apply this generic configuration on each router
+Apply this generic configuration on each router. 
+
+> **Note:** you can have one single login/pwd and share it for both Netconf & gNMI services. 
 
 ```junos
 edit exclusive
