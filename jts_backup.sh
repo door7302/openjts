@@ -32,22 +32,22 @@ log() {
 }
 
 info() {
-  printf '${BLUE}%s${NC}\n' "$*"
+  printf '%b%s%b\n' "$BLUE" "$*" "$NC"
   log "INFO" "$*"
 }
 
 success() {
-  printf '${GREEN}%s${NC}\n' "$*"
+  printf '%b%s%b\n' "$GREEN" "$*" "$NC"
   log "SUCCESS" "$*"
 }
 
 warn() {
-  printf '${YELLOW}%s${NC}\n' "$*"
+  printf '%b%s%b\n' "$YELLOW" "$*" "$NC"
   log "WARN" "$*"
 }
 
 error() {
-  printf '${RED}%s${NC}\n' "$*" >&2
+  printf '%b%s%b\n' "$RED" "$*" "$NC" >&2
   log "ERROR" "$*"
 }
 
