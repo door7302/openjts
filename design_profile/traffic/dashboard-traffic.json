@@ -329,7 +329,7 @@
       "type": "piechart"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -337,82 +337,277 @@
         "y": 14
       },
       "id": 19,
+      "panels": [],
+      "title": "Drop Details - Timestamp",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true,
+            "inspect": false
+          },
+          "mappings": [],
+          "noValue": "No data or Sensor not supported",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 10
+              }
+            ]
+          },
+          "unit": "pps",
+          "unitScale": true
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Queue"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 17,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": [
+            "count"
+          ],
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "jtsuid"
+          },
+          "groupBy": [
+            {
+              "params": [
+                "ALARM_TYPE"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "LINKNAME"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "ALARMING",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"exception\" FROM \"ALARMING\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and ALARM_TYPE=~/RED.*|TAIL.*/ GROUP BY \"ALARM_TYPE\", \"LINKNAME\", queue_id, queue_name",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "exception"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
+        }
+      ],
+      "title": "RealTime Monitored CoS Drops Details (TimeFrame) ",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "queue_name": true
+            },
+            "indexByName": {},
+            "renameByName": {
+              "ALARM_TYPE": "Type of Alarm",
+              "LINKNAME": "PORT",
+              "Time": "Timestamp",
+              "count": "Cumulative Alarms",
+              "exception": "Drop pps",
+              "queue_id": "Queue",
+              "queue_name": "FC"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "jtsuid"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
+      "id": 39,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h2><center>Per Interface details</center><h2>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.3.1",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
+      "id": 1230,
       "panels": [
         {
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
           },
-          "description": "",
           "fieldConfig": {
             "defaults": {
               "color": {
-                "mode": "thresholds"
+                "mode": "palette-classic"
               },
               "custom": {
-                "align": "left",
-                "cellOptions": {
-                  "type": "auto"
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
                 },
-                "filterable": true,
-                "inspect": false
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
               },
               "mappings": [],
-              "noValue": "No data or Sensor not supported",
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
-                    "value": 10
+                    "value": 80
                   }
                 ]
               },
-              "unit": "pps",
+              "unit": "bps",
               "unitScale": true
             },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Queue"
-                },
-                "properties": [
-                  {
-                    "id": "unit",
-                    "value": "none"
-                  }
-                ]
-              }
-            ]
+            "overrides": []
           },
           "gridPos": {
-            "h": 10,
+            "h": 16,
             "w": 24,
             "x": 0,
-            "y": 15
+            "y": 16
           },
-          "id": 17,
+          "id": 1228,
           "options": {
-            "cellHeight": "sm",
-            "footer": {
-              "countRows": false,
-              "fields": [
-                "count"
+            "legend": {
+              "calcs": [
+                "last",
+                "min",
+                "max"
               ],
-              "reducer": [
-                "sum"
-              ],
-              "show": false
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true,
+              "sortBy": "Last",
+              "sortDesc": true
             },
-            "showHeader": true
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
           },
-          "pluginVersion": "10.3.1",
           "targets": [
             {
+              "alias": "$tag_if_name",
               "datasource": {
                 "type": "influxdb",
                 "uid": "jtsuid"
@@ -420,29 +615,23 @@
               "groupBy": [
                 {
                   "params": [
-                    "ALARM_TYPE"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "LINKNAME"
+                    "LINKNAME::tag"
                   ],
                   "type": "tag"
                 }
               ],
-              "measurement": "ALARMING",
+              "measurement": "INTERFACES",
               "orderByTime": "ASC",
               "policy": "default",
-              "query": "SELECT \"exception\" FROM \"ALARMING\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and ALARM_TYPE=~/RED.*|TAIL.*/ GROUP BY \"ALARM_TYPE\", \"LINKNAME\", queue_id, queue_name",
+              "query": "SELECT mean(\"in_octets_rate\")*8  FROM \"INTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND if_unit='') AND $timeFilter group by time($sample_interval), if_name",
               "rawQuery": true,
               "refId": "A",
-              "resultFormat": "table",
+              "resultFormat": "time_series",
               "select": [
                 [
                   {
                     "params": [
-                      "exception"
+                      "in_octets_rate"
                     ],
                     "type": "field"
                   }
@@ -450,63 +639,146 @@
               ],
               "tags": [
                 {
-                  "key": "SHORTNAME",
+                  "key": "device::tag",
                   "operator": "=~",
                   "value": "/^$rtr$/"
                 }
               ]
             }
           ],
-          "title": "RealTime Monitored CoS Drops Details (TimeFrame) ",
-          "transformations": [
-            {
-              "id": "organize",
-              "options": {
-                "excludeByName": {
-                  "queue_name": true
-                },
-                "indexByName": {},
-                "renameByName": {
-                  "ALARM_TYPE": "Type of Alarm",
-                  "LINKNAME": "PORT",
-                  "Time": "Timestamp",
-                  "count": "Cumulative Alarms",
-                  "exception": "Drop pps",
-                  "queue_id": "Queue",
-                  "queue_name": "FC"
-                }
-              }
-            }
-          ],
-          "type": "table"
+          "title": "Input All Interfaces",
+          "type": "timeseries"
         },
         {
           "datasource": {
             "type": "influxdb",
             "uid": "jtsuid"
           },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisBorderShow": false,
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "insertNulls": false,
+                "lineInterpolation": "linear",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "never",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "bps",
+              "unitScale": true
+            },
+            "overrides": []
+          },
           "gridPos": {
-            "h": 2,
+            "h": 16,
             "w": 24,
             "x": 0,
-            "y": 25
+            "y": 32
           },
-          "id": 39,
+          "id": 1229,
           "options": {
-            "code": {
-              "language": "plaintext",
-              "showLineNumbers": false,
-              "showMiniMap": false
+            "legend": {
+              "calcs": [
+                "last",
+                "min",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "right",
+              "showLegend": true
             },
-            "content": "<h2><center>Per Interface details</center><h2>",
-            "mode": "html"
+            "tooltip": {
+              "mode": "multi",
+              "sort": "none"
+            }
           },
-          "pluginVersion": "10.3.1",
-          "transparent": true,
-          "type": "text"
+          "targets": [
+            {
+              "alias": "$tag_if_name",
+              "datasource": {
+                "type": "influxdb",
+                "uid": "jtsuid"
+              },
+              "groupBy": [
+                {
+                  "params": [
+                    "LINKNAME::tag"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"out_octets_rate\")*8  FROM \"INTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND if_unit='') AND $timeFilter group by time($sample_interval), if_name",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "device::tag",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                }
+              ]
+            }
+          ],
+          "title": "Output All Interfaces",
+          "type": "timeseries"
         }
       ],
-      "title": "Drop Details - Timestamp",
+      "title": "All Interfaces Stats",
       "type": "row"
     },
     {
@@ -515,7 +787,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 15
+        "y": 28
       },
       "id": 13,
       "panels": [
@@ -529,7 +801,7 @@
             "h": 2,
             "w": 24,
             "x": 0,
-            "y": 16
+            "y": 48
           },
           "id": 51,
           "options": {
@@ -611,7 +883,7 @@
             "h": 12,
             "w": 24,
             "x": 0,
-            "y": 18
+            "y": 50
           },
           "id": 2,
           "options": {
@@ -802,7 +1074,7 @@
             "h": 15,
             "w": 12,
             "x": 0,
-            "y": 30
+            "y": 62
           },
           "id": 3,
           "options": {
@@ -992,7 +1264,7 @@
             "h": 15,
             "w": 12,
             "x": 12,
-            "y": 30
+            "y": 62
           },
           "id": 53,
           "options": {
@@ -1353,8 +1625,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1371,7 +1642,7 @@
             "h": 12,
             "w": 24,
             "x": 0,
-            "y": 45
+            "y": 77
           },
           "id": 7,
           "options": {
@@ -1510,7 +1781,7 @@
             "h": 2,
             "w": 24,
             "x": 0,
-            "y": 57
+            "y": 89
           },
           "id": 52,
           "options": {
@@ -1544,8 +1815,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "yellow",
@@ -1570,7 +1840,7 @@
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 59
+            "y": 91
           },
           "id": 9,
           "options": {
@@ -1654,8 +1924,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "yellow",
@@ -1680,7 +1949,7 @@
             "h": 6,
             "w": 9,
             "x": 9,
-            "y": 59
+            "y": 91
           },
           "id": 54,
           "options": {
@@ -1772,7 +2041,7 @@
             "h": 22,
             "w": 6,
             "x": 18,
-            "y": 59
+            "y": 91
           },
           "id": 11,
           "options": {
@@ -1857,8 +2126,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "yellow",
@@ -1883,7 +2151,7 @@
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 65
+            "y": 97
           },
           "id": 56,
           "options": {
@@ -1967,8 +2235,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "yellow",
@@ -1993,7 +2260,7 @@
             "h": 6,
             "w": 9,
             "x": 9,
-            "y": 65
+            "y": 97
           },
           "id": 57,
           "options": {
@@ -2108,8 +2375,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "yellow",
@@ -2134,7 +2400,7 @@
             "h": 10,
             "w": 9,
             "x": 0,
-            "y": 71
+            "y": 103
           },
           "id": 50,
           "options": {
@@ -2286,8 +2552,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "yellow",
@@ -2312,7 +2577,7 @@
             "h": 10,
             "w": 9,
             "x": 9,
-            "y": 71
+            "y": 103
           },
           "id": 55,
           "options": {
@@ -2460,8 +2725,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2478,7 +2742,7 @@
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 81
+            "y": 113
           },
           "id": 48,
           "options": {
@@ -2603,8 +2867,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2621,7 +2884,7 @@
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 81
+            "y": 113
           },
           "id": 4,
           "options": {
@@ -2746,8 +3009,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2764,7 +3026,7 @@
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 93
+            "y": 125
           },
           "id": 49,
           "options": {
@@ -2889,8 +3151,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -2907,7 +3168,7 @@
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 93
+            "y": 125
           },
           "id": 5,
           "options": {
@@ -2999,7 +3260,7 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "",
           "value": ""
         },
