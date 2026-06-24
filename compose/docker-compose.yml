@@ -13,6 +13,8 @@ services:
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=${PROM_RETENTION}'
+      - '--web.enable-admin-api'
   telegraf_mx:
     build: https://github.com/door7302/jts_telegraf.git#v1.0.17
     image: jts_telegraf:latest
