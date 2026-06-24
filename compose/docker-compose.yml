@@ -1,19 +1,18 @@
 services:
-  influxdb:
-    image: influxdb:1.8
-    container_name: influxdb
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    container_name: prometheus
     restart: always
     user: root
-    environment:
-      - INFLUXDB_DB=jtsdb
-      - INFLUXDB_ADMIN_USER=admin
-      - INFLUXDB_ADMIN_PASSWORD=admin
     ports:
-      - '8086:8086'
+      - '9090:9090'
     volumes:
       - /var/log:/var/log
-      - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf
-      - ./influxdb/data:/var/lib/influxdb
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus/data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
   telegraf_mx:
     build: https://github.com/door7302/jts_telegraf.git#v1.0.17
     image: jts_telegraf:latest
@@ -21,7 +20,9 @@ services:
     restart: always
     user: root
     depends_on:
-      - influxdb
+      - prometheus
+    ports:
+      - '9273:9273'
     volumes:
       - /var/log:/var/log
       - ./telegraf/mx:/etc/telegraf/
@@ -36,7 +37,9 @@ services:
     user: root
     depends_on:
       - telegraf_mx
-      - influxdb
+      - prometheus
+    ports:
+      - '9274:9273'
     volumes:
       - /var/log:/var/log
       - ./telegraf/ptx:/etc/telegraf/
@@ -51,7 +54,9 @@ services:
     user: root
     depends_on:
       - telegraf_mx
-      - influxdb
+      - prometheus
+    ports:
+      - '9275:9273'
     volumes:
       - /var/log:/var/log
       - ./telegraf/acx:/etc/telegraf/
@@ -66,7 +71,9 @@ services:
     user: root
     depends_on:
       - telegraf_mx
-      - influxdb
+      - prometheus
+    ports:
+      - '9276:9273'
     volumes:
       - /var/log:/var/log
       - ./telegraf/ex:/etc/telegraf/
@@ -81,7 +88,9 @@ services:
     user: root
     depends_on:
       - telegraf_mx
-      - influxdb
+      - prometheus
+    ports:
+      - '9277:9273'
     volumes:
       - /var/log:/var/log
       - ./telegraf/qfx:/etc/telegraf/
@@ -96,7 +105,9 @@ services:
     user: root
     depends_on:
       - telegraf_mx
-      - influxdb
+      - prometheus
+    ports:
+      - '9278:9273'
     volumes:
       - /var/log:/var/log
       - ./telegraf/srx:/etc/telegraf/
@@ -111,7 +122,9 @@ services:
     user: root
     depends_on:
       - telegraf_mx
-      - influxdb
+      - prometheus
+    ports:
+      - '9279:9273'
     volumes:
       - /var/log:/var/log
       - ./telegraf/crpd:/etc/telegraf/
@@ -126,7 +139,9 @@ services:
     user: root
     depends_on:
       - telegraf_mx
-      - influxdb
+      - prometheus
+    ports:
+      - '9280:9273'
     volumes:
       - /var/log:/var/log
       - ./telegraf/cptx:/etc/telegraf/
@@ -141,7 +156,9 @@ services:
     user: root
     depends_on:
       - telegraf_mx
-      - influxdb
+      - prometheus
+    ports:
+      - '9281:9273'
     volumes:
       - /var/log:/var/log
       - ./telegraf/vmx:/etc/telegraf/
@@ -156,7 +173,9 @@ services:
     user: root
     depends_on:
       - telegraf_mx
-      - influxdb
+      - prometheus
+    ports:
+      - '9282:9273'
     volumes:
       - /var/log:/var/log
       - ./telegraf/vsrx:/etc/telegraf/
@@ -171,7 +190,9 @@ services:
     user: root
     depends_on:
       - telegraf_mx
-      - influxdb
+      - prometheus
+    ports:
+      - '9283:9273'
     volumes:
       - /var/log:/var/log
       - ./telegraf/vjunos:/etc/telegraf/
@@ -186,7 +207,9 @@ services:
     user: root
     depends_on:
       - telegraf_mx
-      - influxdb
+      - prometheus
+    ports:
+      - '9284:9273'
     volumes:
       - /var/log:/var/log
       - ./telegraf/vevo:/etc/telegraf/
@@ -201,7 +224,9 @@ services:
     user: root
     depends_on:
       - telegraf_mx
-      - influxdb
+      - prometheus
+    ports:
+      - '9285:9273'
     volumes:
       - /var/log:/var/log
       - ./telegraf/ondemand:/etc/telegraf/
@@ -209,47 +234,13 @@ services:
       - ./telegraf/cert:/var/cert
     command:
       --config-directory /etc/telegraf/telegraf.d
-  kapacitor:
-    image: kapacitor:1.7
-    container_name: kapacitor
-    restart: always
-    user: root
-    depends_on:
-      - influxdb
-    ports:
-      - '9292:9292'
-    environment:
-      - KAPACITOR_AS_ROOT=true
-    volumes:
-      - /var/log:/var/log
-      - ./kapacitor/kapacitor.conf:/etc/kapacitor/kapacitor.conf
-      - ./kapacitor/data:/var/lib/kapacitor
-  chronograf:
-    image: chronograf:1.10
-    container_name: chronograf
-    restart: always
-    user: root
-    ports:
-      - '${CHRONOGRAF_PORT}:8888'
-    environment:
-      - BOLT_PATH=/var/lib/chronograf/chronograf-v1.db
-    depends_on:
-      - influxdb
-      - kapacitor
-    volumes:
-      - /var/log:/var/log
-      - ./grafana/cert:/etc/chronograf/certs
-      - ./chronograf/chronograf.ini:/etc/chronograf/config.ini
-      - ./chronograf/entrypoint.sh:/entrypoint.sh
-      - ./chronograf/data:/var/lib/chronograf
-    entrypoint: ["bash", "-c", "chmod +x /entrypoint.sh && /entrypoint.sh"]
   grafana:
     image: grafana/grafana:10.3.1
     container_name: grafana
     restart: always
     user: root
     depends_on:
-      - influxdb
+      - prometheus
     ports:
       - '${GRAFANA_PORT}:3000'
     environment:

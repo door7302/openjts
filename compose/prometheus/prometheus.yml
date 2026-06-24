@@ -1,0 +1,23 @@
+global:
+  scrape_interval: 10s
+  scrape_timeout: 5s
+  evaluation_interval: 10s
+
+scrape_configs:
+  - job_name: 'telegraf'
+    metrics_path: /jts_metrics
+    static_configs:
+      - targets:
+          - 'telegraf_mx:9273'
+          - 'telegraf_ptx:9273'
+          - 'telegraf_acx:9273'
+          - 'telegraf_ex:9273'
+          - 'telegraf_qfx:9273'
+          - 'telegraf_srx:9273'
+          - 'telegraf_crpd:9273'
+          - 'telegraf_cptx:9273'
+          - 'telegraf_vmx:9273'
+          - 'telegraf_vsrx:9273'
+          - 'telegraf_vjunos:9273'
+          - 'telegraf_vevo:9273'
+          - 'telegraf_ondemand:9273'
