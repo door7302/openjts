@@ -98,12 +98,12 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "HW_NPU_value{SHORTNAME=~\"$rtr\", MODEL!=\"\"}",
-          "legendFormat": "__auto",
-          "refId": "A",
+          "expr": "COMPONENTS_idle_cpu{SHORTNAME=~\"$rtr\", component_name=~\".*[eE]0$\"}",
           "format": "table",
           "instant": true,
-          "range": false
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
         }
       ],
       "title": "Router Info",
@@ -112,13 +112,20 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "FAMILY": true,
               "HW_TYPE": true,
               "Time": true,
+              "Value": true,
+              "__name__": true,
               "_component_id": true,
+              "_subcomponent_id": true,
               "component": true,
               "component_name": true,
+              "device": true,
               "host": true,
               "if_name": true,
+              "instance": true,
+              "job": true,
               "last": true,
               "path": true,
               "property_name": true
@@ -218,12 +225,12 @@
           },
           "editorMode": "code",
           "expr": "JUNOS_ALARMS_alarm_severity{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "__auto",
-          "refId": "A",
-          "hide": false,
           "format": "table",
+          "hide": false,
           "instant": true,
-          "range": false
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
         },
         {
           "datasource": {
@@ -232,12 +239,12 @@
           },
           "editorMode": "code",
           "expr": "JUNOS_ALARMS_alarm_severity_net{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "__auto",
-          "refId": "B",
-          "hide": false,
           "format": "table",
+          "hide": false,
           "instant": true,
-          "range": false
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
         }
       ],
       "title": "Chassis Alarms",
@@ -394,11 +401,11 @@
           },
           "editorMode": "code",
           "expr": "HW_NPU_value{SHORTNAME=~\"$rtr\", component_name=~\"$comp_name\", property_name=~\"$prop_name\"}",
-          "legendFormat": "$prop_name",
-          "refId": "A",
           "format": "time_series",
           "instant": false,
-          "range": true
+          "legendFormat": "$prop_name",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "History of $prop_name",
@@ -464,11 +471,11 @@
           },
           "editorMode": "code",
           "expr": "HW_NPU_value{SHORTNAME=~\"$rtr\", component_name=~\"$comp_name\", property_name=~\"$prop_name\"}",
-          "legendFormat": "$prop_name",
-          "refId": "A",
           "format": "time_series",
           "instant": false,
-          "range": true
+          "legendFormat": "$prop_name",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "Current Value of $prop_name",
@@ -511,9 +518,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "FPC0:NPU0",
-          "value": "FPC0:NPU0"
+          "selected": true,
+          "text": "",
+          "value": ""
         },
         "datasource": {
           "type": "prometheus",
@@ -579,6 +586,6 @@
   "timezone": "",
   "title": "HW KPI MONITORING PROFILE - JTSO",
   "uid": "simplehwdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }

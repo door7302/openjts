@@ -85,12 +85,13 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_idle_cpu{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "__auto",
-          "refId": "A",
+          "exemplar": false,
+          "expr": "COMPONENTS_idle_cpu{SHORTNAME=~\"$rtr\", component_name=~\".*[eE]0$\"}",
           "format": "table",
           "instant": true,
-          "range": false
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
         }
       ],
       "title": "Router Info",
@@ -99,13 +100,20 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "FAMILY": true,
               "HW_TYPE": true,
               "Time": true,
+              "Value": true,
+              "__name__": true,
               "_component_id": true,
+              "_subcomponent_id": true,
               "component": true,
               "component_name": true,
+              "device": true,
               "host": true,
               "if_name": true,
+              "instance": true,
+              "job": true,
               "last": true,
               "path": true,
               "property_name": true
@@ -196,11 +204,11 @@
           },
           "editorMode": "code",
           "expr": "sum by (ALARM_TYPE) (count_over_time(ALARMING_exception{SHORTNAME=~\"$rtr\"}[15m]))",
-          "legendFormat": "{{ALARM_TYPE}}",
-          "refId": "A",
           "format": "time_series",
           "instant": false,
-          "range": true
+          "legendFormat": "{{ALARM_TYPE}}",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "LAST ERRORS (15mins)",
@@ -271,11 +279,11 @@
           },
           "editorMode": "code",
           "expr": "COMPONENTS_linecard_cpu{SHORTNAME=~\"$rtr\", component_name=~\"FPC.*\"}",
-          "legendFormat": "{{component_name}}",
-          "refId": "A",
           "format": "time_series",
           "instant": false,
-          "range": true
+          "legendFormat": "{{component_name}}",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "Current FPC CPU",
@@ -341,12 +349,12 @@
           },
           "editorMode": "code",
           "expr": "count(count by (_system_alarms_alarm_id) (JUNOS_ALARMS_alarm_severity{SHORTNAME=~\"$rtr\"}))",
-          "legendFormat": "__auto",
-          "refId": "A",
-          "hide": false,
           "format": "time_series",
+          "hide": false,
           "instant": false,
-          "range": true
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
         },
         {
           "datasource": {
@@ -355,12 +363,12 @@
           },
           "editorMode": "code",
           "expr": "count(count by (alarm_id_net) (JUNOS_ALARMS_alarm_severity_net{SHORTNAME=~\"$rtr\"}))",
-          "legendFormat": "__auto",
-          "refId": "B",
-          "hide": false,
           "format": "time_series",
+          "hide": false,
           "instant": false,
-          "range": true
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "CHASSIS ALARMS",
@@ -431,11 +439,11 @@
           },
           "editorMode": "code",
           "expr": "100 - COMPONENTS_idle_cpu{SHORTNAME=~\"$rtr\", component_name=~\"Routing Engine0|RE0\"}",
-          "legendFormat": "__auto",
-          "refId": "A",
           "format": "time_series",
           "instant": false,
-          "range": true
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "Current RE0 CPU",
@@ -506,11 +514,11 @@
           },
           "editorMode": "code",
           "expr": "COMPONENTS_buffer_usage{SHORTNAME=~\"$rtr\", component_name=~\"Routing Engine0|RE0\"}",
-          "legendFormat": "__auto",
-          "refId": "A",
           "format": "time_series",
           "instant": false,
-          "range": true
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "Current RE0 Mem",
@@ -581,11 +589,11 @@
           },
           "editorMode": "code",
           "expr": "COMPONENTS_linecard_memory{SHORTNAME=~\"$rtr\", component_name=~\"FPC.*\"}",
-          "legendFormat": "{{component_name}}",
-          "refId": "A",
           "format": "time_series",
           "instant": false,
-          "range": true
+          "legendFormat": "{{component_name}}",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "Current FPC Heap Memory",
@@ -657,11 +665,11 @@
           },
           "editorMode": "code",
           "expr": "100 - COMPONENTS_idle_cpu{SHORTNAME=~\"$rtr\", component_name=~\"Routing Engine1|RE1\"}",
-          "legendFormat": "__auto",
-          "refId": "A",
           "format": "time_series",
           "instant": false,
-          "range": true
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "Current RE1 CPU",
@@ -733,11 +741,11 @@
           },
           "editorMode": "code",
           "expr": "COMPONENTS_buffer_usage{SHORTNAME=~\"$rtr\", component_name=~\"Routing Engine1|RE1\"}",
-          "legendFormat": "__auto",
-          "refId": "A",
           "format": "time_series",
           "instant": false,
-          "range": true
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "Current RE1 Mem",
@@ -843,13 +851,13 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "JUNOS_ALARMS_alarm_severity{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "__auto",
-          "refId": "A",
-          "hide": false,
+          "expr": "JUNOS_ALARMS_alarm_time{SHORTNAME=~\"$rtr\"}",
           "format": "table",
+          "hide": true,
           "instant": true,
-          "range": false
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
         },
         {
           "datasource": {
@@ -857,13 +865,13 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "JUNOS_ALARMS_alarm_severity_net{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "__auto",
-          "refId": "B",
-          "hide": false,
+          "expr": "JUNOS_ALARMS_alarm_time_net{SHORTNAME=~\"$rtr\"}",
           "format": "table",
+          "hide": false,
           "instant": true,
-          "range": false
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
         }
       ],
       "title": "Chassis Alarms",
@@ -874,7 +882,7 @@
             "conversions": [
               {
                 "destinationType": "time",
-                "targetField": "last_2"
+                "targetField": "Value"
               }
             ],
             "fields": {}
@@ -884,23 +892,43 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "/system/alarms/alarm/id": true,
+              "FAMILY": true,
+              "MODEL": true,
+              "SHORTNAME": true,
               "Time": true,
-              "alarm_id_net": true
+              "VERSION": true,
+              "__name__": true,
+              "alarm_id_net": true,
+              "alarm_resource_net": false,
+              "device": true,
+              "host": true,
+              "instance": true,
+              "job": true
             },
             "includeByName": {},
             "indexByName": {
-              "Time": 0,
-              "last": 2,
-              "last_1": 3,
-              "last_2": 1,
-              "last_3": 4
+              "FAMILY": 2,
+              "MODEL": 3,
+              "SHORTNAME": 4,
+              "Time": 1,
+              "VERSION": 5,
+              "Value": 0,
+              "__name__": 6,
+              "alarm_id_net": 7,
+              "alarm_resource_net": 9,
+              "alarm_severity_net": 8,
+              "alarm_text_net": 10,
+              "device": 11,
+              "host": 12,
+              "instance": 13,
+              "job": 14
             },
             "renameByName": {
-              "last": "Severity",
-              "last_1": "Type",
-              "last_2": "Time Triggered",
-              "last_3": "Info"
+              "Value": "Time Triggered",
+              "alarm_id_net": "",
+              "alarm_resource_net": "Type",
+              "alarm_severity_net": "Severity",
+              "alarm_text_net": "Info"
             }
           }
         }
@@ -1173,12 +1201,12 @@
           },
           "editorMode": "code",
           "expr": "JUNOS_CMERROR_cmerror_count{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"}",
-          "legendFormat": "{{cmerror_name}},COUNT",
-          "refId": "A",
-          "hide": false,
           "format": "time_series",
+          "hide": false,
           "instant": false,
-          "range": true
+          "legendFormat": "{{cmerror_name}},COUNT",
+          "range": true,
+          "refId": "A"
         },
         {
           "datasource": {
@@ -1187,12 +1215,12 @@
           },
           "editorMode": "code",
           "expr": "JUNOS_CMERROR_cmerror_update{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"}",
-          "legendFormat": "{{cmerror_name}},UPDATE",
-          "refId": "B",
-          "hide": false,
           "format": "time_series",
+          "hide": false,
           "instant": false,
-          "range": true
+          "legendFormat": "{{cmerror_name}},UPDATE",
+          "range": true,
+          "refId": "B"
         },
         {
           "datasource": {
@@ -1201,12 +1229,12 @@
           },
           "editorMode": "code",
           "expr": "JUNOS_CMERROR_cmerror_clear{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"}",
-          "legendFormat": "{{cmerror_name}},CLEAR",
-          "refId": "C",
-          "hide": false,
           "format": "time_series",
+          "hide": false,
           "instant": false,
-          "range": true
+          "legendFormat": "{{cmerror_name}},CLEAR",
+          "range": true,
+          "refId": "C"
         },
         {
           "datasource": {
@@ -1215,12 +1243,12 @@
           },
           "editorMode": "code",
           "expr": "JUNOS_CMERROR_cmerror_slot{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"} + 0.1",
-          "legendFormat": "{{cmerror_name}},SLOT",
-          "refId": "D",
-          "hide": false,
           "format": "time_series",
+          "hide": false,
           "instant": false,
-          "range": true
+          "legendFormat": "{{cmerror_name}},SLOT",
+          "range": true,
+          "refId": "D"
         },
         {
           "datasource": {
@@ -1229,12 +1257,12 @@
           },
           "editorMode": "code",
           "expr": "(JUNOS_CMERROR_cmerror_clear{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"} - JUNOS_CMERROR_cmerror_update{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"}) + 0.1",
-          "legendFormat": "{{cmerror_name}},DELTA",
-          "refId": "E",
-          "hide": false,
           "format": "time_series",
+          "hide": false,
           "instant": false,
-          "range": true
+          "legendFormat": "{{cmerror_name}},DELTA",
+          "range": true,
+          "refId": "E"
         }
       ],
       "text_alignment_header": "",
@@ -1345,11 +1373,11 @@
           },
           "editorMode": "code",
           "expr": "ALARMING_exception{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "__auto",
-          "refId": "A",
           "format": "table",
           "instant": true,
-          "range": false
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
         }
       ],
       "title": "RealTime Monitored KPI (TimeFrame) ",
@@ -1437,11 +1465,11 @@
           },
           "editorMode": "code",
           "expr": "ALARMING_exception{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "__auto",
-          "refId": "A",
           "format": "table",
           "instant": true,
-          "range": false
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
         }
       ],
       "title": "RealTime Monitored KPI Details (TimeFrame) ",
@@ -1594,12 +1622,13 @@
           },
           "editorMode": "code",
           "expr": "100 - COMPONENTS_idle_cpu{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "CPU {{component_name}}",
-          "refId": "A",
-          "hide": false,
           "format": "time_series",
+          "hide": false,
           "instant": false,
-          "range": true
+          "interval": "30s",
+          "legendFormat": "CPU {{component_name}}",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "Routing-engine CPU",
@@ -1697,12 +1726,13 @@
           },
           "editorMode": "code",
           "expr": "COMPONENTS_buffer_usage{SHORTNAME=~\"$rtr\", component_name=~\".*outing.*|RE.*\"}",
-          "legendFormat": "Mem {{component_name}}",
-          "refId": "A",
-          "hide": false,
           "format": "time_series",
+          "hide": false,
           "instant": false,
-          "range": true
+          "interval": "30s",
+          "legendFormat": "Mem {{component_name}}",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "Routing-Engine Memory",
@@ -1801,12 +1831,13 @@
           },
           "editorMode": "code",
           "expr": "COMPONENTS_linecard_cpu{SHORTNAME=~\"$rtr\", component_name=~\"FPC.*\"}",
-          "legendFormat": "CPU {{component_name}}",
-          "refId": "B",
-          "hide": false,
           "format": "time_series",
+          "hide": false,
           "instant": false,
-          "range": true
+          "interval": "30s",
+          "legendFormat": "CPU {{component_name}}",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "Linecards CPU",
@@ -1904,12 +1935,13 @@
           },
           "editorMode": "code",
           "expr": "COMPONENTS_linecard_memory{SHORTNAME=~\"$rtr\", component_name=~\"FPC.*\"}",
-          "legendFormat": "Heap memory {{component_name}}",
-          "refId": "B",
-          "hide": false,
           "format": "time_series",
+          "hide": false,
           "instant": false,
-          "range": true
+          "interval": "30s",
+          "legendFormat": "Heap memory {{component_name}}",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "Linecards Memory",
@@ -2012,12 +2044,13 @@
           },
           "editorMode": "code",
           "expr": "SYSTEM_process_cpu_utilization{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "{{process_name}} - (PID {{process_pid}})",
-          "refId": "A",
-          "hide": false,
           "format": "time_series",
+          "hide": false,
           "instant": false,
-          "range": true
+          "interval": "30s",
+          "legendFormat": "{{process_name}} - (PID {{process_pid}})",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "SYSTEM CPU (only >0%)",
@@ -2127,13 +2160,14 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "SYSTEM_cpu_utilization{SHORTNAME=~\"$rtr\"} != 0",
-          "legendFormat": "{{name}}",
-          "refId": "B",
-          "hide": false,
+          "expr": "COMPONENTS_core_cpu_instant{SHORTNAME=\"$rtr\"}",
           "format": "time_series",
+          "hide": false,
           "instant": false,
-          "range": true
+          "interval": "30s",
+          "legendFormat": "{{name}}",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "CORE Utilization",
@@ -2244,12 +2278,13 @@
           },
           "editorMode": "code",
           "expr": "SYSTEM_process_memory_usage{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "{{process_name}} - (PID {{process_pid}})",
-          "refId": "A",
-          "hide": false,
           "format": "time_series",
+          "hide": false,
           "instant": false,
-          "range": true
+          "interval": "30s",
+          "legendFormat": "{{process_name}} - (PID {{process_pid}})",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "PROCESS Memory (only >32MB)",
@@ -2394,11 +2429,12 @@
           },
           "editorMode": "code",
           "expr": "COMPONENTS_fabric_drops_pkts_rate{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "Fabric Drops pps {{component_name}}",
-          "refId": "A",
           "format": "time_series",
           "instant": false,
-          "range": true
+          "interval": "30s",
+          "legendFormat": "Fabric Drops pps {{component_name}}",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "Fabric Drops PPS",
@@ -2499,11 +2535,12 @@
           },
           "editorMode": "code",
           "expr": "COMPONENTS_fabric_input_pkts_rate{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "In Fabric pps {{component_name}}",
-          "refId": "A",
           "format": "time_series",
           "instant": false,
-          "range": true
+          "interval": "30s",
+          "legendFormat": "In Fabric pps {{component_name}}",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "In Fabric PPS ",
@@ -2604,11 +2641,12 @@
           },
           "editorMode": "code",
           "expr": "COMPONENTS_fabric_output_pkts_rate{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "Out Fabric pps {{component_name}}",
-          "refId": "A",
           "format": "time_series",
           "instant": false,
-          "range": true
+          "interval": "30s",
+          "legendFormat": "Out Fabric pps {{component_name}}",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "Out Fabric PPS ",
@@ -2659,6 +2697,6 @@
   "timezone": "",
   "title": "ROUTER HEALTH MONITORING PROFILE - JTS",
   "uid": "healthdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
