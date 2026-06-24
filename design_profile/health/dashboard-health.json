@@ -30,7 +30,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -82,7 +82,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "COMPONENTS_idle_cpu{SHORTNAME=~\"$rtr\"}",
@@ -139,7 +139,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -192,7 +192,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "sum by (ALARM_TYPE) (count_over_time(ALARMING_exception{SHORTNAME=~\"$rtr\"}[15m]))",
@@ -209,7 +209,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -267,7 +267,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "COMPONENTS_linecard_cpu{SHORTNAME=~\"$rtr\", component_name=~\"FPC.*\"}",
@@ -284,7 +284,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -337,7 +337,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "count(count by (_system_alarms_alarm_id) (JUNOS_ALARMS_alarm_severity{SHORTNAME=~\"$rtr\"}))",
@@ -351,7 +351,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "count(count by (alarm_id_net) (JUNOS_ALARMS_alarm_severity_net{SHORTNAME=~\"$rtr\"}))",
@@ -369,7 +369,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -427,7 +427,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "100 - COMPONENTS_idle_cpu{SHORTNAME=~\"$rtr\", component_name=~\"Routing Engine0|RE0\"}",
@@ -444,7 +444,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -502,7 +502,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "COMPONENTS_buffer_usage{SHORTNAME=~\"$rtr\", component_name=~\"Routing Engine0|RE0\"}",
@@ -519,7 +519,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -577,7 +577,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "COMPONENTS_linecard_memory{SHORTNAME=~\"$rtr\", component_name=~\"FPC.*\"}",
@@ -594,7 +594,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -653,7 +653,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "100 - COMPONENTS_idle_cpu{SHORTNAME=~\"$rtr\", component_name=~\"Routing Engine1|RE1\"}",
@@ -670,7 +670,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -729,7 +729,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "COMPONENTS_buffer_usage{SHORTNAME=~\"$rtr\", component_name=~\"Routing Engine1|RE1\"}",
@@ -746,7 +746,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "gridPos": {
         "h": 2,
@@ -784,7 +784,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -840,7 +840,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "JUNOS_ALARMS_alarm_severity{SHORTNAME=~\"$rtr\"}",
@@ -854,7 +854,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "JUNOS_ALARMS_alarm_severity_net{SHORTNAME=~\"$rtr\"}",
@@ -911,7 +911,7 @@
       "activePatternIndex": 5,
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "debug_mode": false,
       "defaultPattern": {
@@ -1169,7 +1169,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "JUNOS_CMERROR_cmerror_count{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"}",
@@ -1183,7 +1183,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "JUNOS_CMERROR_cmerror_update{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"}",
@@ -1197,7 +1197,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "JUNOS_CMERROR_cmerror_clear{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"}",
@@ -1211,7 +1211,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "JUNOS_CMERROR_cmerror_slot{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"} + 0.1",
@@ -1225,7 +1225,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "(JUNOS_CMERROR_cmerror_clear{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"} - JUNOS_CMERROR_cmerror_update{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"}) + 0.1",
@@ -1245,7 +1245,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -1341,7 +1341,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "ALARMING_exception{SHORTNAME=~\"$rtr\"}",
@@ -1373,7 +1373,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -1433,7 +1433,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "ALARMING_exception{SHORTNAME=~\"$rtr\"}",
@@ -1466,7 +1466,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "gridPos": {
         "h": 2,
@@ -1504,7 +1504,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -1590,7 +1590,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "100 - COMPONENTS_idle_cpu{SHORTNAME=~\"$rtr\"}",
@@ -1608,7 +1608,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -1693,7 +1693,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "COMPONENTS_buffer_usage{SHORTNAME=~\"$rtr\", component_name=~\".*outing.*|RE.*\"}",
@@ -1711,7 +1711,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -1797,7 +1797,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "COMPONENTS_linecard_cpu{SHORTNAME=~\"$rtr\", component_name=~\"FPC.*\"}",
@@ -1815,7 +1815,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -1900,7 +1900,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "COMPONENTS_linecard_memory{SHORTNAME=~\"$rtr\", component_name=~\"FPC.*\"}",
@@ -1918,7 +1918,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -2008,7 +2008,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "SYSTEM_process_cpu_utilization{SHORTNAME=~\"$rtr\"}",
@@ -2034,7 +2034,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -2124,7 +2124,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "SYSTEM_cpu_utilization{SHORTNAME=~\"$rtr\"} != 0",
@@ -2150,7 +2150,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -2240,7 +2240,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "SYSTEM_process_memory_usage{SHORTNAME=~\"$rtr\"}",
@@ -2266,7 +2266,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "gridPos": {
         "h": 2,
@@ -2304,7 +2304,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -2390,7 +2390,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "COMPONENTS_fabric_drops_pkts_rate{SHORTNAME=~\"$rtr\"}",
@@ -2407,7 +2407,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -2495,7 +2495,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "COMPONENTS_fabric_input_pkts_rate{SHORTNAME=~\"$rtr\"}",
@@ -2512,7 +2512,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -2600,7 +2600,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "COMPONENTS_fabric_output_pkts_rate{SHORTNAME=~\"$rtr\"}",
@@ -2629,7 +2629,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "jtsuid"
+          "uid": "jtsuid2"
         },
         "definition": "label_values(COMPONENTS_idle_cpu, SHORTNAME)",
         "hide": 0,

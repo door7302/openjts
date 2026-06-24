@@ -43,7 +43,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -95,7 +95,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "HW_NPU_value{SHORTNAME=~\"$rtr\", MODEL!=\"\"}",
@@ -152,7 +152,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -214,7 +214,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "JUNOS_ALARMS_alarm_severity{SHORTNAME=~\"$rtr\"}",
@@ -228,7 +228,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "JUNOS_ALARMS_alarm_severity_net{SHORTNAME=~\"$rtr\"}",
@@ -300,7 +300,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -390,7 +390,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "HW_NPU_value{SHORTNAME=~\"$rtr\", component_name=~\"$comp_name\", property_name=~\"$prop_name\"}",
@@ -407,7 +407,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "jtsuid"
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -460,7 +460,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "jtsuid"
+            "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "HW_NPU_value{SHORTNAME=~\"$rtr\", component_name=~\"$comp_name\", property_name=~\"$prop_name\"}",
@@ -489,7 +489,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "jtsuid"
+          "uid": "jtsuid2"
         },
         "definition": "label_values(HW_NPU_value, SHORTNAME)",
         "hide": 0,
@@ -517,7 +517,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "jtsuid"
+          "uid": "jtsuid2"
         },
         "definition": "label_values(HW_NPU_value{SHORTNAME=~\"$rtr\"}, component_name)",
         "hide": 0,
@@ -549,7 +549,7 @@
         },
         "datasource": {
           "type": "prometheus",
-          "uid": "jtsuid"
+          "uid": "jtsuid2"
         },
         "definition": "label_values(HW_NPU_value{component_name=\"$comp_name\"}, property_name)",
         "hide": 0,
