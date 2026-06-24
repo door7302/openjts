@@ -29,7 +29,7 @@
   "panels": [
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -80,17 +80,42 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "COMPONENTS_idle_cpu{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "__auto",
+          "groupBy": [],
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"idle_cpu\") FROM \"COMPONENTS\" WHERE \"SHORTNAME\"::tag=~ /^$rtr$/ AND $timeFilter group by VERSION, MODEL, SHORTNAME",
+          "rawQuery": true,
           "refId": "A",
-          "format": "table",
-          "instant": true,
-          "range": false
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "component_name::tag",
+              "operator": "=~",
+              "value": "/^$comp_name$/"
+            },
+            {
+              "condition": "AND",
+              "key": "property_name::tag",
+              "operator": "=~",
+              "value": "/^$prop_name$/"
+            }
+          ]
         }
       ],
       "title": "Router Info",
@@ -138,7 +163,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -190,17 +215,40 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "$tag_ALARM_TYPE",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "sum by (ALARM_TYPE) (count_over_time(ALARMING_exception{SHORTNAME=~\"$rtr\"}[15m]))",
-          "legendFormat": "{{ALARM_TYPE}}",
+          "groupBy": [],
+          "measurement": "ALARMING",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT count(\"exception\") FROM \"ALARMING\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and time > now()-15m  group by \"ALARM_TYPE\" fill(0)",
+          "rawQuery": true,
           "refId": "A",
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "exception"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "title": "LAST ERRORS (15mins)",
@@ -208,7 +256,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -265,17 +313,42 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "$tag_component_name",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "COMPONENTS_linecard_cpu{SHORTNAME=~\"$rtr\", component_name=~\"FPC.*\"}",
-          "legendFormat": "{{component_name}}",
+          "groupBy": [],
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"linecard_cpu\" FROM \"COMPONENTS\" WHERE \"SHORTNAME\" =~ /^$rtr$/ AND \"component_name\" =~ /FPC.*/ AND $timeFilter group by component_name",
+          "rawQuery": true,
           "refId": "A",
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "idle_cpu"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "component_name",
+              "operator": "=",
+              "value": "FPC0"
+            }
+          ]
         }
       ],
       "title": "Current FPC CPU",
@@ -283,7 +356,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -336,31 +409,89 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "count(count by (_system_alarms_alarm_id) (JUNOS_ALARMS_alarm_severity{SHORTNAME=~\"$rtr\"}))",
-          "legendFormat": "__auto",
-          "refId": "A",
+          "groupBy": [
+            {
+              "params": [
+                "/system/alarms/alarm/id"
+              ],
+              "type": "tag"
+            }
+          ],
           "hide": false,
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "measurement": "JUNOS_ALARMS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select count(last) from (SELECT last(\"alarm_text\") FROM \"JUNOS_ALARMS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter GROUP BY \"/system/alarms/alarm/id\")",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "alarm_text"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         },
         {
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "count(count by (alarm_id_net) (JUNOS_ALARMS_alarm_severity_net{SHORTNAME=~\"$rtr\"}))",
-          "legendFormat": "__auto",
-          "refId": "B",
+          "groupBy": [
+            {
+              "params": [
+                "/system/alarms/alarm/id"
+              ],
+              "type": "tag"
+            }
+          ],
           "hide": false,
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "measurement": "JUNOS_ALARMS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select count(last) from (SELECT last(\"alarm_text_net\") FROM \"JUNOS_ALARMS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter group by alarm_id_net)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "alarm_text"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "title": "CHASSIS ALARMS",
@@ -368,7 +499,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -425,17 +556,42 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "100 - COMPONENTS_idle_cpu{SHORTNAME=~\"$rtr\", component_name=~\"Routing Engine0|RE0\"}",
-          "legendFormat": "__auto",
+          "groupBy": [],
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT 100 - \"idle_cpu\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"component_name\" =~ /Routing Engine0|RE0/) AND $timeFilter",
+          "rawQuery": true,
           "refId": "A",
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "idle_cpu"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "component_name",
+              "operator": "=",
+              "value": "Routing Engine0"
+            }
+          ]
         }
       ],
       "title": "Current RE0 CPU",
@@ -443,7 +599,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -500,17 +656,42 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "COMPONENTS_buffer_usage{SHORTNAME=~\"$rtr\", component_name=~\"Routing Engine0|RE0\"}",
-          "legendFormat": "__auto",
+          "groupBy": [],
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"buffer_usage\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"component_name\" =~ /Routing Engine0|RE0/) AND $timeFilter",
+          "rawQuery": true,
           "refId": "A",
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "idle_cpu"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "component_name",
+              "operator": "=",
+              "value": "Routing Engine0"
+            }
+          ]
         }
       ],
       "title": "Current RE0 Mem",
@@ -518,7 +699,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -575,17 +756,42 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "$tag_component_name",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "COMPONENTS_linecard_memory{SHORTNAME=~\"$rtr\", component_name=~\"FPC.*\"}",
-          "legendFormat": "{{component_name}}",
+          "groupBy": [],
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"linecard_memory\" FROM \"COMPONENTS\" WHERE \"SHORTNAME\" =~ /^$rtr$/ AND \"component_name\" =~ /FPC.*/ AND $timeFilter group by component_name",
+          "rawQuery": true,
           "refId": "A",
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "idle_cpu"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "component_name",
+              "operator": "=",
+              "value": "FPC0"
+            }
+          ]
         }
       ],
       "title": "Current FPC Heap Memory",
@@ -593,7 +799,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -651,17 +857,42 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "100 - COMPONENTS_idle_cpu{SHORTNAME=~\"$rtr\", component_name=~\"Routing Engine1|RE1\"}",
-          "legendFormat": "__auto",
+          "groupBy": [],
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT 100 - \"idle_cpu\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"component_name\" =~ /Routing Engine1|RE1/) AND $timeFilter",
+          "rawQuery": true,
           "refId": "A",
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "idle_cpu"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "component_name",
+              "operator": "=",
+              "value": "Routing Engine0"
+            }
+          ]
         }
       ],
       "title": "Current RE1 CPU",
@@ -669,7 +900,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -727,17 +958,42 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "COMPONENTS_buffer_usage{SHORTNAME=~\"$rtr\", component_name=~\"Routing Engine1|RE1\"}",
-          "legendFormat": "__auto",
+          "groupBy": [],
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"buffer_usage\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"component_name\" =~ /Routing Engine1|RE1/) AND $timeFilter",
+          "rawQuery": true,
           "refId": "A",
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "idle_cpu"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "component_name",
+              "operator": "=",
+              "value": "Routing Engine0"
+            }
+          ]
         }
       ],
       "title": "Current RE1 Mem",
@@ -745,7 +1001,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "gridPos": {
@@ -783,7 +1039,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -838,32 +1094,118 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "JUNOS_ALARMS_alarm_severity{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "__auto",
-          "refId": "A",
+          "groupBy": [],
           "hide": false,
-          "format": "table",
-          "instant": true,
-          "range": false
+          "measurement": "JUNOS_ALARMS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"alarm_severity\"), last(\"alarm_resource\"), last(\"alarm_time\")/1000000, last(\"alarm_text\") FROM \"JUNOS_ALARMS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and  $timeFilter GROUP BY \"/system/alarms/alarm/id\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "alarm_severity"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_resource"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_time"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_text"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         },
         {
+          "alias": "",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "JUNOS_ALARMS_alarm_severity_net{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "__auto",
-          "refId": "B",
+          "groupBy": [],
           "hide": false,
-          "format": "table",
-          "instant": true,
-          "range": false
+          "measurement": "JUNOS_ALARMS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"alarm_severity_net\"), last(\"alarm_resource_net\"), last(\"alarm_time_net\"), last(\"alarm_text_net\") FROM \"JUNOS_ALARMS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and  $timeFilter GROUP BY \"alarm_id_net\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "alarm_severity"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_resource"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_time"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_text"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "title": "Chassis Alarms",
@@ -910,7 +1252,7 @@
     {
       "activePatternIndex": 5,
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "debug_mode": false,
@@ -1167,74 +1509,244 @@
       },
       "targets": [
         {
+          "alias": "$tag_cmerror_name,COUNT",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "JUNOS_CMERROR_cmerror_count{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"}",
-          "legendFormat": "{{cmerror_name}},COUNT",
+          "groupBy": [
+            {
+              "params": [
+                "/junos/chassis/cmerror/counters/name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "JUNOS_CMERROR",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last( \"cmerror_count\") FROM \"JUNOS_CMERROR\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and cmerror_name!='' GROUP BY cmerror_name",
+          "rawQuery": true,
           "refId": "A",
-          "hide": false,
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cmerror_id"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "cmerror_count"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         },
         {
+          "alias": "$tag_cmerror_name,UPDATE",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "JUNOS_CMERROR_cmerror_update{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"}",
-          "legendFormat": "{{cmerror_name}},UPDATE",
+          "groupBy": [
+            {
+              "params": [
+                "/junos/chassis/cmerror/counters/name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "JUNOS_CMERROR",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last( \"cmerror_update\") FROM \"JUNOS_CMERROR\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and cmerror_name!='' GROUP BY cmerror_name",
+          "rawQuery": true,
           "refId": "B",
-          "hide": false,
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cmerror_id"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "cmerror_count"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         },
         {
+          "alias": "$tag_cmerror_name,CLEAR",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "JUNOS_CMERROR_cmerror_clear{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"}",
-          "legendFormat": "{{cmerror_name}},CLEAR",
+          "groupBy": [
+            {
+              "params": [
+                "/junos/chassis/cmerror/counters/name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "JUNOS_CMERROR",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last( \"cmerror_clear\") FROM \"JUNOS_CMERROR\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and cmerror_name!='' GROUP BY cmerror_name",
+          "rawQuery": true,
           "refId": "C",
-          "hide": false,
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cmerror_id"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "cmerror_count"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         },
         {
+          "alias": "$tag_cmerror_name,SLOT",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "JUNOS_CMERROR_cmerror_slot{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"} + 0.1",
-          "legendFormat": "{{cmerror_name}},SLOT",
+          "groupBy": [
+            {
+              "params": [
+                "/junos/chassis/cmerror/counters/name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "hide": false,
+          "measurement": "JUNOS_CMERROR",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last( \"cmerror_slot\")+0.1 FROM \"JUNOS_CMERROR\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and cmerror_name!='' GROUP BY cmerror_name",
+          "rawQuery": true,
           "refId": "D",
-          "hide": false,
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cmerror_id"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "cmerror_count"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         },
         {
+          "alias": "$tag_cmerror_name,DELTA",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "(JUNOS_CMERROR_cmerror_clear{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"} - JUNOS_CMERROR_cmerror_update{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"}) + 0.1",
-          "legendFormat": "{{cmerror_name}},DELTA",
-          "refId": "E",
+          "groupBy": [
+            {
+              "params": [
+                "/junos/chassis/cmerror/counters/name"
+              ],
+              "type": "tag"
+            }
+          ],
           "hide": false,
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "measurement": "JUNOS_CMERROR",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT  last( \"cmerror_clear\")-last( \"cmerror_update\")+0.1 FROM \"JUNOS_CMERROR\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and cmerror_name!='' GROUP BY cmerror_name",
+          "rawQuery": true,
+          "refId": "E",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cmerror_id"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "cmerror_count"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "text_alignment_header": "",
@@ -1244,7 +1756,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "description": "",
@@ -1340,16 +1852,49 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "ALARMING_exception{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "__auto",
+          "groupBy": [
+            {
+              "params": [
+                "ALARM_TYPE"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "LINKNAME"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "ALARMING",
+          "orderByTime": "ASC",
+          "policy": "default",
           "refId": "A",
-          "format": "table",
-          "instant": true,
-          "range": false
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "exception"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "title": "RealTime Monitored KPI (TimeFrame) ",
@@ -1372,7 +1917,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "description": "",
@@ -1432,16 +1977,45 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "ALARMING_exception{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "__auto",
+          "groupBy": [
+            {
+              "params": [
+                "ALARM_TYPE"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "LINKNAME"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "ALARMING",
+          "orderByTime": "ASC",
+          "policy": "default",
           "refId": "A",
-          "format": "table",
-          "instant": true,
-          "range": false
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "exception"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "title": "RealTime Monitored KPI Details (TimeFrame) ",
@@ -1465,7 +2039,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "gridPos": {
@@ -1503,7 +2077,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -1588,18 +2162,37 @@
       },
       "targets": [
         {
+          "alias": "CPU $tag_component_name",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "100 - COMPONENTS_idle_cpu{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "CPU {{component_name}}",
-          "refId": "A",
+          "groupBy": [],
           "hide": false,
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT 100-\"idle_cpu\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter group by component_name",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "idle_cpu"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "title": "Routing-engine CPU",
@@ -1607,7 +2200,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -1691,18 +2284,44 @@
       },
       "targets": [
         {
+          "alias": "Mem $tag_component_name",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "COMPONENTS_buffer_usage{SHORTNAME=~\"$rtr\", component_name=~\".*outing.*|RE.*\"}",
-          "legendFormat": "Mem {{component_name}}",
-          "refId": "A",
+          "groupBy": [
+            {
+              "params": [
+                "component_name"
+              ],
+              "type": "tag"
+            }
+          ],
           "hide": false,
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"buffer_usage\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and component_name=~/.*outing.*|RE.*/ GROUP BY \"component_name\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "memory_usage"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "title": "Routing-Engine Memory",
@@ -1710,7 +2329,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -1795,18 +2414,44 @@
       },
       "targets": [
         {
+          "alias": "CPU $tag_component_name",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "COMPONENTS_linecard_cpu{SHORTNAME=~\"$rtr\", component_name=~\"FPC.*\"}",
-          "legendFormat": "CPU {{component_name}}",
-          "refId": "B",
+          "groupBy": [
+            {
+              "params": [
+                "component_name"
+              ],
+              "type": "tag"
+            }
+          ],
           "hide": false,
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"linecard_cpu\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND component_name=~ /^FPC.*/ and $timeFilter GROUP BY component_name",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "linecard_cpu"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "title": "Linecards CPU",
@@ -1814,7 +2459,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -1898,18 +2543,44 @@
       },
       "targets": [
         {
+          "alias": "Heap memory $tag_component_name",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "COMPONENTS_linecard_memory{SHORTNAME=~\"$rtr\", component_name=~\"FPC.*\"}",
-          "legendFormat": "Heap memory {{component_name}}",
-          "refId": "B",
+          "groupBy": [
+            {
+              "params": [
+                "component_name"
+              ],
+              "type": "tag"
+            }
+          ],
           "hide": false,
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"linecard_memory\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter AND component_name=~ /^FPC.*/ GROUP BY \"component_name\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "linecard_memory"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "title": "Linecards Memory",
@@ -1917,7 +2588,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -2006,18 +2677,16 @@
       "pluginVersion": "9.4.7",
       "targets": [
         {
+          "alias": "$tag_process_name - (PID $tag_process_pid)",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "SYSTEM_process_cpu_utilization{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "{{process_name}} - (PID {{process_pid}})",
-          "refId": "A",
           "hide": false,
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "query": "SELECT \"process_cpu_utilization\" FROM \"SYSTEM\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and $timeFilter GROUP BY \"process_name\", \"process_pid\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
         }
       ],
       "title": "SYSTEM CPU (only >0%)",
@@ -2033,7 +2702,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -2122,18 +2791,44 @@
       "pluginVersion": "9.4.7",
       "targets": [
         {
+          "alias": "$tag_component_name",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "SYSTEM_cpu_utilization{SHORTNAME=~\"$rtr\"} != 0",
-          "legendFormat": "{{name}}",
-          "refId": "B",
+          "groupBy": [
+            {
+              "params": [
+                "component_name"
+              ],
+              "type": "tag"
+            }
+          ],
           "hide": false,
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"cpu_utilization\" FROM \"SYSTEM\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND \"cpu_utilization\"!=0 and $timeFilter GROUP BY \"name\", \"process_pid\"",
+          "rawQuery": false,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "core_cpu_instant"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "title": "CORE Utilization",
@@ -2149,7 +2844,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -2238,18 +2933,16 @@
       "pluginVersion": "9.4.7",
       "targets": [
         {
+          "alias": "$tag_process_name - (PID $tag_process_pid)",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "SYSTEM_process_memory_usage{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "{{process_name}} - (PID {{process_pid}})",
-          "refId": "A",
           "hide": false,
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "query": "SELECT \"process_memory_usage\" FROM \"SYSTEM\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and $timeFilter GROUP BY \"process_name\", \"process_pid\" fill(0)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
         }
       ],
       "title": "PROCESS Memory (only >32MB)",
@@ -2265,7 +2958,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "gridPos": {
@@ -2303,7 +2996,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -2388,17 +3081,41 @@
       },
       "targets": [
         {
+          "alias": "Fabric Drops pps $tag_component_name",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "COMPONENTS_fabric_drops_pkts_rate{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "Fabric Drops pps {{component_name}}",
+          "groupBy": [
+            {
+              "params": [
+                "component_name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
           "refId": "A",
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "fabric_drops_pkts_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "title": "Fabric Drops PPS",
@@ -2406,7 +3123,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -2493,17 +3210,41 @@
       },
       "targets": [
         {
+          "alias": "In Fabric pps $tag_component_name",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "COMPONENTS_fabric_input_pkts_rate{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "In Fabric pps {{component_name}}",
+          "groupBy": [
+            {
+              "params": [
+                "component_name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
           "refId": "A",
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "fabric_input_pkts_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "title": "In Fabric PPS ",
@@ -2511,7 +3252,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -2598,17 +3339,41 @@
       },
       "targets": [
         {
+          "alias": "Out Fabric pps $tag_component_name",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "COMPONENTS_fabric_output_pkts_rate{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "Out Fabric pps {{component_name}}",
+          "groupBy": [
+            {
+              "params": [
+                "component_name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "COMPONENTS",
+          "orderByTime": "ASC",
+          "policy": "default",
           "refId": "A",
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "fabric_output_pkts_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "title": "Out Fabric PPS ",
@@ -2628,21 +3393,17 @@
           "value": ""
         },
         "datasource": {
-          "type": "prometheus",
+          "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "label_values(COMPONENTS_idle_cpu, SHORTNAME)",
+        "definition": "show tag values from COMPONENTS with key=\"SHORTNAME\"",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(COMPONENTS_idle_cpu, SHORTNAME)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "show tag values from COMPONENTS with key=\"SHORTNAME\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,

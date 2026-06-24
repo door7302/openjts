@@ -56,7 +56,6 @@
       }
     ]
   },
-  "kapacitor": null,
   "grafana": [
     "dashboard-health.json",
     "dashboard-hw-npu.json"

@@ -42,7 +42,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -93,17 +93,42 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "HW_NPU_value{SHORTNAME=~\"$rtr\", MODEL!=\"\"}",
-          "legendFormat": "__auto",
+          "groupBy": [],
+          "measurement": "HW_NPU",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"value\") FROM \"HW_NPU\" WHERE \"SHORTNAME\"::tag=~ /^$rtr$/ AND $timeFilter and MODEL!='' group by VERSION, MODEL, SHORTNAME",
+          "rawQuery": true,
           "refId": "A",
-          "format": "table",
-          "instant": true,
-          "range": false
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "component_name::tag",
+              "operator": "=~",
+              "value": "/^$comp_name$/"
+            },
+            {
+              "condition": "AND",
+              "key": "property_name::tag",
+              "operator": "=~",
+              "value": "/^$prop_name$/"
+            }
+          ]
         }
       ],
       "title": "Router Info",
@@ -151,7 +176,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -212,32 +237,118 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "JUNOS_ALARMS_alarm_severity{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "__auto",
-          "refId": "A",
+          "groupBy": [],
           "hide": false,
-          "format": "table",
-          "instant": true,
-          "range": false
+          "measurement": "ERRORS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"alarm_severity\"), last(\"alarm_resource\"), last(\"alarm_time\")/1000000, last(\"alarm_text\") FROM \"JUNOS_ALARMS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and  $timeFilter GROUP BY \"/system/alarms/alarm/id\"",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "alarm_severity"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_resource"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_time"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_text"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         },
         {
+          "alias": "",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "JUNOS_ALARMS_alarm_severity_net{SHORTNAME=~\"$rtr\"}",
-          "legendFormat": "__auto",
-          "refId": "B",
+          "groupBy": [],
           "hide": false,
-          "format": "table",
-          "instant": true,
-          "range": false
+          "measurement": "ERRORS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"alarm_severity_net\"), last(\"alarm_resource_net\"), last(\"alarm_time_net\"), last(\"alarm_text_net\") FROM \"JUNOS_ALARMS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and  $timeFilter GROUP BY \"alarm_id_net\"",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "alarm_severity"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_resource"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_time"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "alarm_text"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "title": "Chassis Alarms",
@@ -299,7 +410,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "description": "",
@@ -388,17 +499,46 @@
       },
       "targets": [
         {
+          "alias": "$prop_name",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "HW_NPU_value{SHORTNAME=~\"$rtr\", component_name=~\"$comp_name\", property_name=~\"$prop_name\"}",
-          "legendFormat": "$prop_name",
+          "groupBy": [],
+          "measurement": "HW_NPU",
+          "orderByTime": "ASC",
+          "policy": "default",
           "refId": "A",
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "component_name::tag",
+              "operator": "=~",
+              "value": "/^$comp_name$/"
+            },
+            {
+              "condition": "AND",
+              "key": "property_name::tag",
+              "operator": "=~",
+              "value": "/^$prop_name$/"
+            }
+          ]
         }
       ],
       "title": "History of $prop_name",
@@ -406,7 +546,7 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
+        "type": "influxdb",
         "uid": "jtsuid"
       },
       "fieldConfig": {
@@ -458,17 +598,46 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "$prop_name",
           "datasource": {
-            "type": "prometheus",
+            "type": "influxdb",
             "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "HW_NPU_value{SHORTNAME=~\"$rtr\", component_name=~\"$comp_name\", property_name=~\"$prop_name\"}",
-          "legendFormat": "$prop_name",
+          "groupBy": [],
+          "measurement": "HW_NPU",
+          "orderByTime": "ASC",
+          "policy": "default",
           "refId": "A",
-          "format": "time_series",
-          "instant": false,
-          "range": true
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "component_name::tag",
+              "operator": "=~",
+              "value": "/^$comp_name$/"
+            },
+            {
+              "condition": "AND",
+              "key": "property_name::tag",
+              "operator": "=~",
+              "value": "/^$prop_name$/"
+            }
+          ]
         }
       ],
       "title": "Current Value of $prop_name",
@@ -488,21 +657,17 @@
           "value": ""
         },
         "datasource": {
-          "type": "prometheus",
+          "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "label_values(HW_NPU_value, SHORTNAME)",
+        "definition": "show tag values from HW_NPU with key=\"SHORTNAME\"",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(HW_NPU_value, SHORTNAME)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "show tag values from HW_NPU with key=\"SHORTNAME\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -516,21 +681,17 @@
           "value": "FPC0:NPU0"
         },
         "datasource": {
-          "type": "prometheus",
+          "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "label_values(HW_NPU_value{SHORTNAME=~\"$rtr\"}, component_name)",
+        "definition": "show tag values from HW_NPU  with key=\"component_name\" where SHORTNAME=~/$rtr/",
         "hide": 0,
         "includeAll": false,
         "label": "HW Component",
         "multi": false,
         "name": "comp_name",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(HW_NPU_value{SHORTNAME=~\"$rtr\"}, component_name)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "show tag values from HW_NPU  with key=\"component_name\" where SHORTNAME=~/$rtr/",
         "refresh": 1,
         "regex": "^FPC\\d+:\\w+$",
         "skipUrlSync": false,
@@ -548,21 +709,17 @@
           ]
         },
         "datasource": {
-          "type": "prometheus",
+          "type": "influxdb",
           "uid": "jtsuid"
         },
-        "definition": "label_values(HW_NPU_value{component_name=\"$comp_name\"}, property_name)",
+        "definition": "show tag values from HW_NPU with key=\"property_name\" where component_name='$comp_name'",
         "hide": 0,
         "includeAll": true,
         "label": "HW Property",
         "multi": true,
         "name": "prop_name",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(HW_NPU_value{component_name=\"$comp_name\"}, property_name)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "show tag values from HW_NPU with key=\"property_name\" where component_name='$comp_name'",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,

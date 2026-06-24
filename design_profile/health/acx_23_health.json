@@ -277,8 +277,7 @@
       }
     ]
   }],
-  "influx_outputs": [{
-    "retention": "autogen",
+  "prometheus_outputs": [{
     "fieldpass": [
       "exception",
       "value",
