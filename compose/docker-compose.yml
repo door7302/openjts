@@ -14,7 +14,13 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
       - '--storage.tsdb.retention.time=${PROM_RETENTION}'
+      - '--storage.tsdb.retention.size=${PROM_RETENTION_SIZE}'
+      - '--storage.tsdb.wal-compression'
+      - '--query.max-concurrency=20'
+      - '--query.max-samples=50000000'
+      - '--query.timeout=2m'
       - '--web.enable-admin-api'
+      - '--web.enable-lifecycle'
   telegraf_mx:
     build: https://github.com/door7302/jts_telegraf.git#v1.0.17
     image: jts_telegraf:latest
