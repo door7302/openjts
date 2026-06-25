@@ -1621,11 +1621,11 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "100 - COMPONENTS_idle_cpu{SHORTNAME=~\"$rtr\"}",
+          "expr": "100 - (\n  avg by (SHORTNAME, component_name) (\n    avg_over_time(COMPONENTS_idle_cpu{SHORTNAME=~\"$rtr\"}[30s])\n  )\n)",
           "format": "time_series",
           "hide": false,
           "instant": false,
-          "interval": "30s",
+          "interval": "",
           "legendFormat": "CPU {{component_name}}",
           "range": true,
           "refId": "A"
@@ -1725,11 +1725,11 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_buffer_usage{SHORTNAME=~\"$rtr\", component_name=~\".*outing.*|RE.*\"}",
+          "expr": "avg by (component_name) (\n  avg_over_time(COMPONENTS_buffer_usage{SHORTNAME=~\"$rtr\", component_name!~\"FPC.*\"}[31s])\n)",
           "format": "time_series",
           "hide": false,
           "instant": false,
-          "interval": "30s",
+          "interval": "",
           "legendFormat": "Mem {{component_name}}",
           "range": true,
           "refId": "A"
@@ -1830,11 +1830,11 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_linecard_cpu{SHORTNAME=~\"$rtr\", component_name=~\"FPC.*\"}",
+          "expr": "avg by (component_name) (\n  avg_over_time(COMPONENTS_linecard_cpu{SHORTNAME=~\"$rtr\", component_name=~\"FPC.*\"}[30s])\n)",
           "format": "time_series",
           "hide": false,
           "instant": false,
-          "interval": "30s",
+          "interval": "",
           "legendFormat": "CPU {{component_name}}",
           "range": true,
           "refId": "B"
@@ -1934,11 +1934,11 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_linecard_memory{SHORTNAME=~\"$rtr\", component_name=~\"FPC.*\"}",
+          "expr": "avg by (component_name) (\n  avg_over_time(COMPONENTS_linecard_memory{SHORTNAME=~\"$rtr\", component_name=~\"FPC.*\"}[30s])\n)",
           "format": "time_series",
           "hide": false,
           "instant": false,
-          "interval": "30s",
+          "interval": "",
           "legendFormat": "Heap memory {{component_name}}",
           "range": true,
           "refId": "B"
@@ -2043,11 +2043,11 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "SYSTEM_process_cpu_utilization{SHORTNAME=~\"$rtr\"}",
+          "expr": "avg by (process_name, process_pid) (\n  avg_over_time(\n    SYSTEM_process_cpu_utilization{SHORTNAME=~\"$rtr\"}[30s]\n  )\n)",
           "format": "time_series",
           "hide": false,
           "instant": false,
-          "interval": "30s",
+          "interval": "",
           "legendFormat": "{{process_name}} - (PID {{process_pid}})",
           "range": true,
           "refId": "A"
@@ -2160,11 +2160,11 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_core_cpu_instant{SHORTNAME=\"$rtr\"}",
+          "expr": "avg by (component_name) (\n  avg_over_time(\n    COMPONENTS_core_cpu_instant{SHORTNAME=~\"$rtr\"}[30s]\n  )\n)",
           "format": "time_series",
           "hide": false,
           "instant": false,
-          "interval": "30s",
+          "interval": "",
           "legendFormat": "{{name}}",
           "range": true,
           "refId": "B"
@@ -2277,7 +2277,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "SYSTEM_process_memory_usage{SHORTNAME=~\"$rtr\"}",
+          "expr": "avg by (process_name, process_pid) (\n  avg_over_time(\n    SYSTEM_process_memory_usage{SHORTNAME=~\"$rtr\"}[30s]\n  )\n)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -2428,10 +2428,10 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_fabric_drops_pkts_rate{SHORTNAME=~\"$rtr\"}",
+          "expr": "avg by (component_name) (\n  avg_over_time(\n    COMPONENTS_fabric_drops_pkts_rate{SHORTNAME=~\"$rtr\"}[30s]\n  )\n)",
           "format": "time_series",
           "instant": false,
-          "interval": "30s",
+          "interval": "",
           "legendFormat": "Fabric Drops pps {{component_name}}",
           "range": true,
           "refId": "A"
@@ -2534,10 +2534,10 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_fabric_input_pkts_rate{SHORTNAME=~\"$rtr\"}",
+          "expr": "avg by (component_name) (\n  avg_over_time(\n    COMPONENTS_fabric_input_pkts_rate{SHORTNAME=~\"$rtr\"}[30s]\n  )\n)",
           "format": "time_series",
           "instant": false,
-          "interval": "30s",
+          "interval": "",
           "legendFormat": "In Fabric pps {{component_name}}",
           "range": true,
           "refId": "A"
@@ -2640,10 +2640,10 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_fabric_output_pkts_rate{SHORTNAME=~\"$rtr\"}",
+          "expr": "avg by (component_name) (\n  avg_over_time(\n    COMPONENTS_fabric_output_pkts_rate{SHORTNAME=~\"$rtr\"}[30s]\n  )\n)",
           "format": "time_series",
           "instant": false,
-          "interval": "30s",
+          "interval": "",
           "legendFormat": "Out Fabric pps {{component_name}}",
           "range": true,
           "refId": "A"

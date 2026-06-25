@@ -197,7 +197,7 @@
         "x": 0,
         "y": 6
       },
-      "id": 38,
+      "id": 87,
       "options": {
         "cellHeight": "sm",
         "footer": {
@@ -208,13 +208,7 @@
           ],
           "show": false
         },
-        "showHeader": true,
-        "sortBy": [
-          {
-            "desc": true,
-            "displayName": "Time Triggered"
-          }
-        ]
+        "showHeader": true
       },
       "pluginVersion": "10.3.1",
       "targets": [
@@ -224,9 +218,9 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "JUNOS_ALARMS_alarm_severity{SHORTNAME=~\"$rtr\"}",
+          "expr": "JUNOS_ALARMS_alarm_time{SHORTNAME=~\"$rtr\"}",
           "format": "table",
-          "hide": false,
+          "hide": true,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -238,7 +232,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "JUNOS_ALARMS_alarm_severity_net{SHORTNAME=~\"$rtr\"}",
+          "expr": "JUNOS_ALARMS_alarm_time_net{SHORTNAME=~\"$rtr\"}",
           "format": "table",
           "hide": false,
           "instant": true,
@@ -254,9 +248,8 @@
           "options": {
             "conversions": [
               {
-                "dateFormat": "",
                 "destinationType": "time",
-                "targetField": "last_2"
+                "targetField": "Value"
               }
             ],
             "fields": {}
@@ -266,23 +259,43 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "/system/alarms/alarm/id": true,
+              "FAMILY": true,
+              "MODEL": true,
+              "SHORTNAME": true,
               "Time": true,
-              "alarm_id_net": true
+              "VERSION": true,
+              "__name__": true,
+              "alarm_id_net": true,
+              "alarm_resource_net": false,
+              "device": true,
+              "host": true,
+              "instance": true,
+              "job": true
             },
             "includeByName": {},
             "indexByName": {
-              "Time": 0,
-              "last": 2,
-              "last_1": 3,
-              "last_2": 1,
-              "last_3": 4
+              "FAMILY": 2,
+              "MODEL": 3,
+              "SHORTNAME": 4,
+              "Time": 1,
+              "VERSION": 5,
+              "Value": 0,
+              "__name__": 6,
+              "alarm_id_net": 7,
+              "alarm_resource_net": 9,
+              "alarm_severity_net": 8,
+              "alarm_text_net": 10,
+              "device": 11,
+              "host": 12,
+              "instance": 13,
+              "job": 14
             },
             "renameByName": {
-              "last": "Severity",
-              "last_1": "Type",
-              "last_2": "Time Triggered",
-              "last_3": "Info"
+              "Value": "Time Triggered",
+              "alarm_id_net": "",
+              "alarm_resource_net": "Type",
+              "alarm_severity_net": "Severity",
+              "alarm_text_net": "Info"
             }
           }
         }
@@ -400,7 +413,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "HW_NPU_value{SHORTNAME=~\"$rtr\", component_name=~\"$comp_name\", property_name=~\"$prop_name\"}",
+          "expr": "  avg_over_time(\n   HW_NPU_value{SHORTNAME=~\"$rtr\", component_name=~\"$comp_name\", property_name=~\"$prop_name\"}[30s]\n  )",
           "format": "time_series",
           "instant": false,
           "legendFormat": "$prop_name",
@@ -518,7 +531,7 @@
       },
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "",
           "value": ""
         },
