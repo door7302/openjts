@@ -65,8 +65,8 @@
       {
         "builtIn": 1,
         "datasource": {
-          "type": "grafana",
-          "uid": "-- Grafana --"
+          "type": "prometheus",
+          "uid": "jtsuid2"
         },
         "enable": true,
         "hide": true,
@@ -110,9 +110,8 @@
   "panels": [
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -207,8 +206,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -245,8 +244,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -292,8 +291,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -309,8 +308,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -374,8 +373,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -391,8 +390,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Last Successful Reload\n",
       "fieldConfig": {
@@ -442,8 +441,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "time() - reloader_last_reload_success_timestamp_seconds{job=\"$job\"}",
@@ -459,8 +458,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "1 = Victoria can scrape prometheus\n0 = Victoria cannot scrape prometheus ( network , prometheus issues )",
       "fieldConfig": {
@@ -543,8 +542,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "up{job=\"$job\"}",
@@ -559,9 +558,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -631,8 +629,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -699,9 +697,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -763,8 +760,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "prometheus_ready{job=\"$job\"}",
@@ -865,9 +862,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Whether the last reload attempt was successful\n",
       "fieldConfig": {
@@ -945,8 +941,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "reloader_last_reload_successful{job=\"$job\"}",
@@ -961,9 +957,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Total number of reload requests.\n\n",
       "fieldConfig": {
@@ -1045,8 +1040,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(reloader_reloads_total{job=\"$job\"}[$interval])",
@@ -1061,9 +1056,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Total number of config apply operations that failed.\n\n",
       "fieldConfig": {
@@ -1141,8 +1135,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(reloader_config_apply_operations_failed_total{job=\"$job\"}[$interval])",
@@ -1170,9 +1164,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -1252,8 +1245,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(process_open_fds{job=\"$job\"}[$interval])",
@@ -1268,9 +1261,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -1350,8 +1342,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "process_max_fds{job=\"$job\"}",
@@ -1366,9 +1358,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Virtual memory size in bytes.\n\n",
       "fieldConfig": {
@@ -1448,8 +1439,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "process_virtual_memory_bytes{job=\"$job\"}",
@@ -1464,9 +1455,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Virtual memory size in bytes.\n\n",
       "fieldConfig": {
@@ -1546,8 +1536,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "process_virtual_memory_max_bytes{job=\"$job\"}",
@@ -1575,8 +1565,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "This metric increases when the labels from scraped metrics for a particular scrape pool exceed the configured limits on:\n\nThe number of labels per metric series.\nThe maximum length of individual label names.\nThe maximum length of individual label values.\nWhen these limits are exceeded, Prometheus will drop the affected samples and increment this counter, indicating that some of the scraped data could not be ingested due to violating the label",
       "fieldConfig": {
@@ -1658,8 +1648,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_target_scrape_pool_exceeded_label_limits_total{job=\"$job\"}[$interval])",
@@ -1674,9 +1664,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "This metric increases when the labels from scraped metrics for a particular scrape pool exceed the configured limits on:\n\nThe number of labels per metric series.\nThe maximum length of individual label names.\nThe maximum length of individual label values.\nWhen these limits are exceeded, Prometheus will drop the affected samples and increment this counter, indicating that some of the scraped data could not be ingested due to violating the label",
       "fieldConfig": {
@@ -1766,8 +1755,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1783,9 +1772,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "The number of samples the target exposed.\n",
       "fieldConfig": {
@@ -1897,8 +1885,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "exemplar": false,
@@ -1927,9 +1915,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Metric Definition: This metric tracks the number of samples from each scrape target after relabeling has been applied. Relabeling in Prometheus allows you to modify, filter, or drop metrics as they are being scraped, based on matching label criteria.\n\nRelabeling: Relabeling is commonly used to:\n\nDrop unnecessary metrics.\nRename labels or metrics.\nControl the cardinality (number of unique time series).\nPrevent high cardinality or large volumes of unnecessary data from overwhelming Prometheus.",
       "fieldConfig": {
@@ -2011,8 +1998,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "scrape_samples_post_metric_relabeling{job=\"$job\", }",
@@ -2023,8 +2010,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "scrape_samples_scraped{job=\"$job\"}",
@@ -2040,8 +2027,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Metric Definition: This metric tracks the number of samples from each scrape target after relabeling has been applied. Relabeling in Prometheus allows you to modify, filter, or drop metrics as they are being scraped, based on matching label criteria.\n\nRelabeling: Relabeling is commonly used to:\n\nDrop unnecessary metrics.\nRename labels or metrics.\nControl the cardinality (number of unique time series).\nPrevent high cardinality or large volumes of unnecessary data from overwhelming Prometheus.",
       "fieldConfig": {
@@ -2123,8 +2110,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "rate(scrape_samples_post_metric_relabeling{job=\"$job\"}[$interval])",
@@ -2139,8 +2126,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Metric Definition: This metric tracks the number of samples from each scrape target after relabeling has been applied. Relabeling in Prometheus allows you to modify, filter, or drop metrics as they are being scraped, based on matching label criteria.\n\nRelabeling: Relabeling is commonly used to:\n\nDrop unnecessary metrics.\nRename labels or metrics.\nControl the cardinality (number of unique time series).\nPrevent high cardinality or large volumes of unnecessary data from overwhelming Prometheus.",
       "fieldConfig": {
@@ -2218,8 +2205,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "scrape_samples_scraped{job=\"$job\"} - scrape_samples_post_metric_relabeling{job=\"$job\"}",
@@ -2247,8 +2234,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "The number of bytes that are currently used for local storage by all blocks.\n",
       "fieldConfig": {
@@ -2328,8 +2315,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "prometheus_tsdb_storage_blocks_bytes{job=\"$job\"}",
@@ -2344,8 +2331,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "The number of times that blocks were deleted because the maximum number of bytes was exceeded.",
       "fieldConfig": {
@@ -2425,8 +2412,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_size_retentions_total{job=\"$job\"}[$interval])",
@@ -2441,8 +2428,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "The number of times that blocks were deleted because the maximum time limit was exceeded.\n\n\n",
       "fieldConfig": {
@@ -2522,8 +2509,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_time_retentions_total{job=\"$job\"}[$interval])",
@@ -2551,8 +2538,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -2631,8 +2618,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_checkpoint_creations_total{job=\"$job\"}[$interval])",
@@ -2647,8 +2634,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -2727,8 +2714,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_checkpoint_creations_total{job=\"$job\"}[$interval])",
@@ -2743,8 +2730,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -2823,8 +2810,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_checkpoint_deletions_failed_total\n{job=\"$job\"}[$interval])",
@@ -2839,8 +2826,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -2919,8 +2906,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_checkpoint_deletions_total\n{job=\"$job\"}[$interval])",
@@ -2948,9 +2935,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Total number of triggered compactions for the partition.\n\n",
       "fieldConfig": {
@@ -3030,8 +3016,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_compactions_total{job=\"$job\"}[$interval])",
@@ -3046,9 +3032,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Total number of triggered compactions for the partition.\n\n",
       "fieldConfig": {
@@ -3128,8 +3113,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_compactions_triggered_total{job=\"$job\"}[$interval])",
@@ -3144,9 +3129,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Total number of failed compactions for the partition.\n\n",
       "fieldConfig": {
@@ -3226,8 +3210,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_compactions_failed_total{job=\"$job\"}[$interval])",
@@ -3242,9 +3226,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Total number of skipped compactions due to disabled auto compaction.\n",
       "fieldConfig": {
@@ -3324,8 +3307,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_compactions_skipped_total{job=\"$job\"}[$interval])",
@@ -3340,9 +3323,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -3422,8 +3404,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_compaction_chunk_samples_count{job=\"$job\"}[$interval])",
@@ -3438,9 +3420,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -3520,8 +3501,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_compaction_chunk_samples_sum{job=\"$job\"}[$interval])",
@@ -3536,9 +3517,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -3618,8 +3598,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_tombstone_cleanup_seconds_count{job=\"$job\"}[$interval])",
@@ -3647,8 +3627,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -3729,8 +3709,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "prometheus_tsdb_head_active_appenders{job=\"$job\"}\n",
@@ -3745,8 +3725,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -3840,8 +3820,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "prometheus_tsdb_head_chunks_storage_size_bytes{job=\"$job\"}\n",
@@ -3856,8 +3836,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -3938,8 +3918,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "prometheus_tsdb_head_chunks{job=\"$job\"}\n",
@@ -3954,8 +3934,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -4036,8 +4016,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_head_chunks_created_total{job=\"$job\"}[$interval])\n",
@@ -4052,8 +4032,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -4134,8 +4114,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_head_chunks_removed_total{job=\"$job\"}[$interval])\n",
@@ -4150,8 +4130,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -4229,8 +4209,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "prometheus_tsdb_head_max_time{job=\"$job\"}\n",
@@ -4245,8 +4225,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -4324,8 +4304,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "prometheus_tsdb_head_min_time{job=\"$job\"}\n",
@@ -4340,8 +4320,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -4418,8 +4398,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_head_out_of_order_samples_appended_total{job=\"$job\"}[$interval])\n",
@@ -4434,8 +4414,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -4512,8 +4492,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_head_samples_appended_total\n{job=\"$job\"}[$interval])\n",
@@ -4528,8 +4508,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -4606,8 +4586,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "prometheus_tsdb_head_series\n{job=\"$job\"}\n",
@@ -4622,8 +4602,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -4700,8 +4680,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_head_series_created_total\n{job=\"$job\"}[$interval])\n",
@@ -4716,8 +4696,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -4794,8 +4774,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_head_series_removed_total\n{job=\"$job\"}[$interval])\n",
@@ -4810,8 +4790,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -4888,8 +4868,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_head_series_not_found_total\n{job=\"$job\"}[$interval])\n",
@@ -4904,8 +4884,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -4982,8 +4962,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_head_truncations_total\n{job=\"$job\"}[$interval])\n",
@@ -4998,8 +4978,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -5076,8 +5056,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_head_truncations_failed_total\n{job=\"$job\"}[$interval])\n",
@@ -5105,9 +5085,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -5186,8 +5165,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "prometheus_tsdb_wal_storage_size_bytes{job=\"$job\"}",
@@ -5202,9 +5181,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -5283,8 +5261,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_wal_truncations_total{job=\"$job\"}[$interval])",
@@ -5299,9 +5277,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -5379,8 +5356,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_wal_truncations_failed_total{job=\"$job\"}[$interval])",
@@ -5395,9 +5372,8 @@
     },
     {
       "datasource": {
-        "name": "${datasource}",
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Metric Definition: The prometheus_tsdb_wal_completed_pages_total metric counts the total number of completed pages in the WAL. In the context of WAL, a page refers to a fixed-size block of data that is written to storage.\n\nCompleted Pages: This metric tracks how many pages have been successfully written and finalized in the WAL over time. This helps in understanding the volume of data being processed and how effectively the WAL is managing data writes.",
       "fieldConfig": {
@@ -5476,8 +5452,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_wal_completed_pages_total{job=\"$job\"}[$interval])",
@@ -5492,9 +5468,8 @@
     },
     {
       "datasource": {
-        "name": "${datasource}",
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "What Does prometheus_tsdb_wal_page_flushes_total Measure?\nMetric Definition: The prometheus_tsdb_wal_page_flushes_total metric counts the total number of times that pages in the WAL have been flushed to disk. A page in this context refers to a fixed-size block of data that is written to the WAL.\n\nFlushing: Flushing a page involves writing its contents from memory to disk, ensuring that the data is safely stored and can be recovered in case of a crash. This process is critical for maintaining data integrity.",
       "fieldConfig": {
@@ -5573,8 +5548,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_wal_page_flushes_total{job=\"$job\"}[$interval])",
@@ -5589,9 +5564,8 @@
     },
     {
       "datasource": {
-        "name": "${datasource}",
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "What Does prometheus_tsdb_wal_writes_failed_total Measure?\nMetric Definition: The prometheus_tsdb_wal_writes_failed_total metric counts the total number of failed write attempts to the WAL. A failed write could occur for various reasons, such as:\n\nDisk space issues\nFile system permissions errors\nHardware failures\nCorrupted WAL files",
       "fieldConfig": {
@@ -5670,8 +5644,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_tsdb_wal_writes_failed_total{job=\"$job\"}[$interval])",
@@ -5686,9 +5660,8 @@
     },
     {
       "datasource": {
-        "name": "${datasource}",
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Metric Definition: The prometheus_tsdb_wal_segment_current metric indicates the current segment number of the WAL. The WAL is divided into segments, and each segment represents a fixed size of data that can be written. When a segment is filled, a new segment is created, and the data continues to be written.\n\nCurrent Segment: This metric reflects which segment of the WAL is currently being written to. This is particularly useful for understanding the WAL's operational state and ensuring that it is functioning correctly.Metric Definition: The prometheus_tsdb_wal_writes_failed_total metric counts the total number of failed write attempts to the WAL. A failed write could occur for various reasons, such as:\n\nDisk space issues\nFile system permissions errors\nHardware failures\nCorrupted WAL files",
       "fieldConfig": {
@@ -5767,8 +5740,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "prometheus_tsdb_wal_segment_current{job=\"$job\"}",
@@ -5796,8 +5769,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -5878,8 +5851,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "prometheus_agent_active_series{job=\"$job\"}",
@@ -5894,8 +5867,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "prometheus_agent_corruptions_total is useful for detecting issues with the agent’s local storage.\nIt helps you identify potential problems that could lead to data loss or delays in sending metrics to remote storage.\nA high or increasing value in this metric indicates that the agent’s storage is becoming corrupted, which might result in missing metrics or failures in remote write operations.",
       "fieldConfig": {
@@ -5977,8 +5950,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "prometheus_agent_corruptions_total{job=\"$job\"}",
@@ -5993,8 +5966,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Value of 1: Indicates that the agent started cleanly without encountering any issues with its local storage, such as corruptions.\nValue of 0: Indicates that the agent did not have a clean start, which might suggest problems such as storage corruption, incomplete shutdowns, or other issues.",
       "fieldConfig": {
@@ -6076,8 +6049,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "prometheus_agent_clean_start{job=\"$job\"}",
@@ -6092,8 +6065,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "prometheus_agent_deleted_series: This metric tracks the total number of time series that have been deleted from the agent's temporary storage.\nTime series are uniquely identified streams of metric data, typically defined by a metric name and a set of labels (key-value pairs).\nDeletion of time series can happen due to retention settings, which ensure that the local buffer doesn't grow too large",
       "fieldConfig": {
@@ -6172,8 +6145,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_agent_deleted_series{job=\"$job\"}[$interval])",
@@ -6188,8 +6161,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "prometheus_agent_checkpoint_creations_total: This metric counts the total number of checkpoints that have been created by the agent. A checkpoint is a snapshot of the state of the WAL at a particular moment, allowing the agent to manage its internal state more efficiently and safely.\nEach checkpoint helps in reducing the size of the WAL by allowing the agent to discard data that has already been safely persisted in the checkpoint.",
       "fieldConfig": {
@@ -6268,8 +6241,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_agent_checkpoint_creations_total{job=\"$job\"}[$interval])",
@@ -6284,8 +6257,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "prometheus_agent_checkpoint_creations_total: This metric counts the total number of checkpoints that have been created by the agent. A checkpoint is a snapshot of the state of the WAL at a particular moment, allowing the agent to manage its internal state more efficiently and safely.\nEach checkpoint helps in reducing the size of the WAL by allowing the agent to discard data that has already been safely persisted in the checkpoint.",
       "fieldConfig": {
@@ -6364,8 +6337,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_agent_checkpoint_creations_failed_total{job=\"$job\"}[$interval])",
@@ -6380,8 +6353,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "prometheus_agent_checkpoint_deletions_total: This metric represents the total number of checkpoints that have been deleted by the agent. Each deletion typically occurs when a new checkpoint is created, and older ones are removed to maintain efficient storage usage.Each checkpoint helps in reducing the size of the WAL by allowing the agent to discard data that has already been safely persisted in the checkpoint.",
       "fieldConfig": {
@@ -6460,8 +6433,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_agent_checkpoint_deletions_total{job=\"$job\"}[$interval])",
@@ -6477,8 +6450,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "prometheus_agent_checkpoint_deletions_total: This metric represents the total number of checkpoints that have been deleted by the agent. Each deletion typically occurs when a new checkpoint is created, and older ones are removed to maintain efficient storage usage.Each checkpoint helps in reducing the size of the WAL by allowing the agent to discard data that has already been safely persisted in the checkpoint.",
       "fieldConfig": {
@@ -6557,8 +6530,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_agent_checkpoint_deletions_failed_total{job=\"$job\"}[$interval])",
@@ -6587,9 +6560,8 @@
     },
     {
       "datasource": {
-        "name": "${datasource}",
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Batch Count: This metric counts how many batches of metrics data have been successfully sent to the remote storage system.\nBatching: Prometheus batches metrics before sending them over the network to improve performance. This metric helps you understand how often Prometheus is sending batches of data, giving you insights into the behavior of the remote write process.\n",
       "fieldConfig": {
@@ -6671,8 +6643,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_remote_storage_sent_batch_duration_seconds_count{job=\"$job\"}[$interval])",
@@ -6687,9 +6659,8 @@
     },
     {
       "datasource": {
-        "name": "${datasource}",
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -6771,8 +6742,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "sum(rate(prometheus_remote_storage_sent_batch_duration_seconds_sum{job=\"$job\"}[$interval])) by (instance, url) / sum(rate(prometheus_remote_storage_sent_batch_duration_seconds_count{job=\"$job\"}[$interval])) by (instance, url)",
@@ -6787,9 +6758,8 @@
     },
     {
       "datasource": {
-        "default": false,
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "The total number of samples sent to remote storage.",
       "fieldConfig": {
@@ -6871,8 +6841,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_remote_storage_samples_in_total{job=\"$job\"}[$interval])",
@@ -6887,9 +6857,8 @@
     },
     {
       "datasource": {
-        "name": "${datasource}",
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -6971,8 +6940,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_remote_storage_dropped_samples_total{job=\"$job\"}[$interval])",
@@ -6987,9 +6956,8 @@
     },
     {
       "datasource": {
-        "name": "${datasource}",
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "prometheus_agent_samples_appended_total: This metric counts the total number of samples that have been appended to the WAL since the agent was started.\nEach time a sample is scraped from a target, it is appended to the WAL before being sent to remote storage. This ensures that data is not lost in case of transient failures during the write process.",
       "fieldConfig": {
@@ -7069,8 +7037,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_agent_samples_appended_total{job=\"$job\"}[$interval])",
@@ -7085,9 +7053,8 @@
     },
     {
       "datasource": {
-        "name": "${datasource}",
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "prometheus_agent_out_of_order_samples_total: This metric counts the total number of samples that have been identified as out-of-order since the agent started. Each occurrence of an out-of-order sample increments this counter.\n\nOut-of-Order Samples: These are samples that are received with timestamps that are earlier than previously recorded timestamps for the same time series. In Prometheus, a time series is defined by its metric name and label set, and samples must be recorded in chronological order.",
       "fieldConfig": {
@@ -7167,8 +7134,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_agent_out_of_order_samples_total{job=\"$job\"}[$interval])",
@@ -7183,9 +7150,8 @@
     },
     {
       "datasource": {
-        "name": "${datasource}",
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Metric Definition: This metric tracks the total number of samples with duplicate timestamps that were encountered across all targets during scrapes. A duplicate timestamp occurs when Prometheus receives two or more samples with the same metric name, labels, and timestamp during a scrape, leading it to discard the duplicates.\n\nWhy Duplicates Occur: Duplicates typically occur when:\n\nTargets misbehave and send multiple metrics with the same timestamp in response to a scrape.\nMisconfiguration of the scraping intervals or targets.\nData push mechanisms (like using Pushgateway) send multiple samples for the same time point.",
       "fieldConfig": {
@@ -7267,8 +7233,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_target_scrapes_sample_duplicate_timestamp_total{job=\"$job\"}[$interval])",
@@ -7283,9 +7249,8 @@
     },
     {
       "datasource": {
-        "name": "${datasource}",
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Understanding WAL and Truncation\nWrite-Ahead Log (WAL): The WAL is a critical component of Prometheus's data handling mechanism. It is used to record changes to the time series data before they are flushed to long-term storage (either local or remote). The WAL helps ensure data integrity and durability.\nTruncation: As data is written to the WAL, old segments that are no longer needed for recovery or are beyond the configured retention period may be truncated (deleted). This process helps manage the size of the WAL and frees up disk space.\nWhat Does prometheus_agent_truncate_duration_seconds_count Measure?\nMetric Definition: This metric counts the number of times the agent has successfully truncated the WAL and records the time taken for each truncation operation.\nCount of Truncation Events: It specifically tracks how many truncation events have occurred, providing insight into how often the WAL is being cleaned up.",
       "fieldConfig": {
@@ -7364,8 +7329,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_agent_truncate_duration_seconds_count{job=\"$job\"}[$interval])",
@@ -7380,8 +7345,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "prometheus_remote_storage: Indicates that this metric is related to the remote storage features of Prometheus.\nenqueue_retries_total: Specifically counts the total number of retries that have occurred when attempting to enqueue data for remote storage.",
       "fieldConfig": {
@@ -7460,8 +7425,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "increase(prometheus_remote_storage_enqueue_retries_total{job=\"$job\"}[$interval])",
@@ -7476,9 +7441,8 @@
     },
     {
       "datasource": {
-        "name": "${datasource}",
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "The desired number of shards is the target number that Prometheus calculates internally to optimize the remote write process.\nMonitoring Performance: If the shards_desired metric is significantly higher than the current shards value, it might indicate that Prometheus is struggling to keep up with the data throughput and may need tuning.\nScaling: If Prometheus is handling large amounts of data, it will dynamically increase the number of shards to handle the load. Monitoring this metric helps to ensure Prometheus is effectively scaling its remote write operations.",
       "fieldConfig": {
@@ -7560,8 +7524,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "prometheus_remote_storage_shards_desired{job=\"$job\"}",
@@ -7589,9 +7553,8 @@
     },
     {
       "datasource": {
-        "name": "${datasource}",
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "maximum number of shards allowed",
       "fieldConfig": {
@@ -7674,8 +7637,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "prometheus_remote_storage_shard_capacity{job=\"$job\"}",
@@ -7690,9 +7653,8 @@
     },
     {
       "datasource": {
-        "name": "${datasource}",
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "Max Number of Shards Used",
       "fieldConfig": {
@@ -7774,8 +7736,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "prometheus_remote_storage_shards_max{job=\"$job\"}",
@@ -7790,9 +7752,8 @@
     },
     {
       "datasource": {
-        "name": "${datasource}",
-        "type": "prometheus",
-        "uid": "${datasource}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
       },
       "description": "This metric provides the current number of active shards that are being used for remote writing. The number of shards may increase or decrease dynamically based on the load and remote write performance.",
       "fieldConfig": {
@@ -7874,8 +7835,8 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
+          "type": "prometheus",
+          "uid": "jtsuid2"
           },
           "editorMode": "code",
           "expr": "prometheus_remote_storage_shards{job=\"$job\"}",
