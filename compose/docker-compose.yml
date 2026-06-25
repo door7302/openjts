@@ -21,6 +21,19 @@ services:
       - '--query.timeout=2m'
       - '--web.enable-admin-api'
       - '--web.enable-lifecycle'
+  promlens:
+      image: prom/promlens:latest
+      container_name: promlens
+      restart: always
+      command:
+        - '--web.listen-address=:8080'
+        - '--web.default-prometheus-url=http://prometheus:9090'
+      ports:
+        - "8081:8080"
+      volumes:
+        - ./promlens/data   
+      depends_on:
+        - prometheus
   telegraf_mx:
     build: https://github.com/door7302/jts_telegraf.git#v1.0.17
     image: jts_telegraf:latest
