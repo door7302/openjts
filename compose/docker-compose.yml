@@ -31,7 +31,8 @@ services:
       ports:
         - "8081:8080"
       volumes:
-        - ./promlens/data   
+        - /var/log:/var/log
+        - ./promlens/data:/data
       depends_on:
         - prometheus
   telegraf_mx:
