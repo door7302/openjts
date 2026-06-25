@@ -21,32 +21,6 @@ services:
       - '--query.timeout=2m'
       - '--web.enable-admin-api'
       - '--web.enable-lifecycle'
-  promlens:
-      image: prom/promlens:latest
-      container_name: promlens
-      restart: always
-      user: root
-      command:
-        - '--web.listen-address=:8080'
-        - '--web.default-prometheus-url=http://prometheus:9090'
-        - '--shared-links.sql.driver=sqlite'
-        - '--shared-links.sql.dsn=/data/promlens.db'
-      volumes:
-        - /var/log:/var/log
-        - ./promlens/data:/data
-      depends_on:
-        - prometheus
-  promlens_proxy:
-      image: nginx:alpine
-      container_name: promlens_proxy
-      restart: always
-      ports:
-        - "8081:8081"
-      volumes:
-        - ./promlens/nginx.conf:/etc/nginx/nginx.conf:ro
-        - ./grafana/cert:/etc/nginx/certs:ro
-      depends_on:
-        - promlens
   telegraf_mx:
     build: https://github.com/door7302/jts_telegraf.git#v1.0.17
     image: jts_telegraf:latest
