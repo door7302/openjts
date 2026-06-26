@@ -9982,8 +9982,8 @@
     ]
   },
   "timezone": "",
-  "title": "Prometheus All Metrics",
-  "uid": "1LGvkF8Vk",
+  "title": "Admin - Prometheus internal metrics",
+  "uid": "admin_prometheus_internal_metrics",
   "version": 1,
   "weekStart": "",
   "gnetId": 24098,
