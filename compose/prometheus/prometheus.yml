@@ -1,39 +1,16 @@
 global:
   # 15s is a safe middle ground: fast enough for medium setups,
   # light enough to scale to many high-cardinality targets.
-  scrape_interval: 15s
-  scrape_timeout: 10s
-  evaluation_interval: 15s
+  scrape_interval: 10s
+  scrape_timeout: 7s
+  evaluation_interval: 10s
   external_labels:
     monitor: 'jts'
 
 scrape_configs:
-  # Lightweight liveness job: detects a target going down within ~5s
-  # without scraping the full metric payload frequently.
-  - job_name: 'telegraf_up'
-    metrics_path: /jts_metrics
-    scrape_interval: 5s
-    scrape_timeout: 4s
-    metric_relabel_configs:
-      # keep only the synthetic `up` series from this fast job
-      - source_labels: [__name__]
-        regex: 'up'
-        action: keep
+  - job_name: "prometheus"
     static_configs:
-      - targets:
-          - 'telegraf_mx:9273'
-          - 'telegraf_ptx:9273'
-          - 'telegraf_acx:9273'
-          - 'telegraf_ex:9273'
-          - 'telegraf_qfx:9273'
-          - 'telegraf_srx:9273'
-          - 'telegraf_crpd:9273'
-          - 'telegraf_cptx:9273'
-          - 'telegraf_vmx:9273'
-          - 'telegraf_vsrx:9273'
-          - 'telegraf_vjunos:9273'
-          - 'telegraf_vevo:9273'
-          - 'telegraf_ondemand:9273'
+      - targets: ["localhost:9090"]
 
   # Main metrics job: full payload at a calmer cadence, with
   # cardinality guardrails so one runaway target can't blow up the TSDB.
