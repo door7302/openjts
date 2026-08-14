@@ -3,9 +3,13 @@
 <a id=__codelineno-0-2 name=__codelineno-0-2></a>docker compose down
 </code></pre></div></td></tr></table></div> <h3 id=2-backup-enrironment-files>2. Backup enrironment files<a class=headerlink href=#2-backup-enrironment-files title="Permanent link">&para;</a></h3> <p>Before upgrading the stack, it is highly recommended to back up the environment and configuration files. Below, we back up everything to the <code>/tmp/jts-tmp</code> folder. You may do it by using the <code>jts_backup.sh</code> starting from <strong>OpenJTS 1.3.0</strong>:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-1-1>1</a></span>
 <span class=normal><a href=#__codelineno-1-2>2</a></span>
-<span class=normal><a href=#__codelineno-1-3>3</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-1-1 name=__codelineno-1-1></a>chmod<span class=w> </span>+x<span class=w> </span>jts_backup.sh
+<span class=normal><a href=#__codelineno-1-3>3</a></span>
+<span class=normal><a href=#__codelineno-1-4>4</a></span>
+<span class=normal><a href=#__codelineno-1-5>5</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-1-1 name=__codelineno-1-1></a><span class=nb>cd</span><span class=w> </span>..<span class=w> </span>//Make<span class=w> </span>sure<span class=w> </span>you<span class=w> </span>moved<span class=w> </span>out<span class=w> </span><span class=s1>&#39;compose&#39;</span><span class=w> </span>folder
 <a id=__codelineno-1-2 name=__codelineno-1-2></a>
-<a id=__codelineno-1-3 name=__codelineno-1-3></a>./jts_backup.sh<span class=w> </span>backup
+<a id=__codelineno-1-3 name=__codelineno-1-3></a>chmod<span class=w> </span>+x<span class=w> </span>jts_backup.sh
+<a id=__codelineno-1-4 name=__codelineno-1-4></a>
+<a id=__codelineno-1-5 name=__codelineno-1-5></a>./jts_backup.sh<span class=w> </span>backup
 </code></pre></div></td></tr></table></div> <p>Or doing it manually:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-2-1> 1</a></span>
 <span class=normal><a href=#__codelineno-2-2> 2</a></span>
 <span class=normal><a href=#__codelineno-2-3> 3</a></span>
@@ -53,9 +57,13 @@
 <a id=__codelineno-6-2 name=__codelineno-6-2></a>docker compose build --no-cache
 </code></pre></div></td></tr></table></div> <p>This forces Docker to rebuild all images without using cached layers.</p> <h3 id=6-restore-environment-files>6. Restore environment files<a class=headerlink href=#6-restore-environment-files title="Permanent link">&para;</a></h3> <p>Once the stack is upgraded, you need to restore the previously backed-up files. You may do it by using the <code>jts_backup.sh</code> starting from <strong>OpenJTS 1.3.0</strong>:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-7-1>1</a></span>
 <span class=normal><a href=#__codelineno-7-2>2</a></span>
-<span class=normal><a href=#__codelineno-7-3>3</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-7-1 name=__codelineno-7-1></a>chmod<span class=w> </span>+x<span class=w> </span>jts_backup.sh
+<span class=normal><a href=#__codelineno-7-3>3</a></span>
+<span class=normal><a href=#__codelineno-7-4>4</a></span>
+<span class=normal><a href=#__codelineno-7-5>5</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-7-1 name=__codelineno-7-1></a><span class=nb>cd</span><span class=w> </span>..<span class=w> </span>//Make<span class=w> </span>sure<span class=w> </span>you<span class=w> </span>moved<span class=w> </span>out<span class=w> </span><span class=s1>&#39;compose&#39;</span><span class=w> </span>folder
 <a id=__codelineno-7-2 name=__codelineno-7-2></a>
-<a id=__codelineno-7-3 name=__codelineno-7-3></a>./jts_backup.sh<span class=w> </span>restore
+<a id=__codelineno-7-3 name=__codelineno-7-3></a>chmod<span class=w> </span>+x<span class=w> </span>jts_backup.sh
+<a id=__codelineno-7-4 name=__codelineno-7-4></a>
+<a id=__codelineno-7-5 name=__codelineno-7-5></a>./jts_backup.sh<span class=w> </span>restore
 </code></pre></div></td></tr></table></div> <p>Or doing it manually:</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-8-1> 1</a></span>
 <span class=normal><a href=#__codelineno-8-2> 2</a></span>
 <span class=normal><a href=#__codelineno-8-3> 3</a></span>
