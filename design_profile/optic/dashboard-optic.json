@@ -29,8 +29,8 @@
   "panels": [
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "gridPos": {
@@ -68,8 +68,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -164,68 +164,37 @@
       "targets": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "ALARM_TYPE"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "if_name"
-              ],
-              "type": "tag"
-            }
-          ],
-          "measurement": "ALARMING",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "exception"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "count"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "ALARM_TYPE",
-              "operator": "=",
-              "value": "CRC_ERROR"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "sum by (ALARM_TYPE, if_name) (count_over_time(ALARMING_exception{SHORTNAME=~\"$rtr\", ALARM_TYPE=\"CRC_ERROR\"}[$__range]))",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
         }
       ],
       "title": "Current Framing Errors (TimeFrame) ",
       "transformations": [
         {
+          "id": "merge",
+          "options": {}
+        },
+        {
           "id": "organize",
           "options": {
-            "excludeByName": {},
+            "excludeByName": {
+              "__name__": true,
+              "instance": true,
+              "job": true
+            },
             "indexByName": {},
             "renameByName": {
+              "Value": "Cumulative Alarms",
               "ALARM_TYPE": "Type of Alarm",
               "Time": "Last Update",
-              "count": "Cumulative Alarms",
               "if_name": "PORT"
             }
           }
@@ -235,8 +204,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -295,65 +264,37 @@
       "targets": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "ALARM_TYPE"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "if_name"
-              ],
-              "type": "tag"
-            }
-          ],
-          "measurement": "ALARMING",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "exception"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "ALARM_TYPE",
-              "operator": "=",
-              "value": "CRC_ERROR"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "ALARMING_exception{SHORTNAME=~\"$rtr\", ALARM_TYPE=\"CRC_ERROR\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
         }
       ],
       "title": "Framing Error Details (TimeFrame) ",
       "transformations": [
         {
+          "id": "merge",
+          "options": {}
+        },
+        {
           "id": "organize",
           "options": {
-            "excludeByName": {},
+            "excludeByName": {
+              "__name__": true,
+              "instance": true,
+              "job": true
+            },
             "indexByName": {},
             "renameByName": {
+              "Value": "Errors observed",
               "ALARM_TYPE": "Type of Alarm",
               "Time": "Timestamp",
-              "count": "Cumulative Alarms",
-              "exception": "Errors observed",
               "if_name": "PORT"
             }
           }
@@ -376,8 +317,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -452,113 +393,66 @@
       "targets": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "LINKNAME::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "lane_number"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT last(\"rx_dbm\"), last(\"tx_dbm\"), last(\"current_bias\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and if_name !~ /\\d:/ GROUP BY \"LINKNAME\"::tag, \"lane_number\" ",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "current_bias"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_rx_dbm{SHORTNAME=~\"$rtr\", if_name!~\".*[0-9]:.*\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_tx_dbm{SHORTNAME=~\"$rtr\", if_name!~\".*[0-9]:.*\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_current_bias{SHORTNAME=~\"$rtr\", if_name!~\".*[0-9]:.*\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
         }
       ],
       "title": "Current Power Levels - non Channelized ports",
       "transformations": [
         {
-          "id": "filterFieldsByName",
-          "options": {
-            "include": {
-              "names": [
-                "lane_number",
-                "last",
-                "last_1",
-                "last_2",
-                "LINKNAME"
-              ]
-            }
-          }
+          "id": "merge",
+          "options": {}
         },
         {
           "id": "organize",
           "options": {
-            "excludeByName": {},
-            "includeByName": {},
-            "indexByName": {
-              "LINKNAME": 0,
-              "lane_number": 1,
-              "last": 2,
-              "last_1": 3,
-              "last_2": 4
+            "excludeByName": {
+              "__name__": true,
+              "instance": true,
+              "job": true,
+              "Time": true
             },
+            "indexByName": {},
             "renameByName": {
+              "Value #A": "Current RX (DBm)",
+              "Value #B": "Current TX (DBm)",
+              "Value #C": "Current Bias (mA)",
               "LINKNAME": "Port",
-              "if_name": "Name",
-              "lane_number": "LANE",
-              "last": "Current RX (DBm)",
-              "last_1": "Current TX (DBm)",
-              "last_2": "Current Bias (mA)"
+              "lane_number": "LANE"
             }
           }
         }
@@ -567,8 +461,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -644,188 +538,67 @@
       "targets": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "LINKNAME::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "lane_number"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": true,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT last(\"rx_dbm_oc\"), last(\"tx_dbm_oc\"), last(\"current_bias_oc\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and LINKNAME =~/.*(\\d+):.*/  and $timeFilter GROUP BY \"LINKNAME\"::tag, \"lane_number\"",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "current_bias"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_rx_dbm_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*[0-9]+:.*\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
         },
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "LINKNAME::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "lane_number"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT last(\"rx_dbm\"), last(\"tx_dbm\"), last(\"current_bias\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and if_name =~/.*(\\d+):.*/  and $timeFilter GROUP BY \"LINKNAME\"::tag, \"lane_number\"",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "current_bias"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_tx_dbm_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*[0-9]+:.*\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_current_bias_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*[0-9]+:.*\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
         }
       ],
       "title": "Current Power Levels - Channelized ports",
       "transformations": [
         {
-          "id": "filterFieldsByName",
-          "options": {
-            "include": {
-              "names": [
-                "lane_number",
-                "last",
-                "last_1",
-                "last_2",
-                "LINKNAME"
-              ]
-            }
-          }
+          "id": "merge",
+          "options": {}
         },
         {
           "id": "organize",
           "options": {
             "excludeByName": {
+              "__name__": true,
+              "instance": true,
+              "job": true,
+              "Time": true,
               "lane_number": true
             },
-            "includeByName": {},
-            "indexByName": {
-              "LINKNAME": 0,
-              "lane_number": 1,
-              "last": 2,
-              "last_1": 3,
-              "last_2": 4
-            },
+            "indexByName": {},
             "renameByName": {
+              "Value #A": "Current RX (DBm)",
+              "Value #B": "Current TX (DBm)",
+              "Value #C": "Current Bias (mA)",
               "LINKNAME": "Port",
-              "if_name": "Name",
-              "lane_number": "LANE",
-              "last": "Current RX (DBm)",
-              "last_1": "Current TX (DBm)",
-              "last_2": "Current Bias (mA)"
+              "lane_number": "LANE"
             }
           }
         }
@@ -834,8 +607,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -938,309 +711,234 @@
       "targets": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "if_name::tag"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT last(\"lane_laser_bias_current_high_alarm\") AS bias_high_alarm, last(\"lane_laser_bias_current_high_warning\") AS bias_high_warn, last(\"lane_laser_bias_current_low_alarm\") AS bias_low_alarm, last(\"lane_laser_bias_current_low_warning\") AS bias_low_warn, last(\"lane_laser_output_power_high_alarm\") AS outpow_high_alarm, last(\"lane_laser_output_power_high_warning\") AS outpow_high_warn, last(\"lane_laser_output_power_low_alarm\") AS outpow_low_alarm, last(\"lane_laser_output_power_low_warning\") AS outpow_low_warn, last(\"lane_laser_receiver_power_high_alarm\") AS recpow_high_alarm, last(\"lane_laser_receiver_power_high_warning\") AS recpow_high_warn, last(\"lane_laser_receiver_power_low_alarm\") AS recpow_low_alarm, last(\"lane_laser_receiver_power_low_warning\") AS recpow_low_warn, last(\"lane_rx_loss_of_signal_alarm\") AS rx_los_alarm, last(\"lane_tx_loss_of_signal_alarm\") AS tx_los_alarm, last(\"lane_tx_laser_disabled_alarm\") AS tx_laser_disabled FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) and lane_number != '' GROUP BY \"if_name\", \"lane_number\"",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "lane_laser_bias_current_high_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_bias_current_high_warning"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_bias_current_low_warning"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_output_power_high_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_output_power_high_warning"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_output_power_low_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_output_power_low_warning"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_receiver_power_high_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_receiver_power_low_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_receiver_power_high_warning"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_receiver_power_low_warning"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_bias_current_low_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_rx_loss_of_signal_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_tx_loss_of_signal_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "module_temp_high_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "module_temp_high_warning"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "module_temp_low_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "module_temp_low_warning"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_lane_laser_bias_current_high_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_lane_laser_bias_current_high_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_lane_laser_bias_current_low_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_lane_laser_bias_current_low_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_lane_laser_output_power_high_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_lane_laser_output_power_high_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "F"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_lane_laser_output_power_low_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "G"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_lane_laser_output_power_low_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "H"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_lane_laser_receiver_power_high_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "I"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_lane_laser_receiver_power_high_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "J"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_lane_laser_receiver_power_low_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "K"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_lane_laser_receiver_power_low_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "L"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_lane_rx_loss_of_signal_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "M"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_lane_tx_loss_of_signal_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "N"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_lane_tx_laser_disabled_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "O"
         }
       ],
       "title": "Current Optical Alarm",
       "transformations": [
         {
+          "id": "merge",
+          "options": {}
+        },
+        {
           "id": "organize",
           "options": {
             "excludeByName": {
-              "Time": true,
-              "if_name": false,
-              "last_3": false,
-              "last_7": false
+              "__name__": true,
+              "instance": true,
+              "job": true,
+              "Time": true
             },
-            "includeByName": {},
-            "indexByName": {
-              "if_name": 0,
-              "lane_number": 1,
-              "last": 4,
-              "last_1": 12,
-              "last_10": 14,
-              "last_11": 8,
-              "last_12": 18,
-              "last_13": 19,
-              "last_14": 5,
-              "last_15": 13,
-              "last_16": 9,
-              "last_17": 17,
-              "last_18": 20,
-              "last_2": 16,
-              "last_3": 3,
-              "last_4": 11,
-              "last_5": 7,
-              "last_6": 15,
-              "last_7": 2,
-              "last_8": 6,
-              "last_9": 10
-            },
+            "indexByName": {},
             "renameByName": {
+              "Value #A": "BIAS H. Alrm",
+              "Value #B": "BIAS H. Warn",
+              "Value #C": "BIAS L. Alrm",
+              "Value #D": "BIAS L. Warn",
+              "Value #E": "TX H. Alrm",
+              "Value #F": "TX H. Warn",
+              "Value #G": "TX L. Alrm",
+              "Value #H": "TX L. Warn",
+              "Value #I": "RX H. Alrm",
+              "Value #J": "RX H. Warn",
+              "Value #K": "RX L. Alrm",
+              "Value #L": "RX L. Warn",
+              "Value #M": "RX LOS",
+              "Value #N": "TX LOS",
+              "Value #O": "TX LASER",
               "if_name": "Name",
-              "lane_number": "Lane",
-              "last": "BIAS H. Alrm",
-              "last_1": "BIAS H. Warn",
-              "last_10": "RX L. Warn",
-              "last_11": "BIAS L. Alrm",
-              "last_12": "RX LOS",
-              "last_13": "TX LOS",
-              "last_14": "Temp H. Alrm",
-              "last_15": "Temp H. Warn",
-              "last_16": "Temp L. Alrm",
-              "last_17": "Temp L. Warn",
-              "last_18": "TX LASER",
-              "last_2": "BIAS L. Warn",
-              "last_3": "TX H. Alrm",
-              "last_4": "TX H. Warn",
-              "last_5": "TX L. Alrm",
-              "last_6": "TX L. Warn",
-              "last_7": "RX H. Alrm",
-              "last_8": "RX L. Alrm",
-              "last_9": "RX H. Warn"
+              "lane_number": "Lane"
             }
           }
         }
@@ -1249,8 +947,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "gridPos": {
@@ -1290,8 +988,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -1363,49 +1061,44 @@
       "targets": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [],
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT last(\"optic_model\"), last(\"optic_vendor\"), last(\"optic_vendor_part\"), last(\"optic_serial_no\"), last(\"optic_func_type\"), last(\"optic_fault_condition\") FROM \"COMPONENTS\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"LINKNAME\"::tag =~ /^.*${cage:regex} .*$/ AND $timeFilter ",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [],
-          "tags": []
+          "editorMode": "code",
+          "expr": "COMPONENTS_current_module_temp{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$cage .*\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
         }
       ],
       "title": "Inventory Info",
       "transformations": [
         {
+          "id": "merge",
+          "options": {}
+        },
+        {
           "id": "organize",
           "options": {
             "excludeByName": {
+              "__name__": true,
+              "instance": true,
+              "job": true,
               "Time": true,
-              "last_3": true
+              "Value": true,
+              "lane_number": true
             },
-            "includeByName": {},
-            "indexByName": {
-              "OPTIC_DESC": 2,
-              "Time": 0,
-              "last": 1,
-              "last_1": 4,
-              "last_2": 5,
-              "last_3": 6,
-              "last_4": 3,
-              "last_5": 7
-            },
+            "indexByName": {},
             "renameByName": {
-              "OPTIC_DESC": "Optic Description",
-              "last": "Optic Model",
-              "last_1": "Optic Vendor",
-              "last_2": "Optic Vendor Part Number",
-              "last_3": "Optic Vendor Serial Number",
-              "last_4": "Optic Type",
-              "last_5": "Fault Condition?"
+              "Value": "(value)",
+              "optic_model": "Optic Model",
+              "optic_vendor": "Optic Vendor",
+              "optic_vendor_part": "Optic Vendor Part Number",
+              "optic_serial_no": "Optic Vendor Serial Number",
+              "optic_func_type": "Optic Type",
+              "optic_fault_condition": "Fault Condition?"
             }
           }
         }
@@ -1414,8 +1107,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -1518,309 +1211,79 @@
       "targets": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "if_name::tag"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT last(\"module_temp_high_alarm\") AS temp_high_alarm, last(\"module_temp_high_warning\") AS temp_high_warn, last(\"module_temp_low_alarm\") AS temp_low_alarm, last(\"module_temp_low_warning\") AS temp_low_warn FROM \"COMPONENTS\" WHERE \"SHORTNAME\" =~ /^$rtr$/ and \"LINKNAME\"::tag =~/^.*${port:regex}.*$/  GROUP BY \"if_name\"",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "lane_laser_bias_current_high_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_bias_current_high_warning"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_bias_current_low_warning"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_output_power_high_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_output_power_high_warning"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_output_power_low_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_output_power_low_warning"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_receiver_power_high_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_receiver_power_low_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_receiver_power_high_warning"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_receiver_power_low_warning"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_laser_bias_current_low_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_rx_loss_of_signal_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "lane_tx_loss_of_signal_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "module_temp_high_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "module_temp_high_warning"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "module_temp_low_alarm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "module_temp_low_warning"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "last"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_module_temp_high_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_module_temp_high_warning{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_module_temp_low_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_module_temp_low_warning{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
         }
       ],
       "title": "Module Temperature Alarms",
       "transformations": [
         {
+          "id": "merge",
+          "options": {}
+        },
+        {
           "id": "organize",
           "options": {
             "excludeByName": {
-              "Time": true,
-              "if_name": false,
-              "last_3": false,
-              "last_7": false
+              "__name__": true,
+              "instance": true,
+              "job": true,
+              "Time": true
             },
-            "includeByName": {},
-            "indexByName": {
-              "if_name": 0,
-              "lane_number": 1,
-              "last": 4,
-              "last_1": 12,
-              "last_10": 14,
-              "last_11": 8,
-              "last_12": 18,
-              "last_13": 19,
-              "last_14": 5,
-              "last_15": 13,
-              "last_16": 9,
-              "last_17": 17,
-              "last_18": 20,
-              "last_2": 16,
-              "last_3": 3,
-              "last_4": 11,
-              "last_5": 7,
-              "last_6": 15,
-              "last_7": 2,
-              "last_8": 6,
-              "last_9": 10
-            },
+            "indexByName": {},
             "renameByName": {
-              "if_name": "Name",
-              "lane_number": "Lane",
-              "last": "BIAS H. Alrm",
-              "last_1": "BIAS H. Warn",
-              "last_10": "RX L. Warn",
-              "last_11": "BIAS L. Alrm",
-              "last_12": "RX LOS",
-              "last_13": "TX LOS",
-              "last_14": "Temp H. Alrm",
-              "last_15": "Temp H. Warn",
-              "last_16": "Temp L. Alrm",
-              "last_17": "Temp L. Warn",
-              "last_18": "TX LASER",
-              "last_2": "BIAS L. Warn",
-              "last_3": "TX H. Alrm",
-              "last_4": "TX H. Warn",
-              "last_5": "TX L. Alrm",
-              "last_6": "TX L. Warn",
-              "last_7": "RX H. Alrm",
-              "last_8": "RX L. Alrm",
-              "last_9": "RX H. Warn"
+              "Value #A": "Temp H. Alrm",
+              "Value #B": "Temp H. Warn",
+              "Value #C": "Temp L. Alrm",
+              "Value #D": "Temp L. Warn",
+              "if_name": "Name"
             }
           }
         }
@@ -1829,8 +1292,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -1883,108 +1346,30 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
-          "alias": "Lane $tag_lane_number",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "lane_number"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": true,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"rx_dbm_oc\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY \"lane_number\"",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "LINKNAME::tag",
-              "operator": "=",
-              "value": "$port"
-            },
-            {
-              "condition": "AND",
-              "key": "channel::tag",
-              "operator": "=",
-              "value": "no"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_rx_dbm_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Lane {{lane_number}}",
+          "range": true,
+          "refId": "A"
         },
         {
-          "alias": "Lane $tag_lane_number",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "lane_number"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"rx_dbm\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY \"lane_number\"",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "rx_dbm_oc"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "LINKNAME::tag",
-              "operator": "=",
-              "value": "$port"
-            },
-            {
-              "condition": "AND",
-              "key": "channel::tag",
-              "operator": "=",
-              "value": "yes"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_rx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Lane {{lane_number}}",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "$port - Current RX",
@@ -1992,8 +1377,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -2044,107 +1429,30 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
-          "alias": "Lane $tag_lane_number",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "lane_number"
-              ],
-              "type": "tag"
-            }
-          ],
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"tx_dbm\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY \"lane_number\"",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "LINKNAME::tag",
-              "operator": "=",
-              "value": "$port"
-            },
-            {
-              "condition": "AND",
-              "key": "channel::tag",
-              "operator": "=",
-              "value": "no"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_tx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Lane {{lane_number}}",
+          "range": true,
+          "refId": "A"
         },
         {
-          "alias": "Lane $tag_lane_number",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "lane_number"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": true,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"tx_dbm_oc\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY \"lane_number\"",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm_oc"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "LINKNAME::tag",
-              "operator": "=",
-              "value": "$port"
-            },
-            {
-              "condition": "AND",
-              "key": "channel::tag",
-              "operator": "=",
-              "value": "yes"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_tx_dbm_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Lane {{lane_number}}",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "$port - Current TX",
@@ -2152,8 +1460,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -2279,372 +1587,82 @@
       },
       "targets": [
         {
-          "alias": "Lane $tag_lane_number",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "30s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"rx_dbm\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_high_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_low_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_rx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Lane {{lane_number}}",
+          "range": true,
+          "refId": "A"
         },
         {
-          "alias": "Lane $tag_lane_number",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "30s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": true,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"rx_dbm_oc\") as RX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/  and \"HAS_CHANNEL\"!='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
-          "rawQuery": true,
-          "refId": "C",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_high_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_low_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_rx_dbm_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\", HAS_CHANNEL!=\"yes\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Lane {{lane_number}}",
+          "range": true,
+          "refId": "B"
         },
         {
-          "alias": "WARN",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "30s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"rx_high_warn\") as HIGH_WARN, mean(\"rx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_high_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_low_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_rx_high_warn{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "HIGH_WARN",
+          "range": true,
+          "refId": "C"
         },
         {
-          "alias": "ALARM",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "30s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"rx_high_alarm\") as HIGH_ALARM, mean(\"rx_low_alarm\") as LOW_ALARM FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
-          "rawQuery": true,
-          "refId": "D",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_high_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_low_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_rx_low_warn{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "LOW_WARN",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_rx_high_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "HIGH_ALARM",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_rx_low_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "LOW_ALARM",
+          "range": true,
+          "refId": "F"
         }
       ],
       "title": "$port - RX",
@@ -2653,8 +1671,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -2780,372 +1798,82 @@
       },
       "targets": [
         {
-          "alias": "Lane $tag_lane_number",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "30s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"tx_dbm\") as TX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/) and $timeFilter GROUP BY lane_number, time(60s) fill(null)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_high_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_low_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_tx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Lane {{lane_number}}",
+          "range": true,
+          "refId": "A"
         },
         {
-          "alias": "Lane $tag_lane_number",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "30s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": true,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"tx_dbm_oc\") as TX FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/ and \"HAS_CHANNEL\"!='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
-          "rawQuery": true,
-          "refId": "C",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_high_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_low_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_tx_dbm_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\", HAS_CHANNEL!=\"yes\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Lane {{lane_number}}",
+          "range": true,
+          "refId": "B"
         },
         {
-          "alias": "WARN",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "30s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"tx_high_warn\") as HIGH_WARN, mean(\"tx_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_high_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_low_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_tx_high_warn{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "HIGH_WARN",
+          "range": true,
+          "refId": "C"
         },
         {
-          "alias": "ALARM",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "30s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"tx_high_alarm\") as HIGH_ALARM, mean(\"tx_low_alarm\") as LOW_ALARM FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
-          "rawQuery": true,
-          "refId": "D",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_high_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_low_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_tx_low_warn{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "LOW_WARN",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_tx_high_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "HIGH_ALARM",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_tx_low_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "LOW_ALARM",
+          "range": true,
+          "refId": "F"
         }
       ],
       "title": "$port - TX",
@@ -3154,8 +1882,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -3281,372 +2009,82 @@
       },
       "targets": [
         {
-          "alias": "Lane $tag_lane_number",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "30s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"current_bias\") as BIAS FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_high_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_low_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_current_bias{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Lane {{lane_number}}",
+          "range": true,
+          "refId": "A"
         },
         {
-          "alias": "Lane $tag_lane_number",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "30s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": true,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"current_bias_oc\") as BIAS FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/  and \"HAS_CHANNEL\"!='yes') AND $timeFilter GROUP BY lane_number, time(60s) fill(null)",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_high_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_low_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_current_bias_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\", HAS_CHANNEL!=\"yes\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Lane {{lane_number}}",
+          "range": true,
+          "refId": "B"
         },
         {
-          "alias": "WARN",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "30s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"bias_high_warn\") as HIGH_WARN, mean(\"bias_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}.*/) AND $timeFilter GROUP BY time(60s) fill(null)",
-          "rawQuery": true,
-          "refId": "C",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_high_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_low_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_bias_high_warn{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "HIGH_WARN",
+          "range": true,
+          "refId": "C"
         },
         {
-          "alias": "ALARM",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "30s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"bias_high_alarm\") as HIGH_ALARM, mean(\"bias_low_alarm\") as LOW_ALARM FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
-          "rawQuery": true,
-          "refId": "D",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_high_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_low_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_bias_low_warn{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "LOW_WARN",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_bias_high_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "HIGH_ALARM",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_bias_low_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "LOW_ALARM",
+          "range": true,
+          "refId": "F"
         }
       ],
       "title": "$port - BIAS",
@@ -3655,8 +2093,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -3782,372 +2220,82 @@
       },
       "targets": [
         {
-          "alias": "Module Temperture",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "30s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"current_module_temp\") as Temperture  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}.*$/) AND $timeFilter GROUP BY time(60s) fill(null)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_high_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_low_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_current_module_temp{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Module Temperture",
+          "range": true,
+          "refId": "A"
         },
         {
-          "alias": "WARN",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "30s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"temp_high_warn\") as HIGH_WARN, mean(\"temp_low_warn\") as LOW_WARN FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_high_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_low_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_temp_high_warn{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "HIGH_WARN",
+          "range": true,
+          "refId": "B"
         },
         {
-          "alias": "ALARM",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "30s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"temp_high_alarm\") as HIGH_ALARM, mean(\"temp_low_alarm\") as LOW_ALARM FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}$/) AND $timeFilter GROUP BY time(60s) fill(null)",
-          "rawQuery": true,
-          "refId": "C",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_high_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_low_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_temp_low_warn{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "LOW_WARN",
+          "range": true,
+          "refId": "C"
         },
         {
-          "alias": "Lane $tag_lane_number Laser Temperture",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "30s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"current_laser_temp\") as TempertureL  FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}.*$/) AND $timeFilter GROUP BY time(60s), lane_number fill(null)",
-          "rawQuery": true,
-          "refId": "D",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "tx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_dbm"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "rx_high_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "tx_low_warn"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_temp_high_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "HIGH_ALARM",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_temp_low_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "LOW_ALARM",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_current_laser_temp{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Lane {{lane_number}} Laser Temperture",
+          "range": true,
+          "refId": "F"
         }
       ],
       "title": "$port - Temperture",
@@ -4156,8 +2304,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -4265,70 +2413,29 @@
       "targets": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "30s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "INTERFACES_ETH",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"in_block_errors_rate\") as BLOCK_ERROR, mean(\"in_crc_errors_rate\") as CRC_ERROR FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/.*${port:regex}.*$/) AND $timeFilter GROUP BY time(60s) fill(0)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "in_block_errors_rate"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "in_crc_errors_rate"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "INTERFACES_ETH_in_block_errors_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "BLOCK_ERROR",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "INTERFACES_ETH_in_crc_errors_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "CRC_ERROR",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "$port - Block/Framing Errors",
@@ -4337,8 +2444,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -4425,43 +2532,17 @@
       },
       "targets": [
         {
-          "alias": "FEC Uncorrectable error block rate",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"optic_fec_uncorrectable_blocks_rate\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${cage:regex}.*$/ ) AND $timeFilter",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "optic_fec_uncorrectable_blocks"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_optic_fec_uncorrectable_blocks_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$cage.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "FEC Uncorrectable error block rate",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "$port - FEC Uncorrected Error Block Rate",
@@ -4470,8 +2551,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -4554,13 +2635,81 @@
       "targets": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "query": "SELECT mean(\"in_frames_64_octets_rate\") as \"64_Bytes\",  mean(\"in_frames_65_127_octets_rate\") as \"65_127_Bytes\", mean(\"in_frames_128_255_octets_rate\") as \"128_255_Bytes\", mean(\"in_frames_256_511_octets_rate\") as \"256_511_Bytes\", mean(\"in_frames_512_1023_octets_rate\") as \"512_1023_Bytes\", mean(\"in_frames_1024_1518_octets_rate\") as \"1024_1518_Bytes\" FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${port:regex}.*$/)  AND $timeFilter GROUP by time(60s) fill(previous)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series"
+          "editorMode": "code",
+          "expr": "INTERFACES_ETH_in_frames_64_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "64_Bytes",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "INTERFACES_ETH_in_frames_65_127_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "65_127_Bytes",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "INTERFACES_ETH_in_frames_128_255_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "128_255_Bytes",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "INTERFACES_ETH_in_frames_256_511_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "256_511_Bytes",
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "INTERFACES_ETH_in_frames_512_1023_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "512_1023_Bytes",
+          "range": true,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "INTERFACES_ETH_in_frames_1024_1518_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "1024_1518_Bytes",
+          "range": true,
+          "refId": "F"
         }
       ],
       "title": "$port - Input Frame Size Distribution",
@@ -4568,8 +2717,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -4654,116 +2803,30 @@
       },
       "targets": [
         {
-          "alias": "In bps",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "INTERFACES",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"in_octets_rate\"*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "in_octets"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "device::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "LINKNAME::tag",
-              "operator": "=~",
-              "value": "/^$port$/"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "INTERFACES_in_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"} * 8",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "In bps",
+          "range": true,
+          "refId": "A"
         },
         {
-          "alias": "Out bps",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "$__interval"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "INTERFACES",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"out_octets_rate\"*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "in_octets"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "device::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "LINKNAME::tag",
-              "operator": "=~",
-              "value": "/^$port$/"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "INTERFACES_out_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"} * 8",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Out bps",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "$port - Traffic info",
@@ -4771,8 +2834,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "gridPos": {
         "h": 2,
@@ -4796,8 +2859,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -4849,49 +2912,17 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
-          "alias": "Frequency",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT last(\"frequency\")*1000000 as freq FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "frequency"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  " *1000000"
-                ],
-                "type": "math"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "LINKNAME::tag",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_frequency{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"} * 1000000",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "Frequency",
+          "range": false,
+          "refId": "A"
         }
       ],
       "title": "$port - Frequency",
@@ -4900,8 +2931,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -4910,7 +2941,7 @@
             "mode": "thresholds"
           },
           "decimals": 3,
-          "displayName": "Optical Channel Wavelength λ (nm)",
+          "displayName": "Optical Channel Wavelength \u03bb (nm)",
           "mappings": [],
           "noValue": "Not Supported or No Data",
           "thresholds": {
@@ -4953,49 +2984,17 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
-          "alias": "Wavelenght",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT last(\"wavelength_setpoint\") as wave FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "frequency"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  " *1000000"
-                ],
-                "type": "math"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "LINKNAME::tag",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_wavelength_setpoint{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "Wavelenght",
+          "range": false,
+          "refId": "A"
         }
       ],
       "title": "$port - Wavelength",
@@ -5009,7 +3008,7 @@
             "includeByName": {},
             "indexByName": {},
             "renameByName": {
-              "wave": "Optical Channel Wavelength λ (nm)"
+              "wave": "Optical Channel Wavelength \u03bb (nm)"
             }
           }
         }
@@ -5018,8 +3017,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -5071,49 +3070,17 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
-          "alias": "port_speed",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT last(\"port_speed\") as speed FROM \"INTERFACES_ETH\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "frequency"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  " *1000000"
-                ],
-                "type": "math"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "LINKNAME::tag",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "INTERFACES_ETH_port_speed{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "port_speed",
+          "range": false,
+          "refId": "A"
         }
       ],
       "title": "$port - Port Speed",
@@ -5128,7 +3095,7 @@
             "indexByName": {},
             "renameByName": {
               "speed": "Port Speed",
-              "wave": "Optical Channel Wavelength λ (nm)"
+              "wave": "Optical Channel Wavelength \u03bb (nm)"
             }
           }
         }
@@ -5137,8 +3104,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -5225,43 +3192,17 @@
       },
       "targets": [
         {
-          "alias": "Carrier Offset",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"carrier_off_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "carrier_off_instant"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "LINKNAME::tag",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_carrier_off_instant{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Carrier Offset",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "$port - Carrier Frequency Offset",
@@ -5270,8 +3211,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -5358,43 +3299,17 @@
       },
       "targets": [
         {
-          "alias": "PDL",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"pola_loss_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "pola_loss_instant"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "LINKNAME::tag",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_pola_loss_instant{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "PDL",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "$port - Polarization Dependent Loss",
@@ -5403,8 +3318,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -5491,43 +3406,17 @@
       },
       "targets": [
         {
-          "alias": "SOPMD",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"2nd_pola_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag=~/^.*${port:regex}.*$/ ) AND $timeFilter",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "2nd_pola_instant"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "LINKNAME::tag",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_2nd_pola_instant{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "SOPMD",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "$port - Second Order Polarization Mode Dispersion",
@@ -5536,8 +3425,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -5624,60 +3513,17 @@
       },
       "targets": [
         {
-          "alias": "OSNR",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "60s"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "null"
-              ],
-              "type": "fill"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT mean(\"osnr_instant\") FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter GROUP BY time(60s) fill(null)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "osnr_instant"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [],
-                "type": "mean"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "LINKNAME::tag",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_osnr_instant{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "OSNR",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "$port - OSNR",
@@ -5686,8 +3532,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -5774,43 +3620,17 @@
       },
       "targets": [
         {
-          "alias": "ESNR",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"esnr_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "esnr_instant"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "LINKNAME::tag",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_esnr_instant{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "ESNR",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "$port - ESNR",
@@ -5819,8 +3639,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -5907,43 +3727,17 @@
       },
       "targets": [
         {
-          "alias": "Chroma. Disp. ",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"chroma_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "chroma_instant"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "LINKNAME::tag",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_chroma_instant{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Chroma. Disp. ",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "$port - Chromatic Dispersion",
@@ -5952,8 +3746,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -6039,43 +3833,17 @@
       },
       "targets": [
         {
-          "alias": "Pre-FEC",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"prefec_instant\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/ ) AND $timeFilter",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "prefec_instant"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "LINKNAME::tag",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_prefec_instant{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Pre-FEC",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "$port - Pre-FEC",
@@ -6084,8 +3852,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -6171,43 +3939,17 @@
       },
       "targets": [
         {
-          "alias": "Uncorrected FEC blocks",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"optic_fec_uncorrectable_blocks\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\" =~/^.*${cage:regex}.*$/) AND $timeFilter",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "prefec_instant"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "LINKNAME::tag",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_optic_fec_uncorrectable_blocks{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$cage.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Uncorrected FEC blocks",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "$port - Uncorrected FEC blocks",
@@ -6216,8 +3958,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -6305,50 +4047,17 @@
       },
       "targets": [
         {
-          "alias": "$tag_transport_optic_name ",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "transport_optic_name::tag"
-              ],
-              "type": "tag"
-            }
-          ],
-          "hide": false,
-          "measurement": "COMPONENTS",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"transport_optic_cur\" FROM \"COMPONENTS\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND \"LINKNAME\"::tag =~/^.*${port:regex}.*$/) AND $timeFilter GROUP BY \"transport_optic_name\"",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "transport_optic_cur"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "if_name::tag",
-              "operator": "=",
-              "value": "$port"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "COMPONENTS_transport_optic_cur{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "{{transport_optic_name}}",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "$port - Transport additionnal info",
@@ -6369,17 +4078,21 @@
           "value": ""
         },
         "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
+          "type": "prometheus",
+          "uid": "jtsuid2"
         },
-        "definition": "show tag values from INTERFACES_ETH with key=\"SHORTNAME\" where $timeFilter",
+        "definition": "label_values(COMPONENTS_rx_dbm, SHORTNAME)",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": "show tag values from INTERFACES_ETH with key=\"SHORTNAME\" where $timeFilter",
+        "query": {
+          "qryType": 1,
+          "query": "label_values(COMPONENTS_rx_dbm, SHORTNAME)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -6393,17 +4106,21 @@
           "value": ""
         },
         "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
+          "type": "prometheus",
+          "uid": "jtsuid2"
         },
-        "definition": "show tag values FROM COMPONENTS with key=\"LINKNAME\" where SHORTNAME=~/$rtr/ and $timeFilter and HAS_CHANNEL != 'yes'",
+        "definition": "label_values(COMPONENTS_rx_dbm{SHORTNAME=~\"$rtr\", HAS_CHANNEL!=\"yes\"}, LINKNAME)",
         "hide": 0,
         "includeAll": false,
         "label": "Phy. Port",
         "multi": false,
         "name": "port",
         "options": [],
-        "query": "show tag values FROM COMPONENTS with key=\"LINKNAME\" where SHORTNAME=~/$rtr/ and $timeFilter and HAS_CHANNEL != 'yes'",
+        "query": {
+          "qryType": 1,
+          "query": "label_values(COMPONENTS_rx_dbm{SHORTNAME=~\"$rtr\", HAS_CHANNEL!=\"yes\"}, LINKNAME)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -6417,17 +4134,21 @@
           "value": ""
         },
         "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
+          "type": "prometheus",
+          "uid": "jtsuid2"
         },
-        "definition": "show tag values FROM COMPONENTS with key=\"LINKNAME\" where SHORTNAME=~/$rtr/ and LINKNAME=~/^${port:regex}$/ and $timeFilter",
+        "definition": "label_values(COMPONENTS_rx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=~\"$port\"}, LINKNAME)",
         "hide": 2,
         "includeAll": false,
         "label": "cage",
         "multi": false,
         "name": "cage",
         "options": [],
-        "query": "show tag values FROM COMPONENTS with key=\"LINKNAME\" where SHORTNAME=~/$rtr/ and LINKNAME=~/^${port:regex}$/ and $timeFilter",
+        "query": {
+          "qryType": 1,
+          "query": "label_values(COMPONENTS_rx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=~\"$port\"}, LINKNAME)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
         "refresh": 1,
         "regex": "^.*-(\\d+/\\d+/\\d+).*",
         "skipUrlSync": false,
@@ -6444,6 +4165,6 @@
   "timezone": "",
   "title": "OPTIC MONITORING PROFILE - JTSO",
   "uid": "opticdashboard",
-  "version": 3,
+  "version": 4,
   "weekStart": ""
 }

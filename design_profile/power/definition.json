@@ -16,7 +16,6 @@
       "conf": "acx_power.json"
     }]
   },
-  "kapacitor": ["power.tick"],
   "grafana": [
     "dashboard-power.json",
     "dashboard-power_agg.json"

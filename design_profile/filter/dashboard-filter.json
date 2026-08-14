@@ -42,8 +42,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -159,132 +159,32 @@
       },
       "targets": [
         {
-          "alias": "Forward PPS $tag_fw_name - $tag_cntr_name",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "cntr_name::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "fw_name::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "_component_id::tag"
-              ],
-              "type": "tag"
-            }
-          ],
+          "editorMode": "code",
+          "expr": "sum by (cntr_name, fw_name) (FIREWALL_fwd_packets_rate{SHORTNAME=~\"$rtr\", fw_name=~\"$filter\", cntr_name=~\"$cntr\"})",
+          "format": "time_series",
           "hide": false,
-          "measurement": "FIREWALL",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "select sum(fp) from (SELECT mean(\"fwd_packets_rate\") as fp FROM \"FIREWALL\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"cntr_name\"::tag =~/^${cntr:regex}$/ AND $timeFilter GROUP BY time(2m), \"cntr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag) group by cntr_name, fw_name, time(2m)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "fwd_packets_rate"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "fw_name::tag",
-              "operator": "=~",
-              "value": "/^$filter$/"
-            },
-            {
-              "condition": "AND",
-              "key": "cntr_name::tag",
-              "operator": "=~",
-              "value": "/^$cntr$/"
-            }
-          ]
+          "instant": false,
+          "legendFormat": "Forward PPS {{fw_name}} - {{cntr_name}}",
+          "range": true,
+          "refId": "A"
         },
         {
-          "alias": "Drop PPS $tag_fw_name - $tag_plcr_name",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "plcr_name::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "fw_name::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "_component_id::tag"
-              ],
-              "type": "tag"
-            }
-          ],
+          "editorMode": "code",
+          "expr": "sum by (plcr_name, fw_name) (FIREWALL_drop_pkts_rate{SHORTNAME=~\"$rtr\", fw_name=~\"$filter\", plcr_name=~\"$plcr\"})",
+          "format": "time_series",
           "hide": true,
-          "measurement": "FIREWALL",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "select sum(dp) from (SELECT mean(\"drop_pkts_rate\") as dp FROM \"FIREWALL\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag ~/^${filter:regex}$/ AND \"plcr_name\"::tag =~/^${plcr:regex}$/) AND $timeFilter GROUP BY time(2m), \"plcr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag) group by plcr_name, fw_name, time(2m)",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "drop_pkts_rate"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "fw_name::tag",
-              "operator": "=~",
-              "value": "/^$filter$/"
-            },
-            {
-              "condition": "AND",
-              "key": "plcr_name::tag",
-              "operator": "=~",
-              "value": "/^$plcr$/"
-            }
-          ]
+          "instant": false,
+          "legendFormat": "Drop PPS {{fw_name}} - {{plcr_name}}",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "Firewall Counters/Policer - PPS VIEW - Aggregation ",
@@ -292,8 +192,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -409,144 +309,32 @@
       },
       "targets": [
         {
-          "alias": "Forward BPS $tag_fw_name - $tag_cntr_name",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "cntr_name::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "fw_name::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "_component_id::tag"
-              ],
-              "type": "tag"
-            }
-          ],
+          "editorMode": "code",
+          "expr": "sum by (cntr_name, fw_name) (FIREWALL_fwd_bytes_rate{SHORTNAME=~\"$rtr\", fw_name=~\"$filter\", cntr_name=~\"$cntr\"}) * 8",
+          "format": "time_series",
           "hide": false,
-          "measurement": "FIREWALL",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "select sum(fb) from (SELECT mean(\"fwd_bytes_rate\")*8 as fb FROM \"FIREWALL\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"cntr_name\"::tag =~/^${cntr:regex}$/ AND $timeFilter GROUP BY time(2m), \"cntr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag) group by cntr_name, fw_name, time(2m)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "fwd_bytes_rate"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  "*8"
-                ],
-                "type": "math"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "fw_name::tag",
-              "operator": "=~",
-              "value": "/^$filter$/"
-            },
-            {
-              "condition": "AND",
-              "key": "cntr_name::tag",
-              "operator": "=~",
-              "value": "/^$cntr$/"
-            }
-          ]
+          "instant": false,
+          "legendFormat": "Forward BPS {{fw_name}} - {{cntr_name}}",
+          "range": true,
+          "refId": "A"
         },
         {
-          "alias": "Drop BPS $tag_fw_name - $tag_plcr_name",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "plcr_name::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "fw_name::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "_component_id::tag"
-              ],
-              "type": "tag"
-            }
-          ],
+          "editorMode": "code",
+          "expr": "sum by (plcr_name, fw_name) (FIREWALL_drop_bytes_rate{SHORTNAME=~\"$rtr\", fw_name=~\"$filter\", plcr_name=~\"$plcr\"}) * 8",
+          "format": "time_series",
           "hide": false,
-          "measurement": "FIREWALL",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "select sum(db) from (SELECT mean(\"drop_bytes_rate\")*8 as db FROM \"FIREWALL\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"plcr_name\"::tag =~/^${plcr:regex}$/ AND $timeFilter GROUP BY time(2m), \"plcr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag) group by plcr_name, fw_name, time(2m)",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "drop_bytes_rate"
-                ],
-                "type": "field"
-              },
-              {
-                "params": [
-                  " *8"
-                ],
-                "type": "math"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "fw_name::tag",
-              "operator": "=~",
-              "value": "/^$filter$/"
-            },
-            {
-              "condition": "AND",
-              "key": "plcr_name::tag",
-              "operator": "=~",
-              "value": "/^$plcr$/"
-            }
-          ]
+          "instant": false,
+          "legendFormat": "Drop BPS {{fw_name}} - {{plcr_name}}",
+          "range": true,
+          "refId": "B"
         }
       ],
       "title": "Firewall Counters/Policer - BPS VIEW - Aggregation",
@@ -564,8 +352,8 @@
       "panels": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
           "fieldConfig": {
             "defaults": {
@@ -681,132 +469,32 @@
           },
           "targets": [
             {
-              "alias": "Forward PPS $tag_fw_name - $tag_cntr_name - FPC $tag__component_id",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [
-                {
-                  "params": [
-                    "cntr_name::tag"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "fw_name::tag"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "_component_id::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
+              "editorMode": "code",
+              "expr": "FIREWALL_fwd_packets_rate{SHORTNAME=~\"$rtr\", fw_name=~\"$filter\", cntr_name=~\"$cntr\"}",
+              "format": "time_series",
               "hide": false,
-              "measurement": "FIREWALL",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT \"fwd_packets_rate\" FROM \"FIREWALL\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"cntr_name\"::tag =~/^${cntr:regex}$/ AND $timeFilter GROUP BY \"cntr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "fwd_packets_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "fw_name::tag",
-                  "operator": "=~",
-                  "value": "/^$filter$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "cntr_name::tag",
-                  "operator": "=~",
-                  "value": "/^$cntr$/"
-                }
-              ]
+              "instant": false,
+              "legendFormat": "Forward PPS {{fw_name}} - {{cntr_name}} - FPC {{_component_id}}",
+              "range": true,
+              "refId": "A"
             },
             {
-              "alias": "Drop PPS $tag_fw_name - $tag_plcr_name - FPC $tag__component_id",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [
-                {
-                  "params": [
-                    "plcr_name::tag"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "fw_name::tag"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "_component_id::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
+              "editorMode": "code",
+              "expr": "FIREWALL_drop_pkts_rate{SHORTNAME=~\"$rtr\", fw_name=~\"$filter\", plcr_name=~\"$plcr\"}",
+              "format": "time_series",
               "hide": false,
-              "measurement": "FIREWALL",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT \"drop_pkts_rate\" FROM \"FIREWALL\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"plcr_name\"::tag =~/^${plcr:regex}$/ AND $timeFilter GROUP BY \"plcr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag",
-              "rawQuery": true,
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "drop_pkts_rate"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "fw_name::tag",
-                  "operator": "=~",
-                  "value": "/^$filter$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "plcr_name::tag",
-                  "operator": "=~",
-                  "value": "/^$plcr$/"
-                }
-              ]
+              "instant": false,
+              "legendFormat": "Drop PPS {{fw_name}} - {{plcr_name}} - FPC {{_component_id}}",
+              "range": true,
+              "refId": "B"
             }
           ],
           "title": "Firewall Counters/Policer - PPS VIEW",
@@ -814,8 +502,8 @@
         },
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
           "fieldConfig": {
             "defaults": {
@@ -931,144 +619,32 @@
           },
           "targets": [
             {
-              "alias": "Forward BPS $tag_fw_name - $tag_cntr_name - FPC $tag__component_id",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [
-                {
-                  "params": [
-                    "cntr_name::tag"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "fw_name::tag"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "_component_id::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
+              "editorMode": "code",
+              "expr": "FIREWALL_fwd_bytes_rate{SHORTNAME=~\"$rtr\", fw_name=~\"$filter\", cntr_name=~\"$cntr\"} * 8",
+              "format": "time_series",
               "hide": false,
-              "measurement": "FIREWALL",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT \"fwd_bytes_rate\" *8 FROM \"FIREWALL\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/  AND \"cntr_name\"::tag =~/^${cntr:regex}$/ AND $timeFilter GROUP BY \"cntr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "fwd_bytes_rate"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [
-                      "*8"
-                    ],
-                    "type": "math"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "fw_name::tag",
-                  "operator": "=~",
-                  "value": "/^$filter$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "cntr_name::tag",
-                  "operator": "=~",
-                  "value": "/^$cntr$/"
-                }
-              ]
+              "instant": false,
+              "legendFormat": "Forward BPS {{fw_name}} - {{cntr_name}} - FPC {{_component_id}}",
+              "range": true,
+              "refId": "A"
             },
             {
-              "alias": "Drop BPS $tag_fw_name - $tag_plcr_name - FPC $tag__component_id",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [
-                {
-                  "params": [
-                    "plcr_name::tag"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "fw_name::tag"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "_component_id::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
+              "editorMode": "code",
+              "expr": "FIREWALL_drop_bytes_rate{SHORTNAME=~\"$rtr\", fw_name=~\"$filter\", plcr_name=~\"$plcr\"} * 8",
+              "format": "time_series",
               "hide": false,
-              "measurement": "FIREWALL",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT \"drop_bytes_rate\"  *8 FROM \"FIREWALL\" WHERE \"SHORTNAME\"::tag =~ /^$rtr$/ AND \"fw_name\"::tag =~/^${filter:regex}$/ AND \"plcr_name\"::tag =~/^${plcr:regex}$/ AND $timeFilter GROUP BY \"plcr_name\"::tag, \"fw_name\"::tag, \"_component_id\"::tag",
-              "rawQuery": true,
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "drop_bytes_rate"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [
-                      " *8"
-                    ],
-                    "type": "math"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "fw_name::tag",
-                  "operator": "=~",
-                  "value": "/^$filter$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "plcr_name::tag",
-                  "operator": "=~",
-                  "value": "/^$plcr$/"
-                }
-              ]
+              "instant": false,
+              "legendFormat": "Drop BPS {{fw_name}} - {{plcr_name}} - FPC {{_component_id}}",
+              "range": true,
+              "refId": "B"
             }
           ],
           "title": "Firewall Counters/Policer - BPS VIEW",
@@ -1092,17 +668,21 @@
           "value": ""
         },
         "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
+          "type": "prometheus",
+          "uid": "jtsuid2"
         },
-        "definition": "show tag values from FIREWALL with key=\"SHORTNAME\"",
+        "definition": "label_values(FIREWALL_fwd_packets_rate, SHORTNAME)",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": "show tag values from FIREWALL with key=\"SHORTNAME\"",
+        "query": {
+          "qryType": 1,
+          "query": "label_values(FIREWALL_fwd_packets_rate, SHORTNAME)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1120,17 +700,21 @@
           ]
         },
         "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
+          "type": "prometheus",
+          "uid": "jtsuid2"
         },
-        "definition": "show tag values with key=\"fw_name\" where SHORTNAME=~/$rtr/",
+        "definition": "label_values(FIREWALL_fwd_packets_rate{SHORTNAME=~\"$rtr\"}, fw_name)",
         "hide": 0,
         "includeAll": true,
         "label": "Filter",
         "multi": true,
         "name": "filter",
         "options": [],
-        "query": "show tag values with key=\"fw_name\" where SHORTNAME=~/$rtr/",
+        "query": {
+          "qryType": 1,
+          "query": "label_values(FIREWALL_fwd_packets_rate{SHORTNAME=~\"$rtr\"}, fw_name)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -1148,17 +732,21 @@
           ]
         },
         "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
+          "type": "prometheus",
+          "uid": "jtsuid2"
         },
-        "definition": "show tag values with key=\"cntr_name\" where fw_name=~/^${filter:regex}$/",
+        "definition": "label_values(FIREWALL_fwd_packets_rate{fw_name=~\"$filter\"}, cntr_name)",
         "hide": 0,
         "includeAll": true,
         "label": "Counter",
         "multi": true,
         "name": "cntr",
         "options": [],
-        "query": "show tag values with key=\"cntr_name\" where fw_name=~/^${filter:regex}$/",
+        "query": {
+          "qryType": 1,
+          "query": "label_values(FIREWALL_fwd_packets_rate{fw_name=~\"$filter\"}, cntr_name)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -1176,17 +764,21 @@
           ]
         },
         "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
+          "type": "prometheus",
+          "uid": "jtsuid2"
         },
-        "definition": "show tag values with key=\"plcr_name\" where fw_name=~/^${filter:regex}$/",
+        "definition": "label_values(FIREWALL_drop_pkts_rate{fw_name=~\"$filter\"}, plcr_name)",
         "hide": 0,
         "includeAll": true,
         "label": "Policer",
         "multi": true,
         "name": "plcr",
         "options": [],
-        "query": "show tag values with key=\"plcr_name\" where fw_name=~/^${filter:regex}$/",
+        "query": {
+          "qryType": 1,
+          "query": "label_values(FIREWALL_drop_pkts_rate{fw_name=~\"$filter\"}, plcr_name)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -1203,6 +795,6 @@
   "timezone": "",
   "title": "FIREWALL FILTER PROFILE - JTS",
   "uid": "filterdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }

@@ -22,7 +22,6 @@
             }
         ]
     },
-    "kapacitor": [],
     "grafana": [
         "dashboard-srmpls-iif.json",
         "dashboard-srmpls-sid.json"

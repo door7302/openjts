@@ -29,8 +29,8 @@
   "panels": [
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "description": "",
       "gridPos": {
@@ -55,8 +55,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -111,17 +111,53 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "DDOS_STATS_policer_violation_count{SHORTNAME=~\"$rtr\", policer_state=~\".*VIOLATING.*\"}",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
+          "groupBy": [
+            {
+              "params": [
+                "protocol::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "sub_protocol::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "_component_id::tag"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "DDOS_STATS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"policer-state\"), \"policer-violation-count\" FROM \"DDOS_STATS\" WHERE time > now()-15m and policer-state=~/.*VIOLATING.*/ GROUP BY \"SHORTNAME\"::tag, \"protocol\"::tag, \"sub_protocol\"::tag, \"_component_id\"::tag",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "policer-state"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "title": "Global DDOS_STATS alarms - last 15 minutes",
@@ -129,29 +165,25 @@
         {
           "id": "organize",
           "options": {
-            "excludeByName": {
-              "__name__": true,
-              "instance": true,
-              "job": true
-            },
+            "excludeByName": {},
             "includeByName": {},
             "indexByName": {
               "Time": 0,
+              "_component_id": 2,
+              "policer-violation-count": 6,
               "SHORTNAME": 1,
-              "protocol": 2,
-              "sub_protocol": 3,
-              "_component_id": 4,
-              "policer_state": 5,
-              "Value": 6
+              "last": 5,
+              "protocol": 3,
+              "sub_protocol": 4
             },
             "renameByName": {
               "Time": "Last Time Seen",
-              "SHORTNAME": "Router",
-              "protocol": "Protocol",
-              "sub_protocol": "Sub Protocol",
               "_component_id": "Linecard Slot",
-              "policer_state": "Current State",
-              "Value": "Violation Count. "
+              "policer-violation-count": "Violation Count. ",
+              "SHORTNAME": "Router",
+              "last": "Current State",
+              "protocol": "Protocol",
+              "sub_protocol": "Sub Protocol"
             }
           }
         }
@@ -160,8 +192,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "description": "",
       "gridPos": {
@@ -201,8 +233,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "description": "",
       "fieldConfig": {
@@ -269,25 +301,23 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "received_rate pps",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "sum(DDOS_STATS_arrival_rate{SHORTNAME=~\"$rtr\", protocol=~\"$proto\", sub_protocol=\"aggregate\"})",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "received_rate pps",
-          "range": true,
-          "refId": "A"
+          "query": "select sum(received_rate) from (select (\"arrival-rate\") as received_rate FROM \"DDOS_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
         }
       ],
       "type": "bargauge"
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "description": "",
       "fieldConfig": {
@@ -354,25 +384,54 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "drop_rate pps",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "sum(DDOS_STATS_dropped_aggregate_policer_rate{SHORTNAME=~\"$rtr\", protocol=~\"$proto\", sub_protocol=\"aggregate\"})",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "drop_rate pps",
-          "range": true,
-          "refId": "A"
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select sum(drop_rate) from (select (\"dropped-aggregate-policer_rate\") as drop_rate FROM \"DDOS_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
         }
       ],
       "type": "bargauge"
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "description": "",
       "fieldConfig": {
@@ -439,25 +498,23 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "passed_rate pps",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "sum(DDOS_STATS_arrival_rate{SHORTNAME=~\"$rtr\", protocol=~\"$proto\", sub_protocol=\"aggregate\"} - DDOS_STATS_dropped_aggregate_policer_rate{SHORTNAME=~\"$rtr\", protocol=~\"$proto\", sub_protocol=\"aggregate\"})",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "passed_rate pps",
-          "range": true,
-          "refId": "A"
+          "query": "select sum(punt_rate) from(select ((\"arrival-rate\")-(\"dropped-aggregate-policer_rate\")) as punt_rate FROM \"DDOS_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ and \"sub_protocol\"::tag =~ /^aggregate$/) AND $timeFilter GROUP BY \"_component_id\"::tag fill(0)) group by time(1m)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
         }
       ],
       "type": "bargauge"
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -541,17 +598,61 @@
       },
       "targets": [
         {
+          "alias": "Received $proto ($tag_sub_protocol) Linecard Slot $tag__component_id",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "DDOS_STATS_arrival_rate{SHORTNAME=~\"$rtr\", protocol=~\"$proto\", sub_protocol=~\"$sub_proto\"}",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Received $proto ({{sub_protocol}}) Linecard Slot {{_component_id}}",
-          "range": true,
-          "refId": "A"
+          "groupBy": [
+            {
+              "params": [
+                "_component_id::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "sub_protocol::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "DDOS_STATS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"arrival-rate\" FROM \"DDOS_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "arrival-rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "protocol::tag",
+              "operator": "=~",
+              "value": "/^$proto$/"
+            }
+          ]
         }
       ],
       "title": "$proto received",
@@ -559,8 +660,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -644,17 +745,61 @@
       },
       "targets": [
         {
+          "alias": "Dropped $proto ($tag_sub_protocol) Linecard Slot $tag__component_id",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "DDOS_STATS_dropped_aggregate_policer_rate{SHORTNAME=~\"$rtr\", protocol=~\"$proto\", sub_protocol=~\"$sub_proto\"}",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Dropped $proto ({{sub_protocol}}) Linecard Slot {{_component_id}}",
-          "range": true,
-          "refId": "A"
+          "groupBy": [
+            {
+              "params": [
+                "_component_id::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "sub_protocol::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "DDOS_STATS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"dropped-aggregate-policer_rate\" FROM \"DDOS_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter  GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "dropped-aggregate-policer_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "protocol::tag",
+              "operator": "=~",
+              "value": "/^$proto$/"
+            }
+          ]
         }
       ],
       "title": "$proto dropped",
@@ -662,8 +807,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -749,18 +894,62 @@
       },
       "targets": [
         {
+          "alias": "Punted to RE $proto ($tag_sub_protocol) Linecard Slot $tag__component_id",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "DDOS_STATS_arrival_rate{SHORTNAME=~\"$rtr\", protocol=~\"$proto\", sub_protocol=~\"$sub_proto\"} - DDOS_STATS_dropped_aggregate_policer_rate{SHORTNAME=~\"$rtr\", protocol=~\"$proto\", sub_protocol=~\"$sub_proto\"}",
-          "format": "time_series",
+          "groupBy": [
+            {
+              "params": [
+                "_component_id::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "sub_protocol::tag"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
           "hide": false,
-          "instant": false,
-          "legendFormat": "Punted to RE $proto ({{sub_protocol}}) Linecard Slot {{_component_id}}",
-          "range": true,
-          "refId": "A"
+          "measurement": "DDOS_STATS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"arrival-rate\" - \"dropped-aggregate-policer_rate\" FROM \"DDOS_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"protocol\"::tag =~ /^$proto$/ AND \"sub_protocol\"::tag =~ /^$sub_proto$/) AND $timeFilter \n GROUP BY \"_component_id\"::tag, \"sub_protocol\"::tag fill(0) ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "dropped-aggregate-policer_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "protocol::tag",
+              "operator": "=~",
+              "value": "/^$proto$/"
+            }
+          ]
         }
       ],
       "title": "$proto punted to RE",
@@ -780,21 +969,17 @@
           "value": ""
         },
         "datasource": {
-          "type": "prometheus",
-          "uid": "jtsuid2"
+          "type": "influxdb",
+          "uid": "jtsuid"
         },
-        "definition": "label_values(DDOS_STATS_arrival_rate, SHORTNAME)",
+        "definition": "show tag values from DDOS_STATS with key=\"SHORTNAME\"",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(DDOS_STATS_arrival_rate, SHORTNAME)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "show tag values from DDOS_STATS with key=\"SHORTNAME\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -812,10 +997,10 @@
           ]
         },
         "datasource": {
-          "type": "prometheus",
-          "uid": "jtsuid2"
+          "type": "influxdb",
+          "uid": "jtsuid"
         },
-        "definition": "label_values(DDOS_STATS_arrival_rate{SHORTNAME=~\"$rtr\"}, protocol)",
+        "definition": "show tag values with key=\"protocol\" where SHORTNAME=~/$rtr/",
         "description": "",
         "hide": 0,
         "includeAll": true,
@@ -823,11 +1008,7 @@
         "multi": true,
         "name": "proto",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(DDOS_STATS_arrival_rate{SHORTNAME=~\"$rtr\"}, protocol)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "show tag values with key=\"protocol\" where SHORTNAME=~/$rtr/",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -845,10 +1026,10 @@
           ]
         },
         "datasource": {
-          "type": "prometheus",
-          "uid": "jtsuid2"
+          "type": "influxdb",
+          "uid": "jtsuid"
         },
-        "definition": "label_values(DDOS_STATS_arrival_rate{protocol=~\"$proto\"}, sub_protocol)",
+        "definition": "show tag values with key=\"sub_protocol\" where protocol=~/$proto/",
         "description": "",
         "hide": 0,
         "includeAll": true,
@@ -856,11 +1037,7 @@
         "multi": true,
         "name": "sub_proto",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(DDOS_STATS_arrival_rate{protocol=~\"$proto\"}, sub_protocol)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "show tag values with key=\"sub_protocol\" where protocol=~/$proto/",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -877,6 +1054,6 @@
   "timezone": "",
   "title": "DDOS PROFILE - JTS",
   "uid": "ddosdashboard",
-  "version": 3,
+  "version": 2,
   "weekStart": ""
 }

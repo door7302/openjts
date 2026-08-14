@@ -40,7 +40,6 @@
       "conf": "vevo_bgp.json"
     }]
   },
-  "kapacitor": null,
   "grafana": [
     "dashboard-bgp.json"
   ]

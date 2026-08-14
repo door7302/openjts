@@ -37,7 +37,6 @@
       }
     ]
   },
-  "kapacitor": null,
   "grafana": [
     "dashboard-optic.json",
     "dashboard-zr.json"

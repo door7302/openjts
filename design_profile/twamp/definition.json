@@ -16,7 +16,6 @@
       }
     ]
   },
-  "kapacitor": null,
   "grafana": [
     "dashboard-twamp.json"
   ]

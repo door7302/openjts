@@ -12,7 +12,6 @@
       "conf": "ptx_ddos.json"
     }]
   },
-  "kapacitor": [],
   "grafana": [
     "dashboard-ddos.json"
   ]

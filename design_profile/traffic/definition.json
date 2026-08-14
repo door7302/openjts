@@ -32,9 +32,6 @@
       "conf": "ex_traffic.json"
     }]
   },
-  "kapacitor": [
-
-  ],
   "grafana": [
     "dashboard-traffic.json",
     "dashboard-voq.json",

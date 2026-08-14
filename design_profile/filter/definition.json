@@ -16,7 +16,6 @@
       "conf": "acx_filter.json"
     }]
   },
-  "kapacitor": [],
   "grafana": [
     "dashboard-filter.json"
   ]

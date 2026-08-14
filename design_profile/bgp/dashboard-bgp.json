@@ -29,8 +29,8 @@
   "panels": [
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "gridPos": {
         "h": 2,
@@ -54,8 +54,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -103,32 +103,16 @@
       "targets": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [],
-          "measurement": "NETWORK_INSTANCE_BGP",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "global_as"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_global_as{SHORTNAME=~\"$rtr\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "LOCAL AS",
@@ -137,8 +121,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -186,32 +170,16 @@
       "targets": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [],
-          "measurement": "NETWORK_INSTANCE_BGP",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "global_total_prefixes"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_global_total_prefixes{SHORTNAME=~\"$rtr\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "Total Prefixes",
@@ -220,8 +188,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -269,32 +237,16 @@
       "targets": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [],
-          "measurement": "NETWORK_INSTANCE_BGP",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "global_total_paths"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_global_total_paths{SHORTNAME=~\"$rtr\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "Total Paths",
@@ -316,8 +268,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -369,61 +321,17 @@
       "repeatDirection": "h",
       "targets": [
         {
-          "alias": "$tag_instance_name - $tag_peer_group_name",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "instance_name::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "peer_group_name::tag"
-              ],
-              "type": "tag"
-            }
-          ],
-          "measurement": "NETWORK_INSTANCE_BGP",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"group_total_paths\" FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag fill(previous)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "group_total_paths"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "instance_name::tag",
-              "operator": "=~",
-              "value": "/^$instance$/"
-            },
-            {
-              "condition": "AND",
-              "key": "peer_group_name::tag",
-              "operator": "=~",
-              "value": "/^$peergroup$/"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_group_total_paths{SHORTNAME=~\"$rtr\", instance_name=~\"$instance\", peer_group_name=~\"$peergroup\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "{{instance_name}} - {{peer_group_name}}",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "Total Paths for peer-group $peergroup",
@@ -431,8 +339,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -484,177 +392,45 @@
       "repeatDirection": "h",
       "targets": [
         {
-          "alias": "Received",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "instance_name::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "peer_group_name::tag"
-              ],
-              "type": "tag"
-            }
-          ],
-          "measurement": "NETWORK_INSTANCE_BGP",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "select sum(mean) from(SELECT mean(\"group_safi_received\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/)  AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_group_afi_safi_name\"::tag) GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, time(61s) fill(previous) ",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "group_safi_received"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "instance_name::tag",
-              "operator": "=~",
-              "value": "/^$instance$/"
-            },
-            {
-              "condition": "AND",
-              "key": "peer_group_name::tag",
-              "operator": "=~",
-              "value": "/^$peergroup$/"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "sum by (instance_name, peer_group_name) (NETWORK_INSTANCE_BGP_group_safi_received{SHORTNAME=~\"$rtr\", instance_name=~\"$instance\", peer_group_name=~\"$peergroup\"})",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Received",
+          "range": true,
+          "refId": "A"
         },
         {
-          "alias": "Installed",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "instance_name::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "peer_group_name::tag"
-              ],
-              "type": "tag"
-            }
-          ],
+          "editorMode": "code",
+          "expr": "sum by (instance_name, peer_group_name) (NETWORK_INSTANCE_BGP_group_safi_installed{SHORTNAME=~\"$rtr\", instance_name=~\"$instance\", peer_group_name=~\"$peergroup\"})",
+          "format": "time_series",
           "hide": false,
-          "measurement": "NETWORK_INSTANCE_BGP",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "select sum(mean) from(SELECT mean(\"group_safi_installed\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_group_afi_safi_name\"::tag) GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, time(61s) fill(previous)",
-          "rawQuery": true,
-          "refId": "B",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "group_safi_installed"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "instance_name::tag",
-              "operator": "=~",
-              "value": "/^$instance$/"
-            },
-            {
-              "condition": "AND",
-              "key": "peer_group_name::tag",
-              "operator": "=~",
-              "value": "/^$peergroup$/"
-            }
-          ]
+          "instant": false,
+          "legendFormat": "Installed",
+          "range": true,
+          "refId": "B"
         },
         {
-          "alias": "Sent",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "instance_name::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "peer_group_name::tag"
-              ],
-              "type": "tag"
-            }
-          ],
+          "editorMode": "code",
+          "expr": "sum by (instance_name, peer_group_name) (NETWORK_INSTANCE_BGP_group_safi_sent{SHORTNAME=~\"$rtr\", instance_name=~\"$instance\", peer_group_name=~\"$peergroup\"})",
+          "format": "time_series",
           "hide": false,
-          "measurement": "NETWORK_INSTANCE_BGP",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "select sum(mean) from(SELECT  mean(\"group_safi_sent\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_name\"::tag =~ /^$peergroup$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_group_afi_safi_name\"::tag) GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, time(61s) fill(previous)",
-          "rawQuery": true,
-          "refId": "C",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "group_safi_sent"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "instance_name::tag",
-              "operator": "=~",
-              "value": "/^$instance$/"
-            },
-            {
-              "condition": "AND",
-              "key": "peer_group_name::tag",
-              "operator": "=~",
-              "value": "/^$peergroup$/"
-            }
-          ]
+          "instant": false,
+          "legendFormat": "Sent",
+          "range": true,
+          "refId": "C"
         }
       ],
       "title": "Prefixes Stats for peer-group $peergroup",
@@ -675,8 +451,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "description": "",
       "fieldConfig": {
@@ -729,67 +505,17 @@
       "repeatDirection": "h",
       "targets": [
         {
-          "alias": " $tag_peer_group_afi_safi_name",
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "instance_name::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "peer_group_name::tag"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "peer_group_afi_safi_name::tag"
-              ],
-              "type": "tag"
-            }
-          ],
-          "measurement": "NETWORK_INSTANCE_BGP",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "select sum(mean) from (SELECT mean(\"group_safi_total_paths\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"peer_group_afi_safi_name\"::tag =~ /^$family$/) AND $timeFilter GROUP BY \"instance_name\"::tag, \"peer_group_name\"::tag, \"peer_group_afi_safi_name\"::tag, time(61s)) GROUP BY \"peer_group_afi_safi_name\"::tag, time(61s) fill(previous)",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "time_series",
-          "select": [
-            [
-              {
-                "params": [
-                  "group_safi_total_paths"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "instance_name::tag",
-              "operator": "=~",
-              "value": "/^$instance$/"
-            },
-            {
-              "condition": "AND",
-              "key": "peer_group_afi_safi_name::tag",
-              "operator": "=~",
-              "value": "/^$family$/"
-            }
-          ]
+          "editorMode": "code",
+          "expr": "sum by (peer_group_afi_safi_name) (NETWORK_INSTANCE_BGP_group_safi_total_paths{SHORTNAME=~\"$rtr\", instance_name=~\"$instance\", peer_group_afi_safi_name=~\"$family\"})",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "{{peer_group_afi_safi_name}}",
+          "range": true,
+          "refId": "A"
         }
       ],
       "title": "Total Paths for family $family",
@@ -797,8 +523,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "gridPos": {
         "h": 2,
@@ -822,8 +548,8 @@
     },
     {
       "datasource": {
-        "type": "influxdb",
-        "uid": "jtsuid"
+        "type": "prometheus",
+        "uid": "jtsuid2"
       },
       "fieldConfig": {
         "defaults": {
@@ -922,69 +648,17 @@
       "targets": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
-          "groupBy": [
-            {
-              "params": [
-                "neighbor_address::tag"
-              ],
-              "type": "tag"
-            }
-          ],
-          "measurement": "NETWORK_INSTANCE_BGP",
-          "orderByTime": "ASC",
-          "policy": "default",
-          "query": "SELECT \"session_state\" FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"instance_name\"::tag =~ /^$instance$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag",
-          "rawQuery": true,
-          "refId": "A",
-          "resultFormat": "table",
-          "select": [
-            [
-              {
-                "params": [
-                  "session_state"
-                ],
-                "type": "field"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "session_description"
-                ],
-                "type": "field"
-              }
-            ],
-            [
-              {
-                "params": [
-                  "session_peer_as"
-                ],
-                "type": "field"
-              }
-            ]
-          ],
-          "tags": [
-            {
-              "key": "SHORTNAME::tag",
-              "operator": "=~",
-              "value": "/^$rtr$/"
-            },
-            {
-              "condition": "AND",
-              "key": "instance_name::tag",
-              "operator": "=~",
-              "value": "/^$instance$/"
-            },
-            {
-              "condition": "AND",
-              "key": "neighbor_address::tag",
-              "operator": "=~",
-              "value": "/^$neighbor$/"
-            }
-          ]
+          "editorMode": "code",
+          "exemplar": false,
+          "expr": "NETWORK_INSTANCE_BGP_session_peer_as{SHORTNAME=~\"$rtr\", instance_name=~\"$instance\", neighbor_address=~\"$neighbor\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
         }
       ],
       "title": "Network Events - OnChange",
@@ -1024,8 +698,8 @@
       "panels": [
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
           "fieldConfig": {
             "defaults": {
@@ -1082,45 +756,18 @@
           "pluginVersion": "10.3.1",
           "targets": [
             {
-              "alias": "DESC",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [],
+              "editorMode": "code",
+              "expr": "NETWORK_INSTANCE_BGP_session_description{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+              "format": "time_series",
               "hide": false,
-              "measurement": "NETWORK_INSTANCE_BGP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "session_description"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
+              "instant": false,
+              "legendFormat": "DESC",
+              "range": true,
+              "refId": "A"
             }
           ],
           "title": "Peer Name",
@@ -1129,8 +776,8 @@
         },
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
           "fieldConfig": {
             "defaults": {
@@ -1177,45 +824,18 @@
           "pluginVersion": "10.3.1",
           "targets": [
             {
-              "alias": "PEERAS",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [],
+              "editorMode": "code",
+              "expr": "NETWORK_INSTANCE_BGP_session_peer_as{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+              "format": "time_series",
               "hide": false,
-              "measurement": "NETWORK_INSTANCE_BGP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "session_peer_as"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
+              "instant": false,
+              "legendFormat": "PEERAS",
+              "range": true,
+              "refId": "A"
             }
           ],
           "title": "Peer AS",
@@ -1224,8 +844,8 @@
         },
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
           "description": "",
           "fieldConfig": {
@@ -1295,82 +915,32 @@
           "pluginVersion": "10.3.1",
           "targets": [
             {
-              "alias": "STATE",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [],
+              "editorMode": "code",
+              "expr": "NETWORK_INSTANCE_BGP_session_state{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+              "format": "time_series",
               "hide": true,
-              "measurement": "NETWORK_INSTANCE_BGP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT \"session_state\" FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "session_state"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
+              "instant": false,
+              "legendFormat": "STATE",
+              "range": true,
+              "refId": "A"
             },
             {
-              "alias": "STATE",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [],
+              "editorMode": "code",
+              "expr": "NETWORK_INSTANCE_BGP_session_state{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+              "format": "time_series",
               "hide": false,
-              "measurement": "NETWORK_INSTANCE_BGP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT \"session_state\" FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
-              "rawQuery": true,
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "session_state"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
+              "instant": false,
+              "legendFormat": "STATE",
+              "range": true,
+              "refId": "B"
             }
           ],
           "title": "Peer State",
@@ -1379,8 +949,8 @@
         },
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
           "fieldConfig": {
             "defaults": {
@@ -1432,55 +1002,25 @@
           "pluginVersion": "10.3.1",
           "targets": [
             {
-              "alias": "Input Queue",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [
-                {
-                  "params": [
-                    "31s"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "previous"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "measurement": "NETWORK_INSTANCE_BGP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"session_output_queue\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/)   GROUP BY time(31s) fill(previous)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "session_output_queue"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
+              "editorMode": "code",
+              "expr": "NETWORK_INSTANCE_BGP_session_output_queue{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+              "format": "time_series",
+              "instant": false,
+              "legendFormat": "Input Queue",
+              "range": true,
+              "refId": "A"
             }
           ],
           "type": "stat"
         },
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
           "fieldConfig": {
             "defaults": {
@@ -1532,61 +1072,25 @@
           "pluginVersion": "10.3.1",
           "targets": [
             {
-              "alias": "Input Queue",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [
-                {
-                  "params": [
-                    "31s"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "previous"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "measurement": "NETWORK_INSTANCE_BGP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"session_output_queue\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/)   GROUP BY time(31s) fill(previous)",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "session_output_queue"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
+              "editorMode": "code",
+              "expr": "NETWORK_INSTANCE_BGP_session_output_queue{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+              "format": "time_series",
+              "instant": false,
+              "legendFormat": "Input Queue",
+              "range": true,
+              "refId": "A"
             }
           ],
           "type": "stat"
         },
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
           "description": "",
           "fieldConfig": {
@@ -1640,235 +1144,59 @@
           "repeatDirection": "h",
           "targets": [
             {
-              "alias": "Received - $tag_neighbor_afi_safi_name",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [
-                {
-                  "params": [
-                    "instance_name::tag"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "peer_group_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
-              "measurement": "NETWORK_INSTANCE_BGP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"safi_received\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
-              "rawQuery": true,
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "safi_received"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "instance_name::tag",
-                  "operator": "=~",
-                  "value": "/^$instance$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "peer_group_name::tag",
-                  "operator": "=~",
-                  "value": "/^$peergroup$/"
-                }
-              ]
+              "editorMode": "code",
+              "expr": "NETWORK_INSTANCE_BGP_safi_received{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+              "format": "time_series",
+              "instant": false,
+              "legendFormat": "Received - {{neighbor_afi_safi_name}}",
+              "range": true,
+              "refId": "A"
             },
             {
-              "alias": "Dropped by policy - $tag_neighbor_afi_safi_name",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [
-                {
-                  "params": [
-                    "instance_name::tag"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "peer_group_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
+              "editorMode": "code",
+              "expr": "NETWORK_INSTANCE_BGP_safi_received_pre_policy{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"} - NETWORK_INSTANCE_BGP_safi_accepted{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+              "format": "time_series",
               "hide": false,
-              "measurement": "NETWORK_INSTANCE_BGP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"safi_received_pre_policy\")-mean(\"safi_accepted\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
-              "rawQuery": true,
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "safi_received"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "instance_name::tag",
-                  "operator": "=~",
-                  "value": "/^$instance$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "peer_group_name::tag",
-                  "operator": "=~",
-                  "value": "/^$peergroup$/"
-                }
-              ]
+              "instant": false,
+              "legendFormat": "Dropped by policy - {{neighbor_afi_safi_name}}",
+              "range": true,
+              "refId": "B"
             },
             {
-              "alias": "Installed - $tag_neighbor_afi_safi_name",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [
-                {
-                  "params": [
-                    "instance_name::tag"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "peer_group_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
+              "editorMode": "code",
+              "expr": "NETWORK_INSTANCE_BGP_safi_installed{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+              "format": "time_series",
               "hide": false,
-              "measurement": "NETWORK_INSTANCE_BGP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"safi_installed\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
-              "rawQuery": true,
-              "refId": "C",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "safi_received"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "instance_name::tag",
-                  "operator": "=~",
-                  "value": "/^$instance$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "peer_group_name::tag",
-                  "operator": "=~",
-                  "value": "/^$peergroup$/"
-                }
-              ]
+              "instant": false,
+              "legendFormat": "Installed - {{neighbor_afi_safi_name}}",
+              "range": true,
+              "refId": "C"
             },
             {
-              "alias": "Sent - $tag_neighbor_afi_safi_name",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [
-                {
-                  "params": [
-                    "instance_name::tag"
-                  ],
-                  "type": "tag"
-                },
-                {
-                  "params": [
-                    "peer_group_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
+              "editorMode": "code",
+              "expr": "NETWORK_INSTANCE_BGP_safi_sent{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+              "format": "time_series",
               "hide": false,
-              "measurement": "NETWORK_INSTANCE_BGP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT mean(\"safi_sent\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_address\"::tag, \"neighbor_afi_safi_name\"::tag, time(61s) fill(previous) ",
-              "rawQuery": true,
-              "refId": "E",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "safi_received"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "instance_name::tag",
-                  "operator": "=~",
-                  "value": "/^$instance$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "peer_group_name::tag",
-                  "operator": "=~",
-                  "value": "/^$peergroup$/"
-                }
-              ]
+              "instant": false,
+              "legendFormat": "Sent - {{neighbor_afi_safi_name}}",
+              "range": true,
+              "refId": "E"
             }
           ],
           "title": "Neighbor $neighbor - current routes per family",
@@ -1876,8 +1204,8 @@
         },
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
           "description": "",
           "fieldConfig": {
@@ -1936,54 +1264,18 @@
           "pluginVersion": "10.3.1",
           "targets": [
             {
-              "alias": "$tag_neighbor_afi_safi_name",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [
-                {
-                  "params": [
-                    "neighbor_afi_safi_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
+              "editorMode": "code",
+              "expr": "NETWORK_INSTANCE_BGP_max_prefixes{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+              "format": "time_series",
               "hide": false,
-              "measurement": "NETWORK_INSTANCE_BGP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT \"session_state\" FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) ",
-              "rawQuery": false,
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "max-prefixes"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "last"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
+              "instant": false,
+              "legendFormat": "{{neighbor_afi_safi_name}}",
+              "range": true,
+              "refId": "B"
             }
           ],
           "title": "Max Prefixes config per family",
@@ -1992,8 +1284,8 @@
         },
         {
           "datasource": {
-            "type": "influxdb",
-            "uid": "jtsuid"
+            "type": "prometheus",
+            "uid": "jtsuid2"
           },
           "description": "",
           "fieldConfig": {
@@ -2089,182 +1381,60 @@
           },
           "targets": [
             {
-              "alias": "Received routes $tag_neighbor_afi_safi_name",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [
-                {
-                  "params": [
-                    "neighbor_afi_safi_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
+              "editorMode": "code",
+              "expr": "NETWORK_INSTANCE_BGP_safi_received{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+              "format": "time_series",
               "hide": false,
-              "measurement": "NETWORK_INSTANCE_BGP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "safi_received"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
+              "instant": false,
+              "legendFormat": "Received routes {{neighbor_afi_safi_name}}",
+              "range": true,
+              "refId": "A"
             },
             {
-              "alias": "Installed routes $tag_neighbor_afi_safi_name",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [
-                {
-                  "params": [
-                    "neighbor_afi_safi_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
+              "editorMode": "code",
+              "expr": "NETWORK_INSTANCE_BGP_safi_installed{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+              "format": "time_series",
               "hide": false,
-              "measurement": "NETWORK_INSTANCE_BGP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "safi_installed"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
+              "instant": false,
+              "legendFormat": "Installed routes {{neighbor_afi_safi_name}}",
+              "range": true,
+              "refId": "B"
             },
             {
-              "alias": "Sent routes $tag_neighbor_afi_safi_name",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [
-                {
-                  "params": [
-                    "neighbor_afi_safi_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
+              "editorMode": "code",
+              "expr": "NETWORK_INSTANCE_BGP_safi_sent{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+              "format": "time_series",
               "hide": false,
-              "measurement": "NETWORK_INSTANCE_BGP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "refId": "C",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "safi_sent"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
+              "instant": false,
+              "legendFormat": "Sent routes {{neighbor_afi_safi_name}}",
+              "range": true,
+              "refId": "C"
             },
             {
-              "alias": "Rejected by Policy routes $tag_neighbor_afi_safi_name",
               "datasource": {
-                "type": "influxdb",
-                "uid": "jtsuid"
+                "type": "prometheus",
+                "uid": "jtsuid2"
               },
-              "groupBy": [
-                {
-                  "params": [
-                    "neighbor_afi_safi_name::tag"
-                  ],
-                  "type": "tag"
-                }
-              ],
+              "editorMode": "code",
+              "expr": "NETWORK_INSTANCE_BGP_safi_received_pre_policy{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"} - NETWORK_INSTANCE_BGP_safi_accepted{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+              "format": "time_series",
               "hide": false,
-              "measurement": "NETWORK_INSTANCE_BGP",
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "SELECT (\"safi_received_pre_policy\" -  \"safi_accepted\") FROM \"NETWORK_INSTANCE_BGP\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"neighbor_address\"::tag =~ /^$neighbor$/) AND $timeFilter GROUP BY \"neighbor_afi_safi_name\"::tag",
-              "rawQuery": true,
-              "refId": "D",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "safi_received_pre_policy"
-                    ],
-                    "type": "field"
-                  }
-                ]
-              ],
-              "tags": [
-                {
-                  "key": "SHORTNAME::tag",
-                  "operator": "=~",
-                  "value": "/^$rtr$/"
-                },
-                {
-                  "condition": "AND",
-                  "key": "neighbor_address::tag",
-                  "operator": "=~",
-                  "value": "/^$neighbor$/"
-                }
-              ]
+              "instant": false,
+              "legendFormat": "Rejected by Policy routes {{neighbor_afi_safi_name}}",
+              "range": true,
+              "refId": "D"
             }
           ],
           "title": "Neighbor $neighbor - Routes history",
@@ -2304,17 +1474,21 @@
           "value": ""
         },
         "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
+          "type": "prometheus",
+          "uid": "jtsuid2"
         },
-        "definition": "show tag values from NETWORK_INSTANCE_BGP with key=\"SHORTNAME\"",
+        "definition": "label_values(NETWORK_INSTANCE_BGP_global_as, SHORTNAME)",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": "show tag values from NETWORK_INSTANCE_BGP with key=\"SHORTNAME\"",
+        "query": {
+          "qryType": 1,
+          "query": "label_values(NETWORK_INSTANCE_BGP_global_as, SHORTNAME)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -2332,17 +1506,21 @@
           ]
         },
         "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
+          "type": "prometheus",
+          "uid": "jtsuid2"
         },
-        "definition": "show tag values with key=\"instance_name\" where SHORTNAME=~/$rtr/",
+        "definition": "label_values(NETWORK_INSTANCE_BGP_session_peer_as{SHORTNAME=~\"$rtr\"}, instance_name)",
         "hide": 0,
         "includeAll": true,
         "label": "Instance",
         "multi": true,
         "name": "instance",
         "options": [],
-        "query": "show tag values with key=\"instance_name\" where SHORTNAME=~/$rtr/",
+        "query": {
+          "qryType": 1,
+          "query": "label_values(NETWORK_INSTANCE_BGP_session_peer_as{SHORTNAME=~\"$rtr\"}, instance_name)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -2360,17 +1538,21 @@
           ]
         },
         "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
+          "type": "prometheus",
+          "uid": "jtsuid2"
         },
-        "definition": "show tag values with key=\"peer_group_name\" where SHORTNAME=~/$rtr/ and instance_name=~/$instance/",
+        "definition": "label_values(NETWORK_INSTANCE_BGP_group_total_paths{SHORTNAME=~\"$rtr\", instance_name=~\"$instance\"}, peer_group_name)",
         "hide": 0,
         "includeAll": true,
         "label": "Peer Group",
         "multi": true,
         "name": "peergroup",
         "options": [],
-        "query": "show tag values with key=\"peer_group_name\" where SHORTNAME=~/$rtr/ and instance_name=~/$instance/",
+        "query": {
+          "qryType": 1,
+          "query": "label_values(NETWORK_INSTANCE_BGP_group_total_paths{SHORTNAME=~\"$rtr\", instance_name=~\"$instance\"}, peer_group_name)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -2388,17 +1570,21 @@
           ]
         },
         "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
+          "type": "prometheus",
+          "uid": "jtsuid2"
         },
-        "definition": "show tag values with key=\"peer_group_afi_safi_name\" where SHORTNAME=~/$rtr/ and peer_group_name=~/$peergroup/",
+        "definition": "label_values(NETWORK_INSTANCE_BGP_group_safi_total_paths{SHORTNAME=~\"$rtr\", peer_group_name=~\"$peergroup\"}, peer_group_afi_safi_name)",
         "hide": 0,
         "includeAll": true,
         "label": "Family",
         "multi": true,
         "name": "family",
         "options": [],
-        "query": "show tag values with key=\"peer_group_afi_safi_name\" where SHORTNAME=~/$rtr/ and peer_group_name=~/$peergroup/",
+        "query": {
+          "qryType": 1,
+          "query": "label_values(NETWORK_INSTANCE_BGP_group_safi_total_paths{SHORTNAME=~\"$rtr\", peer_group_name=~\"$peergroup\"}, peer_group_afi_safi_name)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -2416,17 +1602,21 @@
           ]
         },
         "datasource": {
-          "type": "influxdb",
-          "uid": "jtsuid"
+          "type": "prometheus",
+          "uid": "jtsuid2"
         },
-        "definition": "show tag values with key=\"neighbor_address\" where SHORTNAME=~/$rtr/ and instance_name=~/$instance/ and neighbor_afi_safi_name=~/$family/ ",
+        "definition": "label_values(NETWORK_INSTANCE_BGP_safi_received{SHORTNAME=~\"$rtr\", instance_name=~\"$instance\", neighbor_afi_safi_name=~\"$family\"}, neighbor_address)",
         "hide": 0,
         "includeAll": true,
         "label": "Neighbor",
         "multi": true,
         "name": "neighbor",
         "options": [],
-        "query": "show tag values with key=\"neighbor_address\" where SHORTNAME=~/$rtr/ and instance_name=~/$instance/ and neighbor_afi_safi_name=~/$family/ ",
+        "query": {
+          "qryType": 1,
+          "query": "label_values(NETWORK_INSTANCE_BGP_safi_received{SHORTNAME=~\"$rtr\", instance_name=~\"$instance\", neighbor_afi_safi_name=~\"$family\"}, neighbor_address)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
         "refresh": 2,
         "regex": "",
         "skipUrlSync": false,
@@ -2443,6 +1633,6 @@
   "timezone": "",
   "title": "BGP MONITORING PROFILE - JTS",
   "uid": "bgpdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
