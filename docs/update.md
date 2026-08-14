@@ -16,6 +16,8 @@ docker compose down
 Before upgrading the stack, it is highly recommended to back up the environment and configuration files. Below, we back up everything to the `/tmp/jts-tmp` folder. You may do it by using the `jts_backup.sh` starting from **OpenJTS 1.3.0**:
 
 ```shell 
+cd .. //Make sure you moved out 'compose' folder
+
 chmod +x jts_backup.sh
 
 ./jts_backup.sh backup
