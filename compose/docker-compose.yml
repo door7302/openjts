@@ -119,6 +119,21 @@ services:
       - ./telegraf/cert:/var/cert
     command:
       --config-directory /etc/telegraf/telegraf.d
+  telegraf_csrx:
+    image: jts_telegraf:latest
+    container_name: telegraf_csrx
+    restart: always
+    user: root
+    depends_on:
+      - telegraf_mx
+      - influxdb
+    volumes:
+      - /var/log:/var/log
+      - ./telegraf/csrx:/etc/telegraf/
+      - ./telegraf/metadata:/var/metadata
+      - ./telegraf/cert:/var/cert
+    command:
+      --config-directory /etc/telegraf/telegraf.d
   telegraf_cptx:
     image: jts_telegraf:latest
     container_name: telegraf_cptx
@@ -265,7 +280,7 @@ services:
       - ./grafana/data:/var/lib/grafana
       - ./grafana/plugins:/var/lib/grafana/plugins
   jtso:
-    build: https://github.com/door7302/jtso.git#v1.2.1
+    build: https://github.com/door7302/jtso.git#1.2.2
     image: jtso:latest
     container_name: jtso
     restart: always
