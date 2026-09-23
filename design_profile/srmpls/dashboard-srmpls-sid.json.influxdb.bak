@@ -29,8 +29,8 @@
   "panels": [
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -80,17 +80,42 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "INTERFACES_in_octets_rate{SHORTNAME=~\"$rtr\", MODEL!=\"\"}",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
+          "groupBy": [],
+          "measurement": "HW_NPU",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT last(\"in_octets_rate\") FROM \"INTERFACES\" WHERE \"SHORTNAME\"::tag=~ /^$rtr$/ AND $timeFilter and MODEL!='' group by VERSION, MODEL, SHORTNAME, MPLS_V4_SID, MPLS_V6_SID",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "component_name::tag",
+              "operator": "=~",
+              "value": "/^$comp_name$/"
+            },
+            {
+              "condition": "AND",
+              "key": "property_name::tag",
+              "operator": "=~",
+              "value": "/^$prop_name$/"
+            }
+          ]
         }
       ],
       "title": "Router Info",
@@ -99,22 +124,33 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "__name__": true,
-              "instance": true,
-              "job": true,
+              "HW_TYPE": true,
               "Time": true,
-              "Value": true,
-              "if_name": true,
+              "_component_id": true,
+              "component": true,
               "component_name": true,
-              "host": true
+              "host": true,
+              "if_name": true,
+              "last": true,
+              "path": true,
+              "property_name": true
             },
-            "indexByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "MODEL": 2,
+              "MPLS_V4_SID": 4,
+              "MPLS_V6_SID": 5,
+              "SHORTNAME": 1,
+              "Time": 0,
+              "VERSION": 3,
+              "last": 6
+            },
             "renameByName": {
-              "SHORTNAME": "Device Name",
-              "VERSION": "Device Version",
               "MODEL": "Router Model",
               "MPLS_V4_SID": "MPLS IPV4 SID",
-              "MPLS_V6_SID": "MPLS IPV6 SID"
+              "MPLS_V6_SID": "MPLS IPV6 SID",
+              "SHORTNAME": "Device Name",
+              "VERSION": "Device Version"
             }
           }
         }
@@ -123,8 +159,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -182,17 +218,59 @@
       },
       "targets": [
         {
+          "alias": "Label $tag_mpls_label",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "SRMPLS_SID_STATS_sid_in_pkts_rate{SHORTNAME=~\"$rtr\", mpls_label=~\".*(${mpls_sid:regex}).*\"}",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Label {{mpls_label}}",
-          "range": true,
-          "refId": "A"
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "SRMPLS_IF_STATS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"sid_in_pkts_rate\") FROM \"SRMPLS_SID_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"mpls_label\"::tag =~ /^.*${mpls_sid:regex}.*$/) AND $timeFilter GROUP BY mpls_label, time($interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sr_in_octets_rate"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "ifl_name::tag",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
         }
       ],
       "title": "Label Traffic Sharing",
@@ -200,8 +278,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -287,30 +365,115 @@
       },
       "targets": [
         {
+          "alias": "Label $tag_mpls_label In Bps",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "SRMPLS_SID_STATS_sid_in_octets_rate{SHORTNAME=~\"$rtr\", mpls_label=~\".*(${mpls_sid:regex}).*\"} * 8",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Label {{mpls_label}} In Bps",
-          "range": true,
-          "refId": "A"
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "SRMPLS_IF_STATS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"sid_in_octets_rate\")*8 FROM \"SRMPLS_SID_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"mpls_label\"::tag =~ /^.*${mpls_sid:regex}.*$/) AND $timeFilter GROUP BY mpls_label, time($interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sr_in_octets_rate"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "ifl_name::tag",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
         },
         {
+          "alias": "Label $tag_mpls_label Out Bps",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "SRMPLS_SID_STATS_sid_out_octets_rate{SHORTNAME=~\"$rtr\", mpls_label=~\".*(${mpls_sid:regex}).*\"} * 8",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Label {{mpls_label}} Out Bps",
-          "range": true,
-          "refId": "B"
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "SRMPLS_IF_STATS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"sid_out_octets_rate\")*8 FROM \"SRMPLS_SID_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"mpls_label\"::tag =~ /^.*${mpls_sid:regex}.*$/) AND $timeFilter GROUP BY mpls_label, time($interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sr_in_octets_rate"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "ifl_name::tag",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
         }
       ],
       "title": "Label IN/OUT Bps Traffic",
@@ -318,8 +481,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -405,30 +568,115 @@
       },
       "targets": [
         {
+          "alias": "Label $tag_mpls_label In PPS",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "SRMPLS_SID_STATS_sid_in_pkts_rate{SHORTNAME=~\"$rtr\", mpls_label=~\".*(${mpls_sid:regex}).*\"}",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Label {{mpls_label}} In PPS",
-          "range": true,
-          "refId": "A"
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "measurement": "SRMPLS_IF_STATS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"sid_in_pkts_rate\") FROM \"SRMPLS_SID_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"mpls_label\"::tag =~ /^.*${mpls_sid:regex}.*$/) AND $timeFilter GROUP BY mpls_label, time($interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sr_in_octets_rate"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "ifl_name::tag",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
         },
         {
+          "alias": "Label $tag_mpls_label Out PPS",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "SRMPLS_SID_STATS_sid_out_pkts_rate{SHORTNAME=~\"$rtr\", mpls_label=~\".*(${mpls_sid:regex}).*\"}",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Label {{mpls_label}} Out PPS",
-          "range": true,
-          "refId": "B"
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "measurement": "SRMPLS_IF_STATS",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"sid_out_pkts_rate\") FROM \"SRMPLS_SID_STATS\" WHERE (\"SHORTNAME\"::tag =~ /^$rtr$/ AND \"mpls_label\"::tag =~ /^.*${mpls_sid:regex}.*$/) AND $timeFilter GROUP BY mpls_label, time($interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "sr_in_octets_rate"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME::tag",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "ifl_name::tag",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
         }
       ],
       "title": "Label IN/OUT PPS Traffic",
@@ -448,21 +696,17 @@
           "value": ""
         },
         "datasource": {
-          "type": "prometheus",
-          "uid": "jtsuid2"
+          "type": "influxdb",
+          "uid": "jtsuid"
         },
-        "definition": "label_values(SRMPLS_IF_STATS_sr_in_octets_rate, SHORTNAME)",
+        "definition": "show tag values from SRMPLS_IF_STATS with key=\"SHORTNAME\" where $timeFilter",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(SRMPLS_IF_STATS_sr_in_octets_rate, SHORTNAME)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "show tag values from SRMPLS_IF_STATS with key=\"SHORTNAME\" where $timeFilter",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -480,21 +724,17 @@
           ]
         },
         "datasource": {
-          "type": "prometheus",
-          "uid": "jtsuid2"
+          "type": "influxdb",
+          "uid": "jtsuid"
         },
-        "definition": "label_values(SRMPLS_SID_STATS_sid_in_pkts_rate{SHORTNAME=~\"$rtr\"}, mpls_label)",
+        "definition": "show tag values from SRMPLS_SID_STATS with key=\"mpls_label\" where SHORTNAME=~/$rtr/ and $timeFilter",
         "hide": 0,
         "includeAll": true,
         "label": "MPLS Label",
         "multi": true,
         "name": "mpls_sid",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(SRMPLS_SID_STATS_sid_in_pkts_rate{SHORTNAME=~\"$rtr\"}, mpls_label)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "show tag values from SRMPLS_SID_STATS with key=\"mpls_label\" where SHORTNAME=~/$rtr/ and $timeFilter",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -549,6 +789,6 @@
   "timezone": "",
   "title": "SR MPLS PER SID MONITORING PROFILE - JTSO",
   "uid": "srmplssiddashboard",
-  "version": 3,
+  "version": 2,
   "weekStart": ""
 }

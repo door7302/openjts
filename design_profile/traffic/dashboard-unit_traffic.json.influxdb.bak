@@ -55,8 +55,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -140,30 +140,98 @@
       },
       "targets": [
         {
+          "alias": "Input Bps",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "INTERFACES_in_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"} * 8",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Input Bps",
-          "range": true,
-          "refId": "A"
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"in_octets_rate\")*8  FROM \"INTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /$ifname/) and if_unit='' AND $timeFilter group by time($sample_interval)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
         },
         {
+          "alias": "Output Bps",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "INTERFACES_out_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"} * 8",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Output Bps",
-          "range": true,
-          "refId": "B"
+          "groupBy": [],
+          "hide": false,
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"out_octets_rate\")*8 FROM \"INTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /$ifname/) and if_unit='' AND $timeFilter group by time($sample_interval)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
         }
       ],
       "title": "Global port statistics Bps - $ifname",
@@ -177,8 +245,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "description": "",
       "fieldConfig": {
@@ -232,17 +300,51 @@
       },
       "targets": [
         {
+          "alias": "Input Bps - $tag_if_name.$tag_if_unit",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "SUBINTERFACES_unit_in_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=~\"^(?:[0-9]|[1-9][0-9]|[1-9][0-9]{2}|[1-9][0-9]{3}|1[0-5][0-9]{3}|16[0-2][0-9]{2}|163[0-7][0-9]|16380|1638[0-5])$\"} * 8",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Input Bps - {{if_name}}.{{if_unit}}",
-          "range": true,
-          "refId": "A"
+          "groupBy": [],
+          "hide": false,
+          "measurement": "SUBINTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"unit_in_octets_rate\")*8 FROM \"SUBINTERFACES\" WHERE SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit=~/^(?:[0-9]|[1-9][0-9]|[1-9][0-9]{2}|[1-9][0-9]{3}|1[0-5][0-9]{3}|16[0-2][0-9]{2}|163[0-7][0-9]|16380|1638[0-5])$/ AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "unit_in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "unit_out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
         }
       ],
       "title": "Unit input traffic sharing - Bps",
@@ -256,8 +358,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "description": "",
       "fieldConfig": {
@@ -312,17 +414,51 @@
       },
       "targets": [
         {
+          "alias": "Output Bps - $tag_if_name.$tag_if_unit",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "SUBINTERFACES_unit_out_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=~\"^(?:[0-9]|[1-9][0-9]|[1-9][0-9]{2}|[1-9][0-9]{3}|1[0-5][0-9]{3}|16[0-2][0-9]{2}|163[0-7][0-9]|16380|1638[0-5])$\"} * 8",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Output Bps - {{if_name}}.{{if_unit}}",
-          "range": true,
-          "refId": "A"
+          "groupBy": [],
+          "hide": false,
+          "measurement": "SUBINTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"unit_out_octets_rate\")*8 FROM \"SUBINTERFACES\" WHERE SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit=~/^(?:[0-9]|[1-9][0-9]|[1-9][0-9]{2}|[1-9][0-9]{3}|1[0-5][0-9]{3}|16[0-2][0-9]{2}|163[0-7][0-9]|16380|1638[0-5])$/ AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "unit_in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "unit_out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
         }
       ],
       "title": "Unit output traffic sharing - Bps",
@@ -336,8 +472,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "gridPos": {
         "h": 2,
@@ -376,8 +512,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "description": "",
       "fieldConfig": {
@@ -463,30 +599,98 @@
       },
       "targets": [
         {
+          "alias": "Input Bps - $tag_if_name.$tag_if_unit",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "SUBINTERFACES_unit_in_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=~\"$if_unit\"} * 8",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Input Bps - {{if_name}}.{{if_unit}}",
-          "range": true,
-          "refId": "A"
+          "groupBy": [],
+          "hide": false,
+          "measurement": "SUBINTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"unit_in_octets_rate\")*8  FROM \"SUBINTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "unit_in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "unit_out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
         },
         {
+          "alias": "Output Bps - $tag_if_name.$tag_if_unit",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "SUBINTERFACES_unit_out_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=~\"$if_unit\"} * 8",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Output Bps - {{if_name}}.{{if_unit}}",
-          "range": true,
-          "refId": "B"
+          "groupBy": [],
+          "hide": false,
+          "measurement": "SUBINTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"unit_out_octets_rate\")*8 FROM \"SUBINTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "unit_in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "unit_out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
         }
       ],
       "title": "Unit $if_unit - Traffic statistics Bps - Port is $ifname ",
@@ -500,8 +704,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "description": "",
       "fieldConfig": {
@@ -583,30 +787,98 @@
       },
       "targets": [
         {
+          "alias": "Input PPS - $tag_if_name.$tag_if_unit",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "SUBINTERFACES_unit_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=~\"$if_unit\"} * 8",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Input PPS - {{if_name}}.{{if_unit}}",
-          "range": true,
-          "refId": "A"
+          "groupBy": [],
+          "hide": false,
+          "measurement": "SUBINTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"unit_in_pkts_rate\")*8  FROM \"SUBINTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "unit_in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "unit_out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
         },
         {
+          "alias": "Output PPS - $tag_if_name.$tag_if_unit",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "SUBINTERFACES_unit_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=~\"$if_unit\"} * 8",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Output PPS - {{if_name}}.{{if_unit}}",
-          "range": true,
-          "refId": "B"
+          "groupBy": [],
+          "hide": false,
+          "measurement": "SUBINTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"unit_out_pkts_rate\")*8 FROM \"SUBINTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /$ifname/ and if_unit = '$if_unit') AND $timeFilter group by time($sample_interval), if_name, if_unit",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "unit_in_octets_rate"
+                ],
+                "type": "field"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "unit_out_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            },
+            {
+              "condition": "AND",
+              "key": "LINKNAME",
+              "operator": "=~",
+              "value": "/^$ifname$/"
+            }
+          ]
         }
       ],
       "title": "Unit $if_unit - Traffic statistics PPS - Port is $ifname ",
@@ -632,21 +904,17 @@
           "value": ""
         },
         "datasource": {
-          "type": "prometheus",
-          "uid": "jtsuid2"
+          "type": "influxdb",
+          "uid": "jtsuid"
         },
-        "definition": "label_values(SUBINTERFACES_unit_in_octets_rate, SHORTNAME)",
+        "definition": "show tag values FROM SUBINTERFACES with key=\"SHORTNAME\"",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(SUBINTERFACES_unit_in_octets_rate, SHORTNAME)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "show tag values FROM SUBINTERFACES with key=\"SHORTNAME\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -660,21 +928,17 @@
           "value": ""
         },
         "datasource": {
-          "type": "prometheus",
-          "uid": "jtsuid2"
+          "type": "influxdb",
+          "uid": "jtsuid"
         },
-        "definition": "label_values(SUBINTERFACES_unit_in_octets_rate{SHORTNAME=~\"$rtr\"}, LINKNAME)",
+        "definition": "show tag values FROM SUBINTERFACES with key=\"LINKNAME\" where SHORTNAME=~/$rtr/",
         "hide": 0,
         "includeAll": false,
         "label": "Interface",
         "multi": false,
         "name": "ifname",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(SUBINTERFACES_unit_in_octets_rate{SHORTNAME=~\"$rtr\"}, LINKNAME)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "show tag values FROM SUBINTERFACES with key=\"LINKNAME\" where SHORTNAME=~/$rtr/",
         "refresh": 1,
         "regex": "et-.*|xe-.*|ge-.*|ae|lt-*|ps-*|fti-*|gr-*",
         "skipUrlSync": false,
@@ -692,21 +956,17 @@
           ]
         },
         "datasource": {
-          "type": "prometheus",
-          "uid": "jtsuid2"
+          "type": "influxdb",
+          "uid": "jtsuid"
         },
-        "definition": "label_values(SUBINTERFACES_unit_in_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\"$ifname\"}, if_unit)",
+        "definition": "show tag values FROM SUBINTERFACES with key=\"if_unit\" where SHORTNAME=~/$rtr/ and LINKNAME=~/$ifname/",
         "hide": 0,
         "includeAll": true,
         "label": "Subinterface",
         "multi": true,
         "name": "if_unit",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(SUBINTERFACES_unit_in_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\"$ifname\"}, if_unit)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "show tag values FROM SUBINTERFACES with key=\"if_unit\" where SHORTNAME=~/$rtr/ and LINKNAME=~/$ifname/",
         "refresh": 1,
         "regex": "^(?:[0-9]|[1-9][0-9]|[1-9][0-9]{2}|[1-9][0-9]{3}|1[0-5][0-9]{3}|16[0-2][0-9]{2}|163[0-7][0-9]|16380|1638[0-5])$",
         "skipUrlSync": false,
@@ -768,6 +1028,6 @@
   "timezone": "",
   "title": "LOGICAL IF. TRAFFIC MONITORING PROFILE - JTS",
   "uid": "trafficunitdashboard",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

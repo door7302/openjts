@@ -23,8 +23,8 @@
   "panels": [
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -87,16 +87,13 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "100 * (sum(JUNOS_TWAMP_probes_sent{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\"}) - sum(JUNOS_TWAMP_probe_responses{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\"})) / sum(JUNOS_TWAMP_probes_sent{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\"})",
-          "format": "time_series",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
+          "query": "SELECT \n  100.0 * (SUM(\"probes_sent\") \n           - SUM(\"probe_responses\")) \n         / SUM(\"probes_sent\") \n  AS \"cumulative_loss_pct\"\nFROM \"JUNOS_TWAMP\"\nWHERE $timeFilter \n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/ \n  AND \"test_owner\" =~ /^${test_owner:regex}$/ \n  AND \"test_name\" =~ /^${twamp_test:regex}$/ \n  AND \"results_scope\" =~ /^${scope:regex}$/ ",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
         }
       ],
       "title": "Packet Loss %",
@@ -104,8 +101,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "description": "",
       "fieldConfig": {
@@ -177,16 +174,13 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "min(JUNOS_TWAMP_min_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=\"ROUND_TRIP_TIME\"}) / 1000",
-          "format": "time_series",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
+          "query": "SELECT min(\"min_delay\")/1000 AS \"min_rtt_last_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME'",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
         }
       ],
       "title": "Min RTT (ms) - ROUND_TRIP_TIME",
@@ -194,8 +188,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "description": "",
       "fieldConfig": {
@@ -267,16 +261,13 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "min(JUNOS_TWAMP_min_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=\"NEGATIVE_RTT_JITTER\"}) / 1000",
-          "format": "time_series",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
+          "query": "SELECT min(\"min_delay\")/1000 AS \"min_rtt_last_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'NEGATIVE_RTT_JITTER'",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
         }
       ],
       "title": "Min RTT (ms) - NEGATIVE_RTT_JITTER",
@@ -284,8 +275,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "description": "",
       "fieldConfig": {
@@ -357,16 +348,13 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "min(JUNOS_TWAMP_min_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=\"POSITIVE_RTT_JITTER\"}) / 1000",
-          "format": "time_series",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
+          "query": "SELECT min(\"min_delay\")/1000 AS \"min_rtt_last_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'POSITIVE_RTT_JITTER'",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
         }
       ],
       "title": "Min RTT (ms) - POSITIVE_RTT_JITTER",
@@ -374,8 +362,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -444,16 +432,13 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "avg(JUNOS_TWAMP_avg_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=\"ROUND_TRIP_TIME\"}) / 1000",
-          "format": "time_series",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
+          "query": "SELECT MEAN(\"avg_delay\") / 1000 \nAS \"avg_of_avgs_rtt_ms\" \nFROM \"JUNOS_TWAMP\" \nWHERE $timeFilter \n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/ \n  AND \"test_owner\" =~ /^${test_owner:regex}$/ \n  AND \"test_name\" =~ /^${twamp_test:regex}$/ \n  AND \"results_scope\" =~ /^${scope:regex}$/ \n  AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME'",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
         }
       ],
       "title": "Average RTT - ROUND_TRIP_TIME",
@@ -461,8 +446,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -531,16 +516,13 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "avg(JUNOS_TWAMP_avg_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=\"NEGATIVE_RTT_JITTER\"}) / 1000",
-          "format": "time_series",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
+          "query": "SELECT MEAN(\"avg_delay\") / 1000 \nAS \"avg_of_avgs_rtt_ms\" \nFROM \"JUNOS_TWAMP\" \nWHERE $timeFilter \n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/ \n  AND \"test_owner\" =~ /^${test_owner:regex}$/ \n  AND \"test_name\" =~ /^${twamp_test:regex}$/ \n  AND \"results_scope\" =~ /^${scope:regex}$/ \n  AND \"probe_measurement_type\" = 'NEGATIVE_RTT_JITTER'",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
         }
       ],
       "title": "Average RTT - NEGATIVE_RTT_JITTER",
@@ -548,8 +530,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -618,16 +600,13 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "avg(JUNOS_TWAMP_avg_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=\"POSITIVE_RTT_JITTER\"}) / 1000",
-          "format": "time_series",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
+          "query": "SELECT MEAN(\"avg_delay\") / 1000 \nAS \"avg_of_avgs_rtt_ms\" \nFROM \"JUNOS_TWAMP\" \nWHERE $timeFilter \n  AND \"SHORTNAME\" =~ /^${rtr:regex}$/ \n  AND \"test_owner\" =~ /^${test_owner:regex}$/ \n  AND \"test_name\" =~ /^${twamp_test:regex}$/ \n  AND \"results_scope\" =~ /^${scope:regex}$/ \n  AND \"probe_measurement_type\" = 'POSITIVE_RTT_JITTER'",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
         }
       ],
       "title": "Average RTT - POSITIVE_RTT_JITTER",
@@ -635,8 +614,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -707,16 +686,13 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "max(JUNOS_TWAMP_max_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=\"ROUND_TRIP_TIME\"}) / 1000",
-          "format": "time_series",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
+          "query": "SELECT max(\"max_delay\")/1000 AS \"max_rtt_last_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME'",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
         }
       ],
       "title": "Max RTT (ms) - ROUND_TRIP_TIME",
@@ -724,8 +700,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -796,16 +772,13 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "max(JUNOS_TWAMP_max_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=\"NEGATIVE_RTT_JITTER\"}) / 1000",
-          "format": "time_series",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
+          "query": "SELECT max(\"max_delay\")/1000 AS \"max_rtt_last_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'NEGATIVE_RTT_JITTER'",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
         }
       ],
       "title": "Max RTT (ms) - NEGATIVE_RTT_JITTER",
@@ -813,8 +786,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -885,16 +858,13 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "max(JUNOS_TWAMP_max_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=\"POSITIVE_RTT_JITTER\"}) / 1000",
-          "format": "time_series",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
+          "query": "SELECT max(\"max_delay\")/1000 AS \"max_rtt_last_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'POSITIVE_RTT_JITTER'",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
         }
       ],
       "title": "Max RTT (ms) - POSITIVE_RTT_JITTER",
@@ -902,8 +872,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -1033,43 +1003,38 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "Jitter Delay RTT",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "JUNOS_TWAMP_jitter_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=\"ROUND_TRIP_TIME\"} / 1000",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Jitter Delay RTT",
-          "range": true,
-          "refId": "A"
+          "hide": false,
+          "query": "SELECT mean(\"jitter_delay\") / 1000 AS \"rtt_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'ROUND_TRIP_TIME' GROUP BY time($interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
         },
         {
+          "alias": "Jitter Delay Negative RTT",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "JUNOS_TWAMP_jitter_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=\"NEGATIVE_RTT_JITTER\"} / 1000",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Jitter Delay Negative RTT",
-          "range": true,
-          "refId": "B"
+          "query": "SELECT mean(\"jitter_delay\") / 1000 AS \"negative_rtt_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'NEGATIVE_RTT_JITTER'  GROUP BY time($interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
         },
         {
+          "alias": "Jitter Delay Positive Jitter Delay RTT",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "JUNOS_TWAMP_jitter_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=\"POSITIVE_RTT_JITTER\"} / 1000",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Jitter Delay Positive Jitter Delay RTT",
-          "range": true,
-          "refId": "C"
+          "query": "SELECT mean(\"jitter_delay\") / 1000 AS \"positive_rtt_jitter_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" = 'POSITIVE_RTT_JITTER' GROUP BY time($interval) fill(null)",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series"
         }
       ],
       "title": "Jitter Delay For All Probe Types",
@@ -1077,8 +1042,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "description": "",
       "fieldConfig": {
@@ -1288,56 +1253,83 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "Avg Delay RTT",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "JUNOS_TWAMP_min_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=~\"$mtype\"} / 1000",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Min Delay RTT",
-          "range": true,
-          "refId": "A"
+          "hide": false,
+          "query": "SELECT mean(\"avg_delay\")/1000 AS \"avg_rtt_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" =~ /^${mtype:regex}$/ GROUP BY time($interval) fill(null)\n",
+          "rawQuery": true,
+          "refId": "C",
+          "resultFormat": "time_series"
         },
         {
+          "alias": "Min Delay RTT",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "JUNOS_TWAMP_max_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=~\"$mtype\"} / 1000",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Max Delay RTT",
-          "range": true,
-          "refId": "B"
+          "hide": false,
+          "query": "SELECT min(\"min_delay\")/1000 AS \"min_rtt_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\"  =~ /^${mtype:regex}$/ GROUP BY time($interval) fill(null)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
         },
         {
+          "alias": "Avg Min Delay RTT",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "JUNOS_TWAMP_avg_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=~\"$mtype\"} / 1000",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Avg Delay RTT",
-          "range": true,
-          "refId": "C"
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT mean(\"min_delay\")/1000 AS \"avg_min_rtt_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\"  =~ /^${mtype:regex}$/ group by time(365d) fill(previous)",
+          "rawQuery": true,
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
         },
         {
+          "alias": "Max Delay RTT",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "avg_over_time(JUNOS_TWAMP_min_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=~\"$mtype\"}[$__range]) / 1000",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Avg Min Delay RTT",
-          "range": true,
-          "refId": "D"
+          "hide": false,
+          "query": "SELECT max(\"max_delay\")/1000 AS \"max_rtt_ms\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\"  =~ /^${mtype:regex}$/  GROUP BY time($interval) fill(null)",
+          "rawQuery": true,
+          "refId": "B",
+          "resultFormat": "time_series"
         }
       ],
       "title": "Min/Avg/Max RTT Trend (ms) for Probe Type $mtype",
@@ -1363,8 +1355,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "description": "",
       "fieldConfig": {
@@ -1495,93 +1487,22 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "JUNOS_TWAMP_min_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=~\"$mtype\"} / 1000",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "min_rtt_ms",
-          "range": false,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "editorMode": "code",
-          "expr": "JUNOS_TWAMP_max_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=~\"$mtype\"} / 1000",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "max_rtt_ms",
-          "range": false,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "editorMode": "code",
-          "expr": "JUNOS_TWAMP_avg_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=~\"$mtype\"} / 1000",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "avg_rtt_ms",
-          "range": false,
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "editorMode": "code",
-          "expr": "JUNOS_TWAMP_jitter_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=~\"$mtype\"} / 1000",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "jitter_ms",
-          "range": false,
-          "refId": "D"
+          "query": "SELECT last(\"min_delay\")/1000 AS min_rtt_ms, last(\"max_delay\")/1000 AS max_rtt_ms, last(\"avg_delay\")/1000 AS avg_rtt_ms, last(\"jitter_delay\")/1000 AS jitter_ms FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" =~ /^${mtype:regex}$/ GROUP BY \"test_name\" LIMIT 250",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table"
         }
       ],
       "title": "Per-Test RTT/Jitter Snapshot (min/max/avg/jitter) - $mtype",
-      "type": "table",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "Time": true,
-              "__name__": true,
-              "job": true,
-              "instance": true,
-              "SHORTNAME": true,
-              "test_owner": true,
-              "results_scope": true,
-              "probe_measurement_type": true
-            },
-            "indexByName": {},
-            "renameByName": {
-              "Value #A": "min_rtt_ms",
-              "Value #B": "max_rtt_ms",
-              "Value #C": "avg_rtt_ms",
-              "Value #D": "jitter_ms",
-              "test_name": "Test"
-            }
-          }
-        }
-      ]
+      "type": "table"
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -1663,17 +1584,15 @@
       "pluginVersion": "10.3.1",
       "targets": [
         {
+          "alias": "Point Per Interval",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "count(JUNOS_TWAMP_avg_delay{SHORTNAME=~\"$rtr\", test_owner=~\"$test_owner\", test_name=~\"$twamp_test\", results_scope=~\"$scope\", probe_measurement_type=~\"$mtype\"})",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Point Per Interval",
-          "range": true,
-          "refId": "A"
+          "query": "SELECT count(\"avg_delay\") AS \"points_per_interval\" FROM \"JUNOS_TWAMP\" WHERE $timeFilter AND \"SHORTNAME\" =~ /^${rtr:regex}$/ AND \"test_owner\" =~ /^${test_owner:regex}$/ AND \"test_name\" =~ /^${twamp_test:regex}$/ AND \"results_scope\" =~ /^${scope:regex}$/ AND \"probe_measurement_type\" =~ /^${mtype:regex}$/ GROUP BY time($interval) fill(0)",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series"
         }
       ],
       "title": "Ingest Cadence (points / $interval) - $mtype",
@@ -1692,21 +1611,17 @@
           "value": ""
         },
         "datasource": {
-          "type": "prometheus",
-          "uid": "jtsuid2"
+          "type": "influxdb",
+          "uid": "jtsuid"
         },
-        "definition": "label_values(JUNOS_TWAMP_avg_delay, SHORTNAME)",
+        "definition": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"SHORTNAME\"",
         "hide": 0,
         "includeAll": false,
         "label": "Routeur",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(JUNOS_TWAMP_avg_delay, SHORTNAME)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"SHORTNAME\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1720,21 +1635,17 @@
           "value": "$__all"
         },
         "datasource": {
-          "type": "prometheus",
-          "uid": "jtsuid2"
+          "type": "influxdb",
+          "uid": "jtsuid"
         },
-        "definition": "label_values(JUNOS_TWAMP_avg_delay{SHORTNAME=~\"$rtr\"}, test_owner)",
+        "definition": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"test_owner\" WHERE \"SHORTNAME\" =~ /^$rtr$/",
         "hide": 0,
         "includeAll": true,
         "label": "Test Owner",
         "multi": false,
         "name": "test_owner",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(JUNOS_TWAMP_avg_delay{SHORTNAME=~\"$rtr\"}, test_owner)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"test_owner\" WHERE \"SHORTNAME\" =~ /^$rtr$/",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1752,21 +1663,17 @@
           ]
         },
         "datasource": {
-          "type": "prometheus",
-          "uid": "jtsuid2"
+          "type": "influxdb",
+          "uid": "jtsuid"
         },
-        "definition": "label_values(JUNOS_TWAMP_avg_delay{SHORTNAME=~\"$rtr\"}, test_name)",
+        "definition": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"test_name\" WHERE \"SHORTNAME\" =~ /^$rtr$/",
         "hide": 0,
         "includeAll": true,
         "label": "Test Name",
         "multi": true,
         "name": "twamp_test",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(JUNOS_TWAMP_avg_delay{SHORTNAME=~\"$rtr\"}, test_name)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"test_name\" WHERE \"SHORTNAME\" =~ /^$rtr$/",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1780,21 +1687,17 @@
           "value": "LAST_TEST"
         },
         "datasource": {
-          "type": "prometheus",
-          "uid": "jtsuid2"
+          "type": "influxdb",
+          "uid": "jtsuid"
         },
-        "definition": "label_values(JUNOS_TWAMP_avg_delay, results_scope)",
+        "definition": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"results_scope\"",
         "hide": 0,
         "includeAll": false,
         "label": "Result Scope",
         "multi": false,
         "name": "scope",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(JUNOS_TWAMP_avg_delay, results_scope)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"results_scope\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1808,21 +1711,17 @@
           "value": "ROUND_TRIP_TIME"
         },
         "datasource": {
-          "type": "prometheus",
-          "uid": "jtsuid2"
+          "type": "influxdb",
+          "uid": "jtsuid"
         },
-        "definition": "label_values(JUNOS_TWAMP_avg_delay, probe_measurement_type)",
+        "definition": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"probe_measurement_type\"",
         "hide": 0,
         "includeAll": false,
         "label": "Probe Type",
         "multi": false,
         "name": "mtype",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(JUNOS_TWAMP_avg_delay, probe_measurement_type)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "SHOW TAG VALUES FROM \"JUNOS_TWAMP\" WITH KEY=\"probe_measurement_type\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -1886,6 +1785,6 @@
   "timezone": "",
   "title": "TWAMP SLA (RTT + Jitter) - JTS",
   "uid": "dashboardtwamp",
-  "version": 4,
+  "version": 3,
   "weekStart": ""
 }

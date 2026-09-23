@@ -29,8 +29,8 @@
   "panels": [
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "gridPos": {
         "h": 2,
@@ -54,8 +54,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "description": "",
       "fieldConfig": {
@@ -165,16 +165,51 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "sum by (ALARM_TYPE, LINKNAME, queue_name, queue_id) (count_over_time(ALARMING_exception{SHORTNAME=~\"$rtr\", ALARM_TYPE=~\"(RED.*|TAIL.*)\"}[$__range]))",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
+          "groupBy": [
+            {
+              "params": [
+                "ALARM_TYPE"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "LINKNAME"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "ALARMING",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT count(\"exception\") FROM \"ALARMING\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND ALARM_TYPE=~/RED.*|TAIL.*/ and $timeFilter GROUP BY \"ALARM_TYPE\", \"LINKNAME\", queue_name, queue_id\n",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "exception"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "count"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "title": "RealTime CoS Drops (TimeFrame) ",
@@ -183,17 +218,14 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "queue_name": true,
-              "__name__": true,
-              "job": true,
-              "instance": true,
-              "Time": true
+              "queue_name": true
             },
             "indexByName": {},
             "renameByName": {
               "ALARM_TYPE": "Type of Alarm",
               "LINKNAME": "PORT",
-              "Value": "Cumulative Alarms",
+              "Time": "Last Update",
+              "count": "Cumulative Alarms",
               "queue_id": "Queue",
               "queue_name": "FC"
             }
@@ -204,8 +236,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "fieldConfig": {
         "defaults": {
@@ -260,17 +292,37 @@
       },
       "targets": [
         {
+          "alias": "Q$tag_queue_id",
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "sum by (queue_id) (INTERFACES_cos_forwarded_octets_rate{SHORTNAME=~\"$rtr\", if_name=~\"(et|xe|ge).*\", if_unit=\"\"} * 8)",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Q{{queue_id}}",
-          "range": true,
-          "refId": "A"
+          "groupBy": [
+            {
+              "params": [
+                "queue_name"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "INTERFACES",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "select sum(cos_fw) from (SELECT \"cos_forwarded_octets_rate\"*8 as cos_fw FROM \"INTERFACES\" WHERE \"SHORTNAME\" =~ /^$rtr$/  and \"if_name\" =~ /^(et|xe|ge).*/  and if_unit='' and $timeFilter GROUP BY if_name,  \"queue_id\") group by queue_id",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "cos_forwarded_octets_rate"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": []
         }
       ],
       "title": "PER QUEUE GLOBAL BALANCING",
@@ -291,8 +343,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "description": "",
       "fieldConfig": {
@@ -366,16 +418,47 @@
       "targets": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
-          "editorMode": "code",
-          "expr": "ALARMING_exception{SHORTNAME=~\"$rtr\", ALARM_TYPE=~\"(RED.*|TAIL.*)\"}",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
+          "groupBy": [
+            {
+              "params": [
+                "ALARM_TYPE"
+              ],
+              "type": "tag"
+            },
+            {
+              "params": [
+                "LINKNAME"
+              ],
+              "type": "tag"
+            }
+          ],
+          "measurement": "ALARMING",
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "SELECT \"exception\" FROM \"ALARMING\" WHERE (\"SHORTNAME\" =~ /^$rtr$/) AND $timeFilter and ALARM_TYPE=~/RED.*|TAIL.*/ GROUP BY \"ALARM_TYPE\", \"LINKNAME\", queue_id, queue_name",
+          "rawQuery": true,
+          "refId": "A",
+          "resultFormat": "table",
+          "select": [
+            [
+              {
+                "params": [
+                  "exception"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "tags": [
+            {
+              "key": "SHORTNAME",
+              "operator": "=~",
+              "value": "/^$rtr$/"
+            }
+          ]
         }
       ],
       "title": "RealTime Monitored CoS Drops Details (TimeFrame) ",
@@ -384,17 +467,15 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "queue_name": true,
-              "__name__": true,
-              "job": true,
-              "instance": true
+              "queue_name": true
             },
             "indexByName": {},
             "renameByName": {
               "ALARM_TYPE": "Type of Alarm",
               "LINKNAME": "PORT",
               "Time": "Timestamp",
-              "Value": "Drop pps",
+              "count": "Cumulative Alarms",
+              "exception": "Drop pps",
               "queue_id": "Queue",
               "queue_name": "FC"
             }
@@ -405,8 +486,8 @@
     },
     {
       "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
+        "type": "influxdb",
+        "uid": "jtsuid"
       },
       "gridPos": {
         "h": 2,
@@ -440,8 +521,8 @@
       "panels": [
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
           "fieldConfig": {
             "defaults": {
@@ -526,17 +607,43 @@
           },
           "targets": [
             {
+              "alias": "$tag_if_name",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "INTERFACES_in_octets_rate{SHORTNAME=~\"$rtr\", if_unit=\"\"} * 8",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "{{if_name}}",
-              "range": true,
-              "refId": "A"
+              "groupBy": [
+                {
+                  "params": [
+                    "LINKNAME::tag"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"in_octets_rate\")*8  FROM \"INTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND if_unit='') AND $timeFilter group by time($sample_interval), if_name",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "device::tag",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                }
+              ]
             }
           ],
           "title": "Input All Interfaces",
@@ -544,8 +651,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
           "fieldConfig": {
             "defaults": {
@@ -628,17 +735,43 @@
           },
           "targets": [
             {
+              "alias": "$tag_if_name",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "INTERFACES_out_octets_rate{SHORTNAME=~\"$rtr\", if_unit=\"\"} * 8",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "{{if_name}}",
-              "range": true,
-              "refId": "A"
+              "groupBy": [
+                {
+                  "params": [
+                    "LINKNAME::tag"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"out_octets_rate\")*8  FROM \"INTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND if_unit='') AND $timeFilter group by time($sample_interval), if_name",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "device::tag",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                }
+              ]
             }
           ],
           "title": "Output All Interfaces",
@@ -686,8 +819,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
           "fieldConfig": {
             "defaults": {
@@ -772,30 +905,98 @@
           },
           "targets": [
             {
+              "alias": "Input Bps",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "INTERFACES_in_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"} * 8",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Input Bps",
-              "range": true,
-              "refId": "A"
+              "groupBy": [],
+              "hide": false,
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"in_octets_rate\")*8  FROM \"INTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') AND $timeFilter group by time($sample_interval)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "out_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             },
             {
+              "alias": "Output Bps",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "INTERFACES_out_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"} * 8",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Output Bps",
-              "range": true,
-              "refId": "B"
+              "groupBy": [],
+              "hide": false,
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"out_octets_rate\")*8 FROM \"INTERFACES\" WHERE (SHORTNAME =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') AND $timeFilter group by time($sample_interval)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "out_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             }
           ],
           "title": "Port statistics Bps - $ifname",
@@ -809,8 +1010,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
           "fieldConfig": {
             "defaults": {
@@ -895,30 +1096,97 @@
           },
           "targets": [
             {
+              "alias": "Input pps",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "INTERFACES_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Input pps",
-              "range": true,
-              "refId": "A"
+              "groupBy": [],
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"in_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') AND $timeFilter group by time($sample_interval)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "out_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             },
             {
+              "alias": "Output pps",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "INTERFACES_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Output pps",
-              "range": true,
-              "refId": "B"
+              "groupBy": [],
+              "hide": false,
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"out_pkts_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') AND $timeFilter group by time($sample_interval)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "out_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             }
           ],
           "title": "Port Global statistics Pps Traffic - $ifname",
@@ -932,8 +1200,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
           "fieldConfig": {
             "defaults": {
@@ -1018,82 +1286,285 @@
           },
           "targets": [
             {
+              "alias": "Unicast Input pps",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "sum(INTERFACES_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) - (sum(INTERFACES_bcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) + sum(INTERFACES_mcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}))",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Unicast Input pps",
-              "range": true,
-              "refId": "A"
+              "groupBy": [],
+              "hide": false,
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"in_pkts_rate\") - (mean(\"bcast_in_pkts_rate\")+mean(\"mcast_in_pkts_rate\"))  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='')AND $timeFilter group by time($sample_interval)",
+              "rawQuery": true,
+              "refId": "E",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "out_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             },
             {
+              "alias": "Unicast Output pps",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "sum(INTERFACES_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) - (sum(INTERFACES_bcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) + sum(INTERFACES_mcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}))",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Unicast Output pps",
-              "range": true,
-              "refId": "B"
+              "groupBy": [],
+              "hide": false,
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"out_pkts_rate\") - (mean(\"bcast_out_pkts_rate\")+mean(\"mcast_out_pkts_rate\"))  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') AND $timeFilter group by time($sample_interval)",
+              "rawQuery": true,
+              "refId": "F",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "out_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             },
             {
+              "alias": "Mcast Input pps",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "INTERFACES_mcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Mcast Input pps",
-              "range": true,
-              "refId": "C"
+              "groupBy": [],
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"mcast_in_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') AND $timeFilter group by time($sample_interval)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "out_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             },
             {
+              "alias": "Mcast Output pps",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "INTERFACES_mcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Mcast Output pps",
-              "range": true,
-              "refId": "D"
+              "groupBy": [],
+              "hide": false,
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"mcast_out_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') AND $timeFilter group by time($sample_interval)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "out_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             },
             {
+              "alias": "Bcast Input pps",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "INTERFACES_bcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Bcast Input pps",
-              "range": true,
-              "refId": "E"
+              "groupBy": [],
+              "hide": false,
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"bcast_in_pkts_rate\")  FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') AND $timeFilter group by time($sample_interval)",
+              "rawQuery": true,
+              "refId": "C",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "out_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             },
             {
+              "alias": "Bcast Output pps",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "INTERFACES_bcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Bcast Output pps",
-              "range": true,
-              "refId": "F"
+              "groupBy": [],
+              "hide": false,
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"bcast_out_pkts_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') AND $timeFilter group by time($sample_interval)",
+              "rawQuery": true,
+              "refId": "D",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "in_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ],
+                [
+                  {
+                    "params": [
+                      "out_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             }
           ],
           "title": "Port statistics Pps Traffic - per Type - $ifname",
@@ -1107,8 +1578,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
           "fieldConfig": {
             "defaults": {
@@ -1195,30 +1666,106 @@
           },
           "targets": [
             {
+              "alias": "RED Drop pps - Q$tag_queue_id",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_red_dropped_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"})",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "RED Drop pps - Q{{queue_id}}",
-              "range": true,
-              "refId": "A"
+              "groupBy": [
+                {
+                  "params": [
+                    "queue_name"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "hide": false,
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"cos_red_dropped_packets_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') and  $timeFilter GROUP BY \"queue_id\",  time($sample_interval)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "cos_red_dropped_packets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             },
             {
+              "alias": "Tail Drop pps - Q$tag_queue_id",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_tail_dropped_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"})",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Tail Drop pps - Q{{queue_id}}",
-              "range": true,
-              "refId": "B"
+              "groupBy": [
+                {
+                  "params": [
+                    "$interval"
+                  ],
+                  "type": "time"
+                },
+                {
+                  "params": [
+                    "queue_name"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "hide": false,
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"cos_tail_dropped_packets_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') AND $timeFilter GROUP BY time($sample_interval), \"queue_id\"",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "cos_tail_dropped_packets_rate"
+                    ],
+                    "type": "field"
+                  },
+                  {
+                    "params": [],
+                    "type": "mean"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             }
           ],
           "title": "Drop per queue - $ifname",
@@ -1252,8 +1799,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
           "fieldConfig": {
             "defaults": {
@@ -1317,17 +1864,43 @@
           "pluginVersion": "10.3.1",
           "targets": [
             {
+              "alias": "Q$tag_queue_id",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_buffer_cur{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) / sum by (queue_id) (INTERFACES_cos_buffer_size{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) * 100",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Q{{queue_id}}",
-              "range": true,
-              "refId": "A"
+              "groupBy": [],
+              "hide": false,
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT last(\"cos_buffer_cur\")/last(\"cos_buffer_size\")*100 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') and $timeFilter group by queue_id fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "cos_buffer_usage"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             }
           ],
           "title": "Current Buffer utilization per queue - $ifname",
@@ -1335,8 +1908,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
           "fieldConfig": {
             "defaults": {
@@ -1400,17 +1973,42 @@
           "pluginVersion": "10.3.1",
           "targets": [
             {
+              "alias": "Q$tag_queue_id",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_buffer_peak{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) / sum by (queue_id) (INTERFACES_cos_buffer_size{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) * 100",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Q{{queue_id}}",
-              "range": true,
-              "refId": "A"
+              "groupBy": [],
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT last(\"cos_buffer_peak\")/last(\"cos_buffer_size\")*100 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') and $timeFilter group by queue_id fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "cos_buffer_usage"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             }
           ],
           "title": "Peak Buffer utilization per queue - $ifname",
@@ -1418,8 +2016,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
           "fieldConfig": {
             "defaults": {
@@ -1474,17 +2072,37 @@
           },
           "targets": [
             {
+              "alias": "Q$tag_queue_id",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_forwarded_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"} * 8)",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Q{{queue_id}}",
-              "range": true,
-              "refId": "A"
+              "groupBy": [
+                {
+                  "params": [
+                    "queue_name"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT \"cos_forwarded_octets_rate\"*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='')  and $timeFilter GROUP BY \"queue_id\" fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "cos_forwarded_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": []
             }
           ],
           "title": "Per Queue Traffic balancing - $ifname",
@@ -1492,8 +2110,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
           "fieldConfig": {
             "defaults": {
@@ -1557,17 +2175,43 @@
           "pluginVersion": "10.3.1",
           "targets": [
             {
+              "alias": "Q$tag_queue_id",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "max by (queue_id) (JUNOS_QMON_voq_cos_buffer_cur_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\"})",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Q{{queue_id}}",
-              "range": true,
-              "refId": "A"
+              "groupBy": [],
+              "hide": false,
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(value) from (select last(\"voq_cos_buffer_cur_percent\") as value FROM \"JUNOS_QMON\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/) and $timeFilter group by queue_id, pfe_index, _component_id, _subcomponent_id) group by queue_id fill(0)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "cos_buffer_usage"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             }
           ],
           "title": "VOQ System - Max Current Buffer utilization per queue - $ifname",
@@ -1575,8 +2219,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
           "fieldConfig": {
             "defaults": {
@@ -1640,17 +2284,42 @@
           "pluginVersion": "10.3.1",
           "targets": [
             {
+              "alias": "Q$tag_queue_id",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "max by (queue_id) (JUNOS_QMON_voq_cos_buffer_peak_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\"})",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Q{{queue_id}}",
-              "range": true,
-              "refId": "A"
+              "groupBy": [],
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT max(value) from (select last(\"voq_cos_buffer_peak_percent\") as value FROM \"JUNOS_QMON\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/) and $timeFilter group by queue_id, pfe_index, _component_id, _subcomponent_id) group by queue_id fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "cos_buffer_usage"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             }
           ],
           "title": "VOQ System - Max Peak Buffer utilization per queue - $ifname",
@@ -1658,8 +2327,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
           "fieldConfig": {
             "defaults": {
@@ -1751,30 +2420,82 @@
           "pluginVersion": "10.3.1",
           "targets": [
             {
+              "alias": "Queue Utilization $tag_queue_id",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_buffer_cur{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) / sum by (queue_id) (INTERFACES_cos_buffer_size{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) * 100",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Queue Utilization {{queue_id}}",
-              "range": true,
-              "refId": "A"
+              "groupBy": [],
+              "hide": false,
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT(\"cos_buffer_cur\")/(\"cos_buffer_size\")*100 as value FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') and $timeFilter group by queue_id fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "cos_buffer_usage"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             },
             {
+              "alias": "FPC $tag__component_id PFE $tag_pfe_index VOQ Utilization $tag_queue_id",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "JUNOS_QMON_voq_cos_buffer_cur_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\"}",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "FPC {{_component_id}} PFE {{pfe_index}} VOQ Utilization {{queue_id}}",
-              "range": true,
-              "refId": "B"
+              "groupBy": [],
+              "hide": false,
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "select voq_cos_buffer_cur_percent FROM \"JUNOS_QMON\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/) and $timeFilter group by queue_id, pfe_index, _component_id, _subcomponent_id fill(0)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "cos_buffer_usage"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             }
           ],
           "title": "Current Buffer utilization per queue - $ifname",
@@ -1782,8 +2503,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
           "fieldConfig": {
             "defaults": {
@@ -1876,30 +2597,81 @@
           "pluginVersion": "10.3.1",
           "targets": [
             {
+              "alias": "Queue Utilization $tag_queue_id",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_buffer_peak{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) / sum by (queue_id) (INTERFACES_cos_buffer_size{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) * 100",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Queue Utilization {{queue_id}}",
-              "range": true,
-              "refId": "A"
+              "groupBy": [],
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT(\"cos_buffer_peak\")/(\"cos_buffer_size\")*100 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') and $timeFilter group by queue_id fill(0)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "cos_buffer_usage"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             },
             {
+              "alias": "FPC $tag__component_id PFE $tag_pfe_index VOQ Utilization $tag_queue_id",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "JUNOS_QMON_voq_cos_buffer_peak_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\"}",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "FPC {{_component_id}} PFE {{pfe_index}} VOQ Utilization {{queue_id}}",
-              "range": true,
-              "refId": "B"
+              "groupBy": [],
+              "hide": false,
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "select voq_cos_buffer_peak_percent FROM \"JUNOS_QMON\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/) and $timeFilter group by queue_id, pfe_index, _component_id, _subcomponent_id fill(0)",
+              "rawQuery": true,
+              "refId": "B",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "cos_buffer_usage"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             }
           ],
           "title": "Peak Buffer utilization per queue - $ifname",
@@ -1907,8 +2679,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
           "fieldConfig": {
             "defaults": {
@@ -1993,17 +2765,49 @@
           },
           "targets": [
             {
+              "alias": "Input Bps - Q$tag_queue_id",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_queued_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"} * 8)",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Input Bps - Q{{queue_id}}",
-              "range": true,
-              "refId": "A"
+              "groupBy": [
+                {
+                  "params": [
+                    "queue_name"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"cos_queued_octets_rate\")*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "cos_forwarded_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             }
           ],
           "title": "Queued Traffic Bps per Queue - $ifname",
@@ -2017,8 +2821,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
           "fieldConfig": {
             "defaults": {
@@ -2103,17 +2907,49 @@
           },
           "targets": [
             {
+              "alias": "Input Bps - Q$tag_queue_id",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_forwarded_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"} * 8)",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Input Bps - Q{{queue_id}}",
-              "range": true,
-              "refId": "A"
+              "groupBy": [
+                {
+                  "params": [
+                    "queue_name"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"cos_forwarded_octets_rate\")*8 FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='')  and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "cos_forwarded_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             }
           ],
           "title": "Forwarded Traffic Bps per Queue - $ifname",
@@ -2127,8 +2963,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
           "fieldConfig": {
             "defaults": {
@@ -2213,17 +3049,49 @@
           },
           "targets": [
             {
+              "alias": "Input pps - Q$tag_queue_id",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_queued_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"})",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Input pps - Q{{queue_id}}",
-              "range": true,
-              "refId": "A"
+              "groupBy": [
+                {
+                  "params": [
+                    "queue_name"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"cos_queued_packets_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='')  and $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "cos_forwarded_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             }
           ],
           "title": "Queued Traffic Pps per Queue - $ifname",
@@ -2237,8 +3105,8 @@
         },
         {
           "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
+            "type": "influxdb",
+            "uid": "jtsuid"
           },
           "fieldConfig": {
             "defaults": {
@@ -2323,17 +3191,49 @@
           },
           "targets": [
             {
+              "alias": "Input pps - Q$tag_queue_id",
               "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
+                "type": "influxdb",
+                "uid": "jtsuid"
               },
-              "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_forwarded_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"})",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Input pps - Q{{queue_id}}",
-              "range": true,
-              "refId": "A"
+              "groupBy": [
+                {
+                  "params": [
+                    "queue_name"
+                  ],
+                  "type": "tag"
+                }
+              ],
+              "measurement": "INTERFACES",
+              "orderByTime": "ASC",
+              "policy": "default",
+              "query": "SELECT mean(\"cos_forwarded_packets_rate\") FROM \"INTERFACES\" WHERE (\"SHORTNAME\" =~ /^$rtr$/ AND LINKNAME =~ /^.*${ifname:regex}.*$/ and if_unit='') AND   $timeFilter GROUP BY \"queue_id\", time($sample_interval)",
+              "rawQuery": true,
+              "refId": "A",
+              "resultFormat": "time_series",
+              "select": [
+                [
+                  {
+                    "params": [
+                      "cos_forwarded_octets_rate"
+                    ],
+                    "type": "field"
+                  }
+                ]
+              ],
+              "tags": [
+                {
+                  "key": "SHORTNAME",
+                  "operator": "=~",
+                  "value": "/^$rtr$/"
+                },
+                {
+                  "condition": "AND",
+                  "key": "LINKNAME",
+                  "operator": "=~",
+                  "value": "/^$ifname$/"
+                }
+              ]
             }
           ],
           "title": "Forwarded Traffic Pps per Queue - $ifname",
@@ -2365,21 +3265,17 @@
           "value": ""
         },
         "datasource": {
-          "type": "prometheus",
-          "uid": "jtsuid2"
+          "type": "influxdb",
+          "uid": "jtsuid"
         },
-        "definition": "label_values(INTERFACES_in_octets_rate, SHORTNAME)",
+        "definition": "show tag values FROM INTERFACES with key=\"SHORTNAME\"",
         "hide": 0,
         "includeAll": false,
         "label": "Router",
         "multi": false,
         "name": "rtr",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(INTERFACES_in_octets_rate, SHORTNAME)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "show tag values FROM INTERFACES with key=\"SHORTNAME\"",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -2397,21 +3293,17 @@
           ]
         },
         "datasource": {
-          "type": "prometheus",
-          "uid": "jtsuid2"
+          "type": "influxdb",
+          "uid": "jtsuid"
         },
-        "definition": "label_values(INTERFACES_in_octets_rate{SHORTNAME=~\"$rtr\"}, LINKNAME)",
+        "definition": "show tag values FROM INTERFACES with key=\"LINKNAME\" where SHORTNAME=~/$rtr/",
         "hide": 0,
         "includeAll": true,
         "label": "Interface",
         "multi": true,
         "name": "ifname",
         "options": [],
-        "query": {
-          "qryType": 1,
-          "query": "label_values(INTERFACES_in_octets_rate{SHORTNAME=~\"$rtr\"}, LINKNAME)",
-          "refId": "PrometheusVariableQueryEditor-VariableQuery"
-        },
+        "query": "show tag values FROM INTERFACES with key=\"LINKNAME\" where SHORTNAME=~/$rtr/",
         "refresh": 1,
         "regex": "et-.*|xe-.*|ge-.*|ae|lt-*|ps-*|fti-*|gr-*",
         "skipUrlSync": false,
@@ -2473,6 +3365,6 @@
   "timezone": "",
   "title": "PHYSICAL IF. INTERFACES MONITORING PROFILE - JTS",
   "uid": "trafficdashboard",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
