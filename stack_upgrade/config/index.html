@@ -5,7 +5,7 @@
 <span class=normal><a href=#__codelineno-0-5>5</a></span></pre></div></td><td class=code><div><pre><span></span><code><a id=__codelineno-0-1 name=__codelineno-0-1></a>vi compose/.env
 <a id=__codelineno-0-2 name=__codelineno-0-2></a>
 <a id=__codelineno-0-3 name=__codelineno-0-3></a>[...]
-<a id=__codelineno-0-4 name=__codelineno-0-4></a>APP_SECRET=&quot;DEFAULT_APP_SECRET_CHANGE_ME&quot;
+<a id=__codelineno-0-4 name=__codelineno-0-4></a>APP_SECRET="DEFAULT_APP_SECRET_CHANGE_ME"
 <a id=__codelineno-0-5 name=__codelineno-0-5></a>[...]
 </code></pre></div></td></tr></table></div> <p>A change of the secret requires a reboot of the stack (if this one was running during the modification):</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-1-1>1</a></span>
 <span class=normal><a href=#__codelineno-1-2>2</a></span>
@@ -53,8 +53,8 @@
 <a id=__codelineno-6-2 name=__codelineno-6-2></a>modules:
 <a id=__codelineno-6-3 name=__codelineno-6-3></a>  portal:
 <a id=__codelineno-6-4 name=__codelineno-6-4></a>    https: true
-<a id=__codelineno-6-5 name=__codelineno-6-5></a>    server_crt: &quot;server.crt&quot;
-<a id=__codelineno-6-6 name=__codelineno-6-6></a>    server_key: &quot;server.key&quot;
+<a id=__codelineno-6-5 name=__codelineno-6-5></a>    server_crt: "server.crt"
+<a id=__codelineno-6-6 name=__codelineno-6-6></a>    server_key: "server.key"
 </code></pre></div></td></tr></table></div> <p>Then change the JTSO port from 80 to 443 in <code>.env</code> file</p> <div class=highlight><table class=highlighttable><tr><td class=linenos><div class=linenodiv><pre><span></span><span class=normal><a href=#__codelineno-7-1>1</a></span>
 <span class=normal><a href=#__codelineno-7-2>2</a></span>
 <span class=normal><a href=#__codelineno-7-3>3</a></span>
@@ -208,11 +208,11 @@
 <a id=__codelineno-32-3 name=__codelineno-32-3></a>
 <a id=__codelineno-32-4 name=__codelineno-32-4></a># NETCONF User
 <a id=__codelineno-32-5 name=__codelineno-32-5></a>set system login user netconf_user class super-user
-<a id=__codelineno-32-6 name=__codelineno-32-6></a>set system login user netconf_user authentication encrypted-password &quot;&quot;
+<a id=__codelineno-32-6 name=__codelineno-32-6></a>set system login user netconf_user authentication encrypted-password ""
 <a id=__codelineno-32-7 name=__codelineno-32-7></a>
 <a id=__codelineno-32-8 name=__codelineno-32-8></a># gNMI User
 <a id=__codelineno-32-9 name=__codelineno-32-9></a>set system login user gnmi_user class super-user
-<a id=__codelineno-32-10 name=__codelineno-32-10></a>set system login user gnmi_user authentication encrypted-password &quot;&quot;
+<a id=__codelineno-32-10 name=__codelineno-32-10></a>set system login user gnmi_user authentication encrypted-password ""
 <a id=__codelineno-32-11 name=__codelineno-32-11></a>
 <a id=__codelineno-32-12 name=__codelineno-32-12></a># NETCONF SERVICE
 <a id=__codelineno-32-13 name=__codelineno-32-13></a>set system services netconf ssh
