@@ -200,6 +200,23 @@
       "replacement": "${1}"
     }]
   }],
+     "enum_list": [{
+    "order": 400,
+    "namepass": ["NETWORK_INSTANCE_BGP"],
+    "entries": [{
+      "type": 1,
+      "key": "session_state",
+      "dest": "session_state_value",
+      "map": {
+        "IDLE": 0,
+        "CONNECT": 1,
+        "ACTIVE": 2,
+        "OPENSENT": 3,
+        "OPENCONFIRM": 4,
+        "ESTABLISHED": 5
+      }
+    }]
+  }],
   "prometheus_outputs": [{
     "fieldpass": [
       "global_total_paths",
@@ -221,7 +238,7 @@
       "safi_sent",
       "session_input_queue",
       "session_output_queue",
-      "session_state",
+      "session_state_value",
       "session_peer_as",
       "session_description",
       "max-prefixes"

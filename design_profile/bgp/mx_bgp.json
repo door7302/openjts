@@ -238,7 +238,7 @@
       "safi_sent",
       "session_input_queue",
       "session_output_queue",
-      "session_state",
+      "session_state_value",
       "session_peer_as",
       "session_description",
       "max-prefixes"

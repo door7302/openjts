@@ -187,7 +187,7 @@
   "enrichment_list": [{
     "order": 200,
     "namepass": ["NETWORK_INSTANCE_BGP"],
-    "family": "vjunos",
+    "family": "vevo",
     "two_levels": false,
     "level1_tag": "device"
   }],
@@ -198,6 +198,23 @@
       "type": 1,
       "pattern": ".*prefix-limit-received.state.(max-prefixes)",
       "replacement": "${1}"
+    }]
+  }],
+     "enum_list": [{
+    "order": 400,
+    "namepass": ["NETWORK_INSTANCE_BGP"],
+    "entries": [{
+      "type": 1,
+      "key": "session_state",
+      "dest": "session_state_value",
+      "map": {
+        "IDLE": 0,
+        "CONNECT": 1,
+        "ACTIVE": 2,
+        "OPENSENT": 3,
+        "OPENCONFIRM": 4,
+        "ESTABLISHED": 5
+      }
     }]
   }],
   "prometheus_outputs": [{
@@ -221,7 +238,7 @@
       "safi_sent",
       "session_input_queue",
       "session_output_queue",
-      "session_state",
+      "session_state_value",
       "session_peer_as",
       "session_description",
       "max-prefixes"
