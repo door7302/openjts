@@ -207,14 +207,14 @@
       "type": 1,
       "key": "session_state",
       "dest": "session_state_value",
-      "maps": {
-        "IDLE": 0,
-        "CONNECT": 1,
-        "ACTIVE": 2,
-        "OPENSENT": 3,
-        "OPENCONFIRM": 4,
-        "ESTABLISHED": 5
-      }
+      "maps": [
+        {"in": "IDLE", "out": 0},
+        {"in": "CONNECT", "out": 1},
+        {"in": "ACTIVE", "out": 2},
+        {"in": "OPENSENT", "out": 3},
+        {"in": "OPENCONFIRM", "out": 4},
+        {"in": "ESTABLISHED", "out": 5}
+      ]
     }]
   }],
   "prometheus_outputs": [{
