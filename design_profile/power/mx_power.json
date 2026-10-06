@@ -293,8 +293,7 @@
     "namepass": ["INTERFACES"],
     "fields": ["in_octets", "in_pkts"]
   }],
-  "influx_outputs": [{
-    "retention": "autogen",
+  "prometheus_outputs": [{
     "fieldpass": [
       "fan_speed",
       "allocated_power",

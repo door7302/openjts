@@ -102,7 +102,12 @@
             "excludeByName": {
               "FAMILY": true,
               "HW_TYPE": true,
+              "MPLS_V4_LABEL": true,
+              "MPLS_V4_SID": true,
+              "MPLS_V6_LABEL": true,
+              "MPLS_V6_SID": true,
               "Time": true,
+              "VERSION": false,
               "Value": true,
               "__name__": true,
               "_component_id": true,
@@ -348,7 +353,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "count(count by (_system_alarms_alarm_id) (JUNOS_ALARMS_alarm_severity{SHORTNAME=~\"$rtr\"}))",
+          "expr": "count(count by (_system_alarms_alarm_id) (JUNOS_ALARMS_alarm_time{SHORTNAME=~\"$rtr\"}))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -362,7 +367,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "count(count by (alarm_id_net) (JUNOS_ALARMS_alarm_severity_net{SHORTNAME=~\"$rtr\"}))",
+          "expr": "count(count by (alarm_id_net) (JUNOS_ALARMS_alarm_time_net{SHORTNAME=~\"$rtr\"}))",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -894,6 +899,10 @@
             "excludeByName": {
               "FAMILY": true,
               "MODEL": true,
+              "MPLS_V4_LABEL": true,
+              "MPLS_V4_SID": true,
+              "MPLS_V6_LABEL": true,
+              "MPLS_V6_SID": true,
               "SHORTNAME": true,
               "Time": true,
               "VERSION": true,
@@ -936,7 +945,7 @@
       "type": "table"
     },
     {
-      "activePatternIndex": 5,
+      "activePatternIndex": -3,
       "datasource": {
         "type": "prometheus",
         "uid": "jtsuid2"
@@ -946,11 +955,11 @@
         "bgColors": "green|orange|red",
         "bgColors_overrides": "0->green|2->red|1->yellow",
         "clickable_cells_link": "",
-        "col_name": "Value",
+        "col_name": "value",
         "decimals": "0",
         "defaultBGColor": "transparent",
         "defaultTextColor": "",
-        "delimiter": ".",
+        "delimiter": ",",
         "displayTemplate": "_value_",
         "enable_bgColor": false,
         "enable_bgColor_overrides": false,
@@ -1185,10 +1194,49 @@
           "transform_values": "_value_|_value_|_value_",
           "transform_values_overrides": "0->down|1->up",
           "valueName": "current"
+        },
+        {
+          "row_col_wrapper": ",",
+          "bgColors": "green|orange|red",
+          "bgColors_overrides": "0->green|2->red|1->yellow",
+          "textColors": "red|orange|green",
+          "textColors_overrides": "0->red|2->green|1->yellow",
+          "clickable_cells_link": "",
+          "col_name": "test",
+          "decimals": 2,
+          "delimiter": ",",
+          "displayTemplate": "_value_",
+          "defaultBGColor": "",
+          "defaultTextColor": "",
+          "enable_bgColor": false,
+          "enable_bgColor_overrides": false,
+          "enable_textColor": false,
+          "enable_textColor_overrides": false,
+          "enable_clickable_cells": false,
+          "enable_time_based_thresholds": false,
+          "enable_transform": false,
+          "enable_transform_overrides": false,
+          "filter": {
+            "value_above": "",
+            "value_below": ""
+          },
+          "format": "none",
+          "name": "ALARM",
+          "null_color": "darkred",
+          "null_textcolor": "black",
+          "null_value": "No data",
+          "pattern": "SLOT",
+          "row_name": "!0!",
+          "thresholds": "70,90",
+          "time_based_thresholds": [],
+          "transform_values": "_value_|_value_|_value_",
+          "transform_values_overrides": "0->down|1->up",
+          "tooltipTemplate": "Series : _series_ <br/>Row Name : _row_name_ <br/>Col Name : _col_name_ <br/>Value : _value_",
+          "valueName": "current"
         }
       ],
       "pluginVersion": "9.4.7",
-      "row_col_wrapper": "!",
+      "row_col_wrapper": ".",
       "sorting_props": {
         "col_index": 4,
         "direction": "asc"
@@ -1200,12 +1248,13 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
+          "exemplar": false,
           "expr": "JUNOS_CMERROR_cmerror_count{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"}",
           "format": "time_series",
           "hide": false,
-          "instant": false,
+          "instant": true,
           "legendFormat": "{{cmerror_name}},COUNT",
-          "range": true,
+          "range": false,
           "refId": "A"
         },
         {
@@ -1214,12 +1263,13 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
+          "exemplar": false,
           "expr": "JUNOS_CMERROR_cmerror_update{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"}",
           "format": "time_series",
           "hide": false,
-          "instant": false,
+          "instant": true,
           "legendFormat": "{{cmerror_name}},UPDATE",
-          "range": true,
+          "range": false,
           "refId": "B"
         },
         {
@@ -1228,12 +1278,13 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
+          "exemplar": false,
           "expr": "JUNOS_CMERROR_cmerror_clear{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"}",
           "format": "time_series",
           "hide": false,
-          "instant": false,
+          "instant": true,
           "legendFormat": "{{cmerror_name}},CLEAR",
-          "range": true,
+          "range": false,
           "refId": "C"
         },
         {
@@ -1242,12 +1293,13 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
+          "exemplar": false,
           "expr": "JUNOS_CMERROR_cmerror_slot{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"} + 0.1",
           "format": "time_series",
           "hide": false,
-          "instant": false,
+          "instant": true,
           "legendFormat": "{{cmerror_name}},SLOT",
-          "range": true,
+          "range": false,
           "refId": "D"
         },
         {
@@ -1256,12 +1308,13 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
+          "exemplar": false,
           "expr": "(JUNOS_CMERROR_cmerror_clear{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"} - JUNOS_CMERROR_cmerror_update{SHORTNAME=~\"$rtr\", cmerror_name!=\"\"}) + 0.1",
           "format": "time_series",
           "hide": false,
-          "instant": false,
+          "instant": true,
           "legendFormat": "{{cmerror_name}},DELTA",
-          "range": true,
+          "range": false,
           "refId": "E"
         }
       ],
@@ -1354,13 +1407,11 @@
         "cellHeight": "sm",
         "footer": {
           "countRows": false,
-          "fields": [
-            "count"
-          ],
+          "fields": [],
           "reducer": [
-            "sum"
+            "lastNotNull"
           ],
-          "show": true
+          "show": false
         },
         "showHeader": true
       },
@@ -1372,7 +1423,8 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "ALARMING_exception{SHORTNAME=~\"$rtr\"}",
+          "exemplar": false,
+          "expr": "sum by (ALARM_TYPE, component_name) (\n  count_over_time(ALARMING_exception{SHORTNAME=~\"$rtr\"}[$__range])\n)",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -1385,12 +1437,32 @@
         {
           "id": "organize",
           "options": {
-            "excludeByName": {},
-            "indexByName": {},
+            "excludeByName": {
+              "SHORTNAME": true,
+              "__name__": true,
+              "component_name": false,
+              "device": true,
+              "instance": true,
+              "job": true
+            },
+            "includeByName": {},
+            "indexByName": {
+              "ALARM_TYPE": 2,
+              "SHORTNAME": 1,
+              "Time": 0,
+              "Value": 8,
+              "__name__": 3,
+              "component_name": 4,
+              "device": 5,
+              "instance": 6,
+              "job": 7
+            },
             "renameByName": {
               "ALARM_TYPE": "Type of Alarm",
               "LINKNAME": "PORT",
               "Time": "Last Update",
+              "Value": "Cumulative Alarms",
+              "component_name": "Component",
               "count": "Cumulative Alarms"
             }
           }
@@ -1454,7 +1526,13 @@
           ],
           "show": false
         },
-        "showHeader": true
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "Timestamp"
+          }
+        ]
       },
       "pluginVersion": "10.3.1",
       "targets": [
@@ -1466,9 +1544,9 @@
           "editorMode": "code",
           "expr": "ALARMING_exception{SHORTNAME=~\"$rtr\"}",
           "format": "table",
-          "instant": true,
+          "instant": false,
           "legendFormat": "__auto",
-          "range": false,
+          "range": true,
           "refId": "A"
         }
       ],
@@ -1477,12 +1555,21 @@
         {
           "id": "organize",
           "options": {
-            "excludeByName": {},
+            "excludeByName": {
+              "SHORTNAME": true,
+              "__name__": true,
+              "device": true,
+              "instance": true,
+              "job": true
+            },
+            "includeByName": {},
             "indexByName": {},
             "renameByName": {
               "ALARM_TYPE": "Type of Alarm",
               "LINKNAME": "PORT",
               "Time": "Timestamp",
+              "Value": "Value of the exception",
+              "component_name": "Component",
               "count": "Cumulative Alarms",
               "exception": "Errors Value"
             }
@@ -2662,8 +2749,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "rtme-mx304-06",
+          "value": "rtme-mx304-06"
         },
         "datasource": {
           "type": "prometheus",
@@ -2690,13 +2777,13 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-3h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "ROUTER HEALTH MONITORING PROFILE - JTS",
   "uid": "healthdashboard",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

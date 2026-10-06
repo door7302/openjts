@@ -114,6 +114,10 @@
             "excludeByName": {
               "FAMILY": true,
               "HW_TYPE": true,
+              "MPLS_V4_LABEL": true,
+              "MPLS_V4_SID": true,
+              "MPLS_V6_LABEL": true,
+              "MPLS_V6_SID": true,
               "Time": true,
               "Value": true,
               "__name__": true,
@@ -261,6 +265,10 @@
             "excludeByName": {
               "FAMILY": true,
               "MODEL": true,
+              "MPLS_V4_LABEL": true,
+              "MPLS_V4_SID": true,
+              "MPLS_V6_LABEL": true,
+              "MPLS_V6_SID": true,
               "SHORTNAME": true,
               "Time": true,
               "VERSION": true,
@@ -504,8 +512,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "rtme-mx304-06",
+          "value": "rtme-mx304-06"
         },
         "datasource": {
           "type": "prometheus",
@@ -531,9 +539,9 @@
       },
       {
         "current": {
-          "selected": false,
-          "text": "",
-          "value": ""
+          "selected": true,
+          "text": "FPC0:PIC1",
+          "value": "FPC0:PIC1"
         },
         "datasource": {
           "type": "prometheus",
@@ -599,6 +607,6 @@
   "timezone": "",
   "title": "HW KPI MONITORING PROFILE - JTSO",
   "uid": "simplehwdashboard",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

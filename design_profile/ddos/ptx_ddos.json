@@ -85,8 +85,7 @@
     "namepass": ["DDOS_STATS"],
     "fields": ["dropped-aggregate-policer"]
   }],
-  "influx_outputs": [{
-    "retention": "autogen",
+  "prometheus_outputs": [{
     "fieldpass": [
       "arrival-rate",
       "dropped-aggregate-policer_rate",

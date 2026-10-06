@@ -313,8 +313,7 @@
       }
     ]
   }],
-  "influx_outputs": [{
-    "retention": "autogen",
+  "prometheus_outputs": [{
     "fieldpass": [
       "exception",
       "in_octets_rate",

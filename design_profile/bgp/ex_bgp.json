@@ -200,8 +200,7 @@
       "replacement": "${1}"
     }]
   }],
-  "influx_outputs": [{
-    "retention": "autogen",
+  "prometheus_outputs": [{
     "fieldpass": [
       "global_total_paths",
       "global_total_prefixes",

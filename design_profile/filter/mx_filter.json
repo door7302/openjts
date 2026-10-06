@@ -74,8 +74,7 @@
     "namepass": ["FIREWALL"],
     "fields": ["fwd_bytes", "fwd_packets", "drop_bytes", "drop_pkts"]
   }],
-  "influx_outputs": [{
-    "retention": "autogen",
+  "prometheus_outputs": [{
     "fieldpass": [
       "fwd_bytes_rate",
       "fwd_packets_rate",
