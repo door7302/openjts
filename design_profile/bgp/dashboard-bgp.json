@@ -107,11 +107,12 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
+          "exemplar": false,
           "expr": "NETWORK_INSTANCE_BGP_global_as{SHORTNAME=~\"$rtr\"}",
-          "format": "time_series",
-          "instant": false,
+          "format": "table",
+          "instant": true,
           "legendFormat": "__auto",
-          "range": true,
+          "range": false,
           "refId": "A"
         }
       ],
@@ -174,11 +175,12 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
+          "exemplar": false,
           "expr": "NETWORK_INSTANCE_BGP_global_total_prefixes{SHORTNAME=~\"$rtr\"}",
-          "format": "time_series",
-          "instant": false,
+          "format": "table",
+          "instant": true,
           "legendFormat": "__auto",
-          "range": true,
+          "range": false,
           "refId": "A"
         }
       ],
@@ -241,11 +243,12 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
+          "exemplar": false,
           "expr": "NETWORK_INSTANCE_BGP_global_total_paths{SHORTNAME=~\"$rtr\"}",
-          "format": "time_series",
-          "instant": false,
+          "format": "table",
+          "instant": true,
           "legendFormat": "__auto",
-          "range": true,
+          "range": false,
           "refId": "A"
         }
       ],
@@ -294,7 +297,7 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 12,
+        "w": 24,
         "x": 0,
         "y": 7
       },
@@ -365,9 +368,9 @@
       },
       "gridPos": {
         "h": 5,
-        "w": 12,
+        "w": 24,
         "x": 0,
-        "y": 12
+        "y": 22
       },
       "id": 23,
       "maxPerRow": 3,
@@ -442,7 +445,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 17
+        "y": 37
       },
       "id": 13,
       "panels": [],
@@ -480,7 +483,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 18
+        "y": 38
       },
       "id": 18,
       "maxPerRow": 8,
@@ -530,7 +533,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 53
       },
       "id": 191,
       "options": {
@@ -623,7 +626,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 55
       },
       "id": 30,
       "options": {
@@ -653,7 +656,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "NETWORK_INSTANCE_BGP_session_peer_as{SHORTNAME=~\"$rtr\", instance_name=~\"$instance\", neighbor_address=~\"$neighbor\"}",
+          "expr": "NETWORK_INSTANCE",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -692,7 +695,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 36
+        "y": 66
       },
       "id": 41,
       "panels": [
@@ -721,8 +724,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "blue",
-                    "value": null
+                    "color": "blue"
                   }
                 ]
               },
@@ -789,8 +791,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "blue",
-                    "value": null
+                    "color": "blue"
                   }
                 ]
               },
@@ -880,8 +881,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "blue",
-                    "value": null
+                    "color": "blue"
                   }
                 ]
               },
@@ -963,8 +963,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1033,8 +1032,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1104,8 +1102,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -1229,8 +1226,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "blue",
-                    "value": null
+                    "color": "blue"
                   }
                 ]
               },
@@ -1343,8 +1339,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1470,8 +1465,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "rtme-mx304-06",
+          "value": "rtme-mx304-06"
         },
         "datasource": {
           "type": "prometheus",
@@ -1633,6 +1628,6 @@
   "timezone": "",
   "title": "BGP MONITORING PROFILE - JTS",
   "uid": "bgpdashboard",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

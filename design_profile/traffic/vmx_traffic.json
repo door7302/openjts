@@ -254,11 +254,12 @@
       "action": "accept"
     }]
   }],
-  "enum_list": [{
+   "enum_list": [{
     "order": 300,
     "namepass": ["INTERFACES"],
     "entries": [{
-      "tag": "queue_id",
+      "type": 0,
+      "key": "queue_id",
       "dest": "queue_name"
     }]
   }],
