@@ -207,7 +207,7 @@
       "type": 1,
       "key": "session_state",
       "dest": "session_state_value",
-      "map": {
+      "maps": {
         "IDLE": 0,
         "CONNECT": 1,
         "ACTIVE": 2,
