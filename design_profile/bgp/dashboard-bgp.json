@@ -370,7 +370,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 22
+        "y": 12
       },
       "id": 23,
       "maxPerRow": 3,
@@ -445,7 +445,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 37
+        "y": 17
       },
       "id": 13,
       "panels": [],
@@ -483,7 +483,7 @@
         "h": 5,
         "w": 24,
         "x": 0,
-        "y": 38
+        "y": 18
       },
       "id": 18,
       "maxPerRow": 8,
@@ -533,7 +533,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 53
+        "y": 23
       },
       "id": 191,
       "options": {
@@ -571,39 +571,39 @@
           "mappings": [
             {
               "options": {
-                "(null)": {
-                  "index": 6,
-                  "text": "No description"
-                },
-                "ACTIVE": {
-                  "color": "red",
-                  "index": 2,
-                  "text": "ACTIVE"
-                },
-                "CONNECT": {
-                  "color": "red",
-                  "index": 1,
-                  "text": "CONNECT"
-                },
-                "ESTABLISHED": {
-                  "color": "green",
-                  "index": 5,
-                  "text": "ESTABLISHED"
-                },
-                "IDLE": {
+                "0": {
                   "color": "red",
                   "index": 0,
                   "text": "IDLE"
                 },
-                "OPENCONFIRM": {
+                "1": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "CONNECT"
+                },
+                "2": {
+                  "color": "red",
+                  "index": 2,
+                  "text": "ACTIVE"
+                },
+                "3": {
+                  "color": "orange",
+                  "index": 3,
+                  "text": "OPENSENT"
+                },
+                "4": {
                   "color": "orange",
                   "index": 4,
                   "text": "OPENCONFIRM"
                 },
-                "OPENSENT": {
-                  "color": "orange",
-                  "index": 3,
-                  "text": "OPENSENT"
+                "5": {
+                  "color": "green",
+                  "index": 5,
+                  "text": "ESTABLISHED"
+                },
+                "(null)": {
+                  "index": 6,
+                  "text": "No description"
                 }
               },
               "type": "value"
@@ -626,7 +626,7 @@
         "h": 11,
         "w": 24,
         "x": 0,
-        "y": 55
+        "y": 25
       },
       "id": 30,
       "options": {
@@ -656,11 +656,11 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "NETWORK_INSTANCE",
+          "expr": "NETWORK_INSTANCE_BGP_session_state_value{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
           "format": "table",
-          "instant": true,
+          "instant": false,
           "legendFormat": "__auto",
-          "range": false,
+          "range": true,
           "refId": "A"
         }
       ],
@@ -669,20 +669,51 @@
         {
           "id": "organize",
           "options": {
-            "excludeByName": {},
+            "excludeByName": {
+              "FAMILY": true,
+              "MODEL": true,
+              "SHORTNAME": true,
+              "VERSION": true,
+              "__name__": true,
+              "_component_id": true,
+              "_subcomponent_id": true,
+              "component": true,
+              "device": true,
+              "host": true,
+              "instance": true,
+              "job": true,
+              "network_instances_network_instance_protocols_protocol_identifier": true,
+              "network_instances_network_instance_protocols_protocol_name": true,
+              "path": true
+            },
+            "includeByName": {},
             "indexByName": {
+              "FAMILY": 1,
+              "MODEL": 2,
+              "SHORTNAME": 3,
               "Time": 0,
-              "neighbor_address": 1,
-              "session_description": 2,
-              "session_peer_as": 3,
-              "session_state": 4
+              "VERSION": 4,
+              "Value": 18,
+              "__name__": 5,
+              "_component_id": 6,
+              "_subcomponent_id": 7,
+              "component": 8,
+              "device": 9,
+              "host": 10,
+              "instance": 11,
+              "instance_name": 13,
+              "job": 14,
+              "neighbor_address": 12,
+              "network_instances_network_instance_protocols_protocol_identifier": 15,
+              "network_instances_network_instance_protocols_protocol_name": 16,
+              "path": 17
             },
             "renameByName": {
-              "Time": "Timestamp",
+              "Time": "",
+              "Value": "State",
+              "instance_name": "Routing Instance",
               "neighbor_address": "Neighbor IP",
-              "session_description": "Neighbor Description",
-              "session_peer_as": "Neighbor ASN",
-              "session_state": "State"
+              "{FAMILY=\"mx\", MODEL=\"JNP304 [MX304]\", SHORTNAME=\"rtme-mx304-06\", VERSION=\"25.2R1.9\", __name__=\"NETWORK_INSTANCE_BGP_session_state_value\", _component_id=\"65535\", _subcomponent_id=\"0\", component=\"rpd\", device=\"rtme-mx304-06.englab.juniper.net\", host=\"3327539e5436\", instance=\"telegraf_mx:9273\", instance_name=\"DEFAULT\", job=\"telegraf\", neighbor_address=\"193.251.127.3\", network_instances_network_instance_protocols_protocol_identifier=\"BGP\", network_instances_network_instance_protocols_protocol_name=\"DEFAULT\", path=\"/network-instances/network-instance/protocols/protocol/bgp/neighbors/neighbor\"}": "State"
             }
           }
         }
@@ -690,770 +721,777 @@
       "type": "table"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 66
+        "y": 36
       },
       "id": 41,
-      "panels": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [
-                {
-                  "options": {
-                    "(null)": {
-                      "index": 0,
-                      "text": "Unknown"
-                    }
-                  },
-                  "type": "value"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "blue"
-                  }
-                ]
-              },
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 3,
-            "x": 0,
-            "y": 37
-          },
-          "id": 71,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "/^DESC$/",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "10.3.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
-              },
-              "editorMode": "code",
-              "expr": "NETWORK_INSTANCE_BGP_session_description{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "DESC",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Peer Name",
-          "transformations": [],
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "blue"
-                  }
-                ]
-              },
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 3,
-            "x": 3,
-            "y": 37
-          },
-          "id": 70,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "none",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "10.3.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
-              },
-              "editorMode": "code",
-              "expr": "NETWORK_INSTANCE_BGP_session_peer_as{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "PEERAS",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Peer AS",
-          "transformations": [],
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [
-                {
-                  "options": {
-                    "ESTABLISHED": {
-                      "color": "green",
-                      "index": 0,
-                      "text": "ESTABLISHED"
-                    }
-                  },
-                  "type": "value"
-                },
-                {
-                  "options": {
-                    "pattern": ".*",
-                    "result": {
-                      "color": "red",
-                      "index": 1,
-                      "text": "DOWN"
-                    }
-                  },
-                  "type": "regex"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "blue"
-                  }
-                ]
-              },
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 3,
-            "x": 6,
-            "y": 37
-          },
-          "id": 88,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "auto",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "/^STATE$/",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "10.3.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
-              },
-              "editorMode": "code",
-              "expr": "NETWORK_INSTANCE_BGP_session_state{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
-              "format": "time_series",
-              "hide": true,
-              "instant": false,
-              "legendFormat": "STATE",
-              "range": true,
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
-              },
-              "editorMode": "code",
-              "expr": "NETWORK_INSTANCE_BGP_session_state{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "STATE",
-              "range": true,
-              "refId": "B"
-            }
-          ],
-          "title": "Peer State",
-          "transformations": [],
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "displayName": "Input Queue",
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 9,
-            "y": 37
-          },
-          "id": 74,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "center",
-            "orientation": "vertical",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "10.3.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
-              },
-              "editorMode": "code",
-              "expr": "NETWORK_INSTANCE_BGP_session_output_queue{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Input Queue",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "displayName": "Output Queue",
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 2,
-            "x": 11,
-            "y": 37
-          },
-          "id": 73,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "center",
-            "orientation": "vertical",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "10.3.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
-              },
-              "editorMode": "code",
-              "expr": "NETWORK_INSTANCE_BGP_session_output_queue{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Input Queue",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [],
-              "min": 0,
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  }
-                ]
-              },
-              "unit": "none",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 23,
-            "w": 11,
-            "x": 13,
-            "y": 37
-          },
-          "id": 49,
-          "options": {
-            "displayMode": "lcd",
-            "maxVizHeight": 300,
-            "minVizHeight": 10,
-            "minVizWidth": 0,
-            "namePlacement": "top",
-            "orientation": "horizontal",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showUnfilled": true,
-            "sizing": "auto",
-            "text": {},
-            "valueMode": "text"
-          },
-          "pluginVersion": "10.3.1",
-          "repeatDirection": "h",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
-              },
-              "editorMode": "code",
-              "expr": "NETWORK_INSTANCE_BGP_safi_received{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "Received - {{neighbor_afi_safi_name}}",
-              "range": true,
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
-              },
-              "editorMode": "code",
-              "expr": "NETWORK_INSTANCE_BGP_safi_received_pre_policy{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"} - NETWORK_INSTANCE_BGP_safi_accepted{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "Dropped by policy - {{neighbor_afi_safi_name}}",
-              "range": true,
-              "refId": "B"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
-              },
-              "editorMode": "code",
-              "expr": "NETWORK_INSTANCE_BGP_safi_installed{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "Installed - {{neighbor_afi_safi_name}}",
-              "range": true,
-              "refId": "C"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
-              },
-              "editorMode": "code",
-              "expr": "NETWORK_INSTANCE_BGP_safi_sent{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "Sent - {{neighbor_afi_safi_name}}",
-              "range": true,
-              "refId": "E"
-            }
-          ],
-          "title": "Neighbor $neighbor - current routes per family",
-          "type": "bargauge"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "mappings": [
-                {
-                  "options": {
-                    "0": {
-                      "color": "green",
-                      "index": 0,
-                      "text": "N/A"
-                    }
-                  },
-                  "type": "value"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "blue"
-                  }
-                ]
-              },
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 4,
-            "w": 13,
-            "x": 0,
-            "y": 41
-          },
-          "id": 121,
-          "options": {
-            "colorMode": "value",
-            "graphMode": "area",
-            "justifyMode": "center",
-            "orientation": "auto",
-            "reduceOptions": {
-              "calcs": [
-                "lastNotNull"
-              ],
-              "fields": "",
-              "values": false
-            },
-            "showPercentChange": false,
-            "textMode": "auto",
-            "wideLayout": true
-          },
-          "pluginVersion": "10.3.1",
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
-              },
-              "editorMode": "code",
-              "expr": "NETWORK_INSTANCE_BGP_max_prefixes{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "{{neighbor_afi_safi_name}}",
-              "range": true,
-              "refId": "B"
-            }
-          ],
-          "title": "Max Prefixes config per family",
-          "transformations": [],
-          "type": "stat"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 6,
-                "gradientMode": "opacity",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "smooth",
-                "lineStyle": {
-                  "fill": "solid"
-                },
-                "lineWidth": 1,
-                "pointSize": 10,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": true,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [
-                {
-                  "options": {
-                    "ESTABLISHED": {
-                      "index": 0,
-                      "text": "1"
-                    }
-                  },
-                  "type": "value"
-                }
-              ],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "none",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 15,
-            "w": 13,
-            "x": 0,
-            "y": 45
-          },
-          "id": 56,
-          "options": {
-            "legend": {
-              "calcs": [
-                "lastNotNull",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "bottom",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "single",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
-              },
-              "editorMode": "code",
-              "expr": "NETWORK_INSTANCE_BGP_safi_received{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "Received routes {{neighbor_afi_safi_name}}",
-              "range": true,
-              "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
-              },
-              "editorMode": "code",
-              "expr": "NETWORK_INSTANCE_BGP_safi_installed{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "Installed routes {{neighbor_afi_safi_name}}",
-              "range": true,
-              "refId": "B"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
-              },
-              "editorMode": "code",
-              "expr": "NETWORK_INSTANCE_BGP_safi_sent{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "Sent routes {{neighbor_afi_safi_name}}",
-              "range": true,
-              "refId": "C"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
-              },
-              "editorMode": "code",
-              "expr": "NETWORK_INSTANCE_BGP_safi_received_pre_policy{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"} - NETWORK_INSTANCE_BGP_safi_accepted{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
-              "format": "time_series",
-              "hide": false,
-              "instant": false,
-              "legendFormat": "Rejected by Policy routes {{neighbor_afi_safi_name}}",
-              "range": true,
-              "refId": "D"
-            }
-          ],
-          "title": "Neighbor $neighbor - Routes history",
-          "transformations": [
-            {
-              "id": "convertFieldType",
-              "options": {
-                "conversions": [
-                  {
-                    "destinationType": "enum",
-                    "targetField": "NETWORK_INSTANCE_BGP.session_state"
-                  }
-                ],
-                "fields": {}
-              }
-            }
-          ],
-          "type": "timeseries"
-        }
-      ],
+      "panels": [],
       "repeat": "neighbor",
       "repeatDirection": "h",
       "title": "NEIGHBOR $neighbor INFO",
       "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "jtsuid2"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "(null)": {
+                  "index": 0,
+                  "text": "Unknown"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 37
+      },
+      "id": 71,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^DESC$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_session_description{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "DESC",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Peer Name",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "jtsuid2"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 37
+      },
+      "id": 70,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_session_peer_as{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "PEERAS",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Peer AS",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "jtsuid2"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "ESTABLISHED": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "ESTABLISHED"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "pattern": ".*",
+                "result": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "DOWN"
+                }
+              },
+              "type": "regex"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 6,
+        "y": 37
+      },
+      "id": 88,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^STATE$/",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_session_state{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+          "format": "time_series",
+          "hide": true,
+          "instant": false,
+          "legendFormat": "STATE",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_session_state{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "STATE",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Peer State",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "jtsuid2"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "displayName": "Input Queue",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 9,
+        "y": 37
+      },
+      "id": 74,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_session_output_queue{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Input Queue",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "jtsuid2"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "displayName": "Output Queue",
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 11,
+        "y": 37
+      },
+      "id": 73,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "vertical",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_session_output_queue{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Input Queue",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "jtsuid2"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 23,
+        "w": 11,
+        "x": 13,
+        "y": 37
+      },
+      "id": 49,
+      "options": {
+        "displayMode": "lcd",
+        "maxVizHeight": 300,
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "namePlacement": "top",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true,
+        "sizing": "auto",
+        "text": {},
+        "valueMode": "text"
+      },
+      "pluginVersion": "10.3.1",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_safi_received{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "Received - {{neighbor_afi_safi_name}}",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_safi_received_pre_policy{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"} - NETWORK_INSTANCE_BGP_safi_accepted{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Dropped by policy - {{neighbor_afi_safi_name}}",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_safi_installed{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Installed - {{neighbor_afi_safi_name}}",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_safi_sent{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Sent - {{neighbor_afi_safi_name}}",
+          "range": true,
+          "refId": "E"
+        }
+      ],
+      "title": "Neighbor $neighbor - current routes per family",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "jtsuid2"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "N/A"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              }
+            ]
+          },
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 13,
+        "x": 0,
+        "y": 41
+      },
+      "id": 121,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_max_prefixes{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{neighbor_afi_safi_name}}",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "Max Prefixes config per family",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "jtsuid2"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 1,
+            "pointSize": 10,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [
+            {
+              "options": {
+                "ESTABLISHED": {
+                  "index": 0,
+                  "text": "1"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 13,
+        "x": 0,
+        "y": 45
+      },
+      "id": 56,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_safi_received{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Received routes {{neighbor_afi_safi_name}}",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_safi_installed{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Installed routes {{neighbor_afi_safi_name}}",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_safi_sent{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Sent routes {{neighbor_afi_safi_name}}",
+          "range": true,
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "NETWORK_INSTANCE_BGP_safi_received_pre_policy{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"} - NETWORK_INSTANCE_BGP_safi_accepted{SHORTNAME=~\"$rtr\", neighbor_address=~\"$neighbor\"}",
+          "format": "time_series",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Rejected by Policy routes {{neighbor_afi_safi_name}}",
+          "range": true,
+          "refId": "D"
+        }
+      ],
+      "title": "Neighbor $neighbor - Routes history",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "enum",
+                "targetField": "NETWORK_INSTANCE_BGP.session_state"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
+      "type": "timeseries"
     }
   ],
   "refresh": "1m",
