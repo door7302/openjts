@@ -130,28 +130,37 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "FAMILY": true,
+              "MODEL": true,
+              "VERSION": true,
               "__name__": true,
+              "_subcomponent_id": true,
+              "component": true,
+              "device": true,
+              "host": true,
               "instance": true,
-              "job": true
+              "job": true,
+              "location": true,
+              "path": true
             },
             "includeByName": {},
             "indexByName": {
-              "Time": 0,
               "SHORTNAME": 1,
-              "protocol": 2,
-              "sub_protocol": 3,
+              "Time": 0,
+              "Value": 6,
               "_component_id": 4,
               "policer_state": 5,
-              "Value": 6
+              "protocol": 2,
+              "sub_protocol": 3
             },
             "renameByName": {
-              "Time": "Last Time Seen",
               "SHORTNAME": "Router",
-              "protocol": "Protocol",
-              "sub_protocol": "Sub Protocol",
+              "Time": "Last Time Seen",
+              "Value": "Violation Count. ",
               "_component_id": "Linecard Slot",
               "policer_state": "Current State",
-              "Value": "Violation Count. "
+              "protocol": "Protocol",
+              "sub_protocol": "Sub Protocol"
             }
           }
         }
@@ -549,7 +558,7 @@
           "expr": "DDOS_STATS_arrival_rate{SHORTNAME=~\"$rtr\", protocol=~\"$proto\", sub_protocol=~\"$sub_proto\"}",
           "format": "time_series",
           "instant": false,
-          "legendFormat": "Received $proto ({{sub_protocol}}) Linecard Slot {{_component_id}}",
+          "legendFormat": "Received $proto ({{sub_protocol}}) Linecard Slot {{_component_id}} ",
           "range": true,
           "refId": "A"
         }
@@ -775,9 +784,9 @@
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": "",
-          "value": ""
+          "selected": false,
+          "text": "rtme-mx304-06",
+          "value": "rtme-mx304-06"
         },
         "datasource": {
           "type": "prometheus",
@@ -877,6 +886,6 @@
   "timezone": "",
   "title": "DDOS PROFILE - JTS",
   "uid": "ddosdashboard",
-  "version": 3,
+  "version": 1,
   "weekStart": ""
 }
