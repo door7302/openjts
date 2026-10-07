@@ -117,16 +117,6 @@
                 },
                 {
                     "type": 1,
-                    "from": "/components/component/power-supply/state/capacity",
-                    "to": "capacity"
-                },
-                {
-                    "type": 1,
-                    "from": "/components/component/power-supply/state/output-power",
-                    "to": "output_power"
-                },
-                {
-                    "type": 1,
                     "from": "power-zone-0-allocated",
                     "to": "power_zone_0_allocated"
                 },
@@ -242,6 +232,11 @@
                 },
                 {
                     "type": 1,
+                    "from": "/components/component/power-supply/state/capacity",
+                    "to": "power_supply_capacity"
+                },
+                {
+                    "type": 1,
                     "from": "/components/component/power-supply/state/input-current",
                     "to": "power_supply_input_current"
                 },
@@ -257,13 +252,13 @@
                 },
                 {
                     "type": 1,
-                    "from": "/components/component/power-supply/state/output-power",
-                    "to": "power_supply_output_power"
+                    "from": "/components/component/power-supply/state/output-voltage",
+                    "to": "power_supply_output_voltage"
                 },
                 {
                     "type": 1,
-                    "from": "/components/component/power-supply/state/output-voltage",
-                    "to": "power_supply_output_voltage"
+                    "from": "/components/component/power-supply/state/output-power",
+                    "to": "output_power"
                 }
             ]
         }
@@ -302,8 +297,6 @@
                 "power_input1_usage",
                 "power_capacity_maximum",
                 "power_capacity_usage",
-                "capacity",
-                "output_power",
                 "power_zone_0_allocated",
                 "power_zone_0_capacity",
                 "power_zone_0_maximum",
@@ -387,8 +380,6 @@
                 "power_input1_usage",
                 "power_capacity_maximum",
                 "power_capacity_usage",
-                "capacity",
-                "output_power",
                 "temperature_ambient",
                 "temperature_instant",
                 "temperature_exhaust_a",
