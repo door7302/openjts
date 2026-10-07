@@ -52,13 +52,13 @@
           },
           "custom": {
             "axisBorderShow": false,
-            "axisCenteredZero": false,
+            "axisCenteredZero": true,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 0,
+            "fillOpacity": 7,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -86,7 +86,6 @@
             }
           },
           "mappings": [],
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -116,19 +115,7 @@
               },
               {
                 "id": "custom.fillOpacity",
-                "value": 0
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "custom.lineWidth",
-                "value": 2
+                "value": 8
               }
             ]
           }
@@ -180,7 +167,7 @@
           "editorMode": "code",
           "expr": "sum by (plcr_name, fw_name) (FIREWALL_drop_pkts_rate{SHORTNAME=~\"$rtr\", fw_name=~\"$filter\", plcr_name=~\"$plcr\"})",
           "format": "time_series",
-          "hide": true,
+          "hide": false,
           "instant": false,
           "legendFormat": "Drop PPS {{fw_name}} - {{plcr_name}}",
           "range": true,
@@ -202,13 +189,13 @@
           },
           "custom": {
             "axisBorderShow": false,
-            "axisCenteredZero": false,
+            "axisCenteredZero": true,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 0,
+            "fillOpacity": 8,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -236,7 +223,6 @@
             }
           },
           "mappings": [],
-          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -266,19 +252,7 @@
               },
               {
                 "id": "custom.fillOpacity",
-                "value": 0
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byFrameRefID",
-              "options": "A"
-            },
-            "properties": [
-              {
-                "id": "custom.lineWidth",
-                "value": 2
+                "value": 8
               }
             ]
           }
@@ -362,13 +336,13 @@
               },
               "custom": {
                 "axisBorderShow": false,
-                "axisCenteredZero": false,
+                "axisCenteredZero": true,
                 "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
                 "drawStyle": "line",
-                "fillOpacity": 0,
+                "fillOpacity": 8,
                 "gradientMode": "none",
                 "hideFrom": {
                   "legend": false,
@@ -396,7 +370,6 @@
                 }
               },
               "mappings": [],
-              "min": 0,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -426,19 +399,7 @@
                   },
                   {
                     "id": "custom.fillOpacity",
-                    "value": 0
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byFrameRefID",
-                  "options": "A"
-                },
-                "properties": [
-                  {
-                    "id": "custom.lineWidth",
-                    "value": 2
+                    "value": 8
                   }
                 ]
               }
@@ -448,7 +409,7 @@
             "h": 19,
             "w": 24,
             "x": 0,
-            "y": 40
+            "y": 2
           },
           "id": 1,
           "options": {
@@ -512,13 +473,13 @@
               },
               "custom": {
                 "axisBorderShow": false,
-                "axisCenteredZero": false,
+                "axisCenteredZero": true,
                 "axisColorMode": "text",
                 "axisLabel": "",
                 "axisPlacement": "auto",
                 "barAlignment": 0,
                 "drawStyle": "line",
-                "fillOpacity": 0,
+                "fillOpacity": 8,
                 "gradientMode": "none",
                 "hideFrom": {
                   "legend": false,
@@ -546,7 +507,6 @@
                 }
               },
               "mappings": [],
-              "min": 0,
               "thresholds": {
                 "mode": "absolute",
                 "steps": [
@@ -576,19 +536,7 @@
                   },
                   {
                     "id": "custom.fillOpacity",
-                    "value": 0
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byFrameRefID",
-                  "options": "A"
-                },
-                "properties": [
-                  {
-                    "id": "custom.lineWidth",
-                    "value": 2
+                    "value": 7
                   }
                 ]
               }
@@ -598,7 +546,7 @@
             "h": 19,
             "w": 24,
             "x": 0,
-            "y": 59
+            "y": 21
           },
           "id": 2,
           "options": {
@@ -664,8 +612,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "rtme-mx304-06",
+          "value": "rtme-mx304-06"
         },
         "datasource": {
           "type": "prometheus",
@@ -795,6 +743,6 @@
   "timezone": "",
   "title": "FIREWALL FILTER PROFILE - JTS",
   "uid": "filterdashboard",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

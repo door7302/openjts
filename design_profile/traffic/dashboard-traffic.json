@@ -183,11 +183,11 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "queue_name": true,
+              "Time": true,
               "__name__": true,
-              "job": true,
               "instance": true,
-              "Time": true
+              "job": true,
+              "queue_name": true
             },
             "indexByName": {},
             "renameByName": {
@@ -384,11 +384,13 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "queue_name": true,
               "__name__": true,
+              "device": true,
+              "instance": true,
               "job": true,
-              "instance": true
+              "queue_name": true
             },
+            "includeByName": {},
             "indexByName": {},
             "renameByName": {
               "ALARM_TYPE": "Type of Alarm",
@@ -421,6 +423,250 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
+        "content": "<h2><center>All Interfaces Stats</center><h2>",
+        "mode": "html"
+      },
+      "pluginVersion": "10.3.1",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 27
+      },
+      "id": 1230,
+      "panels": [],
+      "title": "All Interfaces Stats",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "jtsuid2"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 24,
+        "x": 0,
+        "y": 28
+      },
+      "id": 1228,
+      "options": {
+        "legend": {
+          "calcs": [
+            "last",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true,
+          "sortBy": "Last",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "INTERFACES_in_octets_rate{SHORTNAME=~\"$rtr\", if_unit=\"\"} * 8",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "{{if_name}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Input All Interfaces",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "jtsuid2"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bps",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 24,
+        "x": 0,
+        "y": 44
+      },
+      "id": 1229,
+      "options": {
+        "legend": {
+          "calcs": [
+            "last",
+            "min",
+            "max"
+          ],
+          "displayMode": "table",
+          "placement": "right",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "INTERFACES_out_octets_rate{SHORTNAME=~\"$rtr\", if_unit=\"\"} * 8",
+          "format": "time_series",
+          "instant": false,
+          "legendFormat": "{{if_name}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Output All Interfaces",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "jtsuid2"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 60
+      },
+      "id": 1789,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
         "content": "<h2><center>Per Interface details</center><h2>",
         "mode": "html"
       },
@@ -434,227 +680,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 27
-      },
-      "id": 1230,
-      "panels": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 2,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "bps",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 16,
-            "w": 24,
-            "x": 0,
-            "y": 16
-          },
-          "id": 1228,
-          "options": {
-            "legend": {
-              "calcs": [
-                "last",
-                "min",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true,
-              "sortBy": "Last",
-              "sortDesc": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
-              },
-              "editorMode": "code",
-              "expr": "INTERFACES_in_octets_rate{SHORTNAME=~\"$rtr\", if_unit=\"\"} * 8",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "{{if_name}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Input All Interfaces",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisBorderShow": false,
-                "axisCenteredZero": false,
-                "axisColorMode": "text",
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "insertNulls": false,
-                "lineInterpolation": "linear",
-                "lineWidth": 2,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "never",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "bps",
-              "unitScale": true
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 16,
-            "w": 24,
-            "x": 0,
-            "y": 32
-          },
-          "id": 1229,
-          "options": {
-            "legend": {
-              "calcs": [
-                "last",
-                "min",
-                "max"
-              ],
-              "displayMode": "table",
-              "placement": "right",
-              "showLegend": true
-            },
-            "tooltip": {
-              "mode": "multi",
-              "sort": "none"
-            }
-          },
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "jtsuid2"
-              },
-              "editorMode": "code",
-              "expr": "INTERFACES_out_octets_rate{SHORTNAME=~\"$rtr\", if_unit=\"\"} * 8",
-              "format": "time_series",
-              "instant": false,
-              "legendFormat": "{{if_name}}",
-              "range": true,
-              "refId": "A"
-            }
-          ],
-          "title": "Output All Interfaces",
-          "type": "timeseries"
-        }
-      ],
-      "title": "All Interfaces Stats",
-      "type": "row"
-    },
-    {
-      "collapsed": true,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 28
+        "y": 62
       },
       "id": 13,
       "panels": [
@@ -668,7 +694,7 @@
             "h": 2,
             "w": 24,
             "x": 0,
-            "y": 48
+            "y": 29
           },
           "id": 51,
           "options": {
@@ -750,7 +776,7 @@
             "h": 12,
             "w": 24,
             "x": 0,
-            "y": 50
+            "y": 31
           },
           "id": 2,
           "options": {
@@ -777,7 +803,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "INTERFACES_in_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"} * 8",
+              "expr": "INTERFACES_in_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"} * 8",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Input Bps",
@@ -790,7 +816,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "INTERFACES_out_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"} * 8",
+              "expr": "INTERFACES_out_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"} * 8",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Output Bps",
@@ -873,7 +899,7 @@
             "h": 15,
             "w": 12,
             "x": 0,
-            "y": 62
+            "y": 43
           },
           "id": 3,
           "options": {
@@ -900,7 +926,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "INTERFACES_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
+              "expr": "INTERFACES_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Input pps",
@@ -913,7 +939,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "INTERFACES_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
+              "expr": "INTERFACES_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Output pps",
@@ -996,7 +1022,7 @@
             "h": 15,
             "w": 12,
             "x": 12,
-            "y": 62
+            "y": 43
           },
           "id": 53,
           "options": {
@@ -1023,7 +1049,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "sum(INTERFACES_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) - (sum(INTERFACES_bcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) + sum(INTERFACES_mcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}))",
+              "expr": "sum(INTERFACES_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}) - (sum(INTERFACES_bcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}) + sum(INTERFACES_mcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}))",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Unicast Input pps",
@@ -1036,7 +1062,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "sum(INTERFACES_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) - (sum(INTERFACES_bcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) + sum(INTERFACES_mcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}))",
+              "expr": "sum(INTERFACES_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}) - (sum(INTERFACES_bcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}) + sum(INTERFACES_mcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}))",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Unicast Output pps",
@@ -1049,7 +1075,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "INTERFACES_mcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
+              "expr": "INTERFACES_mcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Mcast Input pps",
@@ -1062,7 +1088,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "INTERFACES_mcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
+              "expr": "INTERFACES_mcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Mcast Output pps",
@@ -1075,7 +1101,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "INTERFACES_bcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
+              "expr": "INTERFACES_bcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Bcast Input pps",
@@ -1088,7 +1114,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "INTERFACES_bcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
+              "expr": "INTERFACES_bcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Bcast Output pps",
@@ -1154,7 +1180,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1171,7 +1198,7 @@
             "h": 12,
             "w": 24,
             "x": 0,
-            "y": 77
+            "y": 58
           },
           "id": 7,
           "options": {
@@ -1200,7 +1227,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_red_dropped_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"})",
+              "expr": "sum by (queue_id) (INTERFACES_cos_red_dropped_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"})",
               "format": "time_series",
               "instant": false,
               "legendFormat": "RED Drop pps - Q{{queue_id}}",
@@ -1213,7 +1240,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_tail_dropped_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"})",
+              "expr": "sum by (queue_id) (INTERFACES_cos_tail_dropped_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"})",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Tail Drop pps - Q{{queue_id}}",
@@ -1234,7 +1261,7 @@
             "h": 2,
             "w": 24,
             "x": 0,
-            "y": 89
+            "y": 70
           },
           "id": 52,
           "options": {
@@ -1268,7 +1295,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "yellow",
@@ -1293,7 +1321,7 @@
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 91
+            "y": 72
           },
           "id": 9,
           "options": {
@@ -1322,7 +1350,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_buffer_cur{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) / sum by (queue_id) (INTERFACES_cos_buffer_size{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) * 100",
+              "expr": "sum by (queue_id) (INTERFACES_cos_buffer_cur{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}) / sum by (queue_id) (INTERFACES_cos_buffer_size{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}) * 100",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Q{{queue_id}}",
@@ -1351,7 +1379,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "yellow",
@@ -1376,7 +1405,7 @@
             "h": 6,
             "w": 9,
             "x": 9,
-            "y": 91
+            "y": 72
           },
           "id": 54,
           "options": {
@@ -1405,7 +1434,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_buffer_peak{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) / sum by (queue_id) (INTERFACES_cos_buffer_size{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) * 100",
+              "expr": "sum by (queue_id) (INTERFACES_cos_buffer_peak{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}) / sum by (queue_id) (INTERFACES_cos_buffer_size{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}) * 100",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Q{{queue_id}}",
@@ -1443,7 +1472,7 @@
             "h": 22,
             "w": 6,
             "x": 18,
-            "y": 91
+            "y": 72
           },
           "id": 11,
           "options": {
@@ -1479,7 +1508,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_forwarded_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"} * 8)",
+              "expr": "sum by (queue_id) (INTERFACES_cos_forwarded_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"} * 8)",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Q{{queue_id}}",
@@ -1508,7 +1537,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "yellow",
@@ -1533,7 +1563,7 @@
             "h": 6,
             "w": 9,
             "x": 0,
-            "y": 97
+            "y": 78
           },
           "id": 56,
           "options": {
@@ -1562,7 +1592,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "max by (queue_id) (JUNOS_QMON_voq_cos_buffer_cur_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\"})",
+              "expr": "max by (queue_id) (JUNOS_QMON_voq_cos_buffer_cur_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\"})",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Q{{queue_id}}",
@@ -1591,7 +1621,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "yellow",
@@ -1616,7 +1647,7 @@
             "h": 6,
             "w": 9,
             "x": 9,
-            "y": 97
+            "y": 78
           },
           "id": 57,
           "options": {
@@ -1645,7 +1676,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "max by (queue_id) (JUNOS_QMON_voq_cos_buffer_peak_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\"})",
+              "expr": "max by (queue_id) (JUNOS_QMON_voq_cos_buffer_peak_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\"})",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Q{{queue_id}}",
@@ -1706,7 +1737,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "yellow",
@@ -1731,7 +1763,7 @@
             "h": 10,
             "w": 9,
             "x": 0,
-            "y": 103
+            "y": 84
           },
           "id": 50,
           "options": {
@@ -1756,7 +1788,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_buffer_cur{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) / sum by (queue_id) (INTERFACES_cos_buffer_size{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) * 100",
+              "expr": "sum by (queue_id) (INTERFACES_cos_buffer_cur{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}) / sum by (queue_id) (INTERFACES_cos_buffer_size{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}) * 100",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Queue Utilization {{queue_id}}",
@@ -1769,7 +1801,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "JUNOS_QMON_voq_cos_buffer_cur_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\"}",
+              "expr": "JUNOS_QMON_voq_cos_buffer_cur_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\"}",
               "format": "time_series",
               "instant": false,
               "legendFormat": "FPC {{_component_id}} PFE {{pfe_index}} VOQ Utilization {{queue_id}}",
@@ -1831,7 +1863,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "yellow",
@@ -1856,7 +1889,7 @@
             "h": 10,
             "w": 9,
             "x": 9,
-            "y": 103
+            "y": 84
           },
           "id": 55,
           "options": {
@@ -1881,7 +1914,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_buffer_peak{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) / sum by (queue_id) (INTERFACES_cos_buffer_size{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) * 100",
+              "expr": "sum by (queue_id) (INTERFACES_cos_buffer_peak{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}) / sum by (queue_id) (INTERFACES_cos_buffer_size{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}) * 100",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Queue Utilization {{queue_id}}",
@@ -1894,7 +1927,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "JUNOS_QMON_voq_cos_buffer_peak_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\"}",
+              "expr": "JUNOS_QMON_voq_cos_buffer_peak_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\"}",
               "format": "time_series",
               "instant": false,
               "legendFormat": "FPC {{_component_id}} PFE {{pfe_index}} VOQ Utilization {{queue_id}}",
@@ -1953,7 +1986,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -1970,7 +2004,7 @@
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 113
+            "y": 94
           },
           "id": 48,
           "options": {
@@ -1998,7 +2032,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_queued_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"} * 8)",
+              "expr": "sum by (queue_id) (INTERFACES_cos_queued_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"} * 8)",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Input Bps - Q{{queue_id}}",
@@ -2063,7 +2097,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2080,7 +2115,7 @@
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 113
+            "y": 94
           },
           "id": 4,
           "options": {
@@ -2108,7 +2143,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_forwarded_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"} * 8)",
+              "expr": "sum by (queue_id) (INTERFACES_cos_forwarded_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"} * 8)",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Input Bps - Q{{queue_id}}",
@@ -2173,7 +2208,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2190,7 +2226,7 @@
             "h": 12,
             "w": 12,
             "x": 0,
-            "y": 125
+            "y": 106
           },
           "id": 49,
           "options": {
@@ -2218,7 +2254,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_queued_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"})",
+              "expr": "sum by (queue_id) (INTERFACES_cos_queued_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"})",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Input pps - Q{{queue_id}}",
@@ -2283,7 +2319,8 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green"
+                    "color": "green",
+                    "value": null
                   },
                   {
                     "color": "red",
@@ -2300,7 +2337,7 @@
             "h": 12,
             "w": 12,
             "x": 12,
-            "y": 125
+            "y": 106
           },
           "id": 5,
           "options": {
@@ -2328,7 +2365,7 @@
                 "uid": "jtsuid2"
               },
               "editorMode": "code",
-              "expr": "sum by (queue_id) (INTERFACES_cos_forwarded_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"})",
+              "expr": "sum by (queue_id) (INTERFACES_cos_forwarded_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"})",
               "format": "time_series",
               "instant": false,
               "legendFormat": "Input pps - Q{{queue_id}}",
@@ -2352,7 +2389,7 @@
       "type": "row"
     }
   ],
-  "refresh": "1m",
+  "refresh": "30s",
   "revision": 1,
   "schemaVersion": 39,
   "tags": [],
@@ -2360,9 +2397,9 @@
     "list": [
       {
         "current": {
-          "selected": true,
-          "text": "",
-          "value": ""
+          "selected": false,
+          "text": "rtme-mx304-06",
+          "value": "rtme-mx304-06"
         },
         "datasource": {
           "type": "prometheus",
@@ -2473,6 +2510,6 @@
   "timezone": "",
   "title": "PHYSICAL IF. INTERFACES MONITORING PROFILE - JTS",
   "uid": "trafficdashboard",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
