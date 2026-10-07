@@ -258,7 +258,7 @@
                 {
                     "type": 1,
                     "from": "/components/component/power-supply/state/output-power",
-                    "to": "output_power"
+                    "to": "power_supply_output_power"
                 }
             ]
         }
