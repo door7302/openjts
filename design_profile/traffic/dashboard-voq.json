@@ -183,11 +183,11 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "queue_name": true,
+              "Time": true,
               "__name__": true,
-              "job": true,
               "instance": true,
-              "Time": true
+              "job": true,
+              "queue_name": true
             },
             "indexByName": {},
             "renameByName": {
@@ -371,12 +371,29 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "queue_name": true,
               "__name__": true,
+              "_component_id": true,
+              "device": true,
+              "if_name": true,
+              "instance": true,
               "job": true,
-              "instance": true
+              "queue_name": true
             },
-            "indexByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "ALARM_TYPE": 2,
+              "LINKNAME": 3,
+              "SHORTNAME": 1,
+              "Time": 0,
+              "Value": 11,
+              "__name__": 4,
+              "_component_id": 5,
+              "device": 6,
+              "if_name": 7,
+              "instance": 8,
+              "job": 9,
+              "queue_id": 10
+            },
             "renameByName": {
               "ALARM_TYPE": "Type of Alarm",
               "LINKNAME": "PORT",
@@ -509,7 +526,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_in_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"} * 8",
+          "expr": "INTERFACES_in_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"} * 8",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Input Bps",
@@ -522,7 +539,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_out_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"} * 8",
+          "expr": "INTERFACES_out_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"} * 8",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Output Bps",
@@ -602,7 +619,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "sum by (queue_id) (INTERFACES_cos_forwarded_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"} * 8)",
+          "expr": "sum by (queue_id) (INTERFACES_cos_forwarded_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"} * 8)",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Q{{queue_id}}",
@@ -706,7 +723,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
+          "expr": "INTERFACES_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Input pps",
@@ -719,7 +736,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
+          "expr": "INTERFACES_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Output pps",
@@ -829,7 +846,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "sum(INTERFACES_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) - (sum(INTERFACES_bcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) + sum(INTERFACES_mcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}))",
+          "expr": "sum(INTERFACES_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}) - (sum(INTERFACES_bcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}) + sum(INTERFACES_mcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}))",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Unicast Input pps",
@@ -842,7 +859,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "sum(INTERFACES_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) - (sum(INTERFACES_bcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}) + sum(INTERFACES_mcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}))",
+          "expr": "sum(INTERFACES_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}) - (sum(INTERFACES_bcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}) + sum(INTERFACES_mcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}))",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Unicast Output pps",
@@ -855,7 +872,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_mcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
+          "expr": "INTERFACES_mcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Mcast Input pps",
@@ -868,7 +885,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_mcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
+          "expr": "INTERFACES_mcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Mcast Output pps",
@@ -881,7 +898,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_bcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
+          "expr": "INTERFACES_bcast_in_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Bcast Input pps",
@@ -894,7 +911,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_bcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"}",
+          "expr": "INTERFACES_bcast_out_pkts_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Bcast Output pps",
@@ -1031,7 +1048,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "sum by (queue_id) (INTERFACES_cos_forwarded_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"} * 8)",
+          "expr": "sum by (queue_id) (INTERFACES_cos_forwarded_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"} * 8)",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Input Bps - Q{{queue_id}}",
@@ -1142,7 +1159,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "sum by (queue_id) (INTERFACES_cos_forwarded_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"})",
+          "expr": "sum by (queue_id) (INTERFACES_cos_forwarded_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"})",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Input pps - Q{{queue_id}}",
@@ -1255,7 +1272,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "sum by (queue_id) (INTERFACES_cos_red_dropped_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"})",
+          "expr": "sum by (queue_id) (INTERFACES_cos_red_dropped_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"})",
           "format": "time_series",
           "instant": false,
           "legendFormat": "RED Drop pps - Q{{queue_id}}",
@@ -1268,7 +1285,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "sum by (queue_id) (INTERFACES_cos_tail_dropped_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\", if_unit=\"\"})",
+          "expr": "sum by (queue_id) (INTERFACES_cos_tail_dropped_packets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\", if_unit=\"\"})",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Tail Drop pps - Q{{queue_id}}",
@@ -1453,7 +1470,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "JUNOS_QMON_voq_cos_buffer_cur_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\"}",
+          "expr": "JUNOS_QMON_voq_cos_buffer_cur_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "FPC {{_component_id}} PFE {{pfe_index}} Q{{queue_id}}",
@@ -1537,7 +1554,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "JUNOS_QMON_voq_cos_buffer_avg_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\"}",
+          "expr": "JUNOS_QMON_voq_cos_buffer_avg_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "FPC {{_component_id}} PFE {{pfe_index}} Q{{queue_id}}",
@@ -1621,7 +1638,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "JUNOS_QMON_voq_cos_buffer_peak_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\"}",
+          "expr": "JUNOS_QMON_voq_cos_buffer_peak_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "FPC {{_component_id}} PFE {{pfe_index}} Q{{queue_id}}",
@@ -1733,7 +1750,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "JUNOS_QMON_voq_cos_buffer_cur_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\"}",
+          "expr": "JUNOS_QMON_voq_cos_buffer_cur_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "FPC {{_component_id}} PFE {{pfe_index}} VOQ Utilization {{queue_id}}",
@@ -1845,7 +1862,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "JUNOS_QMON_voq_cos_buffer_avg_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\"}",
+          "expr": "JUNOS_QMON_voq_cos_buffer_avg_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "FPC {{_component_id}} PFE {{pfe_index}} VOQ Utilization {{queue_id}}",
@@ -1957,7 +1974,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "JUNOS_QMON_voq_cos_buffer_peak_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:regex}).*\"}",
+          "expr": "JUNOS_QMON_voq_cos_buffer_peak_percent{SHORTNAME=~\"$rtr\", LINKNAME=~\".*(${ifname:pipe}).*\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "FPC {{_component_id}} PFE {{pfe_index}} VOQ Utilization {{queue_id}}",
@@ -1978,8 +1995,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "rtme-ptx10001-36mr-10",
+          "value": "rtme-ptx10001-36mr-10"
         },
         "datasource": {
           "type": "prometheus",
@@ -2006,8 +2023,8 @@
       {
         "current": {
           "selected": true,
-          "text": "",
-          "value": ""
+          "text": "et-0/0/1 - TO_MX304_0/0/3",
+          "value": "et-0/0/1 - TO_MX304_0/0/3"
         },
         "datasource": {
           "type": "prometheus",
@@ -2036,7 +2053,7 @@
         "auto_count": 30,
         "auto_min": "31s",
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "1m",
           "value": "1m"
         },
@@ -2086,6 +2103,6 @@
   "timezone": "",
   "title": "VoQ SYSTEM (PTX) MONITORING PROFILE - JTS",
   "uid": "trafficvoqdashboard",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }

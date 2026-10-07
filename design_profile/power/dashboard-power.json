@@ -134,17 +134,42 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "FAMILY": true,
+              "Time": true,
+              "Value": true,
               "__name__": true,
+              "_component_id": true,
+              "_subcomponent_id": true,
+              "component": true,
+              "component_name": true,
+              "device": true,
+              "host": true,
               "instance": true,
               "job": true,
-              "Time": true,
-              "component_name": true,
-              "Value": true
+              "path": true
             },
-            "indexByName": {},
+            "includeByName": {},
+            "indexByName": {
+              "FAMILY": 1,
+              "MODEL": 3,
+              "SHORTNAME": 2,
+              "Time": 0,
+              "VERSION": 4,
+              "Value": 15,
+              "__name__": 5,
+              "_component_id": 6,
+              "_subcomponent_id": 7,
+              "component": 8,
+              "component_name": 9,
+              "device": 10,
+              "host": 11,
+              "instance": 12,
+              "job": 13,
+              "path": 14
+            },
             "renameByName": {
-              "Value": "",
               "SHORTNAME": "Router",
+              "Value": "",
               "component_name": "Component"
             }
           }
@@ -349,25 +374,12 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "sum(COMPONENTS_power_zone_0_usage{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*chassis.*\"}) + sum(COMPONENTS_power_zone_1_usage{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*chassis.*\"}) + sum(COMPONENTS_power_system_usage{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*chassis.*\"})",
+          "expr": "(sum(COMPONENTS_power_zone_0_usage{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*chassis.*\"}) or vector(0))\n+ (sum(COMPONENTS_power_zone_1_usage{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*chassis.*\"}) or vector(0))\n+ (sum(COMPONENTS_power_system_usage{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*chassis.*\"}) or vector(0))",
           "format": "time_series",
           "instant": false,
           "legendFormat": "System Usage",
           "range": true,
           "refId": "E"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "editorMode": "code",
-          "expr": "sum(COMPONENTS_power_zone_0_allocated{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*chassis.*\"}) + sum(COMPONENTS_power_zone_1_allocated{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*chassis.*\"})",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "System Alloc. Zones",
-          "range": true,
-          "refId": "F"
         }
       ],
       "title": "Chassis Power Details",
@@ -768,6 +780,30 @@
     },
     {
       "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 19
+      },
+      "id": 33,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h3><center>Overall Traffic Stats</center></h3>\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.3.1",
+      "type": "text"
+    },
+    {
+      "datasource": {
         "type": "prometheus",
         "uid": "jtsuid2"
       },
@@ -833,7 +869,7 @@
         "h": 10,
         "w": 7,
         "x": 0,
-        "y": 19
+        "y": 21
       },
       "id": 26,
       "options": {
@@ -864,6 +900,7 @@
           "editorMode": "code",
           "expr": "sum(INTERFACES_in_octets_rate{SHORTNAME=~\"$SHORTNAME\"}) * 8",
           "format": "time_series",
+          "hide": false,
           "instant": false,
           "legendFormat": "Total Traffic bps",
           "range": true,
@@ -940,7 +977,7 @@
         "h": 10,
         "w": 7,
         "x": 7,
-        "y": 19
+        "y": 21
       },
       "id": 27,
       "options": {
@@ -971,6 +1008,7 @@
           "editorMode": "code",
           "expr": "sum(INTERFACES_in_pkts_rate{SHORTNAME=~\"$SHORTNAME\"})",
           "format": "time_series",
+          "hide": false,
           "instant": false,
           "legendFormat": "Total Traffic pps",
           "range": true,
@@ -1047,7 +1085,7 @@
         "h": 10,
         "w": 10,
         "x": 14,
-        "y": 19
+        "y": 21
       },
       "id": 28,
       "options": {
@@ -1076,7 +1114,8 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "(sum(COMPONENTS_power_zone_0_usage{SHORTNAME=~\"$SHORTNAME\"}) + sum(COMPONENTS_power_zone_1_usage{SHORTNAME=~\"$SHORTNAME\"}) + sum(COMPONENTS_power_system_usage{SHORTNAME=~\"$SHORTNAME\"})) / (sum(INTERFACES_in_octets_rate{SHORTNAME=~\"$SHORTNAME\"}) * 8 / 1000000000)",
+          "exemplar": false,
+          "expr": "(\n  (sum(COMPONENTS_power_zone_0_usage{SHORTNAME=~\"$SHORTNAME\"}) or vector(0))\n  + (sum(COMPONENTS_power_zone_1_usage{SHORTNAME=~\"$SHORTNAME\"}) or vector(0))\n  + (sum(COMPONENTS_power_system_usage{SHORTNAME=~\"$SHORTNAME\"}) or vector(0))\n)\n/\n(\n  (sum(INTERFACES_in_octets_rate{SHORTNAME=~\"$SHORTNAME\", if_unit=\"\"}) or vector(0)) * 8 / 1e9\n  > 0\n)",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Watts/Gbps",
@@ -1086,6 +1125,30 @@
       ],
       "title": "Ratio Watts/Gbps - $SHORTNAME",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 31
+      },
+      "id": 31,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h3><center>Overall Power Numbers</center></h3>\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.3.1",
+      "type": "text"
     },
     {
       "datasource": {
@@ -1149,10 +1212,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 11,
-        "w": 24,
+        "h": 14,
+        "w": 8,
         "x": 0,
-        "y": 29
+        "y": 33
       },
       "id": 3,
       "options": {
@@ -1164,7 +1227,7 @@
             "mean"
           ],
           "displayMode": "table",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true,
           "sortBy": "Min",
           "sortDesc": false
@@ -1281,10 +1344,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 15,
-        "w": 15,
-        "x": 0,
-        "y": 40
+        "h": 14,
+        "w": 9,
+        "x": 8,
+        "y": 33
       },
       "id": 7,
       "options": {
@@ -1326,6 +1389,7 @@
           "editorMode": "code",
           "expr": "COMPONENTS_used_power{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*(PSM|PDM|PEM).*\"}",
           "format": "time_series",
+          "hide": true,
           "instant": false,
           "legendFormat": "{{component_name}} Used Power",
           "range": true,
@@ -1365,6 +1429,7 @@
           "editorMode": "code",
           "expr": "COMPONENTS_output_power{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*(PSM|PDM|PEM).*\"}",
           "format": "time_series",
+          "hide": true,
           "instant": false,
           "legendFormat": "{{component_name}} Output Power",
           "range": true,
@@ -1423,10 +1488,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 15,
-        "w": 9,
-        "x": 15,
-        "y": 40
+        "h": 14,
+        "w": 7,
+        "x": 17,
+        "y": 33
       },
       "id": 25,
       "options": {
@@ -1442,7 +1507,7 @@
             "value"
           ]
         },
-        "pieType": "pie",
+        "pieType": "donut",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -1478,6 +1543,7 @@
           "editorMode": "code",
           "expr": "COMPONENTS_output_power{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*(PSM|PDM|PEM).*\"}",
           "format": "time_series",
+          "hide": true,
           "instant": false,
           "legendFormat": "{{component_name}} Output Power",
           "range": true,
@@ -1517,6 +1583,7 @@
           "editorMode": "code",
           "expr": "COMPONENTS_used_power{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*(PSM|PDM|PEM).*\"}",
           "format": "time_series",
+          "hide": true,
           "instant": false,
           "legendFormat": "{{component_name}} Used Power",
           "range": true,
@@ -1546,6 +1613,30 @@
         }
       ],
       "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 47
+      },
+      "id": 32,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h3><center>Components Temperature</center></h3>\n",
+        "mode": "markdown"
+      },
+      "pluginVersion": "10.3.1",
+      "type": "text"
     },
     {
       "datasource": {
@@ -1613,7 +1704,7 @@
         "h": 17,
         "w": 24,
         "x": 0,
-        "y": 55
+        "y": 49
       },
       "id": 22,
       "options": {
@@ -1680,7 +1771,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 72
+        "y": 66
       },
       "id": 5,
       "panels": [],
@@ -1698,7 +1789,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 73
+        "y": 67
       },
       "id": 18,
       "options": {
@@ -1766,7 +1857,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 75
+        "y": 69
       },
       "id": 6,
       "options": {
@@ -1796,22 +1887,9 @@
           "legendFormat": "__auto",
           "range": false,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "editorMode": "code",
-          "expr": "COMPONENTS_power_maximum{SHORTNAME=~\"$SHORTNAME\", component_name=~\".*FPC+[0-9]\"}",
-          "format": "table",
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "B"
         }
       ],
-      "title": "FPC - $SHORTNAME",
+      "title": "FPC Used Power - $SHORTNAME",
       "transformations": [
         {
           "id": "merge",
@@ -1821,14 +1899,26 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "FAMILY": true,
+              "HW_TYPE": true,
+              "MODEL": true,
+              "SHORTNAME": true,
+              "Time": true,
+              "VERSION": true,
               "__name__": true,
+              "_component_id": true,
+              "_subcomponent_id": true,
+              "component": true,
+              "device": true,
+              "host": true,
               "instance": true,
               "job": true,
-              "Time": true,
-              "SHORTNAME": true
+              "path": true
             },
+            "includeByName": {},
             "indexByName": {},
             "renameByName": {
+              "Value": "Current Used Power",
               "Value #A": "Current Power Usage",
               "Value #B": "Maximum Power ",
               "component_name": "FPC Slot"
@@ -1901,10 +1991,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 11,
+        "h": 22,
         "w": 17,
         "x": 7,
-        "y": 75
+        "y": 69
       },
       "id": 17,
       "options": {
@@ -1965,6 +2055,109 @@
     },
     {
       "datasource": {
+        "type": "prometheus",
+        "uid": "jtsuid2"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "semi-dark-blue",
+                "value": null
+              }
+            ]
+          },
+          "unit": "watt",
+          "unitScale": true
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 7,
+        "x": 0,
+        "y": 80
+      },
+      "id": 30,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "10.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_power_maximum{SHORTNAME=~\"$SHORTNAME\", component_name=~\".*FPC+[0-9]\"}",
+          "format": "table",
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        }
+      ],
+      "title": "FPC Max Power - $SHORTNAME",
+      "transformations": [
+        {
+          "id": "merge",
+          "options": {}
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "FAMILY": true,
+              "HW_TYPE": true,
+              "MODEL": true,
+              "SHORTNAME": true,
+              "Time": true,
+              "VERSION": true,
+              "__name__": true,
+              "_component_id": true,
+              "_subcomponent_id": true,
+              "component": true,
+              "device": true,
+              "host": true,
+              "instance": true,
+              "job": true,
+              "path": true
+            },
+            "includeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Value": "Maximum Power",
+              "Value #A": "Current Power Usage",
+              "Value #B": "Maximum Power ",
+              "component_name": "FPC Slot"
+            }
+          }
+        }
+      ],
+      "type": "stat"
+    },
+    {
+      "datasource": {
         "type": "datasource",
         "uid": "grafana"
       },
@@ -1972,7 +2165,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 86
+        "y": 91
       },
       "id": 19,
       "options": {
@@ -2040,7 +2233,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 88
+        "y": 93
       },
       "id": 8,
       "options": {
@@ -2082,14 +2275,25 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "FAMILY": true,
+              "MODEL": true,
+              "SHORTNAME": true,
+              "Time": true,
+              "VERSION": true,
               "__name__": true,
+              "_component_id": true,
+              "_subcomponent_id": true,
+              "component": true,
+              "device": true,
+              "host": true,
               "instance": true,
               "job": true,
-              "Time": true,
-              "SHORTNAME": true
+              "path": true
             },
+            "includeByName": {},
             "indexByName": {},
             "renameByName": {
+              "Value": "Current Used Power",
               "Value #A": "Current Power Usage",
               "component_name": "Fan Name"
             }
@@ -2164,7 +2368,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 88
+        "y": 93
       },
       "id": 9,
       "options": {
@@ -2266,7 +2470,7 @@
         "h": 17,
         "w": 12,
         "x": 0,
-        "y": 99
+        "y": 104
       },
       "id": 15,
       "options": {
@@ -2368,7 +2572,7 @@
         "h": 17,
         "w": 12,
         "x": 12,
-        "y": 99
+        "y": 104
       },
       "id": 16,
       "options": {
@@ -2413,7 +2617,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 116
+        "y": 121
       },
       "id": 20,
       "options": {
@@ -2481,7 +2685,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 118
+        "y": 123
       },
       "id": 12,
       "options": {
@@ -2523,14 +2727,25 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "FAMILY": true,
+              "MODEL": true,
+              "SHORTNAME": true,
+              "Time": true,
+              "VERSION": true,
               "__name__": true,
+              "_component_id": true,
+              "_subcomponent_id": true,
+              "component": true,
+              "device": true,
+              "host": true,
               "instance": true,
               "job": true,
-              "Time": true,
-              "SHORTNAME": true
+              "path": true
             },
+            "includeByName": {},
             "indexByName": {},
             "renameByName": {
+              "Value": "Current Used Power",
               "Value #A": "Current Power Usage",
               "component_name": "Component Name"
             }
@@ -2605,7 +2820,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 118
+        "y": 123
       },
       "id": 11,
       "options": {
@@ -2673,7 +2888,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 129
+        "y": 134
       },
       "id": 21,
       "options": {
@@ -2741,7 +2956,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 131
+        "y": 136
       },
       "id": 10,
       "options": {
@@ -2768,6 +2983,7 @@
           "editorMode": "code",
           "expr": "COMPONENTS_used_power{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*(PSM|PDM|PEM).*\"}",
           "format": "table",
+          "hide": true,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -2781,6 +2997,7 @@
           "editorMode": "code",
           "expr": "COMPONENTS_output_power{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*(PSM|PDM|PEM).*\"}",
           "format": "table",
+          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -2797,14 +3014,25 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "FAMILY": true,
+              "MODEL": true,
+              "SHORTNAME": true,
+              "Time": true,
+              "VERSION": true,
               "__name__": true,
+              "_component_id": true,
+              "_subcomponent_id": true,
+              "component": true,
+              "device": true,
+              "host": true,
               "instance": true,
               "job": true,
-              "Time": true,
-              "SHORTNAME": true
+              "path": true
             },
+            "includeByName": {},
             "indexByName": {},
             "renameByName": {
+              "Value": "Output Power",
               "Value #A": "Current Output Power",
               "Value #B": "Maximum Power ",
               "component_name": "PEM"
@@ -2880,7 +3108,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 131
+        "y": 136
       },
       "id": 13,
       "options": {
@@ -2960,9 +3188,9 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "octomore-svl-plat-01",
-          "value": "octomore-svl-plat-01"
+          "selected": true,
+          "text": "rtme-mx304-06",
+          "value": "rtme-mx304-06"
         },
         "datasource": {
           "type": "prometheus",
@@ -2989,13 +3217,13 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "POWER EXTENSIVE PROFILE - JTS",
   "uid": "powerextdashboard",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
