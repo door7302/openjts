@@ -447,9 +447,8 @@
             ]
         }
     ],
-    "influx_outputs": [
+    "prometheus_outputs": [
         {
-            "retention": "autogen",
             "fieldpass": [
                 "exception",
                 "in_octets_rate",

@@ -785,8 +785,8 @@
       {
         "current": {
           "selected": false,
-          "text": "rtme-mx304-06",
-          "value": "rtme-mx304-06"
+          "text": "rtme-ptx10001-36mr-10",
+          "value": "rtme-ptx10001-36mr-10"
         },
         "datasource": {
           "type": "prometheus",
@@ -840,7 +840,7 @@
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
-        "sort": 0,
+        "sort": 1,
         "type": "query"
       },
       {
@@ -873,7 +873,7 @@
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
-        "sort": 0,
+        "sort": 1,
         "type": "query"
       }
     ]

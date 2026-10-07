@@ -144,9 +144,7 @@
             "level1_tag": "device"
         }
     ],
-    "influx_outputs": [
-        {
-            "retention": "autogen",
+  "prometheus_outputs": [{
             "fieldpass": [
                 "last_test_time",
                 "loss_percentage",
