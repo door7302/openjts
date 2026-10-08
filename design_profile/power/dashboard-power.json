@@ -1358,7 +1358,7 @@
             "max"
           ],
           "displayMode": "table",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true
         },
         "tooltip": {
@@ -1500,7 +1500,7 @@
         ],
         "legend": {
           "displayMode": "table",
-          "placement": "right",
+          "placement": "bottom",
           "showLegend": true,
           "values": [
             "percent",
@@ -1854,7 +1854,7 @@
         ]
       },
       "gridPos": {
-        "h": 11,
+        "h": 8,
         "w": 7,
         "x": 0,
         "y": 69
@@ -1991,7 +1991,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 22,
+        "h": 16,
         "w": 17,
         "x": 7,
         "y": 69
@@ -2079,10 +2079,10 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 11,
+        "h": 8,
         "w": 7,
         "x": 0,
-        "y": 80
+        "y": 77
       },
       "id": 30,
       "options": {
@@ -2165,7 +2165,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 91
+        "y": 85
       },
       "id": 19,
       "options": {
@@ -2233,7 +2233,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 93
+        "y": 87
       },
       "id": 8,
       "options": {
@@ -2368,7 +2368,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 93
+        "y": 87
       },
       "id": 9,
       "options": {
@@ -2470,7 +2470,7 @@
         "h": 17,
         "w": 12,
         "x": 0,
-        "y": 104
+        "y": 98
       },
       "id": 15,
       "options": {
@@ -2572,7 +2572,7 @@
         "h": 17,
         "w": 12,
         "x": 12,
-        "y": 104
+        "y": 98
       },
       "id": 16,
       "options": {
@@ -2617,7 +2617,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 121
+        "y": 115
       },
       "id": 20,
       "options": {
@@ -2685,7 +2685,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 123
+        "y": 117
       },
       "id": 12,
       "options": {
@@ -2820,7 +2820,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 123
+        "y": 117
       },
       "id": 11,
       "options": {
@@ -2888,7 +2888,7 @@
         "h": 2,
         "w": 24,
         "x": 0,
-        "y": 134
+        "y": 128
       },
       "id": 21,
       "options": {
@@ -2956,7 +2956,7 @@
         "h": 11,
         "w": 7,
         "x": 0,
-        "y": 136
+        "y": 130
       },
       "id": 10,
       "options": {
@@ -3050,227 +3050,6 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "align": "center",
-            "cellOptions": {
-              "type": "auto"
-            },
-            "inspect": false
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "none",
-          "unitScale": true
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "SHORTNAME"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 241
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "Time"
-            },
-            "properties": [
-              {
-                "id": "custom.width",
-                "value": 265
-              }
-            ]
-          }
-        ]
-      },
-      "gridPos": {
-        "h": 11,
-        "w": 11,
-        "x": 7,
-        "y": 136
-      },
-      "id": 34,
-      "options": {
-        "cellHeight": "sm",
-        "footer": {
-          "countRows": false,
-          "fields": "",
-          "reducer": [
-            "sum"
-          ],
-          "show": false
-        },
-        "frameIndex": 1,
-        "showHeader": true,
-        "sortBy": []
-      },
-      "pluginVersion": "10.3.1",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "editorMode": "code",
-          "expr": "COMPONENTS_power_supply_input_current{SHORTNAME=~\"$SHORTNAME\"}",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "COMPONENTS_power_supply_input_voltage{SHORTNAME=~\"$SHORTNAME\"}",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "COMPONENTS_power_supply_output_current{SHORTNAME=~\"$SHORTNAME\"}",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "C"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "editorMode": "code",
-          "exemplar": false,
-          "expr": "COMPONENTS_power_supply_output_voltage{SHORTNAME=~\"$SHORTNAME\"}",
-          "format": "table",
-          "hide": false,
-          "instant": true,
-          "legendFormat": "__auto",
-          "range": false,
-          "refId": "D"
-        }
-      ],
-      "title": "PEM - $SHORTNAME",
-      "transformations": [
-        {
-          "id": "merge",
-          "options": {}
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {
-              "FAMILY": true,
-              "MODEL": true,
-              "SHORTNAME": true,
-              "Time": true,
-              "VERSION": true,
-              "Value #C": false,
-              "__name__": true,
-              "_component_id": true,
-              "_subcomponent_id": true,
-              "component": true,
-              "component_name": false,
-              "device": true,
-              "host": true,
-              "instance": true,
-              "job": true,
-              "path": true
-            },
-            "includeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "Value #A": "Input Voltage",
-              "Value #B": "Input Current",
-              "Value #C": "Output Current",
-              "Value #D": "Output Voltage",
-              "component": "",
-              "component_name": "Power Supply"
-            }
-          }
-        },
-        {
-          "id": "groupBy",
-          "options": {
-            "fields": {
-              "Input Current": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "Input Voltage": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "Output Current": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "Output Voltage": {
-                "aggregations": [
-                  "lastNotNull"
-                ],
-                "operation": "aggregate"
-              },
-              "Power Supply": {
-                "aggregations": [],
-                "operation": "groupby"
-              }
-            }
-          }
-        }
-      ],
-      "type": "table"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "jtsuid2"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
             "mode": "palette-classic"
           },
           "custom": {
@@ -3329,7 +3108,7 @@
         "h": 11,
         "w": 17,
         "x": 7,
-        "y": 147
+        "y": 130
       },
       "id": 13,
       "options": {
@@ -3409,7 +3188,7 @@
     "list": [
       {
         "current": {
-          "selected": true,
+          "selected": false,
           "text": "rtme-mx304-06",
           "value": "rtme-mx304-06"
         },
