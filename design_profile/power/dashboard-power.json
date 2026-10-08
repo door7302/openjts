@@ -2921,6 +2921,7 @@
             "inspect": false
           },
           "mappings": [],
+          "noValue": "NA",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -2941,20 +2942,56 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "SHORTNAME"
+              "options": "Input Current (lastNotNull)"
             },
             "properties": [
               {
-                "id": "custom.width",
-                "value": 241
+                "id": "unit",
+                "value": "amp"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Input Voltage (lastNotNull)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "volt"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Output Current (lastNotNull)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "amp"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Output Voltage (lastNotNull)"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "volt"
               }
             ]
           }
         ]
       },
       "gridPos": {
-        "h": 11,
-        "w": 7,
+        "h": 8,
+        "w": 24,
         "x": 0,
         "y": 130
       },
@@ -2981,9 +3018,23 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_used_power{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*(PSM|PDM|PEM).*\"}",
+          "expr": "COMPONENTS_power_supply_output_power{SHORTNAME=~\"$SHORTNAME\"}",
           "format": "table",
-          "hide": true,
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_power_supply_capacity{SHORTNAME=~\"$SHORTNAME\"}",
+          "format": "table",
+          "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
@@ -2995,13 +3046,55 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_output_power{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*(PSM|PDM|PEM).*\"}",
+          "expr": "COMPONENTS_power_supply_input_current{SHORTNAME=~\"$SHORTNAME\"}",
           "format": "table",
           "hide": false,
           "instant": true,
           "legendFormat": "__auto",
           "range": false,
-          "refId": "B"
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_power_supply_input_voltage{SHORTNAME=~\"$SHORTNAME\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_power_supply_output_current{SHORTNAME=~\"$SHORTNAME\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "E"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "jtsuid2"
+          },
+          "editorMode": "code",
+          "expr": "COMPONENTS_power_supply_output_voltage{SHORTNAME=~\"$SHORTNAME\"}",
+          "format": "table",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "F"
         }
       ],
       "title": "PEM - $SHORTNAME",
@@ -3033,9 +3126,60 @@
             "indexByName": {},
             "renameByName": {
               "Value": "Output Power",
-              "Value #A": "Current Output Power",
-              "Value #B": "Maximum Power ",
+              "Value #A": "Capacity",
+              "Value #B": "Output Power",
+              "Value #C": "Input Current",
+              "Value #D": "Input Voltage",
+              "Value #E": "Output Current",
+              "Value #F": "Output Voltage",
               "component_name": "PEM"
+            }
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "Capacity": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Input Current": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Input Voltage": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Output Current": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Output Power": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Output Voltage": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "PEM": {
+                "aggregations": [],
+                "operation": "groupby"
+              }
             }
           }
         }
@@ -3106,9 +3250,9 @@
       },
       "gridPos": {
         "h": 11,
-        "w": 17,
-        "x": 7,
-        "y": 130
+        "w": 24,
+        "x": 0,
+        "y": 138
       },
       "id": 13,
       "options": {
@@ -3135,20 +3279,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_used_power{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*(PSM|PDM|PEM).*\"}",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "{{component_name}} Used Power",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "editorMode": "code",
-          "expr": "COMPONENTS_output_power{SHORTNAME=~\"$SHORTNAME\", component_name=~\"(?i).*(PSM|PDM|PEM).*\"}",
+          "expr": "COMPONENTS_power_supply_output_power{SHORTNAME=~\"$SHORTNAME\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "{{component_name}} Output Power",
@@ -3224,6 +3355,6 @@
   "timezone": "",
   "title": "POWER EXTENSIVE PROFILE - JTS",
   "uid": "powerextdashboard",
-  "version": 1,
+  "version": 3,
   "weekStart": ""
 }
