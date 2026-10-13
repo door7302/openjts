@@ -192,9 +192,9 @@
             },
             "indexByName": {},
             "renameByName": {
-              "Value": "Cumulative Alarms",
               "ALARM_TYPE": "Type of Alarm",
               "Time": "Last Update",
+              "Value": "Cumulative Alarms",
               "if_name": "PORT"
             }
           }
@@ -292,9 +292,9 @@
             },
             "indexByName": {},
             "renameByName": {
-              "Value": "Errors observed",
               "ALARM_TYPE": "Type of Alarm",
               "Time": "Timestamp",
+              "Value": "Errors observed",
               "if_name": "PORT"
             }
           }
@@ -441,18 +441,69 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "DESC": true,
+              "FAMILY": true,
+              "MODEL": true,
+              "SHORTNAME": true,
+              "Time": true,
+              "VERSION": true,
               "__name__": true,
+              "_component_id": true,
+              "_subcomponent_id": true,
+              "channel": true,
+              "component": true,
+              "device": true,
+              "host": true,
+              "if_name": true,
               "instance": true,
               "job": true,
-              "Time": true
+              "path": true,
+              "port_name": true
             },
+            "includeByName": {},
             "indexByName": {},
             "renameByName": {
+              "LINKNAME": "Port",
               "Value #A": "Current RX (DBm)",
               "Value #B": "Current TX (DBm)",
               "Value #C": "Current Bias (mA)",
-              "LINKNAME": "Port",
               "lane_number": "LANE"
+            }
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "Current Bias (mA)": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Current RX (DBm)": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Current TX (DBm)": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "LANE": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Port": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "if_name": {
+                "aggregations": []
+              }
             }
           }
         }
@@ -542,7 +593,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_rx_dbm_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*[0-9]+:.*\"}",
+          "expr": "COMPONENTS_rx_dbm_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*[0-9]+:.*\"} or COMPONENTS_rx_dbm{SHORTNAME=~\"$rtr\", if_name=~\".*[0-9]:.*\"}",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -555,7 +606,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_tx_dbm_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*[0-9]+:.*\"}",
+          "expr": "COMPONENTS_tx_dbm_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*[0-9]+:.*\"} or COMPONENTS_tx_dbm{SHORTNAME=~\"$rtr\", if_name=~\".*[0-9]:.*\"}",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -568,7 +619,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_current_bias_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*[0-9]+:.*\"}",
+          "expr": "COMPONENTS_current_bias_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*[0-9]+:.*\"} or COMPONENTS_current_bias{SHORTNAME=~\"$rtr\", if_name=~\".*[0-9]:.*\"}",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -586,19 +637,68 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "DESC": true,
+              "FAMILY": true,
+              "LINKNAME": false,
+              "MODEL": true,
+              "SHORTNAME": true,
+              "Time": true,
+              "VERSION": true,
               "__name__": true,
+              "_component_id": true,
+              "_subcomponent_id": true,
+              "channel": true,
+              "component": true,
+              "device": true,
+              "host": true,
+              "if_name": true,
               "instance": true,
               "job": true,
-              "Time": true,
-              "lane_number": true
+              "lane_number": false,
+              "path": true,
+              "port_name": true
             },
+            "includeByName": {},
             "indexByName": {},
             "renameByName": {
+              "LINKNAME": "Port",
               "Value #A": "Current RX (DBm)",
               "Value #B": "Current TX (DBm)",
               "Value #C": "Current Bias (mA)",
-              "LINKNAME": "Port",
               "lane_number": "LANE"
+            }
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "Current Bias (mA)": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Current RX (DBm)": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Current TX (DBm)": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "LANE": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Port": {
+                "aggregations": [],
+                "operation": "groupby"
+              }
             }
           }
         }
@@ -629,20 +729,20 @@
           "mappings": [
             {
               "options": {
-                "false": {
+                "10": {
                   "color": "transparent",
                   "index": 1,
                   "text": "no"
+                },
+                "11": {
+                  "color": "dark-red",
+                  "index": 0,
+                  "text": "ERR."
                 },
                 "null": {
                   "color": "transparent",
                   "index": 2,
                   "text": "N.A"
-                },
-                "true": {
-                  "color": "dark-red",
-                  "index": 0,
-                  "text": "ERROR"
                 }
               },
               "type": "value"
@@ -675,7 +775,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "Temp H. Alrm"
+              "options": "Lane"
             },
             "properties": [
               {
@@ -705,7 +805,12 @@
           "show": false
         },
         "showHeader": true,
-        "sortBy": []
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "Name"
+          }
+        ]
       },
       "pluginVersion": "10.3.1",
       "targets": [
@@ -715,7 +820,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_lane_laser_bias_current_high_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "expr": "COMPONENTS_lane_laser_bias_current_high_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}+10",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -728,7 +833,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_lane_laser_bias_current_high_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "expr": "COMPONENTS_lane_laser_bias_current_high_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}+10",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -741,7 +846,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_lane_laser_bias_current_low_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "expr": "COMPONENTS_lane_laser_bias_current_low_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}+10",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -754,7 +859,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_lane_laser_bias_current_low_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "expr": "COMPONENTS_lane_laser_bias_current_low_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}+10",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -767,7 +872,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_lane_laser_output_power_high_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "expr": "COMPONENTS_lane_laser_output_power_high_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}+10",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -780,7 +885,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_lane_laser_output_power_high_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "expr": "COMPONENTS_lane_laser_output_power_high_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}+10",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -793,7 +898,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_lane_laser_output_power_low_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "expr": "COMPONENTS_lane_laser_output_power_low_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}+10",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -806,7 +911,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_lane_laser_output_power_low_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "expr": "COMPONENTS_lane_laser_output_power_low_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}+10",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -819,7 +924,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_lane_laser_receiver_power_high_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "expr": "COMPONENTS_lane_laser_receiver_power_high_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}+10",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -832,7 +937,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_lane_laser_receiver_power_high_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "expr": "COMPONENTS_lane_laser_receiver_power_high_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}+10",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -845,7 +950,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_lane_laser_receiver_power_low_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "expr": "COMPONENTS_lane_laser_receiver_power_low_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}+10",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -858,7 +963,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_lane_laser_receiver_power_low_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "expr": "COMPONENTS_lane_laser_receiver_power_low_warning{SHORTNAME=~\"$rtr\", lane_number!=\"\"}+10",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -871,7 +976,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_lane_rx_loss_of_signal_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "expr": "COMPONENTS_lane_rx_loss_of_signal_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}+10",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -884,7 +989,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_lane_tx_loss_of_signal_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "expr": "COMPONENTS_lane_tx_loss_of_signal_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}+10",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -897,7 +1002,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_lane_tx_laser_disabled_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}",
+          "expr": "COMPONENTS_lane_tx_laser_disabled_alarm{SHORTNAME=~\"$rtr\", lane_number!=\"\"}+10",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -915,11 +1020,31 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "DESC": true,
+              "FAMILY": true,
+              "LINKNAME": true,
+              "MODEL": true,
+              "MPLS_V4_LABEL": true,
+              "MPLS_V4_SID": true,
+              "MPLS_V6_LABEL": true,
+              "MPLS_V6_SID": true,
+              "SHORTNAME": true,
+              "Time": true,
+              "VERSION": true,
               "__name__": true,
+              "_component_id": true,
+              "_subcomponent_id": true,
+              "channel": true,
+              "component": true,
+              "device": true,
+              "host": true,
+              "if_name": false,
               "instance": true,
               "job": true,
-              "Time": true
+              "path": true,
+              "port_name": true
             },
+            "includeByName": {},
             "indexByName": {},
             "renameByName": {
               "Value #A": "BIAS H. Alrm",
@@ -939,6 +1064,111 @@
               "Value #O": "TX LASER",
               "if_name": "Name",
               "lane_number": "Lane"
+            }
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "BIAS H. Alrm": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "BIAS H. Warn": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "BIAS L. Alrm": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "BIAS L. Warn": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Lane": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Name": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "RX H. Alrm": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "RX H. Warn": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "RX L. Alrm": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "RX L. Warn": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "RX LOS": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "TX H. Alrm": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "TX H. Warn": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "TX L. Alrm": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "TX L. Warn": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "TX LASER": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "TX LOS": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              }
             }
           }
         }
@@ -1006,12 +1236,12 @@
           "mappings": [
             {
               "options": {
-                "false": {
+                "0": {
                   "color": "green",
                   "index": 0,
                   "text": "NO"
                 },
-                "true": {
+                "1": {
                   "color": "dark-red",
                   "index": 1,
                   "text": "YES"
@@ -1064,8 +1294,8 @@
             "type": "prometheus",
             "uid": "jtsuid2"
           },
-          "editorMode": "code",
-          "expr": "COMPONENTS_current_module_temp{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$cage .*\"}",
+          "editorMode": "builder",
+          "expr": "COMPONENTS_optic_fault_condition{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$cage .*\"}",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -1076,29 +1306,43 @@
       "title": "Inventory Info",
       "transformations": [
         {
-          "id": "merge",
-          "options": {}
-        },
-        {
           "id": "organize",
           "options": {
             "excludeByName": {
+              "FAMILY": true,
+              "HAS_CHANNEL": true,
+              "MODEL": true,
+              "MPLS_V4_LABEL": true,
+              "MPLS_V4_SID": true,
+              "MPLS_V6_LABEL": true,
+              "MPLS_V6_SID": true,
+              "PORT_ID": true,
+              "SHORTNAME": true,
+              "Time": true,
+              "VERSION": true,
               "__name__": true,
+              "_component_id": true,
+              "_subcomponent_id": true,
+              "component": true,
+              "component_name": true,
+              "device": true,
+              "host": true,
               "instance": true,
               "job": true,
-              "Time": true,
-              "Value": true,
-              "lane_number": true
+              "path": true
             },
+            "includeByName": {},
             "indexByName": {},
             "renameByName": {
-              "Value": "(value)",
-              "optic_model": "Optic Model",
-              "optic_vendor": "Optic Vendor",
-              "optic_vendor_part": "Optic Vendor Part Number",
-              "optic_serial_no": "Optic Vendor Serial Number",
-              "optic_func_type": "Optic Type",
-              "optic_fault_condition": "Fault Condition?"
+              "LINKNAME": "Link Name",
+              "OPTIC_DESC": "Optic Type",
+              "SHORTNAME": "",
+              "Value": "Fault Condition",
+              "optic_func_type": "Optic function",
+              "optic_model": "Optic model",
+              "optic_serial_no": "Serial",
+              "optic_vendor": "Vendor",
+              "optic_vendor_part": "Vendor Part"
             }
           }
         }
@@ -1129,20 +1373,20 @@
           "mappings": [
             {
               "options": {
-                "false": {
+                "0": {
                   "color": "transparent",
                   "index": 1,
                   "text": "no"
+                },
+                "1": {
+                  "color": "dark-red",
+                  "index": 0,
+                  "text": "ERROR"
                 },
                 "null": {
                   "color": "transparent",
                   "index": 2,
                   "text": "N.A"
-                },
-                "true": {
-                  "color": "dark-red",
-                  "index": 0,
-                  "text": "ERROR"
                 }
               },
               "type": "value"
@@ -1272,11 +1516,31 @@
           "id": "organize",
           "options": {
             "excludeByName": {
+              "DESC": true,
+              "FAMILY": true,
+              "LINKNAME": true,
+              "MODEL": true,
+              "MPLS_V4_LABEL": true,
+              "MPLS_V4_SID": true,
+              "MPLS_V6_LABEL": true,
+              "MPLS_V6_SID": true,
+              "SHORTNAME": true,
+              "Time": true,
+              "VERSION": true,
               "__name__": true,
+              "_component_id": true,
+              "_subcomponent_id": true,
+              "channel": true,
+              "component": true,
+              "device": true,
+              "host": true,
+              "if_name": false,
               "instance": true,
               "job": true,
-              "Time": true
+              "path": true,
+              "port_name": true
             },
+            "includeByName": {},
             "indexByName": {},
             "renameByName": {
               "Value #A": "Temp H. Alrm",
@@ -1284,6 +1548,41 @@
               "Value #C": "Temp L. Alrm",
               "Value #D": "Temp L. Warn",
               "if_name": "Name"
+            }
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "Name": {
+                "aggregations": [],
+                "operation": "groupby"
+              },
+              "Temp H. Alrm": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Temp H. Warn": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Temp L. Alrm": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Temp L. Warn": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              }
             }
           }
         }
@@ -1353,6 +1652,7 @@
           "editorMode": "code",
           "expr": "COMPONENTS_rx_dbm_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
           "format": "time_series",
+          "hide": false,
           "instant": false,
           "legendFormat": "Lane {{lane_number}}",
           "range": true,
@@ -2941,7 +3241,7 @@
             "mode": "thresholds"
           },
           "decimals": 3,
-          "displayName": "Optical Channel Wavelength \u03bb (nm)",
+          "displayName": "Optical Channel Wavelength λ (nm)",
           "mappings": [],
           "noValue": "Not Supported or No Data",
           "thresholds": {
@@ -3008,7 +3308,7 @@
             "includeByName": {},
             "indexByName": {},
             "renameByName": {
-              "wave": "Optical Channel Wavelength \u03bb (nm)"
+              "wave": "Optical Channel Wavelength λ (nm)"
             }
           }
         }
@@ -3095,7 +3395,7 @@
             "indexByName": {},
             "renameByName": {
               "speed": "Port Speed",
-              "wave": "Optical Channel Wavelength \u03bb (nm)"
+              "wave": "Optical Channel Wavelength λ (nm)"
             }
           }
         }
@@ -3473,8 +3773,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3580,8 +3879,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3687,8 +3985,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -4074,8 +4371,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "rtme-ptx10001-36mr-10",
+          "value": "rtme-ptx10001-36mr-10"
         },
         "datasource": {
           "type": "prometheus",
@@ -4102,8 +4399,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "et-0/0/3:0 - TEST",
+          "value": "et-0/0/3:0 - TEST"
         },
         "datasource": {
           "type": "prometheus",
@@ -4130,8 +4427,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "0/0/3",
+          "value": "0/0/3"
         },
         "datasource": {
           "type": "prometheus",
@@ -4165,6 +4462,6 @@
   "timezone": "",
   "title": "OPTIC MONITORING PROFILE - JTSO",
   "uid": "opticdashboard",
-  "version": 4,
+  "version": 1,
   "weekStart": ""
 }
