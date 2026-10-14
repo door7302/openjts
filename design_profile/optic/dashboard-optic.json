@@ -1459,7 +1459,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_module_temp_high_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_module_temp_high_alarm{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -1472,7 +1472,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_module_temp_high_warning{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_module_temp_high_warning{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -1485,7 +1485,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_module_temp_low_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_module_temp_low_alarm{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -1498,7 +1498,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_module_temp_low_warning{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_module_temp_low_warning{SHORTNAME=~\"$rtr\",LINKNAME=\"$port\"}",
           "format": "table",
           "instant": true,
           "legendFormat": "__auto",
@@ -1650,25 +1650,12 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_rx_dbm_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "exemplar": false,
+          "expr": "COMPONENTS_rx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
-          "hide": false,
-          "instant": false,
+          "instant": true,
           "legendFormat": "Lane {{lane_number}}",
-          "range": true,
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "editorMode": "code",
-          "expr": "COMPONENTS_rx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Lane {{lane_number}}",
-          "range": true,
+          "range": false,
           "refId": "B"
         }
       ],
@@ -1734,25 +1721,13 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_tx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "exemplar": false,
+          "expr": "COMPONENTS_tx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
-          "instant": false,
+          "instant": true,
           "legendFormat": "Lane {{lane_number}}",
-          "range": true,
+          "range": false,
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "editorMode": "code",
-          "expr": "COMPONENTS_tx_dbm_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Lane {{lane_number}}",
-          "range": true,
-          "refId": "B"
         }
       ],
       "title": "$port - Current TX",
@@ -1892,7 +1867,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_rx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_rx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Lane {{lane_number}}",
@@ -1905,20 +1880,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_rx_dbm_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\", HAS_CHANNEL!=\"yes\"}",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Lane {{lane_number}}",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "editorMode": "code",
-          "expr": "COMPONENTS_rx_high_warn{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "expr": "COMPONENTS_rx_high_warn{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "HIGH_WARN",
@@ -1931,7 +1893,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_rx_low_warn{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "expr": "COMPONENTS_rx_low_warn{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "LOW_WARN",
@@ -1944,7 +1906,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_rx_high_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "expr": "COMPONENTS_rx_high_alarm{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "HIGH_ALARM",
@@ -1957,7 +1919,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_rx_low_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "expr": "COMPONENTS_rx_low_alarm{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "LOW_ALARM",
@@ -2103,7 +2065,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_tx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_tx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Lane {{lane_number}}",
@@ -2116,20 +2078,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_tx_dbm_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\", HAS_CHANNEL!=\"yes\"}",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Lane {{lane_number}}",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "editorMode": "code",
-          "expr": "COMPONENTS_tx_high_warn{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "expr": "COMPONENTS_tx_high_warn{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "HIGH_WARN",
@@ -2142,7 +2091,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_tx_low_warn{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "expr": "COMPONENTS_tx_low_warn{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "LOW_WARN",
@@ -2155,7 +2104,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_tx_high_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "expr": "COMPONENTS_tx_high_alarm{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "HIGH_ALARM",
@@ -2168,7 +2117,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_tx_low_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "expr": "COMPONENTS_tx_low_alarm{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "LOW_ALARM",
@@ -2314,7 +2263,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_current_bias{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_current_bias{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Lane {{lane_number}}",
@@ -2327,20 +2276,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_current_bias_oc{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\", HAS_CHANNEL!=\"yes\"}",
-          "format": "time_series",
-          "instant": false,
-          "legendFormat": "Lane {{lane_number}}",
-          "range": true,
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "jtsuid2"
-          },
-          "editorMode": "code",
-          "expr": "COMPONENTS_bias_high_warn{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_bias_high_warn{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "HIGH_WARN",
@@ -2353,7 +2289,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_bias_low_warn{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_bias_low_warn{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "LOW_WARN",
@@ -2366,7 +2302,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_bias_high_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "expr": "COMPONENTS_bias_high_alarm{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "HIGH_ALARM",
@@ -2379,7 +2315,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_bias_low_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "expr": "COMPONENTS_bias_low_alarm{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "LOW_ALARM",
@@ -2525,7 +2461,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_current_module_temp{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_current_module_temp{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Module Temperture",
@@ -2538,7 +2474,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_temp_high_warn{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "expr": "COMPONENTS_temp_high_warn{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "HIGH_WARN",
@@ -2551,7 +2487,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_temp_low_warn{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "expr": "COMPONENTS_temp_low_warn{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "LOW_WARN",
@@ -2564,7 +2500,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_temp_high_alarm{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port\"}",
+          "expr": "COMPONENTS_temp_high_alarm{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "HIGH_ALARM",
@@ -2717,7 +2653,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_ETH_in_block_errors_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "INTERFACES_ETH_in_block_errors_rate{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "BLOCK_ERROR",
@@ -2730,7 +2666,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_ETH_in_crc_errors_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "INTERFACES_ETH_in_crc_errors_rate{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "CRC_ERROR",
@@ -2939,7 +2875,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_ETH_in_frames_64_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "INTERFACES_ETH_in_frames_64_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "64_Bytes",
@@ -2952,7 +2888,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_ETH_in_frames_65_127_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "INTERFACES_ETH_in_frames_65_127_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "65_127_Bytes",
@@ -2965,7 +2901,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_ETH_in_frames_128_255_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "INTERFACES_ETH_in_frames_128_255_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "128_255_Bytes",
@@ -2978,7 +2914,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_ETH_in_frames_256_511_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "INTERFACES_ETH_in_frames_256_511_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "256_511_Bytes",
@@ -2991,7 +2927,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_ETH_in_frames_512_1023_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "INTERFACES_ETH_in_frames_512_1023_octets_rate{SHORTNAME=~\"$rtr\",LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "512_1023_Bytes",
@@ -3004,7 +2940,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_ETH_in_frames_1024_1518_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "INTERFACES_ETH_in_frames_1024_1518_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "1024_1518_Bytes",
@@ -3108,7 +3044,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_in_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"} * 8",
+          "expr": "INTERFACES_in_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"} * 8",
           "format": "time_series",
           "instant": false,
           "legendFormat": "In bps",
@@ -3121,7 +3057,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_out_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"} * 8",
+          "expr": "INTERFACES_out_octets_rate{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"} * 8",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Out bps",
@@ -3217,7 +3153,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_frequency{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"} * 1000000",
+          "expr": "COMPONENTS_frequency{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"} * 1000000",
           "format": "table",
           "instant": true,
           "legendFormat": "Frequency",
@@ -3289,7 +3225,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_wavelength_setpoint{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_wavelength_setpoint{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "table",
           "instant": true,
           "legendFormat": "Wavelenght",
@@ -3375,7 +3311,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "INTERFACES_ETH_port_speed{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "INTERFACES_ETH_port_speed{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "table",
           "instant": true,
           "legendFormat": "port_speed",
@@ -3497,7 +3433,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_carrier_off_instant{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_carrier_off_instant{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Carrier Offset",
@@ -3604,7 +3540,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_pola_loss_instant{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_pola_loss_instant{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "PDL",
@@ -3711,7 +3647,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_2nd_pola_instant{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_2nd_pola_instant{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "SOPMD",
@@ -3773,7 +3709,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3817,7 +3754,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_osnr_instant{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_osnr_instant{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "OSNR",
@@ -3879,7 +3816,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -3923,7 +3861,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_esnr_instant{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_esnr_instant{SHORTNAME=~\"$rtr\",LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "ESNR",
@@ -3985,7 +3923,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -4029,7 +3968,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_chroma_instant{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_chroma_instant{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Chroma. Disp. ",
@@ -4091,7 +4030,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -4135,7 +4075,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_prefec_instant{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_prefec_instant{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "Pre-FEC",
@@ -4197,7 +4137,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -4303,7 +4244,8 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green"
+                "color": "green",
+                "value": null
               },
               {
                 "color": "red",
@@ -4349,7 +4291,7 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "COMPONENTS_transport_optic_cur{SHORTNAME=~\"$rtr\", LINKNAME=~\".*$port.*\"}",
+          "expr": "COMPONENTS_transport_optic_cur{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"}",
           "format": "time_series",
           "instant": false,
           "legendFormat": "{{transport_optic_name}}",
@@ -4371,8 +4313,8 @@
       {
         "current": {
           "selected": false,
-          "text": "rtme-ptx10001-36mr-10",
-          "value": "rtme-ptx10001-36mr-10"
+          "text": "ptx-10",
+          "value": "ptx-10"
         },
         "datasource": {
           "type": "prometheus",
@@ -4399,8 +4341,8 @@
       {
         "current": {
           "selected": false,
-          "text": "et-0/0/3:0 - TEST",
-          "value": "et-0/0/3:0 - TEST"
+          "text": "et-0/0/0 - BT0DP1(PPFE1)IG0PG0(PG5)",
+          "value": "et-0/0/0 - BT0DP1(PPFE1)IG0PG0(PG5)"
         },
         "datasource": {
           "type": "prometheus",
@@ -4427,14 +4369,14 @@
       {
         "current": {
           "selected": false,
-          "text": "0/0/3",
-          "value": "0/0/3"
+          "text": "0/0/0",
+          "value": "0/0/0"
         },
         "datasource": {
           "type": "prometheus",
           "uid": "jtsuid2"
         },
-        "definition": "label_values(COMPONENTS_rx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=~\"$port\"}, LINKNAME)",
+        "definition": "label_values(COMPONENTS_rx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"},LINKNAME)",
         "hide": 2,
         "includeAll": false,
         "label": "cage",
@@ -4443,7 +4385,7 @@
         "options": [],
         "query": {
           "qryType": 1,
-          "query": "label_values(COMPONENTS_rx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=~\"$port\"}, LINKNAME)",
+          "query": "label_values(COMPONENTS_rx_dbm{SHORTNAME=~\"$rtr\", LINKNAME=\"$port\"},LINKNAME)",
           "refId": "PrometheusVariableQueryEditor-VariableQuery"
         },
         "refresh": 1,
@@ -4462,6 +4404,6 @@
   "timezone": "",
   "title": "OPTIC MONITORING PROFILE - JTSO",
   "uid": "opticdashboard",
-  "version": 1,
+  "version": 2,
   "weekStart": ""
 }
