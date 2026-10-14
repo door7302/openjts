@@ -45,6 +45,7 @@
             "inspect": false
           },
           "mappings": [],
+          "noValue": "NA",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -64,7 +65,7 @@
         "x": 0,
         "y": 0
       },
-      "id": 7,
+      "id": 45,
       "options": {
         "cellHeight": "sm",
         "footer": {
@@ -99,22 +100,57 @@
           "id": "organize",
           "options": {
             "excludeByName": {
-              "__name__": true,
-              "instance": true,
-              "job": true,
               "Time": true,
               "Value": true,
-              "if_name": true,
+              "__name__": true,
               "component_name": true,
-              "host": true
+              "host": true,
+              "if_name": true,
+              "instance": true,
+              "job": true
             },
             "indexByName": {},
             "renameByName": {
-              "SHORTNAME": "Device Name",
-              "VERSION": "Device Version",
               "MODEL": "Router Model",
-              "MPLS_V4_SID": "MPLS IPV4 SID",
-              "MPLS_V6_SID": "MPLS IPV6 SID"
+              "MPLS_V4_SID": "MPLS V4 SID",
+              "MPLS_V6_SID": "MPLS V6 SID",
+              "SHORTNAME": "Device Name",
+              "VERSION": "Device Version"
+            }
+          }
+        },
+        {
+          "id": "groupBy",
+          "options": {
+            "fields": {
+              "MPLS V4 SID": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "MPLS V6 SID": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "MPLS_V4_LABEL": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "MPLS_V6_LABEL": {
+                "aggregations": [
+                  "lastNotNull"
+                ],
+                "operation": "aggregate"
+              },
+              "Router Model": {
+                "aggregations": [],
+                "operation": "groupby"
+              }
             }
           }
         }
@@ -187,15 +223,16 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "SRMPLS_SID_STATS_sid_in_pkts_rate{SHORTNAME=~\"$rtr\", mpls_label=~\".*(${mpls_sid:regex}).*\"}",
+          "exemplar": false,
+          "expr": "SRMPLS_SID_STATS_sid_in_pkts_rate{SHORTNAME=~\"$rtr\", mpls_label=~\".*(${mpls_sid:pipe}).*\"} or on() vector(0)",
           "format": "time_series",
-          "instant": false,
-          "legendFormat": "Label {{mpls_label}}",
-          "range": true,
+          "instant": true,
+          "legendFormat": "Label {{mpls_label}} -  FPC {{_component_id}}",
+          "range": false,
           "refId": "A"
         }
       ],
-      "title": "Label Traffic Sharing",
+      "title": "Input Label Traffic Sharing",
       "type": "piechart"
     },
     {
@@ -292,10 +329,10 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "SRMPLS_SID_STATS_sid_in_octets_rate{SHORTNAME=~\"$rtr\", mpls_label=~\".*(${mpls_sid:regex}).*\"} * 8",
+          "expr": "SRMPLS_SID_STATS_sid_in_octets_rate{SHORTNAME=~\"$rtr\", mpls_label=~\".*(${mpls_sid:pipe}).*\"} * 8",
           "format": "time_series",
           "instant": false,
-          "legendFormat": "Label {{mpls_label}} In Bps",
+          "legendFormat": "Label {{mpls_label}} In Bps  -  FPC {{_component_id}}",
           "range": true,
           "refId": "A"
         },
@@ -305,10 +342,10 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "SRMPLS_SID_STATS_sid_out_octets_rate{SHORTNAME=~\"$rtr\", mpls_label=~\".*(${mpls_sid:regex}).*\"} * 8",
+          "expr": "SRMPLS_SID_STATS_sid_out_octets_rate{SHORTNAME=~\"$rtr\", mpls_label=~\".*(${mpls_sid:pipe}).*\"} * 8",
           "format": "time_series",
           "instant": false,
-          "legendFormat": "Label {{mpls_label}} Out Bps",
+          "legendFormat": "Label {{mpls_label}} Out Bps  -  FPC {{_component_id}}",
           "range": true,
           "refId": "B"
         }
@@ -410,10 +447,10 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "SRMPLS_SID_STATS_sid_in_pkts_rate{SHORTNAME=~\"$rtr\", mpls_label=~\".*(${mpls_sid:regex}).*\"}",
+          "expr": "SRMPLS_SID_STATS_sid_in_pkts_rate{SHORTNAME=~\"$rtr\", mpls_label=~\".*(${mpls_sid:pipe}).*\"}",
           "format": "time_series",
           "instant": false,
-          "legendFormat": "Label {{mpls_label}} In PPS",
+          "legendFormat": "Label {{mpls_label}} In PPS - FPC {{_component_id}}",
           "range": true,
           "refId": "A"
         },
@@ -423,10 +460,10 @@
             "uid": "jtsuid2"
           },
           "editorMode": "code",
-          "expr": "SRMPLS_SID_STATS_sid_out_pkts_rate{SHORTNAME=~\"$rtr\", mpls_label=~\".*(${mpls_sid:regex}).*\"}",
+          "expr": "SRMPLS_SID_STATS_sid_out_pkts_rate{SHORTNAME=~\"$rtr\", mpls_label=~\".*(${mpls_sid:pipe}).*\"}",
           "format": "time_series",
           "instant": false,
-          "legendFormat": "Label {{mpls_label}} Out PPS",
+          "legendFormat": "Label {{mpls_label}} Out PPS - FPC {{_component_id}} ",
           "range": true,
           "refId": "B"
         }
@@ -444,8 +481,8 @@
       {
         "current": {
           "selected": false,
-          "text": "",
-          "value": ""
+          "text": "rtme-mx-25",
+          "value": "rtme-mx-25"
         },
         "datasource": {
           "type": "prometheus",
@@ -473,10 +510,10 @@
         "current": {
           "selected": true,
           "text": [
-            "All"
+            "300000"
           ],
           "value": [
-            "$__all"
+            "300000"
           ]
         },
         "datasource": {
@@ -549,6 +586,6 @@
   "timezone": "",
   "title": "SR MPLS PER SID MONITORING PROFILE - JTSO",
   "uid": "srmplssiddashboard",
-  "version": 3,
+  "version": 1,
   "weekStart": ""
 }
